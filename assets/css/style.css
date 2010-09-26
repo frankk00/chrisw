@@ -1,0 +1,22 @@
+body {
+  font: 62.5% "Trebuchet MS", sans-serif;
+  background:#6DC5F7 url("/images/bg.png") repeat-x scroll;
+}
+
+#main_panel {
+	margin: 50px auto;
+	width: 1000px;
+	height: 620px;
+}
+
+#main_panel_overlay {
+	margin: 10px -20px;
+	background:url("/images/bg-overlay.png") ;
+	opacity: 0.5;
+	position: absolute;
+	width: 1040px;
+	height: 620px;
+	border-radius: 8px 8px;
+	-moz-border-radius: 8px 8px;
+	z-index: -1;
+}

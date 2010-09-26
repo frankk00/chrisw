@@ -1,0 +1,124 @@
+#!/usr/bin/env python
+# encoding: utf-8
+"""
+views.py
+
+Created by Kang Zhang on 2010-09-22.
+Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
+"""
+
+import logging
+import settings
+
+from google.appengine.ext import webapp
+from google.appengine.ext.db import djangoforms
+from django.shortcuts import render_to_response
+from django import forms
+
+# import form fields
+try:
+  # for django 1.1
+  from django.forms import CharField
+  from django import forms as fields
+except ImportError:
+  # django 0.9
+  from django.db import models as fields
+
+
+from duser import auth
+from duser.auth import login_required
+
+class MainHandler(webapp.RequestHandler):
+  def get(self):
+    self.response.out.write(render_to_response('base.html', {}))
+
+def create_login_url(url):
+  """docstring for create_login_url"""
+  import urllib
+  back_url = urllib.quote_plus(url)
+  return settings.LOGIN_URL + "?back_url=" + back_url
+
+class FrontPageHandler(webapp.RequestHandler):
+  def get(self):
+    self.response.out.write('Hello world! ')
+
+class RegForm(djangoforms.ModelForm):
+  class Meta:
+    model = auth.User
+    fields = ['username', 'uid', 'password', 'email']
+  username = fields.CharField()
+  
+  def is_valid(self):
+    """docstring for is_valid"""
+    if super(djangoforms.ModelForm, self).is_valid():
+      uid = self.data.get('uid')
+      if uid and auth.User.gql("WHERE uid=:uid ", uid=uid).get() == None:
+        return True
+      else:
+        self.errors['uid'] = ['Username %s exists already' % uid]
+    return False
+  
+class SignupUserHanlder(webapp.RequestHandler):
+  """docstring for RegUserHanlder"""
+  def get(self):
+    """default sign up page"""
+    form = RegForm()
+    self.response.out.write(render_to_response('signin.html', locals()))
+  
+  def post(self):
+    """docstring for post"""
+    form = RegForm(data=self.request.POST)
+    if form.is_valid():
+      new_user = form.save(commit=False)
+      new_user.put()
+      self.response.out.write(render_to_response('signin_successful.html', locals()))
+    else:
+      self.response.out.write(render_to_response('signin.html', locals()))
+
+class LoginForm(forms.Form):
+  """docstring for LoginForm"""
+  uid = fields.CharField()
+  password = fields.CharField()
+  
+  def is_valid(self):
+    """docstring for is_valid"""
+    if super(forms.Form, self).is_valid():
+      uid = self.data['uid']
+      password = self.data['password']
+      
+      self.user = auth.authenticate(uid, password)
+      if self.user: 
+        return True
+      else:
+        self.errors['username'] = ['Wrong username or password']
+    return False
+      
+class LoginUserHandler(webapp.RequestHandler):
+  """docstring for LoginHandler"""
+  def get(self):
+    """docstring for get"""
+    form = LoginForm()
+    page_url = self.request.path + "?" + self.request.query_string
+    self.response.out.write(render_to_response('login.html', locals()))
+    
+  def post(self):
+    """docstring for post"""
+    form = LoginForm(data=self.request.POST)
+    if form.is_valid():
+      auth.login(form.user)
+      back_url = self.request.get('back_url')
+      if back_url:
+        self.redirect(back_url)
+      else:
+        self.response.out.write(render_to_response('login_successful.html', locals()))
+    else:
+      self.response.out.write(render_to_response('login.html', locals()))
+    
+class LoginDemoHandler(webapp.RequestHandler):
+  """docstring for ClassName"""
+  @login_required
+  def get(self):
+    import gaesessions
+    logging.debug("current session %s", gaesessions.get_current_session())
+    self.response.out.write(render_to_response('test_login.html', locals()))
+    

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+	create a group
+{% endblock %}
+
+{% block content %}
+	<form action="/group/new" method="POST" accept-charset="utf-8">
+		<table border="0" cellspacing="5" cellpadding="5">
+			{{ form }}
+		</table>
+
+		<p><input type="submit" value="Create Group"></p>
+	</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+application: daoshicha
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /images/(.*)
+  static_files: assets/images/\1
+  upload: assets/images/(.*)
+
+- url: /css/(.*)
+  static_files: assets/css/\1
+  upload: assets/css/(.*)
+
+- url: /js/(.*)
+  static_files: assets/js/\1
+  upload: assets/js/(.*)
+
+- url: .*
+  script: main.py

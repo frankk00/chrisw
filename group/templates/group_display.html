@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Group Info
+{% endblock %}
+
+{% block content %}
+	{{ group_id }}
+	<table border="0" cellspacing="5" cellpadding="5">
+		<tr><th>{{ group.title }}</th></tr>
+		<tr><td>{{ group.introduction }}</td></tr>
+	</table>
+{% endblock %}
