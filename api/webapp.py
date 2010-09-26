@@ -38,7 +38,26 @@ def login_required(func):
   return wrapper
 
 def api_enabled(func):
-  """docstring for api_enabled"""
+  """
+  To enable a handler's result can be returned as JSON object.
+  
+  For a handler on 
+    /example/path/to/handler
+  The JSON result can be accesssed from
+    /example/path/to/handler?result_type=json
+  
+  Useage:
+  @api_enabled
+  def get(self):
+    return 'template-name.html', varible_dict
+  
+  The return type of the handler can be
+    1. template_name, var_dict . will be rendered with var_dict using template
+      named template_name.
+    2. new_url. will be directed to the new url.
+    3. a exception raised from the method. will be wrapped with error:{}
+  
+  """
   
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
