@@ -12,6 +12,13 @@ from google.appengine.api import users
 
 from duser import User
 
+class UserItem(object):
+  """docstring for UserItem"""
+  def __init__(self, arg):
+    super(UserItem, self).__init__()
+    self.arg = arg
+    
+
 class Group(db.Model):
   """docstring for Board"""
   create_time = db.DateTimeProperty(auto_now_add=True)
