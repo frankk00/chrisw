@@ -4,8 +4,8 @@ import settings
 from google.appengine.ext import webapp
 from google.appengine.ext.db import djangoforms
 
-from duser.auth import login_required, get_current_user
-from api.webapp import api_enabled
+from duser.auth import get_current_user
+from api.webapp import login_required, api_enabled
 
 from models import *
 

@@ -7,4 +7,4 @@ Created by Kang Zhang on 2010-09-26.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-import webapp
+import webapp, i18n

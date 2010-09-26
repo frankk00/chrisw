@@ -6,7 +6,7 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
 """
-Demostration for the session lib
+Demostration for the session lib, derived from gaesessions's webpage
 """
 
 from lib.gaesessions import get_current_session

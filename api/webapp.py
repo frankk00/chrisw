@@ -17,6 +17,26 @@ except Exception, e:
   from django.utils import simplejson as json
 
 
+def login_required(func):
+  """
+  Usage:
+  @login_required
+  def post(self):
+    pass
+  """
+  from duser.auth import get_current_user
+
+  def wrapper(self, *args, **kwargs):
+    """docstring for wrapper"""
+
+    if get_current_user():
+      return func(self, *args, **kwargs)
+    else:
+      import front
+      return self.redirect(front.create_login_url(self.request.url))
+
+  return wrapper
+
 def api_enabled(func):
   """docstring for api_enabled"""
   

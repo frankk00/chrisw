@@ -26,7 +26,7 @@ except ImportError:
 
 
 from duser import auth
-from duser.auth import login_required
+from api.webapp import login_required
 
 class MainHandler(webapp.RequestHandler):
   def get(self):

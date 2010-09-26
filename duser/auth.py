@@ -51,23 +51,5 @@ def logout():
     
     session.terminate()
 
-def login_required(func):
-  """
-  Usage:
-  @login_required
-  def post(self):
-    pass
-  """
-
-  def wrapper(self, *args, **kwargs):
-    """docstring for wrapper"""
-
-    if get_current_user():
-      return func(self, *args, **kwargs)
-    else:
-      import front
-      return self.redirect(front.create_login_url(self.request.url))
-    
-  return wrapper
 
 
