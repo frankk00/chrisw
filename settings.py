@@ -9,6 +9,8 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 import os
 
+from local_settings import *
+
 APP_ID = "daoshicha"
 
 # django template path config

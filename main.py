@@ -29,9 +29,10 @@ def main():
   # explain from django's doc:
   #   It boils down to this: Use exactly one of either configure() or 
   #   DJANGO_SETTINGS_MODULE. Not both, and not neither.
-  
   os.environ['DJANGO_SETTINGS_MODULE'] = 'settings' 
 
+  # patch for google's app_engine laucher, the shipped django's version is
+  # 0.96, need this hack if you are going to run it in your local server.
   if os.environ.get('SERVER_SOFTWARE','').startswith('Devel'):
     sys.path.insert(0, "/Applications/GoogleAppEngineLauncher.app/Contents/"
                        "Resources/GoogleAppEngine-default.bundle/Contents/"
