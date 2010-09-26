@@ -11,12 +11,6 @@ from google.appengine.ext import db
 from google.appengine.api import users
 
 from duser import User
-
-class UserItem(object):
-  """docstring for UserItem"""
-  def __init__(self, arg):
-    super(UserItem, self).__init__()
-    self.arg = arg
     
 
 class Group(db.Model):
@@ -26,6 +20,7 @@ class Group(db.Model):
   introduction = db.TextProperty()
   create_user = db.ReferenceProperty(User)
   admin_users = db.StringListProperty()
+  
 
 class Topic(db.Model):
   """docstring for Thread"""

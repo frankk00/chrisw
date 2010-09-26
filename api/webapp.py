@@ -10,6 +10,8 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 import sys
 import os, logging
 
+from google.appengine.ext import db
+
 try:
   import json
 except Exception, e:
@@ -17,6 +19,14 @@ except Exception, e:
   from django.utils import simplejson as json
 
 
+class PermissionError(Exception):
+  """docstring for PermissionError"""
+  def __init__(self, msg, user, obj):
+    super(PermissionError, self).__init__()
+    self.msg = msg
+    self.user = user
+    self.obj = obj
+    
 def login_required(func):
   """
   Usage:
@@ -35,6 +45,50 @@ def login_required(func):
       import front
       return self.redirect(front.create_login_url(self.request.url))
 
+  return wrapper
+
+class check_permission(object):
+  """docstring for check_permission"""
+  def __init__(self, action, error_msg):
+    super(check_permission, self).__init__()
+    self.action = action
+    self.error_msg = error_msg
+  
+  def __call__(self, func):
+    """docstring for __call__"""
+    def wrapper(ui, *args, **kwargs):
+      """docstring for wrapper"""
+      f = getattr(ui.model_obj, 'can_' + self.action)
+      
+      if f(ui.user):
+        return func(ui, *args, **kwargs)
+      raise PermissionError(error_msg, ui.user, ui.model_obj)
+      
+    return wrapper
+    
+class PermissionUI(object):
+  """docstring for PermissionModel"""
+  def __init__(self, model_obj):
+    super(PermissionModel, self).__init__()
+    self.model_obj = model_obj
+    self.user = get_current_user()
+    
+def view_method(func):
+  """the target method is a view method, it returned 
+      template_name, var_dict to be used by api_enabled decorator
+  """
+  def wrapper(self, *args, **kwargs):
+    """docstring for wrapper"""
+    
+    template_name, var_dict = func(self, *args, **kwargs)
+    # append the instance variable
+    var_dict.update(self.__dict__)
+    # skip the keys
+    for key in ('self', 'model_obj'):
+      del var_dict[key]
+    
+    return template_name, var_dict
+    
   return wrapper
 
 def api_enabled(func):

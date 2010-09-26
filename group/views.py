@@ -6,8 +6,21 @@ from google.appengine.ext.db import djangoforms
 
 from duser.auth import get_current_user
 from api.webapp import login_required, api_enabled
+from api.webapp import check_permission, view_method, PermissionUI
 
 from models import *
+
+class GroupUI(PermissionUI):
+  """docstring for GroupUI"""
+  def __init__(self, group):
+    super(GroupUI, self).__init__(group)
+    self.group = group
+  
+  @view_method
+  @check_permission('view', "Not allowed to open the group")
+  def view(self):
+    """docstring for view"""
+    pass
 
 class GroupHandler(webapp.RequestHandler):
   """docstring for GroupHandler"""
