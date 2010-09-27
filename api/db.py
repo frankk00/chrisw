@@ -76,8 +76,6 @@ class Model(db.Model):
   def to_dict(self):
     return to_dict(self)
   
-  def update_model(self, values):
-    for k, v in values.iteritems():
-      setattr(self, k, v)
+
   
 

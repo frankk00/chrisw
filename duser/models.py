@@ -7,9 +7,8 @@ Created by Kang Zhang on 2010-09-22.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-from google.appengine.ext import db
 from google.appengine.api import users
-
+from api import db
 
 class User(db.Model):
   """docstring for User"""
