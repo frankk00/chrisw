@@ -32,8 +32,7 @@ from api.shortcuts import render_to_string
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
-    path = os.path.join(os.path.dirname(__file__), '../templates/base.html')
-    # self.response.out.write(path)
+    # path = os.path.join(os.path.dirname(__file__), '../templates/base.html')
     # self.response.out.write(template.render(path, {'user': 'andyzhau'}))
     self.response.out.write(render_to_string('base.html', {'user': 'andyzhau'}))
 
