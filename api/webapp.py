@@ -22,6 +22,16 @@ except Exception, e:
   # before appengine's python upgrade to 2.7, we need import json from django
   from django.utils import simplejson as json
 
+class Action(object):
+  """Base class for action"""
+  pass
+
+class redirect(Action):
+  """Redirect the user to page URL"""
+  def __init__(self, to_url):
+    super(Redirect, self).__init__()
+    self.to_url = to_url
+    
 
 class PermissionError(errors.Error):
   """docstring for PermissionError"""
@@ -132,15 +142,9 @@ def api_enabled(func):
     result_type = self.request.get('result_type', default_value="html")  
     
     try:
-      result = func(self, *args, **kwargs)
+      action, var_dict = func(self, *args, **kwargs)
       
-      try:
-        template, var_dict = result
-      except Exception, e:
-        logging.debug('Unsupported result for API call: %s', str(result))
-        return result
-
-        # return self.response.out.write(json.dumps(var_dict), skipkeys=True)
+      if isinstance(action, Redirect)
       
     except errors.Error as e:
       template, var_dict = 'error.html', dict({'error':e.msg})

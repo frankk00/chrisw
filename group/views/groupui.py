@@ -58,7 +58,6 @@ class GroupUI(PermissionUI):
   def join_post(self, request):
     """docstring for join_post"""
     pass
-
   
   @view_method
   @check_permission('create_thread', "Not allowed to create thread here")
