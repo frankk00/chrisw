@@ -28,15 +28,17 @@ class Action(object):
 
 class template(Action):
   """docstring for template"""
-  def __init__(self, name):
+  def __init__(self, name, var_dict):
     super(template, self).__init__()
+    # strip the .html
+    if name[-5:] == '.html': name = name[:-5]
     self.name = name
+    self.var_dict = var_dict
     
-
 class redirect(Action):
   """Redirect the user to page URL"""
   def __init__(self, to_url):
-    super(Redirect, self).__init__()
+    super(redirect, self).__init__()
     self.to_url = to_url
 
 class check_permission(object):
@@ -110,14 +112,16 @@ def view_method(func):
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
     
-    template_name, var_dict = func(self, *args, **kwargs)
+    action = func(self, *args, **kwargs)
     # append the instance variable
-    var_dict.update(self.__dict__)
-    # skip the keys
-    for key in ('self', 'model_obj'):
-      del var_dict[key]
+    if hasattr(action, 'var_dict'):
+      var_dict = action.var_dict
+      var_dict.update(self.__dict__)
+      # skip the keys
+      for key in ('self', 'model_obj'):
+        del var_dict[key]
     
-    return template_name, var_dict
+    return action
     
   return wrapper
 
@@ -133,7 +137,7 @@ def api_enabled(func):
   Useage:
   @api_enabled
   def get(self):
-    return 'template-name.html', varible_dict
+    return template('template-name.html', varible_dict)
   
   The return type of the handler can be
     1. template_name, var_dict . will be rendered with var_dict using template
@@ -149,11 +153,13 @@ def api_enabled(func):
     result_type = self.request.get('result_type', default_value="html")  
     
     try:
-      action, var_dict = func(self, *args, **kwargs)
+      action = func(self, *args, **kwargs)
       
       if isinstance(action, redirect):
         var_dict = {'redirect':action.to_url}
-      
+      elif isinstance(action, template):
+        var_dict = action.var_dict
+        
     except errors.Error as e:
       action, var_dict = template('error.html'), dict({'error':e.msg})
       
@@ -165,9 +171,9 @@ def api_enabled(func):
         
       # template action
       from django.shortcuts import render_to_response
-      return self.response.out.write(render_to_response(action.name, var_dict))
+      return self.response.out.write(render_to_response(action.name + '.html', var_dict))
     elif result_type == 'json':
-      return self.response.out.write( var_dict )
+      return self.response.out.write(var_dict)
   
   return wrapper
 
