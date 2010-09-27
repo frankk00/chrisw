@@ -26,12 +26,37 @@ class Action(object):
   """Base class for action"""
   pass
 
+class template(Action):
+  """docstring for template"""
+  def __init__(self, name):
+    super(template, self).__init__()
+    self.name = name
+    
+
 class redirect(Action):
   """Redirect the user to page URL"""
   def __init__(self, to_url):
     super(Redirect, self).__init__()
     self.to_url = to_url
-    
+
+class check_permission(object):
+  """docstring for check_permission"""
+  def __init__(self, action, error_msg):
+    super(check_permission, self).__init__()
+    self.action = action
+    self.error_msg = error_msg
+
+  def __call__(self, func):
+    """docstring for __call__"""
+    def wrapper(ui, *args, **kwargs):
+      """docstring for wrapper"""
+      f = getattr(ui.model_obj, 'can_' + self.action)
+
+      if f(ui.user):
+        return func(ui, *args, **kwargs)
+      raise PermissionError(error_msg, ui.user, ui.model_obj)
+
+    return wrapper  
 
 class PermissionError(errors.Error):
   """docstring for PermissionError"""
@@ -66,24 +91,6 @@ def login_required(func):
 
   return wrapper
 
-class check_permission(object):
-  """docstring for check_permission"""
-  def __init__(self, action, error_msg):
-    super(check_permission, self).__init__()
-    self.action = action
-    self.error_msg = error_msg
-  
-  def __call__(self, func):
-    """docstring for __call__"""
-    def wrapper(ui, *args, **kwargs):
-      """docstring for wrapper"""
-      f = getattr(ui.model_obj, 'can_' + self.action)
-      
-      if f(ui.user):
-        return func(ui, *args, **kwargs)
-      raise PermissionError(error_msg, ui.user, ui.model_obj)
-      
-    return wrapper
     
 class PermissionUI(object):
   """docstring for PermissionModel"""
@@ -144,24 +151,24 @@ def api_enabled(func):
     try:
       action, var_dict = func(self, *args, **kwargs)
       
-      if isinstance(action, Redirect)
+      if isinstance(action, redirect):
+        var_dict = {'redirect':action.to_url}
       
     except errors.Error as e:
-      template, var_dict = 'error.html', dict({'error':e.msg})
+      action, var_dict = template('error.html'), dict({'error':e.msg})
       
     if result_type == 'html':
+      
+      if isinstance(action, redirect):
+        # redirect action
+        return self.redirect(action.to_url)
+        
+      # template action
       from django.shortcuts import render_to_response
-      return self.response.out.write(render_to_response(template, var_dict))
+      return self.response.out.write(render_to_response(action.name, var_dict))
     elif result_type == 'json':
       return self.response.out.write( var_dict )
   
   return wrapper
 
-
-def main():
-	pass
-
-
-if __name__ == '__main__':
-	main()
 

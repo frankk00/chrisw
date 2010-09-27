@@ -7,7 +7,6 @@ Created by Kang Zhang on 2010-09-27.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-
 import logging
 import settings
 
@@ -15,8 +14,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.db import djangoforms
 
 from duser.auth import get_current_user
-from api.webapp import login_required, api_enabled
-from api.webapp import check_permission, view_method, PermissionUI
+from api.webapp import *
 
 from group.models import *
 
@@ -35,7 +33,7 @@ class GroupUI(PermissionUI):
   @check_permission('view', "Not allowed to open the group")
   def view(self):
     """docstring for view"""
-    return 'group_display.html', locals()
+    return template('group_display.html'), locals()
   
   @view_method
   @check_permission('edit', "Not a admin user")
