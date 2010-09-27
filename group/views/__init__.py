@@ -9,8 +9,9 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 import groupui
 import topic
+import site
 
-apps = groupui.apps + topic.apps
+apps = groupui.apps + topic.apps + site.apps
 
 
 from google.appengine.ext import webapp
@@ -20,6 +21,7 @@ from duser.auth import get_current_user
 from api.webapp import login_required, api_enabled
 from api.webapp import check_permission, view_method, PermissionUI
 from google.appengine.ext import webapp
+
 class NewItemHandler(webapp.RequestHandler):
   """docstring for NewItemHandler"""
   
