@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# encoding: utf-8
+"""
+__init__.py
+
+Created by Kang Zhang on 2010-09-27.
+Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
+"""
+
 import logging
 import settings
 
@@ -40,8 +49,42 @@ class GroupUI(PermissionUI):
     pass
     
   @check_permission('create_thread', "Not allowed to create thread here")
-  def create_thread_post(self):
+  def create_thread_post(self, request):
     """docstring for create_thread_post"""
+    pass
+
+class TopicUI(PermissionUI):
+  """docstring for TopicUI"""
+  def __init__(self, topic):
+    super(TopicUI, self).__init__(topic)
+    self.topic = topic
+  
+  @view_method
+  @check_permission('view', "Not allowed to open topic")
+  def view(self):
+    """docstring for view"""
+    pass
+  
+  @view_method
+  @check_permission('edit', "Not the author")
+  def edit(self):
+    """docstring for edit"""
+    pass
+  
+  @check_permission('edit', "Not the author")
+  def edit_post(self, request):
+    """docstring for edit_post"""
+    pass
+  
+  @view_method
+  @check_permission('reply', "Not allowed to reply the thread")
+  def create_post(self):
+    """docstring for create_post"""
+    pass
+  
+  @check_permission('reply', "Not allowed to reply the thread")
+  def create_post_post(self, request):
+    """docstring for create_post_post"""
     pass
 
 class GroupHandler(webapp.RequestHandler):
@@ -122,5 +165,6 @@ class TopicForm(djangoforms.ModelForm):
     model = Topic
 
     
+
 
 

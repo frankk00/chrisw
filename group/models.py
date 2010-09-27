@@ -21,6 +21,18 @@ class Group(db.Model):
   create_user = db.ReferenceProperty(User)
   admin_users = db.StringListProperty()
   
+  def can_view(self, user):
+    """docstring for can_view"""
+    return True
+  
+  def can_edit(self, user):
+    """docstring for can_edit"""
+    return True
+  
+  def can_create_thread(self, user):
+    """docstring for can_create_thread"""
+    return True
+  
 
 class Topic(db.Model):
   """docstring for Thread"""
@@ -30,6 +42,18 @@ class Topic(db.Model):
   title = db.TextProperty()
   content = db.TextProperty()
   group = db.ReferenceProperty(Group)
+  
+  def can_view(self, user):
+    """docstring for can_view"""
+    return True
+  
+  def can_edit(self, user):
+    """docstring for can_edit"""
+    return True
+  
+  def can_create_thread(self, user):
+    """docstring for can_create_thread"""
+    return True
   
 class Post(db.Model):
   """docstring for Post"""
