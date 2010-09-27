@@ -16,6 +16,7 @@ apps = [('/index', views.FrontPageHandler),
         ('/signin', views.SignupUserHanlder),
         # since loging url is needed to do authentication
         (settings.LOGIN_URL, views.LoginUserHandler),
+        ('/logout', views.LogoutUserHandler),
         ('/test_login', views.LoginDemoHandler),
         ('/', views.MainHandler)
         ]

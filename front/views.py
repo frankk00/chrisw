@@ -121,7 +121,17 @@ class LoginUserHandler(webapp.RequestHandler):
         return template('login_successful.html', locals())
     else:
       return template('login.html', locals())
+
+class LogoutUserHandler(webapp.RequestHandler):
+  """docstring for LogoutUserHandler"""
+  @api_enabled
+  def get(self):
+    auth.logout()
+    return redirect("/")
     
+  def post(self):
+    return self.get()
+
 class LoginDemoHandler(webapp.RequestHandler):
   """docstring for ClassName"""
   @login_required
