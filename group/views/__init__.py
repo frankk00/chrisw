@@ -7,103 +7,12 @@ Created by Kang Zhang on 2010-09-27.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-import logging
-import settings
 
-from google.appengine.ext import webapp
-from google.appengine.ext.db import djangoforms
 
-from duser.auth import get_current_user
-from api.webapp import login_required, api_enabled
-from api.webapp import check_permission, view_method, PermissionUI
 
-from models import *
 
-class GroupUI(PermissionUI):
-  """docstring for GroupUI"""
-  def __init__(self, group):
-    super(GroupUI, self).__init__(group)
-    self.group = group
-  
-  @view_method
-  @check_permission('view', "Not allowed to open the group")
-  def view(self):
-    """docstring for view"""
-    return 'group_display.html', locals()
-  
-  @view_method
-  @check_permission('edit', "Not a admin user")
-  def edit(self):
-    """docstring for edit"""
-    pass
-  
-  @check_permission('edit', "Not a admin user")
-  def edit_post(self, request):
-    """the post_back handler for edit group info"""
-    pass
-  
-  @view_method
-  @check_permission('create_thread', "Not allowed to create thread here")
-  def create_thread(self):
-    """docstring for create_thread"""
-    pass
-    
-  @check_permission('create_thread', "Not allowed to create thread here")
-  def create_thread_post(self, request):
-    """docstring for create_thread_post"""
-    pass
 
-class TopicUI(PermissionUI):
-  """docstring for TopicUI"""
-  def __init__(self, topic):
-    super(TopicUI, self).__init__(topic)
-    self.topic = topic
-  
-  @view_method
-  @check_permission('view', "Not allowed to open topic")
-  def view(self):
-    """docstring for view"""
-    pass
-  
-  @view_method
-  @check_permission('edit', "Not the author")
-  def edit(self):
-    """docstring for edit"""
-    pass
-  
-  @check_permission('edit', "Not the author")
-  def edit_post(self, request):
-    """docstring for edit_post"""
-    pass
-  
-  @view_method
-  @check_permission('reply', "Not allowed to reply the thread")
-  def create_post(self):
-    """docstring for create_post"""
-    pass
-  
-  @check_permission('reply', "Not allowed to reply the thread")
-  def create_post_post(self, request):
-    """docstring for create_post_post"""
-    pass
 
-class GroupHandler(webapp.RequestHandler):
-  """docstring for GroupHandler"""
-  
-  @api_enabled
-  def get(self, group_id):
-    """docstring for get"""
-    group = Group.get_by_id(int(group_id))
-    return GroupUI(group).view()
-
-class TopicHandler(webapp.RequestHandler):
-  """docstring for TopicHandler"""
-  @login_required
-  @api_enabled
-  def get(self, topic_id):
-    """docstring for get"""
-    topic = Topic.get_by_id(int(topic_id))
-    return 'topic_display.html', locals()
     
 class NewItemHandler(webapp.RequestHandler):
   """docstring for NewItemHandler"""
@@ -136,10 +45,6 @@ class NewItemHandler(webapp.RequestHandler):
     
     return self.template_name(), locals()
 
-class GroupForm(djangoforms.ModelForm):
-  class Meta:
-    model = Group
-    fields = ['title', 'introduction']
 
 class NewGroupHandler(NewItemHandler):
   """docstring for CreateGroupHandler"""
@@ -159,10 +64,6 @@ class NewTopicHandler(NewItemHandler):
     """docstring for template_name"""
     return 'item_new.html'
 
-class TopicForm(djangoforms.ModelForm):
-  """docstring for TopicForm"""
-  class Meta:
-    model = Topic
 
     
 
