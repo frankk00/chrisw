@@ -19,7 +19,6 @@ from google.appengine.api import datastore_errors
 from google.appengine.ext.db import djangoforms
 from django import forms
 
-from duser import auth
 
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring, list)
 
@@ -36,6 +35,7 @@ def to_dict(model):
   else:
     check_key = None
   
+  from duser import auth
   user = auth.get_current_user()
   
   for key, prop in items:
@@ -75,6 +75,7 @@ class Model(db.Model):
   """docstring for Model"""
   def to_dict(self):
     return to_dict(self)
+  
   
 
   

@@ -68,12 +68,21 @@ class GroupUI(PermissionUI):
   @check_permission('create_topic', "Not allowed to create topic here")
   def create_topic(self):
     """docstring for create_topic"""
-    pass
+    form = TopicForm()
+    post_url = '/group/%d/new' % self.group.key().id()
+    return template('item_new', locals())
     
   @check_permission('create_topic', "Not allowed to create topic here")
   def create_topic_post(self, request):
     """docstring for create_topic_post"""
-    pass
+    form = TopicForm(data=request.POST)
+    if form.is_valid():
+      new_topic = form.save(commit=False)
+      new_topic.group = self.group
+      new_topic.author = get_current_user()
+      new_topic.put()
+      return redirect('/group/topic/%d' % new_topic.key().id())
+    return template('item_new', locals())
 
 class GroupHandler(webapp.RequestHandler):
   """docstring for GroupHandler"""

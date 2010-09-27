@@ -42,7 +42,7 @@ class Topic(db.Model):
   """docstring for Thread"""
   create_time = db.DateTimeProperty(auto_now_add=True)
   update_time = db.DateTimeProperty(auto_now_add=True)
-  create_user = db.ReferenceProperty(User)
+  author = db.ReferenceProperty(User)
   title = db.TextProperty()
   content = db.TextProperty()
   group = db.ReferenceProperty(Group)
@@ -55,14 +55,14 @@ class Topic(db.Model):
     """docstring for can_edit"""
     return True
   
-  def can_create_post(self, user):
+  def can_reply(self, user):
     """docstring for can_create_thread"""
     return True
   
 class Post(db.Model):
   """docstring for Post"""
   create_time = db.DateTimeProperty(auto_now_add=True) 
-  create_user = db.ReferenceProperty(User)
+  author = db.ReferenceProperty(User)
   topic = db.ReferenceProperty(Topic)
   content = db.TextProperty()
 

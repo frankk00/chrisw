@@ -38,6 +38,7 @@ class SiteUI(PermissionUI):
     form = GroupForm(data=request.POST)
     if form.is_valid():
       new_group = form.save(commit=False)
+      new_group.create_user = get_current_user()
       new_group.put()
       return redirect('/group/%d' % new_group.key().id())
     return template('item_new', locals())
