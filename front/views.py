@@ -27,7 +27,7 @@ except ImportError:
 
 
 from duser import auth
-from api.webapp import login_required
+from api.webapp import login_required, api_enabled, template, redirect
 from api.shortcuts import render_to_string
 
 class MainHandler(webapp.RequestHandler):
@@ -64,20 +64,22 @@ class RegForm(djangoforms.ModelForm):
   
 class SignupUserHanlder(webapp.RequestHandler):
   """docstring for RegUserHanlder"""
+  @api_enabled
   def get(self):
     """default sign up page"""
     form = RegForm()
-    self.response.out.write(render_to_string('signin.html', locals()))
+    return template('signin.html', locals())
   
+  @api_enabled
   def post(self):
     """docstring for post"""
     form = RegForm(data=self.request.POST)
     if form.is_valid():
       new_user = form.save(commit=False)
       new_user.put()
-      self.response.out.write(render_to_string('signin_successful.html', locals()))
+      return template('signin_successful.html', locals())
     else:
-      self.response.out.write(render_to_string('signin.html', locals()))
+      return template('signin.html', locals())
 
 class LoginForm(forms.Form):
   """docstring for LoginForm"""
@@ -99,12 +101,14 @@ class LoginForm(forms.Form):
       
 class LoginUserHandler(webapp.RequestHandler):
   """docstring for LoginHandler"""
+  @api_enabled
   def get(self):
     """docstring for get"""
     form = LoginForm()
     page_url = self.request.path + "?" + self.request.query_string
-    self.response.out.write(render_to_string('login.html', locals()))
-    
+    return template('login.html', locals())
+  
+  @api_enabled
   def post(self):
     """docstring for post"""
     form = LoginForm(data=self.request.POST)
@@ -112,11 +116,11 @@ class LoginUserHandler(webapp.RequestHandler):
       auth.login(form.user)
       back_url = self.request.get('back_url')
       if back_url:
-        self.redirect(back_url)
+        return redirect(back_url)
       else:
-        self.response.out.write(render_to_string('login_successful.html', locals()))
+        return template('login_successful.html', locals())
     else:
-      self.response.out.write(render_to_string('login.html', locals()))
+      return template('login.html', locals())
     
 class LoginDemoHandler(webapp.RequestHandler):
   """docstring for ClassName"""
