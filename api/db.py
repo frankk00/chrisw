@@ -58,7 +58,7 @@ def to_dict(model, skip_keys = []):
       output[key] = int(ms)
     elif isinstance(value, db.Model):
       output[key] = to_dict(value, skip_keys)
-    elif isinstance(value, djangoforms.Model)
+    elif isinstance(value, djangoforms.Model):
       output[key] = {'data': to_dict(value.data),
                      'errors': to_dict(value.errors)}
     else:
