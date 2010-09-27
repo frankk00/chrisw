@@ -7,13 +7,19 @@ Created by Kang Zhang on 2010-09-27.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
+import groupui
+import topic
+
+apps = groupui.apps + topic.apps
 
 
+from google.appengine.ext import webapp
+from google.appengine.ext.db import djangoforms
 
-
-
-
-    
+from duser.auth import get_current_user
+from api.webapp import login_required, api_enabled
+from api.webapp import check_permission, view_method, PermissionUI
+from google.appengine.ext import webapp
 class NewItemHandler(webapp.RequestHandler):
   """docstring for NewItemHandler"""
   

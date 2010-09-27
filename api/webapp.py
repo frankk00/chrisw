@@ -10,7 +10,11 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 import sys
 import os, logging
 
+import errors
+
 from google.appengine.ext import db
+
+from duser.auth import get_current_user
 
 try:
   import json
@@ -19,14 +23,19 @@ except Exception, e:
   from django.utils import simplejson as json
 
 
-class PermissionError(Exception):
+class PermissionError(errors.Error):
   """docstring for PermissionError"""
   def __init__(self, msg, user, obj):
-    super(PermissionError, self).__init__()
-    self.msg = msg
+    super(PermissionError, self).__init__(msg)
     self.user = user
     self.obj = obj
-    
+
+class APIError(errors.Error):
+  """docstring for APIError"""
+  def __init__(self, reason):
+    super(APIError, self).__init__(reason)
+    self.reason = reason
+
 def login_required(func):
   """
   Usage:
@@ -69,7 +78,11 @@ class check_permission(object):
 class PermissionUI(object):
   """docstring for PermissionModel"""
   def __init__(self, model_obj):
-    super(PermissionModel, self).__init__()
+    super(PermissionUI, self).__init__()
+    
+    if not model_obj:
+      raise APIError("Can't find item. Wrong ID?")
+    
     self.model_obj = model_obj
     self.user = get_current_user()
     
@@ -115,25 +128,28 @@ def api_enabled(func):
   
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
-    
-    result = func(self, *args, **kwargs)
+
+    result_type = self.request.get('result_type', default_value="html")  
     
     try:
-      template, var_dict = result
-    except Exception, e:
-      logging.debug('Unsupported result for API call: %s', str(result))
-      return result
-    
-    result_type = self.request.get('result_type', default_value="html")  
+      result = func(self, *args, **kwargs)
+      
+      try:
+        template, var_dict = result
+      except Exception, e:
+        logging.debug('Unsupported result for API call: %s', str(result))
+        return result
+
+        # return self.response.out.write(json.dumps(var_dict), skipkeys=True)
+      
+    except errors.Error as e:
+      template, var_dict = 'error.html', dict({'error':e.msg})
       
     if result_type == 'html':
       from django.shortcuts import render_to_response
       return self.response.out.write(render_to_response(template, var_dict))
     elif result_type == 'json':
       return self.response.out.write( var_dict )
-      # return self.response.out.write(json.dumps(var_dict), skipkeys=True)
-    
-    pass
   
   return wrapper
 

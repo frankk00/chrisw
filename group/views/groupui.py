@@ -47,6 +47,18 @@ class GroupUI(PermissionUI):
   def edit_post(self, request):
     """the post_back handler for edit group info"""
     pass
+        
+  @view_method
+  @check_permission('join', "Can't join group")
+  def join(self):
+    """docstring for join"""
+    pass
+  
+  @check_permission('join', "Can't join group")
+  def join_post(self, request):
+    """docstring for join_post"""
+    pass
+
   
   @view_method
   @check_permission('create_thread', "Not allowed to create thread here")
@@ -61,9 +73,44 @@ class GroupUI(PermissionUI):
 
 class GroupHandler(webapp.RequestHandler):
   """docstring for GroupHandler"""
+  def get_impl(self, groupui):
+    """docstring for get_impl"""
+    raise Exception("Have not implemented")
+  
+  def post_impl(self, groupui, request):
+    """docstring for post_impl"""
+    return self.get_impl(groupui)
 
   @api_enabled
   def get(self, group_id):
     """docstring for get"""
     group = Group.get_by_id(int(group_id))
-    return GroupUI(group).view()
+    return self.get_impl(GroupUI(group))
+  
+  @api_enabled
+  def post(self, group_id):
+    """docstring for post"""
+    group = Group.get_by_id(int(group_id))
+    return self.post_impl(GroupUI(group), self.request)
+
+class GroupViewHandler(GroupHandler):
+  """docstring for GroupViewHandler"""
+  def get_impl(self, groupui):
+    """docstring for get_impl"""
+    return groupui.view()
+
+class GroupNewTopicHandler(GroupHandler):
+  """docstring for GroupNewTopicHandler"""
+
+class GroupEditHandler(GroupHandler):
+  """docstring for GroupNewTopicHandler"""
+
+class GroupJoinHandler(GroupHandler):
+  """docstring for GroupNewTopicHandler"""
+
+
+apps = [(r'/group/(\d+)', GroupViewHandler),
+        (r'/group/(\d+)/new', GroupNewTopicHandler),
+        (r'/group/(\d+)/join', GroupJoinHandler),
+        (r'/group/(\d+)/edit', GroupEditHandler),
+        ]

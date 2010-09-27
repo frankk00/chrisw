@@ -20,6 +20,8 @@ from api.webapp import check_permission, view_method, PermissionUI
 
 from group.models import *
 
+apps = []
+
 class TopicForm(djangoforms.ModelForm):
   """docstring for TopicForm"""
   class Meta:
