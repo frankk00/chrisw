@@ -33,7 +33,6 @@ from api.webapp import login_required
 class MainHandler(webapp.RequestHandler):
   def get(self):
     path = os.path.join(os.path.dirname(__file__), '../templates/base.html')
-    # self.response.out.write(path)
     self.response.out.write(template.render(path, {'user': 'andyzhau'}))
     # self.response.out.write(render_to_response('base.html', {}, mimetype="text/html"))
 
