@@ -119,7 +119,8 @@ def view_method(func):
       var_dict.update(self.__dict__)
       # skip the keys
       for key in ('self', 'model_obj'):
-        if var_dict.has_key(key): del var_dict[key]
+        if var_dict.has_key(key): 
+          del var_dict[key]
     
     return action
     
@@ -146,7 +147,6 @@ def api_enabled(func):
     3. a exception raised from the method. will be wrapped with error:{}
   
   """
-  private_keys = ['password','email']
   
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
@@ -176,7 +176,7 @@ def api_enabled(func):
     elif result_type == 'json':
       from db import to_dict
       logging.debug("api.webapp %s", str(var_dict))
-      return self.response.out.write(json.dumps(to_dict(var_dict, private_keys)))
+      return self.response.out.write(json.dumps(to_dict(var_dict)))
   
   return wrapper
 

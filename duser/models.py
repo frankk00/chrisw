@@ -19,3 +19,12 @@ class User(db.Model):
   password = db.StringProperty(required=True)
   email = db.EmailProperty(required=True)
   
+  def can_visit_key(self, user, key):
+    """docstring for visible"""
+    if key == 'password':
+      return False
+    elif key == 'email':
+      # can be visible by the user himself
+      return user and user.uid == self.uid
+    return True
+  

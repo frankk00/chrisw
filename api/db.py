@@ -19,22 +19,31 @@ from google.appengine.api import datastore_errors
 from google.appengine.ext.db import djangoforms
 from django import forms
 
+from duser import auth
+
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring, list)
 
-def to_dict(model, skip_keys = []):
+def to_dict(model):
   output = {}
   
   if hasattr(model, 'properties'):
     items = model.properties().iteritems()
   elif hasattr(model, 'items'):
     items = model.items()
+    
+  if hasattr(model, 'can_visit_key'):
+    check_key = model.can_visit_key
+  else:
+    check_key = None
+  
+  user = auth.get_current_user()
   
   for key, prop in items:
     
-    # skipsome vars
-    if key in skip_keys: 
+    if check_key and not check_key(user, key):
+      # can't be visited since privacy control
       continue
-    
+      
     try:
       value = getattr(model, key)
     except datastore_errors.Error:
@@ -51,7 +60,7 @@ def to_dict(model, skip_keys = []):
       ms += getattr(value, 'microseconds', 0) / 1000
       output[key] = int(ms)
     elif isinstance(value, db.Model):
-      output[key] = to_dict(value, skip_keys)
+      output[key] = to_dict(value)
     elif isinstance(value, djangoforms.ModelForm) or \
          isinstance(value, forms.Form):
       output[key] = {'data': to_dict(value.data),

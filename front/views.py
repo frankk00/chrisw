@@ -114,6 +114,7 @@ class LoginUserHandler(webapp.RequestHandler):
   def post(self):
     """docstring for post"""
     form = LoginForm(data=self.request.POST)
+    user = auth.get_current_user()
     if form.is_valid():
       auth.login(form.user)
       back_url = self.request.get('back_url')
