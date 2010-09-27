@@ -33,18 +33,25 @@ class GroupUI(PermissionUI):
   @check_permission('view', "Not allowed to open the group")
   def view(self):
     """docstring for view"""
-    return template('group_display.html'), locals()
+    return template('group_display.html', locals())
   
   @view_method
   @check_permission('edit', "Not a admin user")
   def edit(self):
     """docstring for edit"""
-    pass
+    form = GroupForm(data=self.group.to_dict())
+    post_url = '/group/%d/edit' % self.group.key().id()
+    return template('item_new', locals())
   
   @check_permission('edit', "Not a admin user")
   def edit_post(self, request):
     """the post_back handler for edit group info"""
-    pass
+    form = GroupForm(data=request.POST, instance=self.group)
+    if form.is_valid():
+      new_group = form.save(commit=False)
+      new_group.put()
+      return redirect('/group/%d' % self.group.key().id())
+    return template('item_new', locals())
         
   @view_method
   @check_permission('join', "Can't join group")
@@ -58,14 +65,14 @@ class GroupUI(PermissionUI):
     pass
   
   @view_method
-  @check_permission('create_thread', "Not allowed to create thread here")
-  def create_thread(self):
-    """docstring for create_thread"""
+  @check_permission('create_topic', "Not allowed to create topic here")
+  def create_topic(self):
+    """docstring for create_topic"""
     pass
     
-  @check_permission('create_thread', "Not allowed to create thread here")
-  def create_thread_post(self, request):
-    """docstring for create_thread_post"""
+  @check_permission('create_topic', "Not allowed to create topic here")
+  def create_topic_post(self, request):
+    """docstring for create_topic_post"""
     pass
 
 class GroupHandler(webapp.RequestHandler):
@@ -98,13 +105,27 @@ class GroupViewHandler(GroupHandler):
 
 class GroupNewTopicHandler(GroupHandler):
   """docstring for GroupNewTopicHandler"""
+  def get_impl(self, groupui):
+    return groupui.create_topic()
+  
+  def post_impl(self, groupui, request):
+    return groupui.create_topic_post(request)
 
 class GroupEditHandler(GroupHandler):
   """docstring for GroupNewTopicHandler"""
+  def get_impl(self, groupui):
+    return groupui.edit()
+    
+  def post_impl(self, groupui, request):
+    return groupui.edit_post(request)
 
 class GroupJoinHandler(GroupHandler):
   """docstring for GroupNewTopicHandler"""
-
+  def get_impl(self, groupui):
+    return groupui.join()
+  
+  def post_impl(self, groupui, request):
+    return groupui.join_post(request)
 
 apps = [(r'/group/(\d+)', GroupViewHandler),
         (r'/group/(\d+)/new', GroupNewTopicHandler),
