@@ -15,7 +15,7 @@ class User(db.Model):
   """docstring for User"""
   uid = db.StringProperty(required=True)
   username = db.StringProperty(required=True)
-  create_date = db.DateProperty(auto_now_add=True)
+  create_date = db.DateTimeProperty(auto_now_add=True)
   password = db.StringProperty(required=True)
   email = db.EmailProperty(required=True)
   

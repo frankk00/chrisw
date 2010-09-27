@@ -146,6 +146,7 @@ def api_enabled(func):
     3. a exception raised from the method. will be wrapped with error:{}
   
   """
+  private_keys = ['password','email']
   
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
@@ -173,7 +174,8 @@ def api_enabled(func):
       from shortcuts import render_to_string
       return self.response.out.write(render_to_string(action.name + '.html', var_dict))
     elif result_type == 'json':
-      return self.response.out.write(var_dict)
+      from db import to_dict
+      return self.response.out.write(json.dumps(to_dict(var_dict, private_keys)))
   
   return wrapper
 

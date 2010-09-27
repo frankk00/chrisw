@@ -19,25 +19,44 @@ from google.appengine.api import datastore_errors
 
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring, list)
 
-def to_dict(model):
+def to_dict(model, skip_keys = []):
   output = {}
   
-  for key, prop in model.properties().iteritems():
+  if hasattr(model, 'properties'):
+    items = model.properties().iteritems()
+  elif hasattr(model, 'items'):
+    items = model.items()
+  
+  for key, prop in items:
+    
+    # skipsome vars
+    if key in skip_keys: 
+      continue
+    
+    try:
+      pass
+    except Exception, e:
+      raise e
+    else:
+      pass
     
     try:
       value = getattr(model, key)
     except datastore_errors.Error:
       value = None
+    except AttributeError:
+      value = prop
     
     if value is None or isinstance(value, SIMPLE_TYPES):
       output[key] = value
     elif isinstance(value, datetime.date):
       # Convert date/datetime to ms-since-epoch ("new Date()").
+      logging.debug(" datetime: %s", value)
       ms = time.mktime(value.utctimetuple()) * 1000
       ms += getattr(value, 'microseconds', 0) / 1000
       output[key] = int(ms)
     elif isinstance(value, db.Model):
-      output[key] = to_dict(value)
+      output[key] = to_dict(value, skip_keys)
     else:
       raise ValueError('cannot encode ' + repr(prop))
   
