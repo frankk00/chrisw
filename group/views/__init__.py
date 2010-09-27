@@ -1,32 +1,18 @@
-import logging
-import settings
+#!/usr/bin/env python
+# encoding: utf-8
+"""
+__init__.py
 
-from google.appengine.ext import webapp
-from google.appengine.ext.db import djangoforms
+Created by Kang Zhang on 2010-09-27.
+Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
+"""
 
-from duser.auth import get_current_user
-from api.webapp import login_required, api_enabled
 
-from models import *
 
-class GroupHandler(webapp.RequestHandler):
-  """docstring for GroupHandler"""
-  
-  @login_required
-  @api_enabled
-  def get(self, group_id):
-    """docstring for get"""
-    group = Group.get_by_id(int(group_id))
-    return 'group_display.html', locals()
 
-class TopicHandler(webapp.RequestHandler):
-  """docstring for TopicHandler"""
-  @login_required
-  @api_enabled
-  def get(self, topic_id):
-    """docstring for get"""
-    topic = Topic.get_by_id(int(topic_id))
-    return 'topic_display.html', locals()
+
+
+
     
 class NewItemHandler(webapp.RequestHandler):
   """docstring for NewItemHandler"""
@@ -59,10 +45,6 @@ class NewItemHandler(webapp.RequestHandler):
     
     return self.template_name(), locals()
 
-class GroupForm(djangoforms.ModelForm):
-  class Meta:
-    model = Group
-    fields = ['title', 'introduction']
 
 class NewGroupHandler(NewItemHandler):
   """docstring for CreateGroupHandler"""
@@ -82,11 +64,8 @@ class NewTopicHandler(NewItemHandler):
     """docstring for template_name"""
     return 'item_new.html'
 
-class TopicForm(djangoforms.ModelForm):
-  """docstring for TopicForm"""
-  class Meta:
-    model = Topic
 
     
+
 
 
