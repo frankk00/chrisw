@@ -12,7 +12,8 @@ body {
 	margin: -50px;
 }
 
-#logout {
+#login_span {
+  font-size: 12px;
 }
 
 #main_panel {
