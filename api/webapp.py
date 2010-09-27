@@ -119,7 +119,7 @@ def view_method(func):
       var_dict.update(self.__dict__)
       # skip the keys
       for key in ('self', 'model_obj'):
-        del var_dict[key]
+        if var_dict.has_key(key): del var_dict[key]
     
     return action
     
