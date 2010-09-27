@@ -175,6 +175,7 @@ def api_enabled(func):
       return self.response.out.write(render_to_string(action.name + '.html', var_dict))
     elif result_type == 'json':
       from db import to_dict
+      logging.debug("api.webapp %s", str(var_dict))
       return self.response.out.write(json.dumps(to_dict(var_dict, private_keys)))
   
   return wrapper

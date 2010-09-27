@@ -17,6 +17,7 @@ from google.appengine.ext import db
 from google.appengine.ext.db import *
 from google.appengine.api import datastore_errors
 from google.appengine.ext.db import djangoforms
+from django import forms
 
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring, list)
 
@@ -35,13 +36,6 @@ def to_dict(model, skip_keys = []):
       continue
     
     try:
-      pass
-    except Exception, e:
-      raise e
-    else:
-      pass
-    
-    try:
       value = getattr(model, key)
     except datastore_errors.Error:
       value = None
@@ -58,11 +52,13 @@ def to_dict(model, skip_keys = []):
       output[key] = int(ms)
     elif isinstance(value, db.Model):
       output[key] = to_dict(value, skip_keys)
-    elif isinstance(value, djangoforms.ModelForm):
+    elif isinstance(value, djangoforms.ModelForm) or \
+         isinstance(value, forms.Form):
       output[key] = {'data': to_dict(value.data),
                      'errors': to_dict(value.errors)}
     else:
-      raise ValueError('cannot encode ' + repr(prop))
+      logging.debug('Error from api.db: cannot encode ' + repr(prop))
+      continue
   
   return output
     
