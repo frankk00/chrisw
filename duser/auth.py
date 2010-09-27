@@ -45,6 +45,7 @@ def login(user):
 
 def logout():
   """docstring for logout"""
+  session = get_current_session()
   if session.is_active() and session.has_key('current_user'):
     user = session['current_user']
     user.put()
