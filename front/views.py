@@ -25,6 +25,7 @@ except ImportError:
   # django 0.9
   from django.db import models as fields
 
+from duser.auth import get_current_user
 
 from duser import auth
 from api.webapp import login_required
@@ -34,7 +35,8 @@ class MainHandler(webapp.RequestHandler):
   def get(self):
     # path = os.path.join(os.path.dirname(__file__), '../templates/base.html')
     # self.response.out.write(template.render(path, {'user': 'andyzhau'}))
-    self.response.out.write(render_to_string('base.html', {'user': 'andyzhau'}))
+    
+    self.response.out.write(render_to_string('base.html', {'user': get_current_user()}))
 
 def create_login_url(url):
   """docstring for create_login_url"""
