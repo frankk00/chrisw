@@ -170,8 +170,8 @@ def api_enabled(func):
         return self.redirect(action.to_url)
         
       # template action
-      from django.shortcuts import render_to_response
-      return self.response.out.write(render_to_response(action.name + '.html', var_dict))
+      from shortcuts import render_to_string
+      return self.response.out.write(render_to_string(action.name + '.html', var_dict))
     elif result_type == 'json':
       return self.response.out.write(var_dict)
   

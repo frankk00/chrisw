@@ -13,7 +13,6 @@ import os
 
 from google.appengine.ext import webapp
 from google.appengine.ext.db import djangoforms
-from django.shortcuts import render_to_response
 from django import forms
 from google.appengine.ext.webapp import template
 
@@ -29,13 +28,14 @@ except ImportError:
 
 from duser import auth
 from api.webapp import login_required
+from api.shortcuts import render_to_string
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
     path = os.path.join(os.path.dirname(__file__), '../templates/base.html')
     # self.response.out.write(path)
-    self.response.out.write(template.render(path, {'user': 'andyzhau'}))
-    # self.response.out.write(render_to_response('base.html', {}, mimetype="text/html"))
+    # self.response.out.write(template.render(path, {'user': 'andyzhau'}))
+    self.response.out.write(render_to_string('base.html', {'user': 'andyzhau'}))
 
 def create_login_url(url):
   """docstring for create_login_url"""
@@ -68,7 +68,7 @@ class SignupUserHanlder(webapp.RequestHandler):
   def get(self):
     """default sign up page"""
     form = RegForm()
-    self.response.out.write(render_to_response('signin.html', locals()))
+    self.response.out.write(render_to_string('signin.html', locals()))
   
   def post(self):
     """docstring for post"""
@@ -76,9 +76,9 @@ class SignupUserHanlder(webapp.RequestHandler):
     if form.is_valid():
       new_user = form.save(commit=False)
       new_user.put()
-      self.response.out.write(render_to_response('signin_successful.html', locals()))
+      self.response.out.write(render_to_string('signin_successful.html', locals()))
     else:
-      self.response.out.write(render_to_response('signin.html', locals()))
+      self.response.out.write(render_to_string('signin.html', locals()))
 
 class LoginForm(forms.Form):
   """docstring for LoginForm"""
@@ -104,7 +104,7 @@ class LoginUserHandler(webapp.RequestHandler):
     """docstring for get"""
     form = LoginForm()
     page_url = self.request.path + "?" + self.request.query_string
-    self.response.out.write(render_to_response('login.html', locals()))
+    self.response.out.write(render_to_string('login.html', locals()))
     
   def post(self):
     """docstring for post"""
@@ -115,9 +115,9 @@ class LoginUserHandler(webapp.RequestHandler):
       if back_url:
         self.redirect(back_url)
       else:
-        self.response.out.write(render_to_response('login_successful.html', locals()))
+        self.response.out.write(render_to_string('login_successful.html', locals()))
     else:
-      self.response.out.write(render_to_response('login.html', locals()))
+      self.response.out.write(render_to_string('login.html', locals()))
     
 class LoginDemoHandler(webapp.RequestHandler):
   """docstring for ClassName"""
@@ -125,5 +125,5 @@ class LoginDemoHandler(webapp.RequestHandler):
   def get(self):
     import gaesessions
     logging.debug("current session %s", gaesessions.get_current_session())
-    self.response.out.write(render_to_response('test_login.html', locals()))
+    self.response.out.write(render_to_string('test_login.html', locals()))
     

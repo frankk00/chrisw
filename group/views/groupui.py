@@ -15,8 +15,8 @@ from google.appengine.ext.db import djangoforms
 
 from duser.auth import get_current_user
 from api.webapp import *
-
 from group.models import *
+from topic import TopicForm
 
 class GroupForm(djangoforms.ModelForm):
   class Meta:
