@@ -9,11 +9,13 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 import logging
 import settings
+import os
 
 from google.appengine.ext import webapp
 from google.appengine.ext.db import djangoforms
 from django.shortcuts import render_to_response
 from django import forms
+from google.appengine.ext.webapp import template
 
 # import form fields
 try:
@@ -30,7 +32,10 @@ from api.webapp import login_required
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
-    self.response.out.write(render_to_response('base.html', {}))
+    path = os.path.join(os.path.dirname(__file__), '../templates/base.html')
+    # self.response.out.write(path)
+    self.response.out.write(template.render(path, {'user': 'andyzhau'}))
+    # self.response.out.write(render_to_response('base.html', {}, mimetype="text/html"))
 
 def create_login_url(url):
   """docstring for create_login_url"""

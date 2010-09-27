@@ -7,7 +7,6 @@
 	<link type="text/css" href="/css/style.css" rel="stylesheet" />
 	<title>{% block title %} DaoShiCha {% endblock %}</title>
 	{% block header %} {% endblock %}
-
 </head>
 
 <body>
@@ -16,7 +15,24 @@
 		<div id="main_panel_overlay">
 		</div>
 		<div id="menu_panel">
-			{% block menu %} {% endblock %}
+			<div style="float:left; position: relative; margin: 10px 0 10px 25px;">
+				<span style="color: white; font-size: 20px;">join</span>
+				<span style="color: white; font-weight: bold; font-size: 25px;">Daoshicha</span>
+			</div>
+			<div style="float: left; position: relative; margin: 20px 0 10px 50px;">
+				<span style="color: white; font-size: 12px; font-weight: bold;">
+					{% if user %}
+						Logout
+					{% else %}
+					    Login
+					{% endif %}
+					&nbsp; &nbsp;Explore
+				</span>
+			</div>
+			<div id="search_box_panel" style="float: right; position: relative; margin: 10px;" >
+				<input id="search_box" type="text" />
+				<img src="/images/search.png" style="margin: 3px" height="24px"></img>
+			</div>
 		</div>
 		<div id="content_panel">
 			{% block content %} {% endblock %}
