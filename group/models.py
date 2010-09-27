@@ -11,7 +11,10 @@ from google.appengine.api import users
 
 from api import db
 from duser import User
-    
+
+class Site(db.Model):
+  """a faked object"""
+  pass  
 
 class Group(db.Model):
   """docstring for Board"""
