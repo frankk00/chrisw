@@ -43,7 +43,7 @@ class TopicUI(PermissionUI):
   
   @view_method
   @check_permission('view', "Not allowed to open topic")
-  def view(self):
+  def view(self, request):
     """docstring for view"""
     return template('topic_display', {})
   
@@ -112,7 +112,7 @@ class TopicViewHandler(TopicHandler):
   """docstring for GroupViewHandler"""
   def get_impl(self, topic):
     """docstring for get_impl"""
-    return topic.view()
+    return topic.view(self.request)
 
 class TopicNewPostHandler(TopicHandler):
   """docstring for GroupNewTopicHandler"""
