@@ -38,8 +38,13 @@ $(window).ready(function() {
   
   
   $("#logout_span").click(function() {
-    $.post("/logout");
-    document.location.reload();
+    $.post(
+      "/logout?result_type=json",
+      function(data) {
+        alert("data load: " + data);
+        location.reload();
+      }
+    );
   })
   
 })
