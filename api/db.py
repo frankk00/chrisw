@@ -73,9 +73,50 @@ def to_dict(model):
     
 class Model(db.Model):
   """docstring for Model"""
+  deleted = db.BooleanProperty(default=False)
+  
   def to_dict(self):
     return to_dict(self)
   
+  def delete(self, **kwargs):
+    """docstring for def delete(self, **kwargs):"""
+    self.delete = True
+    self.put()
+  
+  @classmethod
+  def get(cls, keys, **kwargs):
+    """Notice that this method overrides get_by_id and get_by_key_name
+    """
+    results = super(Model, cls).get(keys)
+
+    if results is None:
+      return None
+
+    if isinstance(results, Model):
+      instances = [results]
+    else:
+      instances = results
+    
+    # filter the deleted result
+    instances = [ i for i in instances if not i.deleted]
+    
+    if len(instances) == 0:
+      return None
+    else if len(instances) == 1:
+      return instances[0]
+    return instances
+  
+  @classmethod
+  def all(cls, **kwargs):
+    """Deleted items has been filtered.
+    """
+    return super(Model, cls).all(**kwargs).filter('deleted = ', False)
+  
+  @classmethod
+    def gql(cls, query_string, *args, **kwds):
+    """
+    """
+    return super(Model, cls).all(query_string, *args, **kwds).filter('deleted = ', False)
   
 
   
