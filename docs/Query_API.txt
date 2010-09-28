@@ -2,11 +2,11 @@
 Parameter name: fields
 Parameter description:
   {
-    fields:['foo','bar'],
-    foo:{
-      fiels:['name']
+    "fields":['foo','bar'],
+    "foo":{
+      "fiels":['name']
     }
-    bar:{
-      fiels:['title']
+    "bar":{
+      "fiels":['title']
     }
   }
