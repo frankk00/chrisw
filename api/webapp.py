@@ -108,6 +108,7 @@ class PermissionUI(object):
 def view_method(func):
   """the target method is a view method, it returned 
       template_name, var_dict to be used by api_enabled decorator
+      it will wrap the instance's fields in to the returned var_dict
   """
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
@@ -125,6 +126,16 @@ def view_method(func):
     return action
     
   return wrapper
+
+def filter_result(result, fields_dict):
+  """docstring for filter_result"""
+  output = result
+  if fields_dict:
+    output = {}
+    keys = fields_dict['fields']
+    for key in keys:
+      output[key] = filter_result(result[key], fields_dict.get(key, {}))
+  return output
 
 def api_enabled(func):
   """
@@ -152,6 +163,7 @@ def api_enabled(func):
     """docstring for wrapper"""
 
     result_type = self.request.get('result_type', default_value="html")  
+    fields = self.request.get('fields', default_value="{}")
     
     try:
       action = func(self, *args, **kwargs)
@@ -160,9 +172,17 @@ def api_enabled(func):
         var_dict = {'redirect':action.to_url}
       elif isinstance(action, template):
         var_dict = action.var_dict
-        
+      
+      fields_dict = json.loads(fields)
     except errors.Error as e:
-      action, var_dict = template('error.html'), dict({'error':e.msg})
+      # api execute fault
+      var_dict = dict({'error':e.msg})
+      action = template('error.html', var_dict)
+    except ValueError as e:
+      # fields parse fault
+      logging.debug("Can't parse fields, %s", fields)
+      var_dict, fields_dict = dict({'error':str(e)}), {}
+      action = template('error.html', var_dict)
       
     if result_type == 'html':
       
@@ -172,12 +192,14 @@ def api_enabled(func):
         
       # template action
       from shortcuts import render_to_string
-      return self.response.out.write(render_to_string(action.name + '.html', var_dict))
+      result_string = render_to_string(action.name + '.html', var_dict)
     elif result_type == 'json':
       from db import to_dict
-      logging.debug("api.webapp %s", str(var_dict))
-      return self.response.out.write(json.dumps(to_dict(var_dict)))
-  
+      result_dict = filter_result(to_dict(var_dict),fields_dict)
+      result_string = json.dumps(result_dict)
+    
+    return self.response.out.write(result_string)
+    
   return wrapper
 
 

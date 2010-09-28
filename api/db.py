@@ -102,7 +102,7 @@ class Model(db.Model):
     
     if len(instances) == 0:
       return None
-    else if len(instances) == 1:
+    elif len(instances) == 1:
       return instances[0]
     return instances
   
@@ -113,7 +113,7 @@ class Model(db.Model):
     return super(Model, cls).all(**kwargs).filter('deleted = ', False)
   
   @classmethod
-    def gql(cls, query_string, *args, **kwds):
+  def gql(cls, query_string, *args, **kwds):
     """
     """
     return super(Model, cls).all(query_string, *args, **kwds).filter('deleted = ', False)
