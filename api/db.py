@@ -116,8 +116,16 @@ class Model(db.Model):
   def gql(cls, query_string, *args, **kwds):
     """
     """
-    return super(Model, cls).all(query_string, *args, **kwds).filter('deleted = ', False)
+    raise Exception("GQL is not allowed in this extension")
   
 
+def main():
+  """Testing """
+  import json
+  from datetime import datetime
+  print json.dumps({1:datetime.now()})
+  pass
   
-
+  
+if __name__ == '__main__':
+  main()

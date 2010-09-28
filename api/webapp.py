@@ -56,7 +56,7 @@ class check_permission(object):
 
       if f(ui.user):
         return func(ui, *args, **kwargs)
-      raise PermissionError(error_msg, ui.user, ui.model_obj)
+      raise PermissionError(self.error_msg, ui.user, ui.model_obj)
 
     return wrapper  
 
@@ -134,6 +134,11 @@ def filter_result(result, fields_dict):
     output = {}
     keys = fields_dict['fields']
     for key in keys:
+      result_key = key
+      
+      if key[0] == '$': # trim the starting $
+        result_key = key[1:]
+      
       output[key] = filter_result(result[key], fields_dict.get(key, {}))
   return output
 

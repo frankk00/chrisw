@@ -31,8 +31,12 @@ class GroupUI(PermissionUI):
   
   @view_method
   @check_permission('view', "Not allowed to open the group")
-  def view(self):
+  def view(self, request):
     """docstring for view"""
+    limit = int(request.get('limit', '20'))
+    offset = int(request.get('offset', '0'))
+    
+    topics = self.group.get_topics().fetch(limit, offset)
     return template('group_display.html', locals())
   
   @view_method
@@ -52,7 +56,25 @@ class GroupUI(PermissionUI):
       new_group.put()
       return redirect('/group/%d' % self.group.key().id())
     return template('item_new', locals())
-        
+  """ deprecated  
+  @view_method
+  @check_permission('view', "Not allowed to open the group")
+  def query(self, request):
+    ""docstring for query""
+    return self.query_post(request)
+  
+  @check_permission('view', "Not allowed to open the group")
+  def query_post(self, request):
+    ""Return the topic contains in this group, ordered by time
+    ""
+    
+    limit = int(request.get('limit', '20'))
+    offset = int(request.get('offset', '0'))
+    
+    topics = self.group.get_topics().fetch(limit, offset)
+    items = topics
+    return template('item_list', locals())
+  """  
   @view_method
   @check_permission('join', "Can't join group")
   def join(self):
@@ -110,7 +132,7 @@ class GroupViewHandler(GroupHandler):
   """docstring for GroupViewHandler"""
   def get_impl(self, groupui):
     """docstring for get_impl"""
-    return groupui.view()
+    return groupui.view(self.request)
 
 class GroupNewTopicHandler(GroupHandler):
   """docstring for GroupNewTopicHandler"""
@@ -128,6 +150,14 @@ class GroupEditHandler(GroupHandler):
   def post_impl(self, groupui, request):
     return groupui.edit_post(request)
 
+"""
+class GroupQueryHandler(GroupHandler):
+  def get_impl(self, groupui):
+    return groupui.query(self.request)
+
+  def post_impl(self, groupui, request):
+    return groupui.query_post(request)
+"""
 class GroupJoinHandler(GroupHandler):
   """docstring for GroupNewTopicHandler"""
   def get_impl(self, groupui):
@@ -137,6 +167,7 @@ class GroupJoinHandler(GroupHandler):
     return groupui.join_post(request)
 
 apps = [(r'/group/(\d+)', GroupViewHandler),
+        #(r'/group/(\d+)/query', GroupQueryHandler),
         (r'/group/(\d+)/new', GroupNewTopicHandler),
         (r'/group/(\d+)/join', GroupJoinHandler),
         (r'/group/(\d+)/edit', GroupEditHandler),

@@ -58,7 +58,7 @@ class RegForm(djangoforms.ModelForm):
     """docstring for is_valid"""
     if super(djangoforms.ModelForm, self).is_valid():
       uid = self.data.get('uid')
-      if uid and auth.User.gql("WHERE uid=:uid ", uid=uid).get() == None:
+      if uid and auth.User.all().filter("uid =",uid).get() == None:
         return True
       else:
         self.errors['uid'] = ['Username %s exists already' % uid]

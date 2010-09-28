@@ -10,4 +10,12 @@
 		<tr><th>{{ group.title }}</th></tr>
 		<tr><td>{{ group.introduction }}</td></tr>
 	</table>
+	
+	Group Topics
+	<table border="0" cellspacing="5" cellpadding="5">
+		<tr><th>Header</th></tr>
+		{% for topic in topics %}
+			<tr><td>{{ topic.title }}</td><td>{{ topic.content }}</td></tr>
+		{% endfor %}
+	</table>
 {% endblock %}
