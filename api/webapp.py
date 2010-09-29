@@ -56,9 +56,9 @@ class check_permission(object):
       """docstring for wrapper"""
       f = getattr(ui.model_obj, 'can_' + self.action)
 
-      if f(ui.user):
+      if f(ui.model_user):
         return func(ui, *args, **kwargs)
-      raise PermissionError(self.error_msg, ui.user, ui.model_obj)
+      raise PermissionError(self.error_msg, ui.model_user, ui.model_obj)
 
     return wrapper  
 
@@ -105,7 +105,7 @@ class PermissionUI(object):
       raise APIError("Can't find item. Wrong ID?")
     
     self.model_obj = model_obj
-    self.user = get_current_user()
+    self.model_user = get_current_user()
     
 def view_method(func):
   """the target method is a view method, it returned 
@@ -121,7 +121,7 @@ def view_method(func):
       var_dict = action.var_dict
       var_dict.update(self.__dict__)
       # skip the keys
-      for key in ('self', 'model_obj'):
+      for key in ('self', 'model_obj', 'model_user'):
         if var_dict.has_key(key): 
           del var_dict[key]
     
