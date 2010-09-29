@@ -1,45 +1,14 @@
-{% extends "base_blue.html" %}
+{% extends "master.html" %}
 
 {% block title %}
 	注册新用户
 {% endblock %}
 
 {% block content %}
+
 	<form action="signin" method="post" accept-charset="utf-8">
-		<table border="0" cellspacing="5" cellpadding="5">
-			{{form.as_table}}
-		</table>
+		{{form.as_p }}
 		<p><input type="submit" value="Continue &rarr;"></p>
 	</form>
-	
-	<form action="signin" method="post" accept-charset="utf-8">
-		
-		<table cellspacing="0">
-		      <tbody><tr>
-		        <th><label for="username_or_email">Username or email</label></th>
-		        <td><input type="text" value="" name="session[username_or_email]" id="username_or_email"></td>
-		      </tr>
-		      <tr>
-		        <th><label for="password">Password</label></th>
-		        <td><input type="password" value="" name="session[password]" id="password"> <small><a href="/account/resend_password">Forgot?</a></small></td>
-		      </tr>
-		      <tr>
-		        <th></th>
-		        <td><input type="checkbox" value="1" name="remember_me" id="remember_me"> <label class="inline" for="remember_me">Remember me</label></td>
-		      </tr>
 
-		      <tr>
-		        <th></th>
-		        <td><input type="submit" value="Sign In" name="commit" id="signin_submit" class="btn btn-m"></td>
-		      </tr>
-		      <tr>
-		          <th></th>
-		        <td>
-		          <p>If you’ve been using Twitter from your phone, <a href="/account/complete">click here</a> to sign up on the web.</p>
-		                  </td>
-		      </tr>
-		    </tbody></table>
-
-		<p><input type="submit" value="Continue &rarr;"></p>
-	</form>
 {% endblock %}

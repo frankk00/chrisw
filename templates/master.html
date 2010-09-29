@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+{% autoescape off %}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="stylesheet" href="/css/sen.extra.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="/css/sen.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="/css/960.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<title>{% block title %}
+		Title
+	{% endblock %}</title>
+	
+	<style type="text/css" media="screen">
+		#wrapper {
+			padding: 1.5em 10px;
+		}
+		#content {
+			min-height: 420px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="wrapper" class="container_12">
+		<div id="header">
+			<h1 id="daoshicha">Daoshicha</h1>
+		</div>
+		<div id="content">
+			{% block content %}
+				
+			{% endblock %}
+		</div>
+		<div id="footer">
+			<span id="cp">
+			    &copy; 2005－2010 Daoshicha, all rights reserved
+			</span>
+			<span style="float: right;">
+				Powered by <a href="http://github.com/kangzhang/chrisw/">Chrisw</a>
+			</span>
+		</div>
+	</div>
+
+</body>
+
+</html>
+{% endautoescape %}
