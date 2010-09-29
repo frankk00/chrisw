@@ -10,5 +10,10 @@
 		<tr><th>{{ topic.title }}</th></tr>
 		<tr><td>{{ topic.content }}</td></tr>
 	</table>
+	<table border="0" cellspacing="5" cellpadding="5">
+		{% for post in posts %}
+			<tr><td>{{ post.user.username }}</td><td>{{post.title}}</td><td>{{post.content}}</td></tr>
+		{% endfor %}
+	</table>
 	
 {% endblock %}

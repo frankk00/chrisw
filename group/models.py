@@ -39,7 +39,7 @@ class Group(db.Model):
   
   def get_topics(self):
     """docstring for get_topics"""
-    return Topic.all().filter("group =", self).order("update_time")
+    return Topic.all().filter("group =", self).order("-update_time")
   
 
 class Topic(db.Model):
@@ -62,6 +62,10 @@ class Topic(db.Model):
   def can_reply(self, user):
     """docstring for can_create_thread"""
     return self.can_view(user)
+  
+  def get_posts(self):
+    """docstring for get_posts"""
+    return Post.all().filter("topic =", self).order("create_time")
   
 class Post(db.Model):
   """docstring for Post"""
