@@ -1,14 +1,20 @@
-$.rloader({
-  type: "js",
-  src: "/js/util/jquery.debug.js",
-  callback: function() {
-  },
-  arg: 'MyArg'
-});
-
 $(window).ready(function() {
   
-  
+  JsonpQueue.call(
+      "/login", 
+      {
+        'username': 'AndyZhau',
+        'password': '123456',
+        'back_url': '/'
+      }, 
+      function(data) {
+        alert('done ' + JSON.stringify(data));
+      },
+      function(error) {
+        alert("error " + error);
+      }
+  )
+    
   $.debug(true);
   $.log("psdfasd");
   
@@ -23,9 +29,9 @@ $(window).ready(function() {
         $.post(
           "/login?result_type=json",
           {
-            uid: $("#id_uid").val(),
-            password: $("#id_password").val(),
-            back_url: "/",
+            'username': $("#id_uid").val(),
+            'password': $("#id_password").val(),
+            'back_url': "/",
           },
           function(data) {
             var result = jQuery.parseJSON(data);
