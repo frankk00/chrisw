@@ -24,7 +24,9 @@ except Exception, e:
 
 class Action(object):
   """Base class for action"""
-  pass
+  def __init__(self):
+    """docstring for __init__"""
+    self.status = 'ok'
 
 class template(Action):
   """docstring for template"""
@@ -169,26 +171,23 @@ def api_enabled(func):
 
     result_type = self.request.get('result_type', default_value="html")  
     fields = self.request.get('fields', default_value="{}")
+    error = None
     
     try:
+      
       action = func(self, *args, **kwargs)
-      
-      if isinstance(action, redirect):
-        var_dict = {'redirect':action.to_url}
-      elif isinstance(action, template):
-        var_dict = action.var_dict
-      
       fields_dict = json.loads(fields)
+      
     except errors.Error as e:
       # api execute fault
-      var_dict = dict({'error':e.msg})
-      action = template('error.html', var_dict)
+      error = 'API Execution error' + e.msg
     except ValueError as e:
       # fields parse fault
-      logging.debug("Can't parse fields, %s", fields)
-      var_dict, fields_dict = dict({'error':str(e)}), {}
-      action = template('error.html', var_dict)
-      
+      error, fields_dict = 'API fields error: ' + str(e), {}
+    finally:
+      if error:
+        action = template('error.html', {'error':error})
+    
     if result_type == 'html':
       
       if isinstance(action, redirect):
@@ -197,11 +196,23 @@ def api_enabled(func):
         
       # template action
       from shortcuts import render_to_string
-      result_string = render_to_string(action.name + '.html', var_dict)
+      result_string = render_to_string(action.name + '.html', action.var_dict)
     elif result_type == 'json':
+      
+      if isinstance(action, template):
+        var_dict = action.var_dict
+      else:
+        # here is the trick :-)
+        var_dict = action.__dict__
+      
       from db import to_dict
       result_dict = filter_result(to_dict(var_dict),fields_dict)
-      result_string = json.dumps(result_dict)
+      
+      response_dict = {'status':action.status,
+                       'result':result_dict,
+                       'error':error}
+      
+      result_string = json.dumps(response_dict)
     
     return self.response.out.write(result_string)
     
