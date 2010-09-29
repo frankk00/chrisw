@@ -17,10 +17,8 @@ from models import *
 
 def authenticate(uid='', password=''):
   """Return a user object"""
-  user = User.gql("WHERE uid = :uid "
-                  "AND password = :password ",
-                  uid=uid.strip(),
-                  password=password.strip()).get()
+  user = User.all().filter("uid =", uid.strip()) \
+                   .filter("password =", password.strip()).get()
   return user
 
 def get_current_user():
