@@ -44,7 +44,10 @@ class LoginForm(forms.Form):
       username = self.data['username']
       password = self.data['password']
       
-      if auth.authenticate(username, password): return True # success
+      # authentication
+      self.user = auth.authenticate(username, password)
+      
+      if self.user: return True # success
       # Wrong password
       else: self.errors['username'] = ['Wrong username or password']
       
@@ -65,7 +68,7 @@ class RegForm(djangoforms.ModelForm):
     """docstring for is_valid"""
     if super(djangoforms.ModelForm, self).is_valid():
       username = self.data.get('username')
-      self.user = auth.User.all().filter("username =",username).get()
+      self.user = auth.User.all().filter("username =", username).get()
       if username and self.user == None: 
         return True
       # can't regieser as user name
