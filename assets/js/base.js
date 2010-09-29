@@ -1,10 +1,13 @@
+$.rloader({
+  type: "js",
+  src: "/js/util/jquery.debug.js",
+  callback: function() {
+  },
+  arg: 'MyArg'
+});
+
 $(window).ready(function() {
   
-  $.rloader({
-    type: "js",
-    src: "/js/util/jquery.debug.js", 
-    arg: 'MyArg'
-  });
   
   $.debug(true);
   $.log("psdfasd");
