@@ -1,0 +1,113 @@
+@charset "utf-8";
+/**
+ * Sen.extra.CSS - Sensible Standards CSS framework extra's
+ *
+ * Copyright (c) 2008-2010 Kilian Valkhof (kilianvalkhof.com)
+ * Visit sencss.kilianvalkhof.com for more information and changelogs.
+ * Licensed under the MIT license. http://www.opensource.org/licenses/mit-license.php
+ *
+ */
+/* Typography classes
+ */
+.amp{
+  font-family:Baskerville, "Goudy Old Style", Palatino, "Book Antiqua", "URW Chancery L", Gentium, serif;
+  font-style:italic;
+}
+.quo{
+  font-family:Georgia, Gentium, "Times New Roman", Times, serif;
+}
+.lquo{
+  font-family:Georgia, Gentium, "Times New Roman", Times, serif;
+  margin:0 0 0 -0.55em;
+}
+.introParagraphArticle:first-letter{
+  float:left;
+  font-size:3.2em;
+  font-weight:700;
+  line-height:1em;
+  margin:0 0 -0.2em;
+  padding:0.125em 0.1em 0 0;
+}
+/* Messageboxes and aside styles
+ */
+.message{
+  background:#eee;
+  border:1px solid #999;
+  margin:1.5em;
+  padding:0.666em;
+}
+.error{
+  background:#fee;
+  border:1px solid red;
+  margin:1.5em;
+  padding:0.666em;
+}
+.notice{
+  background:#eef;
+  border:1px solid #00f;
+  margin:1.5em;
+  padding:0.666em;
+}
+.success{
+  background:#efe;
+  border:1px solid #0f0;
+  margin:1.5em;
+  padding:0.666em;
+}
+.warning{
+  background:#ffe;
+  border:1px solid #ff0;
+  margin:1.5em;
+  padding:0.666em;
+}
+.aside-left{
+  clear:left;
+  float:left;
+  margin:0 1.5em 1.5em 0;
+  overflow:hidden;
+}
+.aside-right{
+  clear:right;
+  float:right;
+  margin:0 0 1.5em 1.5em;
+  overflow:hidden;
+}
+/* horizontal form settings
+ */
+.horizontalForm button{
+  clear:left;
+  float:left;
+  margin:0.25em 0 0;
+}
+.horizontalForm input,.horizontalForm textarea{
+  float:left;
+  margin:0 0 0.75em;
+  *margin:0 0 0.8em;
+  width:49%;
+}
+.horizontalForm select{
+  float:left;
+  margin:0 0 0.75em;
+  _margin:0 0 1.25em;
+  width:49%;
+}
+.horizontalForm label{
+  clear:left;
+  float:left;
+  padding:0.375em 0;
+  width:49%;
+}
+.horizontalForm label input{
+  height:1em;
+  line-height:1.5em;
+  margin:0.25em 0.5em 0 0;
+  width:auto;
+}
+.horizontalForm label.singleLine{
+  clear:both;
+  float:none;
+  height:1.5em;
+  padding:0;
+  width:100%;
+}
+

@@ -1,15 +1,14 @@
-{% extends "base.html" %}
+{% extends "master.html" %}
 
 {% block title %}
 	注册新用户
 {% endblock %}
 
 {% block content %}
+
 	<form action="signin" method="post" accept-charset="utf-8">
-		<table border="0" cellspacing="5" cellpadding="5">
-			{{form.as_table}}
-		</table>
+		{{form.as_p }}
 		<p><input type="submit" value="Continue &rarr;"></p>
 	</form>
-	 
+
 {% endblock %}
