@@ -47,8 +47,9 @@ class TopicUI(PermissionUI):
     """docstring for view"""
     limit = int(request.get('limit', '20'))
     offset = int(request.get('offset', '0'))
-    
-    posts = self.topic.get_posts().fetch(limit, offset)
+    query = self.topic.get_posts()
+    count = query.count(2000)
+    posts = query.fetch(limit, offset)
     return template('topic_display', locals())
   
   @view_method
