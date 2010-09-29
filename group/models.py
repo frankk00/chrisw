@@ -57,7 +57,7 @@ class Topic(db.Model):
   
   def can_edit(self, user):
     """docstring for can_edit"""
-    return user.uid == author.uid
+    return user.username == author.username
   
   def can_reply(self, user):
     """docstring for can_create_thread"""

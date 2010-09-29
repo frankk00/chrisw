@@ -12,7 +12,7 @@ from api import db
 
 class User(db.Model):
   """docstring for User"""
-  uid = db.StringProperty(required=True)
+  fullname = db.StringProperty(required=True)
   username = db.StringProperty(required=True)
   create_date = db.DateTimeProperty(auto_now_add=True)
   password = db.StringProperty(required=True)
@@ -24,6 +24,6 @@ class User(db.Model):
       return False
     elif key == 'email':
       # can be visible by the user himself
-      return user and user.uid == self.uid
+      return user and user.username == self.username
     return True
   
