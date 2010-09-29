@@ -206,7 +206,7 @@ def api_enabled(func):
       else:
         action_name = 'redirect'
         # here is the trick :-)
-        data_dict = action.__dict__
+        data_dict = {"to_url", action.to_url}
       
       from db import to_dict
       result_dict = filter_result(to_dict(data_dict),fields_dict)
