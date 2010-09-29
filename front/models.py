@@ -14,3 +14,7 @@ class UHome(db.Model):
   pass
     
 
+class ProfilePhoto(db.Model):
+  """docstring for ProfilePhoto"""
+  full_picture = db.BlobProperty()
+    

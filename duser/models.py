@@ -17,9 +17,12 @@ class User(db.Model):
   create_date = db.DateTimeProperty(auto_now_add=True)
   password = db.StringProperty(required=True)
   email = db.EmailProperty(required=True)
+  status_message = db.StringProperty(required=False, default="")
+  photo_url = db.StringProperty(required=False, default="http://v2ex.appspot.com/avatar/252/large")
+  photo_key = db.StringProperty(required=False, default="abcd")
   
   def can_visit_key(self, user, key):
-    """docstring for visible"""
+    """Privacy protection"""
     if key == 'password':
       return False
     elif key == 'email':
@@ -27,3 +30,27 @@ class User(db.Model):
       return user and user.username == self.username
     return True
   
+  def put(self):
+    """docstring for put"""
+    from auth import get_current_user, update_current_user
+    
+    user = get_current_user()
+    if user and user.username == self.username:
+      update_current_user(self)
+    else:
+      super(User, self).put()
+  
+  def can_view(self, user):
+    """docstring for can_view"""
+    return True
+    
+  def can_edit(self, user):
+    """docstring for can_edit"""
+    return True
+  
+  def full_photo(self):
+    """docstring for full_photo"""
+    return self.photo_url
+  
+  def photo(self):
+    return self.photo_url + "=s120"

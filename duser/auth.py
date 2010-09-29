@@ -32,6 +32,12 @@ def get_current_user():
     return session['current_user']
   return None
 
+def update_current_user(user):
+  """docstring for update_current_user"""
+  session = get_current_session()
+  if session.has_key('current_user'):
+    session['current_user'] = user
+
 def login(user):
   """login the current user"""
   session = get_current_session()

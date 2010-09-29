@@ -1,0 +1,21 @@
+{% extends "master.html" %}
+
+{% block title %}
+	User Settings
+{% endblock %}
+
+{% block content %}
+	<img src="{{user.photo_url}}=s144" />
+	<form action="{{photo_upload_url}}" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+		
+		{{ photo_form.as_table }}
+		<p><input type="submit" value="Change Photo"></p>
+	</form>
+	
+	<form action="/u/profile" method="POST" accept-charset="utf-8">
+		
+		{{ form.as_table }}
+
+		<p><input type="submit" value="Save Settings"></p>
+	</form>
+{% endblock %}
