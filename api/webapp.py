@@ -187,6 +187,7 @@ def api_enabled(func):
     finally:
       if error:
         action = template('error.html', {'error':error})
+        action.status = 'error'
     
     if result_type == 'html':
       
