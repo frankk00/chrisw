@@ -14,7 +14,7 @@ JsonpQueue.cancelAll = function() {
   JsonpQueue.pendingCalls = {};
 };
 
-JsonpQueue.call = function(url, paras, onDone, onError, debug) {
+JsonpQueue.call = function(url, paras, onDone, onError) {
   var callbackID = new Date().getTime() + "x" + Math.floor(Math.random() * 1000);
   JsonpQueue.pendingCalls.callbackID = {
     doneHandler: onDone,
@@ -24,16 +24,17 @@ JsonpQueue.call = function(url, paras, onDone, onError, debug) {
   url += (url.indexOf("?") < 0 ? "?" : "&") + "result_type=json";
   
   $.post(
-    "/login?result_type=json",
+    url,
     paras,
     function(data) {
       if (JsonpQueue.pendingCalls.callbackID) {
         var result = jQuery.parseJSON(data);
         if (result.status == "ok") {
-          JsonpQueue.pendingCalls.callbackID.doneHandler(result.result);
+          JsonpQueue.pendingCalls.callbackID.doneHandler(result);
         } else {
-          JsonpQueue.pendingCalls.callbackID.errorHandler(result.error)
+          JsonpQueue.pendingCalls.callbackID.errorHandler(result);
         }
+        delete JsonpQueue.pendingCalls.callbackID;
       }
     }
   );

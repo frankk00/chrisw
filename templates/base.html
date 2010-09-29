@@ -13,6 +13,7 @@
 				"/js/base.js",
 				"/js/util/jQuery.debug.js",
 				"/js/util/queue.js",
+				"/js/views/group.js"
 			]
 		);
 		loadCssFiles (
@@ -60,9 +61,23 @@
 			</div>
 		</div>
 		<div id="content_panel">
-			<div id="white_panel" style="background-color: #FFFFFF; margin-top: 20px; -moz-border-radius: 6px; padding: 16px;">
-				{% block content %} {% endblock %}
-			</div>
+			{% block content %}
+			
+			<table width="100%">
+				<tbody>
+					<tr>
+						<td width="50%" valign="top">
+							<div id="left_panel"></div>
+						</td>
+						<td width="50%" valign="top">
+							<div id="right_panel"> Right Panel </div>
+							<div id="detail_panel"> Detail Panel</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+	    	{% endblock %}
 		</div>
 	</div>
 </body>

@@ -12,8 +12,49 @@ body {
 	margin: -50px;
 }
 
+#detail_panel {
+  height: 576px;
+  width: 484px;
+  background: white;
+  position: absolute;
+  z-index: 100;
+  display: none;
+  margin: 6px 0 0 0;
+  border: groove;
+  border-width: thin;
+  border-color: #AAA;
+	border-bottom-right-radius: 8px 8px;
+	border-top-right-radius: 8px 8px;
+	-moz-border-bottom-right-radius: 8px 8px;
+	-moz-border-top-right-radius: 8px 8px;
+}
+
 #login_span {
   font-size: 12px;
+}
+
+#left_panel  {
+  height: 580px;
+  background: white;
+  width: 490px;
+  position: absolute;
+  margin: 5px;
+	border-bottom-left-radius: 8px 8px;
+	border-top-left-radius: 8px 8px;
+	-moz-border-bottom-left-radius: 8px 8px;
+	-moz-border-top-left-radius: 8px 8px;
+}
+
+#right_panel {
+  height: 580px;
+  background: white;
+  width: 490px;
+  position: absolute;
+  margin: 5px 0 0 0;
+	border-bottom-right-radius: 8px 8px;
+	border-top-right-radius: 8px 8px;
+	-moz-border-bottom-right-radius: 8px 8px;
+	-moz-border-top-right-radius: 8px 8px;
 }
 
 #main_panel {
@@ -23,7 +64,7 @@ body {
 }
 
 #main_panel_overlay {
-	margin: 10px -20px;
+	margin: 25px -20px;
 	background:url("/images/bg-overlay.png") ;
 	opacity: 0.5;
 	position: absolute;
@@ -63,4 +104,71 @@ body {
 	height: 30px;
 	border-radius: 12px 12px;
 	-moz-border-radius: 12px 12px;
+}
+
+.bottom-button-panel {
+  padding: 3px;
+  margin: 0 12px;
+  text-align: right;  
+}
+
+div.bottom-button {
+  border-width: 10px;
+  padding: 3px;
+  margin: 0 12px;
+}
+
+.group-info-panel {
+  border: groove;
+  border-width: 2px;
+  width: 90%;
+	margin: 5%;
+	background: white;
+	border-radius: 3px 3px;
+	-moz-border-radius: 3px 3px;
+}
+
+td.group-title {
+  font: 15px "Trebuchet MS", sans-serif;
+  font-weight: bold;
+  text-indent: 12px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+td.group-owner {
+  font: 10px "Trebuchet MS", sans-serif;
+}
+
+td.group-command {
+  font: 10px "Trebuchet MS", sans-serif;
+  text-align: right;
+}
+
+.group-description {
+  border-top: groove;
+  border-width: thin;
+  font: 11px "Trebuchet MS", sans-serif;
+  text-indent: 24px;
+  border-radius: 3px 3px;
+	-moz-border-radius: 3px 3px;
+}
+
+.group-topic-panel {
+  width: 90%;
+  margin: 5%;
+  background: white;
+}
+
+.group-topic-header-panel {
+  font: 15px "Trebuchet MS", sans-serif;
+  font-weight: bold;
+  text-indent: 10px;
+  margin: 10px;
+}
+
+.group-topic-content-panel {
+  font: 12px "Trebuchet MS", sans-serif;
+  text-indent: 24px;
+  margin: 10px; 
 }
