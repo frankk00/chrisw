@@ -65,8 +65,8 @@ class RegForm(djangoforms.ModelForm):
     """docstring for is_valid"""
     if super(djangoforms.ModelForm, self).is_valid():
       username = self.data.get('username')
-      if username and auth.User.all().filter("username =",username) \
-                                     .get() == None: 
+      self.user = auth.User.all().filter("username =",username).get()
+      if username and self.user == None: 
         return True
       # can't regieser as user name
       else: self.errors['username'] = ['Username %s exists already' % username]
