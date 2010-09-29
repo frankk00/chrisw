@@ -7,7 +7,7 @@ Created by Kang Zhang on 2010-09-29.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-import uhome, userui
+import uhome, userui, photo
 from google.appengine.ext import webapp
 
 class MainHandler(webapp.RequestHandler):
@@ -18,7 +18,7 @@ class MainHandler(webapp.RequestHandler):
     from duser.auth import get_current_user
     self.response.out.write(render_to_string('base.html', {'user': get_current_user()}))
 
-apps = uhome.apps + [('/', MainHandler),]
+apps = uhome.apps + userui.apps + photo.apps + [('/', MainHandler),]
 
 def create_login_url(url):
   """docstring for create_login_url"""

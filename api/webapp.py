@@ -206,7 +206,7 @@ def api_enabled(func):
       else:
         action_name = 'redirect'
         # here is the trick :-)
-        data_dict = action.__dict__
+        data_dict = {"to_url": action.to_url}
       
       from db import to_dict
       result_dict = filter_result(to_dict(data_dict),fields_dict)
@@ -219,7 +219,7 @@ def api_enabled(func):
                        'error': error,
                        }
       
-      result_string = json.dumps(response_dict)
+      result_string = json.dumps(response_dict, sort_keys=False, indent=4)
     
     return self.response.out.write(result_string)
     

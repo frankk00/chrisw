@@ -35,8 +35,9 @@ class GroupUI(PermissionUI):
     """docstring for view"""
     limit = int(request.get('limit', '20'))
     offset = int(request.get('offset', '0'))
-    
-    topics = self.group.get_topics().fetch(limit, offset)
+    query = self.group.get_topics()
+    count = query.count(2000)
+    topics = query.fetch(limit, offset)
     return template('group_display.html', locals())
   
   @view_method
@@ -85,6 +86,12 @@ class GroupUI(PermissionUI):
   def join_post(self, request):
     """docstring for join_post"""
     pass
+  
+  @check_permission('delete', "Cant' delete topic")
+  def delete(self):
+    """docstring for delete"""
+    message = 'Topic has been successfully deleted.'
+    return template('item_new', locals())
   
   @view_method
   @check_permission('create_topic', "Not allowed to create topic here")

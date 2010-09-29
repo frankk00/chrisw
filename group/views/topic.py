@@ -45,7 +45,12 @@ class TopicUI(PermissionUI):
   @check_permission('view', "Not allowed to open topic")
   def view(self, request):
     """docstring for view"""
-    return template('topic_display', {})
+    limit = int(request.get('limit', '20'))
+    offset = int(request.get('offset', '0'))
+    query = self.topic.get_posts()
+    count = query.count(2000)
+    posts = query.fetch(limit, offset)
+    return template('topic_display', locals())
   
   @view_method
   @check_permission('edit', "Not the author")
@@ -65,6 +70,11 @@ class TopicUI(PermissionUI):
       return redirect('/group/topic/%d' % new_topic.key().id())
     return template('item_new', locals())
   
+  @check_permission('delete', "Can't delete topic")
+  def delete(self):
+    """docstring for delete"""
+    pass
+  
   @view_method
   @check_permission('reply', "Not allowed to reply the thread")
   def create_post(self):
@@ -76,8 +86,9 @@ class TopicUI(PermissionUI):
   @check_permission('reply', "Not allowed to reply the thread")
   def create_post_post(self, request):
     """docstring for create_post_post"""
-    form = PostForm(data=request.POST, instance=self.topic)
+    form = PostForm(data=request.POST)
     if form.is_valid():
+      logging.debug("created a new post ")
       new_post = form.save(commit=False)
       new_post.topic = self.topic
       new_post.author = get_current_user()
