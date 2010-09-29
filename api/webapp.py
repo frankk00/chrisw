@@ -219,7 +219,7 @@ def api_enabled(func):
                        'error': error,
                        }
       
-      result_string = json.dumps(response_dict)
+      result_string = json.dumps(response_dict, sort_keys=False, indent=4)
     
     return self.response.out.write(result_string)
     

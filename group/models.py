@@ -33,6 +33,10 @@ class Group(db.Model):
     """docstring for can_edit"""
     return True
   
+  def can_delete(self):
+    """docstring for can_delete"""
+    return True
+  
   def can_create_topic(self, user):
     """docstring for can_create_thread"""
     return True
@@ -62,6 +66,10 @@ class Topic(db.Model):
   def can_reply(self, user):
     """docstring for can_create_thread"""
     return self.can_view(user)
+  
+  def can_delete(self):
+    """docstring for can_delete"""
+    return True
   
   def get_posts(self):
     """docstring for get_posts"""
