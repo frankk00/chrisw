@@ -82,16 +82,19 @@ class GroupUI(PermissionUI):
     """docstring for join"""
     pass
   
-  @check_permission('join', "Can't join group")
-  def join_post(self, request):
-    """docstring for join_post"""
-    pass
-  
+  @view_method
   @check_permission('delete', "Cant' delete topic")
   def delete(self):
     """docstring for delete"""
     message = 'Topic has been successfully deleted.'
+    self.group.delete()
     return template('item_new', locals())
+  
+  @view_method
+  @check_permission('quit')
+  def quit(self):
+    """docstring for quite"""
+    pass
   
   @view_method
   @check_permission('create_topic', "Not allowed to create topic here")
@@ -169,13 +172,25 @@ class GroupJoinHandler(GroupHandler):
   """docstring for GroupNewTopicHandler"""
   def get_impl(self, groupui):
     return groupui.join()
-  
-  def post_impl(self, groupui, request):
-    return groupui.join_post(request)
+
+class GroupQuitHandler(GroupHandler):
+  """docstring for GroupQuitHandler"""
+  def get_impl(self, groupui):
+    """docstring for get_impl"""
+    return groupui.quit()
+    
+
+class GroupDeleteHandler(GroupHandler):
+  """docstring for GroupDeleteHandler"""
+  def get_impl(self, groupui):
+    groupui.delete()
+    
 
 apps = [(r'/group/(\d+)', GroupViewHandler),
         #(r'/group/(\d+)/query', GroupQueryHandler),
         (r'/group/(\d+)/new', GroupNewTopicHandler),
         (r'/group/(\d+)/join', GroupJoinHandler),
         (r'/group/(\d+)/edit', GroupEditHandler),
+        (r'/group/(\d+)/delete', GroupDeleteHandler),
+        (r'/group/(\d+)/quit', GroupQuitHandler),
         ]

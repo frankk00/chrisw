@@ -18,7 +18,6 @@ class Site(db.Model):
     """docstring for get_groups"""
     pass
 
-
 class Group(db.Model):
   """docstring for Board"""
   create_time = db.DateTimeProperty(auto_now_add=True)
@@ -42,6 +41,14 @@ class Group(db.Model):
   
   def can_create_topic(self, user):
     """docstring for can_create_thread"""
+    return True
+  
+  def can_join(self):
+    """docstring for can_join"""
+    return True
+  
+  def can_quit(self):
+    """docstring for can_quit"""
     return True
   
   def get_topics(self):
