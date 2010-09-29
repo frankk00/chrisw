@@ -206,11 +206,13 @@ def api_enabled(func):
         var_dict = action.__dict__
       
       from db import to_dict
+      logging.debug("var_dict = %s", str(var_dict))
       result_dict = filter_result(to_dict(var_dict),fields_dict)
       
       response_dict = {'status':action.status,
                        'result':result_dict,
-                       'error':error}
+                       'error':error,
+                       }
       
       result_string = json.dumps(response_dict)
     

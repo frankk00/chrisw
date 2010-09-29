@@ -20,7 +20,7 @@ from google.appengine.ext.db import djangoforms
 from django import forms
 
 
-SIMPLE_TYPES = (int, long, float, bool, dict, basestring, list)
+SIMPLE_TYPES = (int, long, float, bool, dict, basestring)
 
 def to_dict(model):
   output = {}
@@ -29,6 +29,8 @@ def to_dict(model):
     items = model.properties().iteritems()
   elif hasattr(model, 'items'):
     items = model.items()
+  elif isinstance(model, SIMPLE_TYPES):
+    return model
     
   if hasattr(model, 'can_visit_key'):
     check_key = model.can_visit_key
@@ -61,6 +63,8 @@ def to_dict(model):
       output[key] = int(ms)
     elif isinstance(value, db.Model):
       output[key] = to_dict(value)
+    elif isinstance(value, list):
+      output[key] = [ to_dict(x) for x in value]
     elif isinstance(value, djangoforms.ModelForm) or \
          isinstance(value, forms.Form):
       output[key] = {'data': to_dict(value.data),
