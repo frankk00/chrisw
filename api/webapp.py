@@ -201,18 +201,22 @@ def api_enabled(func):
     elif result_type == 'json':
       
       if isinstance(action, template):
-        var_dict = action.var_dict
+        action_name = 'render' # means template
+        data_dict = action.var_dict
       else:
+        action_name = 'redirect'
         # here is the trick :-)
-        var_dict = action.__dict__
+        data_dict = action.__dict__
       
       from db import to_dict
-      logging.debug("var_dict = %s", str(var_dict))
-      result_dict = filter_result(to_dict(var_dict),fields_dict)
+      result_dict = filter_result(to_dict(data_dict),fields_dict)
       
-      response_dict = {'status':action.status,
-                       'result':result_dict,
-                       'error':error,
+      response_dict = {'status': action.status,
+                       'action': {
+                          'cmd': action_name,
+                          'data': result_dict
+                          },
+                       'error': error,
                        }
       
       result_string = json.dumps(response_dict)

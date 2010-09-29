@@ -93,7 +93,7 @@ class UHomeUI(PermissionUI):
   def login_post(self, request):
     """The post handler for user login"""
     form = LoginForm(data=request.POST)
-    user = auth.get_current_user()
+
     if form.is_valid():
       auth.login(form.user)
       back_url = request.get('back_url', '/')
