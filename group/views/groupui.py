@@ -87,6 +87,12 @@ class GroupUI(PermissionUI):
     """docstring for join_post"""
     pass
   
+  @check_permission('delete', "Cant' delete topic")
+  def delete(self):
+    """docstring for delete"""
+    message = 'Topic has been successfully deleted.'
+    return template('item_new', locals())
+  
   @view_method
   @check_permission('create_topic', "Not allowed to create topic here")
   def create_topic(self):

@@ -14,7 +14,10 @@ from duser import User
 
 class Site(db.Model):
   """a faked object"""
-  pass  
+  def get_groups(self):
+    """docstring for get_groups"""
+    pass
+
 
 class Group(db.Model):
   """docstring for Board"""

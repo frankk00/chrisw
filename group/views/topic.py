@@ -70,6 +70,11 @@ class TopicUI(PermissionUI):
       return redirect('/group/topic/%d' % new_topic.key().id())
     return template('item_new', locals())
   
+  @check_permission('delete', "Can't delete topic")
+  def delete(self):
+    """docstring for delete"""
+    pass
+  
   @view_method
   @check_permission('reply', "Not allowed to reply the thread")
   def create_post(self):

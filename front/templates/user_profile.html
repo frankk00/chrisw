@@ -9,6 +9,7 @@
 	<form action="{{photo_upload_url}}" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
 		
 		{{ photo_form.as_table }}
+		<input type="hidden" name="back_url" value="{{back_url}}">
 		<p><input type="submit" value="Change Photo"></p>
 	</form>
 	

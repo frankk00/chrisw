@@ -19,7 +19,6 @@ class User(db.Model):
   email = db.EmailProperty(required=True)
   status_message = db.StringProperty(required=False, default="")
   photo_url = db.StringProperty(required=False, default="http://v2ex.appspot.com/avatar/252/large")
-  photo_key = db.StringProperty(required=False, default="abcd")
   
   def can_visit_key(self, user, key):
     """Privacy protection"""
@@ -51,6 +50,3 @@ class User(db.Model):
   def full_photo(self):
     """docstring for full_photo"""
     return self.photo_url
-  
-  def photo(self):
-    return self.photo_url + "=s120"
