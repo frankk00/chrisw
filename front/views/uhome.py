@@ -55,14 +55,18 @@ class RegForm(djangoforms.ModelForm):
     model = auth.User
     fields = ['fullname', 'username', 'password', 'email']
     
-  fullname = fields.CharField()
-  password = fields.CharField(widget=forms.PasswordInput)
+  fullname = fields.CharField(label='Full name', min_length=6, max_length=30)
+  username = fields.CharField(min_length=5, max_length=30)
+  password = fields.CharField(widget=forms.PasswordInput, min_length=4, 
+                              max_length=30)
+  email = fields.EmailField()
   
   def is_valid(self):
     """docstring for is_valid"""
     if super(djangoforms.ModelForm, self).is_valid():
       username = self.data.get('username')
-      if username and auth.User.all().filter("username =",username).get() == None: 
+      if username and auth.User.all().filter("username =",username) \
+                                     .get() == None: 
         return True
       # can't regieser as user name
       else: self.errors['username'] = ['Username %s exists already' % username]
@@ -107,7 +111,7 @@ class UHomeUI(PermissionUI):
   def signup(self):
     """The user sign up page"""
     form = RegForm()
-    return template('signin.html', locals())
+    return template('signup.html', locals())
   
   @view_method
   def signup_post(self, request):
@@ -116,9 +120,9 @@ class UHomeUI(PermissionUI):
     if form.is_valid():
       new_user = form.save(commit=False)
       new_user.put()
-      return template('signin_successful.html', locals())
+      return template('signup_successful.html', locals())
     else:
-      return template('signin.html', locals())
+      return template('signup.html', locals())
 
 class UHomeHandler(webapp.RequestHandler):
   """docstring for UHomeHandler"""

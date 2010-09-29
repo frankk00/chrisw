@@ -29,7 +29,7 @@ def to_dict(model):
     items = model.properties().iteritems()
   elif hasattr(model, 'items'):
     items = model.items()
-  elif isinstance(model, SIMPLE_TYPES):
+  elif isinstance(model, SIMPLE_TYPES) or model is None:
     return model
     
   if hasattr(model, 'can_visit_key'):
