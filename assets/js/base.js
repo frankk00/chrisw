@@ -3,30 +3,30 @@ $(window).ready(function() {
   $.debug(true);
   $.log("psdfasd");
 
-  $("#login").dialog({
-    disabled: true,
-    modal: true,
-    position: 'center',
-    minHeight: 150,
-    minWidth: 400,
-    buttons: {
-      Login: login,
-      Cancel: function() {
-        $(this).dialog('close');
-      }
-    }
-  });
-  $("#login").dialog('close');
-
-  $("#login_span").click(function() {
-    loadLoginPart();
-    $("#login").dialog('open');
-  })
-
-  $("#logout_span").click(logout);
+  // $("#login").dialog({
+  //     disabled: true,
+  //     modal: true,
+  //     position: 'center',
+  //     minHeight: 150,
+  //     minWidth: 400,
+  //     buttons: {
+  //       Login: login,
+  //       Cancel: function() {
+  //         $(this).dialog('close');
+  //       }
+  //     }
+  //   });
   
-  renderGroup(4);
+  // $("#login").dialog('close');
+  // 
+  // $("#login_span").click(function() {
+  //   loadLoginPart();
+  //   $("#login").dialog('open');
+  // })
+  // 
+  // $("#logout_span").click(logout);
   
+  renderGroup(1);
 })
 
 var leftView = null;
@@ -101,7 +101,7 @@ function renderGroup(groupid, offset, limit) {
 
 function renderGroupSuccess(data) {
   leftView = new GroupView(data.action.data);
-  leftView.installUI($("#left_panel")[0]);
+  leftView.installUI($("#left-panel")[0]);
   $("#group-title").click(clickGroupInfo);
 }
 
