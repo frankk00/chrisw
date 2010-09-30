@@ -86,7 +86,8 @@ class UHomeUI(PermissionUI):
   def login(self, request):
     """docstring for login"""
     form = LoginForm()
-    page_url = request.path + "?" + request.query_string
+    
+    page_url = request.path + "?" + self.request.query_string
     return template('login.html', locals())
   
   @view_method

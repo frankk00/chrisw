@@ -7,9 +7,10 @@
 {% block content %}
 	<form action="{{post_url}}" method="POST" accept-charset="utf-8">
 		<table border="0" cellspacing="5" cellpadding="5">
-			{{ form }}
+			{{ form.as_p }}
 		</table>
 
 		<p><input type="submit" value="Create Group"></p>
 	</form>
+	
 {% endblock %}

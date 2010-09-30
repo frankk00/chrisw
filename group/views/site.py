@@ -10,10 +10,10 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 import logging
 import settings
 
-from google.appengine.ext import webapp
+from google.appengine.ext import webapp, db
 from google.appengine.ext.db import djangoforms
 
-from duser.auth import get_current_user
+from duser.auth import get_current_user, Guest
 from api.webapp import *
 from group.models import *
 from groupui import GroupForm
@@ -23,17 +23,47 @@ class SiteUI(PermissionUI):
   def __init__(self, site):
     super(SiteUI, self).__init__(site)
     self.site = site
+    user = get_current_user()
+    
+    if user != Guest:
+      groupinfo = UserGroupInfo.all().filter("username =", user.username).get()
+      if not groupinfo:
+        groupinfo = UserGroupInfo(username=user.username, groups = [])
+        groupinfo.put()
+    
+    else: groupinfo = None
+    self.groupinfo = groupinfo
     
   @view_method
-  def view(self):
-    return template('base.html', {})
+  def view(self, request):
+    offset = int(request.get("offset", "0"))
+    limit = int(request.get("limit", "20"))
+    
+    user = get_current_user()
+    
+    def build_groups(group_keys):
+      return [db.get(gk) for gk in group_keys]
+    
+    if self.groupinfo:
+      # user
+      groups = build_groups(self.groupinfo.groups)
+    else:
+      # guest
+      logging.debug(" groups " + str(Group.all().fetch(10)))
+      groups = build_groups(Group.all().fetch(10))
+
+    topics = Topic.all().filter("group IN", groups).order("-update_time")
+    
+    return template('site_display.html', locals())
   
   @view_method
+  @check_permission("create_group", "Can't create group")
   def create_group(self):
     form = GroupForm()
     post_url = '/group/new'
     return template('item_new', locals())
   
+  @check_permission("create_group", "Can't create group")
   def create_group_post(self, request):
     form = GroupForm(data=request.POST)
     if form.is_valid():
@@ -63,7 +93,7 @@ class SiteHandler(webapp.RequestHandler):
 class SiteViewHandler(SiteHandler):
   """docstring for SiteViewHandler"""
   def get_impl(self, site):
-    return site.view()
+    return site.view(self.request)
 
 class SiteNewGroupHandler(SiteHandler):
   """docstring for SiteNewGroupHandler"""
