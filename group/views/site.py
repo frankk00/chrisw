@@ -26,7 +26,7 @@ class SiteUI(PermissionUI):
     
   @view_method
   def view(self):
-    return template('base.html', {})
+    return template('site_display.html', locals())
   
   @view_method
   def create_group(self):

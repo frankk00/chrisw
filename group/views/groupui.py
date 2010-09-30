@@ -91,7 +91,7 @@ class GroupUI(PermissionUI):
     return template('item_new', locals())
   
   @view_method
-  @check_permission('quit')
+  @check_permission('quit', "Is not member")
   def quit(self):
     """docstring for quite"""
     pass
