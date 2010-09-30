@@ -7,6 +7,7 @@ Created by Kang Zhang on 2010-09-29.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
+import settings
 import uhome, userui, photo
 from google.appengine.ext import webapp
 
@@ -20,9 +21,9 @@ class MainHandler(webapp.RequestHandler):
 
 apps = uhome.apps + userui.apps + photo.apps + [('/', MainHandler),]
 
-def create_login_url(url):
+def create_login_url(back_url='/'):
   """docstring for create_login_url"""
   import urllib
-  back_url = urllib.quote_plus(url)
-  return settings.LOGIN_URL + "?back_url=" + back_url
+  back_url = urllib.quote_plus(back_url)
+  return settings.LOGIN_URL + back_url
 

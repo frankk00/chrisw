@@ -17,6 +17,15 @@ class Site(db.Model):
   def get_groups(self):
     """docstring for get_groups"""
     pass
+  
+  def can_create_group(self, user):
+    return True
+  
+
+class UserGroupInfo(db.Model):
+  """docstring for UserGroupProfile"""
+  username = db.StringProperty(required=True)
+  groups = db.StringListProperty(required=True)
 
 class Group(db.Model):
   """docstring for Board"""
@@ -46,6 +55,17 @@ class Group(db.Model):
   def can_join(self):
     """docstring for can_join"""
     return True
+  
+  def join(self, user):
+    userinfo = UserGroupInfo.all().filter("username =", username).get()
+    
+    def add_user(group_key, userinfo_key):
+      group, userinfo = db.get(group_key), db.get(userinfo_key)
+      # add data
+      userinfo.groups.append(group_key)
+      group.members.append(userinfo.username)
+    
+    db.run_in_transaction(add_user, self.key(), userinfo.key())
   
   def can_quit(self):
     """docstring for can_quit"""

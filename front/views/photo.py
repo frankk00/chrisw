@@ -27,7 +27,7 @@ class PhotoHandler(blobstore_handlers.BlobstoreUploadHandler):
   @api_enabled
   def post(self):
     upload_files = self.get_uploads()  # 'file' is file upload field in the form
-    back_url = self.request.get("back_url", "/")
+    back_url = self.request.headers.get('Referer','/') #self.request.get("back_url", "/")
     max_size = int(self.request.get("max_size", 102400))
     
     if not upload_files:

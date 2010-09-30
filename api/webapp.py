@@ -14,7 +14,7 @@ import errors
 
 from google.appengine.ext import db
 
-from duser.auth import get_current_user
+from duser.auth import get_current_user, Guest
 
 try:
   import json
@@ -27,6 +27,12 @@ class Action(object):
   def __init__(self):
     """docstring for __init__"""
     self.status = 'ok'
+
+class back(Action):
+  """docstring for back"""
+  def __init__(self):
+    super(back, self).__init__()
+    
 
 class template(Action):
   """docstring for template"""
@@ -55,8 +61,12 @@ class check_permission(object):
     def wrapper(ui, *args, **kwargs):
       """docstring for wrapper"""
       f = getattr(ui.model_obj, 'can_' + self.action)
-
-      if f(ui.model_user):
+      
+      if ui.model_user == Guest:
+        # Guest can't be used to do anything
+        import front
+        return redirect(front.create_login_url())
+      elif f(ui.model_user):
         return func(ui, *args, **kwargs)
       raise PermissionError(self.error_msg, ui.model_user, ui.model_obj)
 
@@ -87,7 +97,7 @@ def login_required(func):
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
 
-    if get_current_user():
+    if get_current_user() != Guest:
       return func(self, *args, **kwargs)
     else:
       import front
@@ -188,6 +198,9 @@ def api_enabled(func):
       if error:
         action = template('error.html', {'error':error})
         action.status = 'error'
+    
+    if isinstance(action, back):
+      action = redirect(self.request.headers.get('Referer','/'))
     
     if result_type == 'html':
       

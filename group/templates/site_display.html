@@ -1,0 +1,26 @@
+{% extends "master.html" %}
+
+{% block title %}
+	Welcome to daoshicha.com
+{% endblock %}
+
+{% block content %}
+	<div id="topics">
+		<ol>
+			{% for topic in topics %}
+				<li>
+					<span>{{ topic.title }}</span> 
+					<span>{{ topic.author.fullname }}</span>
+				</li>
+			{% endfor %}
+		</ol>
+	</div>
+{% endblock %}
+
+{% block sidebar %}
+	<div id="groups">
+		{% for group in groups %}
+			<span> {{ group.title }}</span>
+		{% endfor %}
+	</div>
+{% endblock %}

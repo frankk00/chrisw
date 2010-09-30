@@ -80,7 +80,8 @@ class GroupUI(PermissionUI):
   @check_permission('join', "Can't join group")
   def join(self):
     """docstring for join"""
-    pass
+    self.group.join(get_current_user())
+    return back()
   
   @view_method
   @check_permission('delete', "Cant' delete topic")

@@ -35,3 +35,10 @@ indexes:
   - name: deleted
   - name: group
   - name: update_time
+
+- kind: Topic
+  properties:
+  - name: deleted
+  - name: group
+  - name: update_time
+    direction: desc

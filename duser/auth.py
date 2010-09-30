@@ -15,6 +15,9 @@ from gaesessions import get_current_session
 
 from models import *
 
+Guest = User(fullname="Guest", username="__GuestUserName", 
+             email="guest@e.com", password="pwd")
+
 def authenticate(username='', password=''):
   """Return a user object"""
   user = User.all().filter("username =", username.strip()) \
@@ -30,7 +33,7 @@ def get_current_user():
   if session.has_key('current_user'):
     logging.debug("has current_user")
     return session['current_user']
-  return None
+  return Guest
 
 def update_current_user(user):
   """docstring for update_current_user"""

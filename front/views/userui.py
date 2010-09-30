@@ -112,11 +112,13 @@ class UserProfileHandler(UserHandler):
   
 class UserProfileSettingHandler(webapp.RequestHandler):
   """docstring for UserSettingHandler"""
+  @login_required
   @api_enabled
   def get(self):
     userui = UserUI(get_current_user())
     return userui.profile(self.request)
-    
+  
+  @login_required
   @api_enabled
   def post(self):
     userui = UserUI(get_current_user())
