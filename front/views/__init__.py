@@ -21,9 +21,8 @@ class MainHandler(webapp.RequestHandler):
 
 apps = uhome.apps + userui.apps + photo.apps + [('/', MainHandler),]
 
-def create_login_url(back_url='/'):
+def create_login_url(back_url):
   """docstring for create_login_url"""
   import urllib
-  back_url = urllib.quote_plus(back_url)
-  return settings.LOGIN_URL + back_url
+  return settings.LOGIN_URL + "?back_url=" + urllib.quote_plus(back_url)
 

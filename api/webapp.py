@@ -32,7 +32,10 @@ class back(Action):
   """docstring for back"""
   def __init__(self):
     super(back, self).__init__()
-    
+
+class login(Action):
+  def __init__(self):
+    super(login, self).__init__()
 
 class template(Action):
   """docstring for template"""
@@ -64,8 +67,7 @@ class check_permission(object):
       
       if ui.model_user == Guest:
         # Guest can't be used to do anything
-        import front
-        return redirect(front.create_login_url())
+        return login()
       elif f(ui.model_user):
         return func(ui, *args, **kwargs)
       raise PermissionError(self.error_msg, ui.model_user, ui.model_obj)
@@ -100,7 +102,6 @@ def login_required(func):
     if get_current_user() != Guest:
       return func(self, *args, **kwargs)
     else:
-      import front
       return self.redirect(front.create_login_url(self.request.url))
 
   return wrapper
@@ -201,6 +202,9 @@ def api_enabled(func):
     
     if isinstance(action, back):
       action = redirect(self.request.headers.get('Referer','/'))
+    elif isinstance(action, login):
+      import front
+      action = redirect(front.create_login_url(self.request.url))
     
     if result_type == 'html':
       
