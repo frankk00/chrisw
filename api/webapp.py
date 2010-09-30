@@ -188,10 +188,10 @@ def api_enabled(func):
       action = func(self, *args, **kwargs)
       fields_dict = json.loads(fields)
       
-    except errors.Error as e:
+    except errors.Error, e:
       # api execute fault
       error = 'API Execution error' + e.msg
-    except ValueError as e:
+    except ValueError, e:
       # fields parse fault
       error, fields_dict = 'API fields error: ' + str(e), {}
     finally:
