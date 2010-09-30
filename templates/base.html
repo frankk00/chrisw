@@ -29,48 +29,51 @@
 </head>
 
 <body>
-	<div id="background_picture"></div>
-	<div id="main_panel">
-		<div id="main_panel_overlay">
+	<div id="menu-panel">
+		<div id="menu-container">
+			<div id="menu-title">
+				<span style="color: white; font-weight: bold; font-size: 22px;">daoshicha</span>
+			</div>
+			<div id="menu-search">
+				<input id="menu-search-box" type="text" value="搜索" />
+				<img id="menu-search-icon" src="/images/search.png" />
+			</div>
 		</div>
+
+		<!--
+		<div style="float: left; position: relative; margin: 20px 0 10px 50px;">
+					<span style="color: white; font-size: 12px; font-weight: bold;">
+						{% if user %}
+							Welcome <span style="color:yellow">({{ user.username }})</span> &nbsp;
+							<span id="logout_span">
+								<a href="#">Logout</a>
+							</span>
+						{% else %}
+						    <span id="login_span">
+								<a href="#">Login</a>
+							</span>
+						{% endif %}
+						&nbsp; &nbsp;Explore
+					</span>
+				</div>-->
+		
+	</div>
+	
+	<div id="background_picture"></div>
+	<div id="main-panel">
+		<div id="main-panel-overlay"></div>
 		<div id="login" title="Login" style="display:none;">
 		</div>
-		<div id="menu_panel">
-			<div style="float:left; position: relative; margin: 10px 0 10px 25px;">
-				<span style="color: white; font-size: 20px;">join</span>
-				<span style="color: white; font-weight: bold; font-size: 25px;">Daoshicha</span>
-			</div>
-			<div style="float: left; position: relative; margin: 20px 0 10px 50px;">
-				<span style="color: white; font-size: 12px; font-weight: bold;">
-					{% if user %}
-						Welcome <span style="color:yellow">({{ user.username }})</span> &nbsp;
-						<span id="logout_span">
-							<a href="#">Logout</a>
-						</span>
-					{% else %}
-					    <span id="login_span">
-							<a href="#">Login</a>
-						</span>
-					{% endif %}
-					&nbsp; &nbsp;Explore
-				</span>
-			</div>
-			<div id="search_box_panel" style="float: right; position: relative; margin: 10px;" >
-				<input id="search_box" type="text" />
-				<img src="/images/search.png" style="margin: 3px" height="24px" />
-			</div>
-		</div>
-		<div id="content_panel">
+		<div id="content-panel">
 			{% block content %}
-			
 			<table width="100%">
 				<tbody>
 					<tr>
 						<td width="50%" valign="top">
-							<div id="left_panel"></div>
+							<div id="left-panel"></div>
 						</td>
 						<td width="50%" valign="top">
-							<div id="right_panel"> Right Panel </div>
+							<div id="right-panel"> Right Panel </div>
 							<div id="detail_panel"> Detail Panel</div>
 						</td>
 					</tr>
@@ -80,6 +83,7 @@
 	    	{% endblock %}
 		</div>
 	</div>
+
 </body>
 </html>
 

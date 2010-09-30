@@ -33,38 +33,40 @@ body {
   font-size: 12px;
 }
 
-#left_panel  {
-  height: 580px;
+#left-panel  {
+  height: 1580px;
   background: white;
-  width: 490px;
+  width: 480px;
   position: absolute;
-  margin: 5px;
+/*  margin: 5px;*/
 	border-bottom-left-radius: 8px 8px;
 	border-top-left-radius: 8px 8px;
 	-moz-border-bottom-left-radius: 8px 8px;
 	-moz-border-top-left-radius: 8px 8px;
 }
 
-#right_panel {
-  height: 580px;
-  background: white;
-  width: 490px;
+#right-panel {
+  height: 1580px;
+  background: #FEFEFE;
+  opacity: 0.8;
+  width: 480px;
   position: absolute;
-  margin: 5px 0 0 0;
+/*  margin: 5px 0 0 0;*/
 	border-bottom-right-radius: 8px 8px;
 	border-top-right-radius: 8px 8px;
 	-moz-border-bottom-right-radius: 8px 8px;
 	-moz-border-top-right-radius: 8px 8px;
 }
 
-#main_panel {
-	margin: 50px auto;
-	width: 1000px;
+#main-panel {
+	width: 960px;
 	height: 620px;
+	margin: 50px auto;
 }
 
-#main_panel_overlay {
-	margin: 25px -20px;
+#main-panel-overlay {
+  display: none;
+	margin: 0px -20px;
 	background:url("/images/bg-overlay.png") ;
 	opacity: 0.5;
 	position: absolute;
@@ -75,35 +77,55 @@ body {
 	z-index: -1;
 }
 
-#menu_panel {
+#menu-panel {
 	border-style: groove;
 	border-width: thin;
 	width: 100%;
-	height: 50px;
+	height: 35px;
 	text-align: center;
 	vertical-align: middle;
 	font: 16px "Trebuchet MS", sans-serif;
 	background-color: #404240;
-	position: relative;
-	border-radius: 8px 8px;
-	-moz-border-radius: 8px 8px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
 }
 
-#search_box {
-	border-style: none;
-	height: 28px;
-	margin: 1px 0 0 10px;
-	float: left;
-	width: 200px;
-	font-size: 20px;
+#menu-container {
+  width: 900px;
+  margin: auto;
+  vertical-align: middle;
 }
 
-#search_box_panel {
-	background-color: white;
-	width: 250px;
-	height: 30px;
-	border-radius: 12px 12px;
-	-moz-border-radius: 12px 12px;
+#menu-title {
+  float:left;
+  margin: 4px auto;
+}
+
+#menu-search {
+  margin: 5px auto;
+  float:right;
+  height: 25px;
+  width: 180px;
+  background: white;
+	border-radius: 6px 6px;
+	-moz-border-radius: 6px 6px;
+}
+
+#menu-search-box {
+  border: none;
+  height: 20px;
+  width: 140px;
+  vertical-align: middle;
+  font-size: 12px;
+  color: gray;
+}
+
+#menu-search-icon {
+  height: 18px;
+  width: 18px;
+  vertical-align: middle;
 }
 
 .bottom-button-panel {

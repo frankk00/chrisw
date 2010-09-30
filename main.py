@@ -37,7 +37,10 @@ def main():
     sys.path.insert(0, "/Applications/GoogleAppEngineLauncher.app/Contents/"
                        "Resources/GoogleAppEngine-default.bundle/Contents/"
                        "Resources/google_appengine/lib/django/")
-    
+  
+  for k in [k for k in sys.modules if k.startswith('django')]:
+     del sys.modules[k]
+  
   from google.appengine.dist import use_library
   use_library('django', '1.1')
   
