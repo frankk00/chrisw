@@ -201,7 +201,11 @@ def api_enabled(func):
         action.status = 'error'
     
     if isinstance(action, back):
-      action = redirect(self.request.headers.get('Referer','/'))
+      from_url = self.request.headers.get('Referer','/')
+      if from_url == self.request.url:
+        action = template('error.html', {'error':"Visiting loop"})
+      else:
+        action = redirect(from_url)
     elif isinstance(action, login):
       import front
       action = redirect(front.create_login_url(self.request.url))

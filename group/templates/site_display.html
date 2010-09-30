@@ -5,22 +5,14 @@
 {% endblock %}
 
 {% block content %}
-	<div id="topics">
-		<ol>
-			{% for topic in topics %}
-				<li>
-					<span>{{ topic.title }}</span> 
-					<span>{{ topic.author.fullname }}</span>
-				</li>
-			{% endfor %}
-		</ol>
-	</div>
+	{% include "topic_list.html" %}
 {% endblock %}
 
 {% block sidebar %}
 	<div id="groups">
-		{% for group in groups %}
+		{% for group in recommend_groups %}
 			<span> {{ group.title }}</span>
+			<span><a href="/group/{{group.key.id}}">View</a></span>
 		{% endfor %}
 	</div>
 {% endblock %}

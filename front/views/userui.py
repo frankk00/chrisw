@@ -108,7 +108,7 @@ class UserHandler(webapp.RequestHandler):
 class UserProfileHandler(UserHandler):
   """docstring for UserProfileHandler"""
   def get_impl(self, userui):
-    return userui.view(self.request)
+    return userui.view()
   
 class UserProfileSettingHandler(webapp.RequestHandler):
   """docstring for UserSettingHandler"""

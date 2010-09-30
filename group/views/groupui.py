@@ -10,12 +10,13 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 import logging
 import settings
 
-from google.appengine.ext import webapp
+from google.appengine.ext import webapp, db
 from google.appengine.ext.db import djangoforms
 
 from duser.auth import get_current_user
 from api.webapp import *
 from group.models import *
+from duser.models import User
 from topic import TopicForm
 
 class GroupForm(djangoforms.ModelForm):
@@ -38,6 +39,9 @@ class GroupUI(PermissionUI):
     query = self.group.get_topics()
     count = query.count(2000)
     topics = query.fetch(limit, offset)
+    
+    members = [User.get_by_id(mk) for mk in self.group.member_ids]
+    logging.debug("mebers []" + str(members))
     return template('group_display.html', locals())
   
   @view_method

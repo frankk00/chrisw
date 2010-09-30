@@ -5,17 +5,20 @@
 {% endblock %}
 
 {% block content %}
-	{{ group_id }}
-	<table border="0" cellspacing="5" cellpadding="5">
-		<tr><th>{{ group.title }}</th></tr>
-		<tr><td>{{ group.introduction }}</td></tr>
-	</table>
-	
-	Group Topics
-	<table border="0" cellspacing="5" cellpadding="5">
-		<tr><th>Header</th></tr>
-		{% for topic in topics %}
-			<tr><td>{{ topic.title }}</td><td>{{ topic.content }}</td></tr>
-		{% endfor %}
-	</table>
+	{% include "topic_list.html" %}
+{% endblock %}
+
+{% block sidebar %}
+	<div id="control">
+		<ul>
+			<li>
+				<a href="/group/{{group.key.id}}/join">Join Group</a>
+			</li>
+			{% for member in members %}
+				<li>
+					<a href="/u/{{member.key.id}}"><img src="{{member.photo_url}}"/></a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
 {% endblock %}

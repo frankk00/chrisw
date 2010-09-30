@@ -46,7 +46,7 @@ def main():
   
   # patchs for django 0.96, should be remove for 1.1
   from django.conf import settings as djsettings
-  djsettings.TEMPLATE_DIRS = settings.TEMPLATE_DIRS
+  djsettings.TEMPLATE_DIRS += settings.TEMPLATE_DIRS
   
   import front, group
   application = webapp.WSGIApplication( front.apps + group.apps, 

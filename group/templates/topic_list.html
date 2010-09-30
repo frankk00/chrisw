@@ -1,0 +1,10 @@
+<div id="topics">
+	<ol>
+		{% for topic in topics %}
+			<li>
+				<span>{{ topic.title }}</span> 
+				<span>{{ topic.author.fullname }}</span>
+			</li>
+		{% endfor %}
+	</ol>
+</div>

@@ -26,9 +26,9 @@ class SiteUI(PermissionUI):
     user = get_current_user()
     
     if user != Guest:
-      groupinfo = UserGroupInfo.all().filter("username =", user.username).get()
+      groupinfo = UserGroupInfo.all().filter("user_id =", user.key().id()).get()
       if not groupinfo:
-        groupinfo = UserGroupInfo(username=user.username, groups = [])
+        groupinfo = UserGroupInfo(user_id=user.key().id())
         groupinfo.put()
     
     else: groupinfo = None
@@ -42,17 +42,21 @@ class SiteUI(PermissionUI):
     user = get_current_user()
     
     def build_groups(group_keys):
-      return [db.get(gk) for gk in group_keys]
+      logging.debug("group_keys " + str(group_keys))
+      return [Group.get_by_id(gk) for gk in group_keys]
+
+    recommend_groups = Group.all().fetch(10)
     
     if self.groupinfo:
       # user
-      groups = build_groups(self.groupinfo.groups)
-    else:
-      # guest
-      logging.debug(" groups " + str(Group.all().fetch(10)))
-      groups = build_groups(Group.all().fetch(10))
+      groups = build_groups(self.groupinfo.group_ids)
+      if not groups:
+        # new to group
+        groups = recommend_groups
 
-    topics = Topic.all().filter("group IN", groups).order("-update_time")
+    topics = Topic.all().filter("group IN", groups).order("-update_time").fetch(20)
+    
+    logging.debug("Fetched recent topics" + str(topics))
     
     return template('site_display.html', locals())
   
@@ -70,6 +74,9 @@ class SiteUI(PermissionUI):
       new_group = form.save(commit=False)
       new_group.create_user = get_current_user()
       new_group.put()
+      # add itself as a member
+      new_group.join(get_current_user())
+      
       return redirect('/group/%d' % new_group.key().id())
     return template('item_new', locals())
 

@@ -24,8 +24,9 @@ class Site(db.Model):
 
 class UserGroupInfo(db.Model):
   """docstring for UserGroupProfile"""
-  username = db.StringProperty(required=True)
-  groups = db.StringListProperty(required=True)
+  user_id = db.IntegerProperty(required=True)
+  # stored group using keys
+  group_ids = db.ListProperty(int,required=True, default=[])
 
 class Group(db.Model):
   """docstring for Board"""
@@ -33,8 +34,8 @@ class Group(db.Model):
   title = db.StringProperty()
   introduction = db.TextProperty()
   create_user = db.ReferenceProperty(User)
-  admin_users = db.StringListProperty()
-  members = db.StringListProperty()
+  admin_user_ids = db.ListProperty(int,required=True, default=[])
+  member_ids = db.ListProperty(int,required=True, default=[])
     
   def can_view(self, user):
     """docstring for can_see"""
@@ -52,21 +53,18 @@ class Group(db.Model):
     """docstring for can_create_thread"""
     return True
   
-  def can_join(self):
+  def can_join(self, user):
     """docstring for can_join"""
     return True
   
   def join(self, user):
-    userinfo = UserGroupInfo.all().filter("username =", username).get()
+    userinfo = UserGroupInfo.all().filter("user_id =", user.key().id()).get()
+    userinfo.group_ids.append(self.key().id())
+    self.member_ids.append(userinfo.user_id)
+    userinfo.put()
+    self.put()
     
-    def add_user(group_key, userinfo_key):
-      group, userinfo = db.get(group_key), db.get(userinfo_key)
-      # add data
-      userinfo.groups.append(group_key)
-      group.members.append(userinfo.username)
     
-    db.run_in_transaction(add_user, self.key(), userinfo.key())
-  
   def can_quit(self):
     """docstring for can_quit"""
     return True
