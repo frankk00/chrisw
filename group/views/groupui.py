@@ -41,7 +41,7 @@ class GroupUI(PermissionUI):
     topics = query.fetch(limit, offset)
     
     members = [User.get_by_id(mk) for mk in self.group.member_ids]
-    logging.debug("mebers []" + str(members))
+    
     return template('group_display.html', locals())
   
   @view_method

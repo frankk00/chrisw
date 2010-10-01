@@ -25,8 +25,11 @@ SIMPLE_TYPES = (int, long, float, bool, dict, basestring)
 def to_dict(model):
   output = {}
   
-  if hasattr(model, 'properties'):
+  if isinstance(model, db.Model):
+    # model is db.Model
     items = model.properties().iteritems()
+    output['model_class'] = model.__class__.__name__
+    output['model_id'] = model.key().id()
   elif hasattr(model, 'items'):
     items = model.items()
   elif isinstance(model, SIMPLE_TYPES) or model is None:
@@ -104,7 +107,7 @@ class Model(db.Model):
     # filter the deleted result
     instances = [ i for i in instances if not i.deleted]
     
-    if len(instances) == 0:
+    if instances == []:
       return None
     elif len(instances) == 1:
       return instances[0]
