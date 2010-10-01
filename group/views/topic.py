@@ -21,6 +21,15 @@ from api.webapp import template, redirect
 
 from group.models import *
 
+# import form fields
+try:
+  # for django 1.1
+  from django.forms import CharField
+  from django import forms as fields
+except ImportError:
+  # django 0.9
+  from django.db import models as fields
+
 apps = []
 
 class TopicForm(djangoforms.ModelForm):
@@ -28,6 +37,8 @@ class TopicForm(djangoforms.ModelForm):
   class Meta:
     model = Topic
     fields = ['title', 'content']
+  
+  title = fields.CharField(min_length=5, max_length=60)
 
 class PostForm(djangoforms.ModelForm):
   """docstring for PostForm"""
