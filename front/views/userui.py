@@ -73,6 +73,9 @@ class UserUI(PermissionUI):
     photo_form = ProfilePhotoForm()
     photo_upload_url = photo.create_upload_url()
     back_url = request.path
+    
+    logging.debug("form %s", self.user.to_dict())
+    
     return template('user_profile', locals())
   
   # same to the previous method

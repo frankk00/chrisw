@@ -102,6 +102,7 @@ def login_required(func):
     if get_current_user() != Guest:
       return func(self, *args, **kwargs)
     else:
+      import front
       return self.redirect(front.create_login_url(self.request.url))
 
   return wrapper
@@ -207,8 +208,8 @@ def api_enabled(func):
       else:
         action = redirect(from_url)
     elif isinstance(action, login):
-      import front
-      action = redirect(front.create_login_url(self.request.url))
+      from front import create_login_url
+      action = redirect(create_login_url(self.request.url))
     
     if result_type == 'html':
       

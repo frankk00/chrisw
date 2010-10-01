@@ -34,6 +34,10 @@ def to_dict(model):
     items = model.items()
   elif isinstance(model, SIMPLE_TYPES) or model is None:
     return model
+  else:
+    logging.debug("Can't to dict item %s", model.__dict__)
+    # temprary fix, need be recheck again, it's caused by django's 
+    return str(model._proxy____args)
     
   if hasattr(model, 'can_visit_key'):
     check_key = model.can_visit_key
