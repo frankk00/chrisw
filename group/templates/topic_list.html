@@ -1,9 +1,16 @@
 <div id="topics">
 	<ol>
 		{% for topic in topics %}
-			<li>
-				<span>{{ topic.title }}</span> 
-				<span>{{ topic.author.fullname }}</span>
+			<li style="list-style:none outside none; border-bottom: 1px solid #EEEEEE; padding-top: 12px;">
+				<span style="width: 50px; position: absolute;">
+					<img src="{{topic.author.photo_url}}=s48">
+				</span>
+				<span style="margin-left: 56px; overflow: visible; min-height: 48px; display:block;"> 
+					<span style="display: block; margin-bottom: 5px;">
+						{{ topic.title }}
+					</span>
+					<span style=" color: #999999;">{{ topic.create_time }} by {{ topic.author.fullname }}</span>
+				</span>
 			</li>
 		{% endfor %}
 	</ol>

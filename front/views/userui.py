@@ -60,6 +60,7 @@ class UserUI(PermissionUI):
   # every user can only see his/her own setting page, don't need check
   # the permission
   @view_method
+  @check_permission("edit", "Cant't edit the user's profile")
   def profile(self, request):
     """The user profile settings page"""
     
@@ -122,7 +123,7 @@ class UserProfileSettingHandler(webapp.RequestHandler):
   @api_enabled
   def post(self):
     userui = UserUI(get_current_user())
-    return userui.profile_post()
+    return userui.profile_post(self.request)
     
   
 apps = [(r'/u/(\d+)', UserProfileHandler),

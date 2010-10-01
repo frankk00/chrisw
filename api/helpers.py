@@ -27,7 +27,7 @@ def inspect_permissions(model_obj, user = Guest):
   
   import inspect
   for name, member in inspect.getmembers(model_obj):
-    logging.debug(" Member %s", str(member))
+    # logging.debug(" Member %s", str(member))
     if inspect.ismethod(member) and name[:4] == 'can_':
       args = inspect.getargspec(member).args
       if args == ['self', 'user']:

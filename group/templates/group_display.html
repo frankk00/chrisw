@@ -5,28 +5,60 @@
 {% endblock %}
 
 {% block content %}
+	<div id="group_title">
+		<h2>{{group.title}}</h2>
+	</div>
 	{% include "topic_list.html" %}
 {% endblock %}
 
 {% block sidebar %}
-	<div id="group_info">
-		
+	<div class="info_box">
+		<div id="group_info" class="sidebar_box" style="border: 1px solid #EEEEEE; padding: 10px;">
+			<p>
+				Created at {{group.create_time}} by {{group.create_user.fullname}}
+			</p>
+			{% for line in group.introduction.splitlines %}
+				<p>{{line}}</p>
+			{% endfor %}
+		</div>
 	</div>
 	<div id="control">
 		<ul>
-			<li>
-				{% if can_join %}
-					<a href="/group/{{group.key.id}}/join">Join Group</a>
-				{% endif %}
-				{% if can_quit %}
-					<a href="/group/{{group.key.id}}/quit">Quit Group</a>
-				{% endif %}
-			</li>
-			{% for member in members %}
+			{% if can_join %}
 				<li>
-					<a href="/u/{{member.key.id}}"><img src="{{member.photo_url}}"/></a>
+					<a href="/group/{{group.key.id}}/join">Join Group</a>
 				</li>
-			{% endfor %}
+			{% endif %}
+			{% if can_quit %}
+				<li>
+					<a href="/group/{{group.key.id}}/quit">Quit Group</a>
+				</li>
+			{% endif %}
+			</li>
+			{% if can_create_topic %}
+				<li>
+					<a href="/group/{{group.key.id}}/new">New Post</a>
+				</li>
+			{% endif %}
+			{% if can_edit %}
+				<li>
+					<a href="/group/{{group.key.id}}/edit">Group Settings</a>
+				</li>
+			{% endif %}
 		</ul>
+	</div>
+	<div id="group_member_box" class="sidebar_box" style="border: 1px solid #EEEEEE; padding: 10px;">
+		<h3>Group Members</h3>
+		{% for member in members %}
+			<dl style="diplay:inline; float:left; width: 78px;">
+				<dt style="text-align: center;">
+					<a href="/u/{{member.key.id}}"><img src="{{member.photo_url}}=s48"/></a>
+				</dt>
+				<dd style="text-align: center; height: 30px; margin-left: 0;">
+					{{ member.fullname }}
+				</dd>
+			</dl>
+		{% endfor %}
+		<div class="clear"></div>
 	</div>
 {% endblock %}

@@ -34,11 +34,12 @@ class User(db.Model):
     from auth import get_current_user, update_current_user
     
     user = get_current_user()
+    
     if user and user.username == self.username:
       update_current_user(self)
-    else:
-      super(User, self).put()
-  
+    
+    super(User, self).put()
+    
   def can_view(self, user):
     """docstring for can_view"""
     return True

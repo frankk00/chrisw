@@ -48,7 +48,7 @@ class GroupUI(PermissionUI):
     
     from api.helpers import inspect_permissions
     var_dict.update( inspect_permissions(self.group, get_current_user()) )
-        
+            
     return template('group_display.html', var_dict)
   
   @view_method
