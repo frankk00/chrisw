@@ -15,9 +15,6 @@ from gaesessions import get_current_session
 
 from models import *
 
-Guest = User(fullname="Guest", username="__GuestUserName", 
-             email="guest@e.com", password="pwd")
-
 def authenticate(username='', password=''):
   """Return a user object"""
   user = User.all().filter("username =", username.strip()) \

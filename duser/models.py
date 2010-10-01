@@ -50,3 +50,10 @@ class User(db.Model):
   def full_photo(self):
     """docstring for full_photo"""
     return self.photo_url
+
+Guest = User.all().filter('username =', "__GuestUserName").get()
+
+if not Guest:
+  Guest = User(fullname="Guest", username="__GuestUserName", 
+             email="guest@chrisw", password="pwd")
+  db.put(Guest)

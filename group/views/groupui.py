@@ -31,6 +31,8 @@ class GroupUI(PermissionUI):
     self.group = group
   
   @view_method
+  # it dosen't need check permission, as it's opened to all people. include th
+  # the guest account
   # @check_permission('view', "Not allowed to open the group")
   def view(self, request):
     """docstring for view"""
