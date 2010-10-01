@@ -38,14 +38,14 @@ def to_dict(model):
   if hasattr(model, 'can_visit_key'):
     check_key = model.can_visit_key
   else:
-    check_key = None
+    check_key = lambda x, y : True # can be visited by default
   
   from duser import auth
   user = auth.get_current_user()
   
   for key, prop in items:
     
-    if check_key and not check_key(user, key):
+    if not check_key(user, key):
       # can't be visited since privacy control
       continue
       

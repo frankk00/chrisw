@@ -12,7 +12,12 @@
 	<div id="control">
 		<ul>
 			<li>
-				<a href="/group/{{group.key.id}}/join">Join Group</a>
+				{% if can_join %}
+					<a href="/group/{{group.key.id}}/join">Join Group</a>
+				{% endif %}
+				{% if can_quit %}
+					<a href="/group/{{group.key.id}}/quit">Quit Group</a>
+				{% endif %}
 			</li>
 			{% for member in members %}
 				<li>

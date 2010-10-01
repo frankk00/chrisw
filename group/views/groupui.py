@@ -31,7 +31,7 @@ class GroupUI(PermissionUI):
     self.group = group
   
   @view_method
-  @check_permission('view', "Not allowed to open the group")
+  # @check_permission('view', "Not allowed to open the group")
   def view(self, request):
     """docstring for view"""
     limit = int(request.get('limit', '20'))
@@ -42,7 +42,12 @@ class GroupUI(PermissionUI):
     
     members = [User.get_by_id(mk) for mk in self.group.member_ids]
     
-    return template('group_display.html', locals())
+    var_dict = locals() # can't assign variable below this line
+    
+    from api.helpers import inspect_permissions
+    var_dict.update( inspect_permissions(self.group, get_current_user()) )
+        
+    return template('group_display.html', var_dict)
   
   @view_method
   @check_permission('edit', "Not a admin user")

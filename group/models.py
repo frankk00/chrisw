@@ -55,7 +55,7 @@ class Group(db.Model):
   
   def can_join(self, user):
     """docstring for can_join"""
-    return True
+    return not user.key().id() in self.member_ids
   
   def join(self, user):
     userinfo = UserGroupInfo.all().filter("user_id =", user.key().id()).get()
@@ -64,10 +64,13 @@ class Group(db.Model):
     userinfo.put()
     self.put()
     
+  def quit(self, user):
+    """docstring for quit"""
+    pass
     
-  def can_quit(self):
+  def can_quit(self, user):
     """docstring for can_quit"""
-    return True
+    return user.key().id() in self.member_ids and user.key().id() != self.create_user.key().id()
   
   def get_topics(self):
     """docstring for get_topics"""
