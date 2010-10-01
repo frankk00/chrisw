@@ -25,25 +25,17 @@
 	<div id="control">
 		<ul>
 			{% if can_join %}
-				<li>
-					<a href="/group/{{group.key.id}}/join">Join Group</a>
-				</li>
+				<a class="a-btn a-btn-m" id="tweeting_button" tabindex="2" href="/group/{{group.key.id}}/join"><span>Join Group</span></a>
 			{% endif %}
 			{% if can_quit %}
-				<li>
-					<a href="/group/{{group.key.id}}/quit">Quit Group</a>
-				</li>
+				<a class="a-btn a-btn-m" tabindex="2" href="/group/{{group.key.id}}/quit"><span>Quit Group</span></a>
 			{% endif %}
 			</li>
 			{% if can_create_topic %}
-				<li>
-					<a href="/group/{{group.key.id}}/new">New Post</a>
-				</li>
+				<a class="a-btn a-btn-m" tabindex="2" href="/group/{{group.key.id}}/new"><span>New Post</span></a>
 			{% endif %}
 			{% if can_edit %}
-				<li>
-					<a href="/group/{{group.key.id}}/edit">Group Settings</a>
-				</li>
+				<a class="a-btn a-btn-m" tabindex="2" href="/group/{{group.key.id}}/edit"><span>Group Settings</span></a>
 			{% endif %}
 		</ul>
 	</div>

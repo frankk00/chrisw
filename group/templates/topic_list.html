@@ -1,11 +1,11 @@
 <div id="topics">
 	<ol>
 		{% for topic in topics %}
-			<li style="list-style:none outside none; border-bottom: 1px solid #EEEEEE; padding-top: 12px;">
-				<span style="width: 50px; position: absolute;">
+			<li class="topic_list">
+				<span class="topic_author_photo">
 					<img src="{{topic.author.photo_url}}=s48">
 				</span>
-				<span style="margin-left: 56px; overflow: visible; min-height: 48px; display:block;"> 
+				<span class="topic_content"> 
 					<span style="display: block; margin-bottom: 5px;">
 						{{ topic.title }}
 					</span>
