@@ -4,33 +4,30 @@ body {
 }
 
 #background_picture {
-	height: 672px;
-	width: 767px;
-	background:#CCFFFF url("/images/bg_1.jpg") no-repeat scroll left top;
-	position: absolute;
-	z-index: -1;
-	margin: -50px;
-}
-
-#detail_panel {
-  height: 576px;
-  width: 484px;
-  background: white;
+  height: 672px;
+  width: 767px;
+  background:#CCFFFF url("/images/bg_1.jpg") no-repeat scroll left top;
   position: absolute;
-  z-index: 100;
-  display: none;
-  margin: 6px 0 0 0;
-  border: groove;
-  border-width: thin;
-  border-color: #AAA;
-	border-bottom-right-radius: 8px 8px;
-	border-top-right-radius: 8px 8px;
-	-moz-border-bottom-right-radius: 8px 8px;
-	-moz-border-top-right-radius: 8px 8px;
+  z-index: -1;
+  margin: -50px;
 }
 
-#login_span {
-  font-size: 12px;
+#detail-panel {
+  height: 576px;
+  width: 468px;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  margin: 10px 0 0 0;
+  border-bottom-right-radius: 8px 8px;
+  border-top-right-radius: 8px 8px;
+  -moz-border-bottom-right-radius: 8px 8px;
+  -moz-border-top-right-radius: 8px 8px;
+}
+
+#detail-content {
+  background-color: #FCFCFC;
+  height: 546px;
 }
 
 #left-panel  {
@@ -38,11 +35,11 @@ body {
   background: white;
   width: 480px;
   position: absolute;
-/*  margin: 5px;*/
-	border-bottom-left-radius: 8px 8px;
-	border-top-left-radius: 8px 8px;
-	-moz-border-bottom-left-radius: 8px 8px;
-	-moz-border-top-left-radius: 8px 8px;
+  /*  margin: 5px;*/
+  border-bottom-left-radius: 8px 8px;
+  border-top-left-radius: 8px 8px;
+  -moz-border-bottom-left-radius: 8px 8px;
+  -moz-border-top-left-radius: 8px 8px;
 }
 
 #right-panel {
@@ -51,45 +48,45 @@ body {
   opacity: 0.8;
   width: 480px;
   position: absolute;
-/*  margin: 5px 0 0 0;*/
-	border-bottom-right-radius: 8px 8px;
-	border-top-right-radius: 8px 8px;
-	-moz-border-bottom-right-radius: 8px 8px;
-	-moz-border-top-right-radius: 8px 8px;
+  /*  margin: 5px 0 0 0;*/
+  border-bottom-right-radius: 8px 8px;
+  border-top-right-radius: 8px 8px;
+  -moz-border-bottom-right-radius: 8px 8px;
+  -moz-border-top-right-radius: 8px 8px;
 }
 
 #main-panel {
-	width: 960px;
-	height: 620px;
-	margin: 50px auto;
+  width: 960px;
+  height: 620px;
+  margin: 50px auto;
 }
 
 #main-panel-overlay {
   display: none;
-	margin: 0px -20px;
-	background:url("/images/bg-overlay.png") ;
-	opacity: 0.5;
-	position: absolute;
-	width: 1040px;
-	height: 620px;
-	border-radius: 8px 8px;
-	-moz-border-radius: 8px 8px;
-	z-index: -1;
+  margin: 0px -20px;
+  background:url("/images/bg-overlay.png") ;
+  opacity: 0.5;
+  position: absolute;
+  width: 1040px;
+  height: 620px;
+  border-radius: 8px 8px;
+  -moz-border-radius: 8px 8px;
+  z-index: -1;
 }
 
 #menu-panel {
-	border-style: groove;
-	border-width: thin;
-	width: 100%;
-	height: 35px;
-	text-align: center;
-	vertical-align: middle;
-	font: 16px "Trebuchet MS", sans-serif;
-	background-color: #404240;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 10;
+  border-style: groove;
+  border-width: thin;
+  width: 100%;
+  height: 35px;
+  text-align: center;
+  vertical-align: middle;
+  font: 16px "Trebuchet MS", sans-serif;
+  background-color: #404240;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 
 #menu-container {
@@ -109,8 +106,8 @@ body {
   height: 25px;
   width: 180px;
   background: white;
-	border-radius: 6px 6px;
-	-moz-border-radius: 6px 6px;
+  border-radius: 6px 6px;
+  -moz-border-radius: 6px 6px;
 }
 
 #menu-search-box {
@@ -144,10 +141,10 @@ div.bottom-button {
   border: groove;
   border-width: 2px;
   width: 90%;
-	margin: 5%;
-	background: white;
-	border-radius: 3px 3px;
-	-moz-border-radius: 3px 3px;
+  margin: 5%;
+  background: white;
+  border-radius: 3px 3px;
+  -moz-border-radius: 3px 3px;
 }
 
 td.group-title {
@@ -173,7 +170,7 @@ td.group-command {
   font: 11px "Trebuchet MS", sans-serif;
   text-indent: 24px;
   border-radius: 3px 3px;
-	-moz-border-radius: 3px 3px;
+  -moz-border-radius: 3px 3px;
 }
 
 .group-topic-panel {
@@ -193,4 +190,137 @@ td.group-command {
   font: 12px "Trebuchet MS", sans-serif;
   text-indent: 24px;
   margin: 10px; 
+}
+
+
+a.a-btn {
+  zoom: 1;
+  background: #ddd url(/images/bg-btn.gif) repeat-x scroll 0 0;
+  cursor: pointer;
+  text-shadow: 1px 1px 0 #fff!important;
+  border-color: #ddd #ddd #ccc!important;
+  border-style: solid;
+  border-width: 1px!important;
+  text-decoration: none;
+  padding: 2px 4px 2px;
+  line-height: 14px;
+  font-size: 11px;
+  font-family: "lucida grande",helvetica,tahoma,arial;
+  display: inline-block;
+  _display: inline;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+a.a-btn,a.a-btn:visited {
+  color: #333!important;
+}
+a.a-btn:hover,a.a-btn:focus {
+  text-decoration: none;
+  border-color: #999 #999 #888!important;
+  color: #000;
+  outline: none;
+}
+a.a-btn:active {
+  background-image: none;
+  outline: none;
+}
+:focus {
+  -moz-outline-style: none;
+}
+a.a-btn-m {
+  font-size: 12px;
+  font-family: "helvetica neue",arial,sans-serif;
+  /*  padding: 5px 15px 6px;
+  line-height: 20px;*/
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background-position: 0 -200px;
+}
+
+a.a-btn-l {
+  font-size: 20px;
+  line-height: 26px;
+  padding: 7px 20px 8px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  font-family: "helvetica neue",arial,sans-serif;
+  background-position: 0 -400px;
+}
+
+a.btn-disabled {
+  opacity: .6;
+  filter: alpha(opacity=60);
+  background-image: none;
+}
+
+div.login-panel {
+  font-size: 12px;
+  margin: 2px 0 0 10px;
+}
+
+label.login-text {
+}
+
+input.login-textbox {
+  width: 80px;
+  margin: 0 10px 0 0;
+}
+
+span.login-user-name {
+  color: blue;
+  padding: 0px 8px;
+}
+
+span.s-btn {
+  margin: 0 4px;
+}
+
+div.info-panel {
+}
+
+table.info-table {
+  margin: 20px auto;
+  padding: 10px 10px 4px 10px;
+  border: groove;
+  border-width: thin;
+}
+
+td.info-label {
+  font-size: 12px;
+}
+
+td.info-content {
+}
+
+td.bottom-btn {
+  font-weight: bold;
+  text-align: center;
+}
+
+div.detail-panel-menu-bar {
+  height: 20px;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+div.detail-panel-close {
+  float: right;
+  width: 60px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #FCFCFC;
+  border-top-right-radius: 8px 8px;
+  border-top-left-radius: 8px 8px;
+  -moz-border-top-right-radius: 8px 8px;
+  -moz-border-top-left-radius: 8px 8px;
+  margin: 1px 0 0 0;
+}
+
+img.detail-panel-close-btn {
+  margin: 4px 0 0 0;
+  height: 12px;
+  width: 12px;
 }

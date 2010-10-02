@@ -11,9 +11,15 @@
 		loadJavascriptFiles(
 			[
 				"/js/base.js",
-				"/js/util/jQuery.debug.js",
 				"/js/util/queue.js",
-				"/js/views/group.js"
+				"/js/views/group.js",
+				"/js/views/login.js",
+				"/js/views/register.js",
+				"/js/dataadaptor/login.js",
+				"/js/util/htmlholder.js",
+				"/js/commands/login.js",
+				"/js/panel.js",
+				"/js/layouts/vertical.js"
 			]
 		);
 		loadCssFiles (
@@ -62,8 +68,6 @@
 	<div id="background_picture"></div>
 	<div id="main-panel">
 		<div id="main-panel-overlay"></div>
-		<div id="login" title="Login" style="display:none;">
-		</div>
 		<div id="content-panel">
 			{% block content %}
 			<table width="100%">
@@ -73,8 +77,17 @@
 							<div id="left-panel"></div>
 						</td>
 						<td width="50%" valign="top">
-							<div id="right-panel"> Right Panel </div>
-							<div id="detail_panel"> Detail Panel</div>
+							<div id="right-panel">
+							</div>
+							<div id="detail-panel">
+								<div class="detail-panel-menu-bar">
+									<div id="detail-panel-close" class="detail-panel-close">
+										<span>关闭</span>
+										<img class="detail-panel-close-btn" src="/images/back-icon.png" />
+									</div>
+								</div>
+								<div id="detail-content"></div>
+							</div>
 						</td>
 					</tr>
 				</tbody>
