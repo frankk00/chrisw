@@ -21,7 +21,7 @@ class User(db.Model):
   photo_url = db.StringProperty(required=False, default="http://v2ex.appspot.com/avatar/252/large")
   
   def can_visit_key(self, user, key):
-    """Privacy protection"""
+    """Privacy control, protect ur privacy here"""
     if key == 'password':
       return False
     elif key == 'email':
@@ -30,7 +30,7 @@ class User(db.Model):
     return True
   
   def put(self):
-    """docstring for put"""
+    """User could be built from sessions, need write through these users"""
     from auth import get_current_user, update_current_user
     
     user = get_current_user()

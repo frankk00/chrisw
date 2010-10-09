@@ -39,7 +39,7 @@ class UserForm(djangoforms.ModelForm):
   """docstring for UserForm"""
   class Meta:
     model = User
-    fields = ["fullname", "password", "email"]
+    fields = ["fullname", "email"]
 
 class ProfilePhotoForm(forms.Form):
   """docstring for ProfilePhoto"""
