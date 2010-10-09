@@ -46,6 +46,20 @@ div.sidebar_box {
   margin: 10px;
 }
 
+dl.member_box {
+  display: inline; 
+  float:left; 
+  width: 78px;
+}
+  dl.member_box dt.photo {
+    text-align: center;
+  }
+  dl.member_box dd.name {
+    text-align: center; 
+    height: 30px; 
+    margin-left: 0;
+  }
+
 li.topic_list {
   list-style: none outside none;
   border-bottom: 1px solid #EEEEEE;

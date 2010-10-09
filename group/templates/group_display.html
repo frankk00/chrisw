@@ -21,7 +21,7 @@
 
 {% block sidebar %}
 	<div class="info_box">
-		<div id="group_info" class="sidebar_box" style="border: 1px solid #EEEEEE; padding: 10px;">
+		<div id="group_info" class="sidebar_box">
 			<p>
 				Created at {{group.create_time}} by {{group.create_user.fullname}}
 			</p>
@@ -43,14 +43,14 @@
 			{% endif %}
 		</ul>
 	</div>
-	<div id="group_member_box" class="sidebar_box" style="border: 1px solid #EEEEEE; padding: 10px;">
+	<div id="group_member_box" class="sidebar_box" >
 		<h3>Group Members</h3>
 		{% for member in members %}
-			<dl style="diplay:inline; float:left; width: 78px;">
-				<dt style="text-align: center;">
+			<dl class="member_box">
+				<dt class="photo">
 					<a href="/u/{{member.key.id}}"><img src="{{member.photo_url}}=s48"/></a>
 				</dt>
-				<dd style="text-align: center; height: 30px; margin-left: 0;">
+				<dd class="name">
 					{{ member.fullname }}
 				</dd>
 			</dl>
