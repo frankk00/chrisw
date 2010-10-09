@@ -50,9 +50,10 @@ class SiteUI(PermissionUI):
     if self.groupinfo:
       # user
       groups = build_groups(self.groupinfo.group_ids)
-      if not groups:
-        # new to group
-        groups = recommend_groups
+      
+    if not 'groups' in locals():
+      # new to group
+      groups = recommend_groups
 
     topics = Topic.all().filter("group IN", groups).order("-update_time").fetch(20)
     

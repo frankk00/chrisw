@@ -39,7 +39,7 @@ class UserForm(djangoforms.ModelForm):
   """docstring for UserForm"""
   class Meta:
     model = User
-    fields = ["fullname", "email"]
+    fields = ["fullname", "email", "status_message"]
 
 class ProfilePhotoForm(forms.Form):
   """docstring for ProfilePhoto"""
@@ -81,7 +81,19 @@ class UserUI(PermissionUI):
   # same to the previous method
   def profile_post(self, request):
     """docstring for edit_post"""
-    pass
+    form = UserForm(data=request.POST, instance=self.user)
+    if form.is_valid():
+      user = form.save(commit=False)
+      user.put()
+      
+      redirect('u/profile')
+    
+    # redraw the settings page
+    photo_form = ProfilePhotoForm()
+    photo_upload_url = photo.create_upload_url()
+    back_url = request.path
+      
+    return template('user_profile', locals())
   
 
 class UserHandler(webapp.RequestHandler):

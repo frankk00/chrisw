@@ -184,6 +184,7 @@ def api_enabled(func):
     result_type = self.request.get('result_type', default_value="html")  
     fields = self.request.get('fields', default_value="{}")
     error = None
+    fields_dict = {}
     
     try:
       
