@@ -16,5 +16,9 @@ handlers:
   static_files: assets/js/\1
   upload: assets/js/(.*)
 
+- url: /javascript/(.*)
+  static_files: assets/javascript/\1
+  upload: assets/javascript/(.*)
+
 - url: .*
   script: main.py

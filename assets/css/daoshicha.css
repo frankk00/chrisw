@@ -68,6 +68,13 @@ li.topic_list {
   li.topic_list:first-child{
     border-top: 1px solid #EEEEEE;
   }
+  
+  li.topic_list:hover {
+    background:none repeat scroll 0 0 #F4F4F4;
+    border-top:1px solid #EBEBEB;
+    cursor:pointer;
+/*    margin-top:-1px;*/
+  }
 
 span.topic_author_photo {
   width: 50px;
@@ -80,6 +87,13 @@ span.topic_content {
   min-height: 48px;
   display: block;
 }
+
+.topic_list .topic_actions {
+  visibility: hidden;
+}
+  .topic_list:hover .topic_actions {
+    visibility: visible;
+  }
 
 a.a-btn {
   zoom: 1;

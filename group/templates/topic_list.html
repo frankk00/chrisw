@@ -1,7 +1,8 @@
-<div id="topics">
-	<ol>
+
+<div id="topic-box">
+	<ol class="topics">
 		{% for topic in topics %}
-			<li class="topic_list">
+			<li class="topic_list" data-topic-id="{{topic.key.id}}">
 				<span class="topic_author_photo">
 					<img src="{{topic.author.photo_url}}=s48">
 				</span>
