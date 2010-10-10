@@ -29,7 +29,11 @@ def to_dict(model):
     # model is db.Model
     items = model.properties().iteritems()
     output['model_class'] = model.__class__.__name__
-    output['model_id'] = model.key().id()
+    
+    try:
+      output['model_id'] = model.key().id()
+    except db.NotSavedError, e:
+      output['model_id'] = "undefined"
   elif hasattr(model, 'items'):
     items = model.items()
   elif isinstance(model, SIMPLE_TYPES) or model is None:
