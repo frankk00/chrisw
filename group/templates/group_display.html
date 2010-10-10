@@ -37,13 +37,13 @@
 	<div id="control">
 		<ul>
 			{% if can_join %}
-				<a class="a-btn a-btn-m" id="tweeting_button" tabindex="2" href="/group/{{group.key.id}}/join"><span>Join Group</span></a>
+				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/join"><span>Join Group</span></a>
 			{% endif %}
 			{% if can_quit %}
-				<a class="a-btn a-btn-m" tabindex="2" href="/group/{{group.key.id}}/quit"><span>Quit Group</span></a>
+				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/quit"><span>Quit Group</span></a>
 			{% endif %}
 			{% if can_edit %}
-				<a class="a-btn a-btn-m" tabindex="2" href="/group/{{group.key.id}}/edit"><span>Group Settings</span></a>
+				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/edit"><span>Group Settings</span></a>
 			{% endif %}
 		</ul>
 	</div>

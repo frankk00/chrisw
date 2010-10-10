@@ -6,14 +6,35 @@
 
 {% block content %}
 	
-	<table border="0" cellspacing="5" cellpadding="5">
-		<tr><th>{{ topic.title }}</th></tr>
-		<tr><td>{{ topic.content }}</td></tr>
-	</table>
-	<table border="0" cellspacing="5" cellpadding="5">
+	<div id="group_title" class="info_box">
+			<h2 style="vertical-align: middle;">
+				{{topic.title}}
+				
+				{% if can_create_topic %}
+					<span style="float: right;">
+						<a class="a-btn a-btn-m" tabindex="2" href="/group/topic/{{topic.key.id}}/new"><span>New Post</span></a>
+					</span>
+				{% endif %}
+			</h2>
+			<div id="topic_content">
+				{{ topic.content }}
+			</div>
+	</div>
+	
+	<ol class="posts">
 		{% for post in posts %}
-			<tr><td>{{ post.user.username }}</td><td>{{post.title}}</td><td>{{post.content}}</td></tr>
+			<li class="post_list" data-topic-id="{{topic.key.id}}">
+				<span class="post_author_photo">
+					<img src="{{topic.author.photo_url}}=s48">
+				</span>
+				<span class="post_content"> 
+					<span style="display: block; margin-bottom: 5px;">
+						{{ post.content }}
+					</span>
+					<span style=" color: #999999;">{{ post.create_time }} by {{ post.author.fullname }}</span>
+				</span>
+			</li>
 		{% endfor %}
-	</table>
+	</ol>
 	
 {% endblock %}
