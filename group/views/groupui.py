@@ -57,6 +57,9 @@ class GroupUI(PermissionUI):
     """docstring for edit"""
     form = GroupForm(data=self.group.to_dict())
     post_url = '/group/%d/edit' % self.group.key().id()
+    
+    
+    
     return template('item_new', locals())
   
   @check_permission('edit', "Not a admin user")

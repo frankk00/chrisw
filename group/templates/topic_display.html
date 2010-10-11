@@ -37,4 +37,10 @@
 		{% endfor %}
 	</ol>
 	
+	<form action="/group/topic/{{topic.key.id}}/new" method="POST" accept-charset="utf-8">
+		{{ post_form.as_p }}
+
+		<p><input type="submit" value="Add Post"></p>
+	</form>
+	
 {% endblock %}
