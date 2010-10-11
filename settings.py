@@ -26,3 +26,8 @@ LIB_DIRS = (ROOT_PATH + "/lib",)
 
 LOGIN_URL = "/login"
 
+
+DEFAULT_USER_PHOTO = "http://v2ex.appspot.com/avatar/252/large"
+
+DEFAULT_GROUP_PHOTO = DEFAULT_USER_PHOTO
+

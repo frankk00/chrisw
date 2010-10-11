@@ -12,6 +12,8 @@ from google.appengine.api import users
 from api import db
 from duser import User
 
+import settings
+
 class Site(db.Model):
   """a faked object"""
   def get_groups(self):
@@ -36,6 +38,7 @@ class Group(db.Model):
   create_user = db.ReferenceProperty(User)
   admin_user_ids = db.ListProperty(int,required=True, default=[])
   member_ids = db.ListProperty(int,required=True, default=[])
+  photo_url = db.StringProperty(default=settings.DEFAULT_GROUP_PHOTO)
     
   def can_view(self, user):
     """docstring for can_see"""

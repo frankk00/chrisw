@@ -18,11 +18,16 @@ from api.webapp import *
 from group.models import *
 from duser.models import User
 from topic import TopicForm
+from api.helpers import fields, forms
 
 class GroupForm(djangoforms.ModelForm):
   class Meta:
     model = Group
     fields = ['title', 'introduction']
+
+class GroupPhotoForm(forms.Form):
+  """docstring for ProfilePhoto"""
+  photo = fields.ImageField(label="Profile Picture")
 
 class GroupUI(PermissionUI):
   """docstring for GroupUI"""
@@ -53,14 +58,22 @@ class GroupUI(PermissionUI):
   
   @view_method
   @check_permission('edit', "Not a admin user")
-  def edit(self):
+  def edit(self, request):
     """docstring for edit"""
+    
+    if request.get('image_url', ''):
+      self.group.photo_url = request.get('image_url')
+      self.group.put()
+    
     form = GroupForm(data=self.group.to_dict())
     post_url = '/group/%d/edit' % self.group.key().id()
     
+    from front.views import photo
+    photo_form = GroupPhotoForm()
+    photo_upload_url = photo.create_upload_url()
+    back_url = request.path
     
-    
-    return template('item_new', locals())
+    return template('group_settings', locals())
   
   @check_permission('edit', "Not a admin user")
   def edit_post(self, request):
@@ -71,6 +84,7 @@ class GroupUI(PermissionUI):
       new_group.put()
       return redirect('/group/%d' % self.group.key().id())
     return template('item_new', locals())
+    
   """ deprecated  
   @view_method
   @check_permission('view', "Not allowed to open the group")
@@ -90,6 +104,7 @@ class GroupUI(PermissionUI):
     items = topics
     return template('item_list', locals())
   """  
+  
   @view_method
   @check_permission('join', "Can't join group")
   def join(self):
@@ -170,7 +185,7 @@ class GroupNewTopicHandler(GroupHandler):
 class GroupEditHandler(GroupHandler):
   """docstring for GroupNewTopicHandler"""
   def get_impl(self, groupui):
-    return groupui.edit()
+    return groupui.edit(self.request)
     
   def post_impl(self, groupui, request):
     return groupui.edit_post(request)

@@ -34,3 +34,14 @@ def inspect_permissions(model_obj, user = Guest):
         out[name] = member(user)
   
   return out
+
+# importing helper
+# import form fields
+from django import forms
+try:
+  # for django 1.1
+  from django.forms import CharField
+  from django import forms as fields
+except ImportError:
+  # django 0.9
+  from django.db import models as fields

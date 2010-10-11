@@ -9,6 +9,7 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 from google.appengine.api import users
 from api import db
+import settings
 
 class User(db.Model):
   """docstring for User"""
@@ -17,8 +18,8 @@ class User(db.Model):
   create_date = db.DateTimeProperty(auto_now_add=True)
   password = db.StringProperty(required=True)
   email = db.EmailProperty(required=True)
-  status_message = db.StringProperty(required=False, default="")
-  photo_url = db.StringProperty(required=False, default="http://v2ex.appspot.com/avatar/252/large")
+  status_message = db.StringProperty(default="")
+  photo_url = db.StringProperty(default=settings.DEFAULT_USER_PHOTO)
   
   def can_visit_key(self, user, key):
     """Privacy control, protect ur privacy here"""
