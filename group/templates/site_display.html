@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load filters %}
 
 {% block title %}
 	Welcome to daoshicha.com
@@ -12,10 +13,22 @@
 {% endblock %}
 
 {% block sidebar %}
-	<div id="groups">
-		{% for group in recommend_groups %}
-			<span> {{ group.title }}</span>
-			<span><a href="/group/{{group.key.id}}">View</a></span>
-		{% endfor %}
+	<div id="my_groups" class="grid_3 alpha dashboard">
+		<h3>My Groups</h3>
+		<p>clear</p>
+	</div>
+	<div id="groups" class="grid_3 omega dashboard">
+		<h3>Recommend Groups</h3>
+		<ul>
+			{% for group in recommend_groups %}
+				<li>
+					<a class="group-photo" href="/group/{{group.key.id}}"><img src="{{group.photo_url}}=s32" /></a>
+					<div class="group-title">
+						<a class="group-name" href="/group/{{group.key.id}}">{{ group.title }}</a>
+						<span class="group-info">{{ group.introduction|truncatesmart:2 }}</span>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
 	</div>
 {% endblock %}

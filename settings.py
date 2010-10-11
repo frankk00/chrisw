@@ -26,6 +26,7 @@ LIB_DIRS = (ROOT_PATH + "/lib",)
 
 LOGIN_URL = "/login"
 
+INSTALLED_APPS = ('front')
 
 DEFAULT_USER_PHOTO = "http://v2ex.appspot.com/avatar/252/large"
 

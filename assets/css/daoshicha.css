@@ -76,6 +76,50 @@ li.topic_list {
 /*    margin-top:-1px;*/
   }
 
+.dashboard{
+  
+}
+  .dashboard ul, .dashboard ul li{
+    list-style: none outside none;
+    margin: 0;
+  }
+
+.group-photo{
+  display:block;
+  float:left;
+  height:32px;
+  overflow:hidden;
+  width:32px;
+}
+
+.group-title{
+  display:block;
+  font-size:13px;
+  font-weight:normal;
+  line-height:16px;
+  margin-left:38px;
+  outline:medium none;
+  padding-left:2px;
+  padding-top:2px;
+}
+
+.group-name{
+  display:inline-block;
+  font-size:13px;
+  font-weight:bold;
+  margin-top:-1px;
+  max-width:88px;
+  overflow:hidden;
+}
+
+.group-info{
+  display:block;
+  font-size:12px;
+  height:14px;
+  margin-top:-2px;
+  overflow:hidden;
+}
+
 span.topic_author_photo {
   width: 50px;
   position: absolute;
