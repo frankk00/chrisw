@@ -19,6 +19,10 @@ def truncatesmart(value, limit=80):
     Usage:
         {{ string|truncatesmart }}
         {{ string|truncatesmart:50 }}
+        
+    Note: this snippet is get from the web:
+    http://djangosnippets.org/snippets/1259/
+    
     """
     
     try:
