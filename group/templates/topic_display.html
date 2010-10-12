@@ -21,18 +21,26 @@
 			</div>
 	</div>
 	
-	<ol class="posts">
+	<ol class="post-list">
 		{% for post in posts %}
-			<li class="post_list" data-topic-id="{{topic.key.id}}">
-				<span class="post_author_photo">
+			<li class="post" data-topic-id="{{topic.key.id}}">
+				<div class="post-author-photo">
 					<img src="{{topic.author.photo_url}}=s48">
-				</span>
-				<span class="post_content"> 
-					<span style="display: block; margin-bottom: 5px;">
+				</div>
+				<div class="post-content"> 
+					<div style=" color: #999999;">
+						{{ post.create_time|date:"Y-n-j H:i" }} by 
+						<a href="/u/post.author.key.id">
+							{{ post.author.fullname }} 
+						</a>
+						{% if post.author.status_message %}
+							({{ post.author.status_message }})
+						{% endif %}
+					</div>
+					<div style="display: block; margin-bottom: 5px;">
 						{{ post.content }}
-					</span>
-					<span style=" color: #999999;">{{ post.create_time }} by {{ post.author.fullname }}</span>
-				</span>
+					</div>
+				</div>
 			</li>
 		{% endfor %}
 	</ol>

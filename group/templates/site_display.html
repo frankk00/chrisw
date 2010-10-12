@@ -5,6 +5,10 @@
 	Welcome to daoshicha.com
 {% endblock %}
 
+{% block html_head %}
+	<script type="text/javascript" charset="utf-8" src="/javascript/topic.js"></script>
+{% endblock %}
+
 {% block content %}
 	<div id="group_title">
 		<h2>Latest Post</h2>
@@ -14,7 +18,7 @@
 
 {% block sidebar %}
 	<hr></hr>
-	<div id="my_groups" class="grid_3 alpha dashboard">
+	<div id="groups" class="grid_3 alpha dashboard">
 		<h3>You Joined Groups</h3>
 		<ul>
 			{% for group in groups %}
@@ -30,7 +34,7 @@
 		
 		<p class="clear"></p>
 	</div>
-	<div id="groups" class="grid_3 omega dashboard">
+	<div id="recommend-groups" class="grid_3 omega dashboard">
 		<h3>Recommend Groups</h3>
 		<ul>
 			{% for group in recommend_groups %}

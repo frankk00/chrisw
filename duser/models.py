@@ -53,6 +53,7 @@ class User(db.Model):
     """docstring for full_photo"""
     return self.photo_url
 
+
 Guest = User.all().filter('username =', "__GuestUserName").get()
 
 if not Guest:

@@ -76,6 +76,22 @@ li.topic_list {
 /*    margin-top:-1px;*/
   }
 
+.post-list{
+  margin: 0px;
+}
+
+.post{
+  list-style: none outside none;
+}
+
+.post-author-photo{
+  float:left;
+  height:48px;
+  margin-top:3px;
+  overflow:hidden;
+  width:48px;
+}
+
 .dashboard{
   
 }

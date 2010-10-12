@@ -8,10 +8,10 @@
  
 $(document).ready(function()
 {
+  // add hooks for all topic items
   $("ol.topics > li").click(function(event){
     var $target = $(event.currentTarget);
     var topic_url = "/group/topic/" + $target.attr('data-topic-id');
-    // alert("url " + topic_url)
     window.location.replace(topic_url);
   })
 })
