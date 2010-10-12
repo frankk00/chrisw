@@ -14,6 +14,11 @@
 	
 	<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	
+	<style type="text/css" media="screen">
+		body.user-style{
+			background-image:url("http://s.twimg.com/a/1286563368/images/themes/theme9/bg.gif");
+		}
+	</style>
 	<title>{% block title %}
 		Title
 	{% endblock %}</title>
@@ -23,14 +28,14 @@
 	{% endblock %}
 </head>
 
-<body>
+<body class="user-style">
 	<div id="wrapper" class="container_12">
 		
 		<div id="top-bar-outer" class="container_12">
 			<div id="top-bar-bg">
 				<div id="top-bar">
 					<div id="top-bar-inside">
-						<h1 id="daoshicha" style="margin:16px 0 16px;"><strong>Daoshicha</strong>.com</h1>
+						<h1 id="daoshicha" style="vertical-align:text-top; margin: 0px; color:white;"><strong>Daoshicha</strong>.com</h1>
 						<hr>
 					</div>
 				</div>
@@ -49,14 +54,17 @@
 			</div>
 			<div class="clear">
 			</div>
-		</div>
-		<div id="footer">
-			<span id="cp">
-			    &copy; 2005－2010 Daoshicha, all rights reserved
-			</span>
-			<span style="float: right;">
-				Powered by <a href="http://github.com/kangzhang/chrisw/">Chrisw</a>
-			</span>
+			
+			<div id="footer" class="grid_12" style="bottom:0px;">
+				<hr></hr>
+				<span id="cp">
+				    &copy; 2005－2010 Daoshicha, all rights reserved
+				</span>
+				<span style="float: right; padding-right:10px;">
+					Powered by <a href="http://github.com/kangzhang/chrisw/">Chrisw</a>
+				</span>
+			</div>
+			<div class="clear">
 		</div>
 	</div>
 
