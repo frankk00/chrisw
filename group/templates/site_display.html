@@ -16,7 +16,19 @@
 	<hr></hr>
 	<div id="my_groups" class="grid_3 alpha dashboard">
 		<h3>You Joined Groups</h3>
-		<p>clear</p>
+		<ul>
+			{% for group in groups %}
+				<li>
+					<a class="group-photo" href="/group/{{group.key.id}}"><img src="{{group.photo_url}}=s32" /></a>
+					<div class="group-title">
+						<a class="group-name" href="/group/{{group.key.id}}">{{ group.title }}</a>
+						<span class="group-info">{{ group.introduction|truncatesmart:20 }}</span>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+		
+		<p class="clear"></p>
 	</div>
 	<div id="groups" class="grid_3 omega dashboard">
 		<h3>Recommend Groups</h3>

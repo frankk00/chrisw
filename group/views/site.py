@@ -47,14 +47,12 @@ class SiteUI(PermissionUI):
 
     recommend_groups = Group.all().fetch(10)
     
+    groups = ()
+    
     if self.groupinfo:
       # user
       groups = build_groups(self.groupinfo.group_ids)
       
-    if not 'groups' in locals():
-      # new to group
-      groups = recommend_groups
-
     topics = Topic.all().filter("group IN", groups).order("-update_time").fetch(20)
     
     logging.debug("Fetched recent topics" + str(topics))
