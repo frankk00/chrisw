@@ -78,10 +78,12 @@ li.topic_list {
 
 .post-list{
   margin: 0px;
+  margin-left: 30px;
 }
 
 .post{
   list-style: none outside none;
+  margin-top: 40px;
 }
 
 .post-author-photo{
@@ -90,6 +92,18 @@ li.topic_list {
   margin-top:3px;
   overflow:hidden;
   width:48px;
+}
+
+.post-content{
+  padding-left: 56px;
+}
+
+.post-meta{
+}
+
+.post-body{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .dashboard{

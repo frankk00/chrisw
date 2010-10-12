@@ -6,7 +6,7 @@
 
 {% block content %}
 	
-	<div id="group_title" class="info_box">
+	<div class="info_box">
 			<h2 style="vertical-align: middle;">
 				{{topic.title}}
 				
@@ -16,8 +16,24 @@
 					</span>
 				{% endif %}
 			</h2>
-			<div id="topic_content">
-				{{ topic.content }}
+			<div class="topic post" style="margin-top: 0px;">
+				<div class="topic-author-photo post-author-photo">
+					<a href="/u/{{topic.author.key.id}}">
+						<img src="{{topic.author.photo_url}}=s48">
+					</a>
+				</div>
+				<div class="topic-content post-content">
+					<div class="topic-meta post-meta">
+						{{ topic.create_time|date:"Y-n-j H:i" }} by
+						<a href="/u/topic.author.key.id">{{ topic.author.fullname }}</a>
+						{% if topic.author.status_message %}
+							({{ topic.author.status_message }})
+						{% endif %}
+					</div>
+					<div class="topic-body">
+						{{ topic.content|linebreaks }}
+					</div>
+				</div>
 			</div>
 	</div>
 	
@@ -25,10 +41,12 @@
 		{% for post in posts %}
 			<li class="post" data-topic-id="{{topic.key.id}}">
 				<div class="post-author-photo">
-					<img src="{{topic.author.photo_url}}=s48">
+					<a href="/u/{{post.author.key.id}}">
+						<img src="{{post.author.photo_url}}=s48">
+					</a>
 				</div>
 				<div class="post-content"> 
-					<div style=" color: #999999;">
+					<div class="post-meta" style="color: #999999;">
 						{{ post.create_time|date:"Y-n-j H:i" }} by 
 						<a href="/u/post.author.key.id">
 							{{ post.author.fullname }} 
@@ -37,8 +55,8 @@
 							({{ post.author.status_message }})
 						{% endif %}
 					</div>
-					<div style="display: block; margin-bottom: 5px;">
-						{{ post.content }}
+					<div class="post-body" style="margin-bottom: 5px;">
+						{{ post.content|linebreaks }}
 					</div>
 				</div>
 			</li>
