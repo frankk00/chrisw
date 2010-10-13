@@ -19,7 +19,12 @@ class MainHandler(webapp.RequestHandler):
     from duser.auth import get_current_user
     self.response.out.write(render_to_string('base.html', {'user': get_current_user()}))
 
-apps = uhome.apps + userui.apps + photo.apps + [('/', MainHandler),]
+class URLStripper(webapp.RequestHandler):
+  def get(self, naked_url):
+    """docstring for get"""
+    self.redirect(naked_url, True)
+
+apps = uhome.apps + userui.apps + photo.apps + [('/', MainHandler),] + [('(.*)/', URLStripper),]
 
 def create_login_url(back_url):
   """docstring for create_login_url"""
