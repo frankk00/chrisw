@@ -12,6 +12,7 @@ $(document).ready(function()
   $("ol.topics > li").click(function(event){
     var $target = $(event.currentTarget);
     var topic_url = "/group/topic/" + $target.attr('data-topic-id');
-    window.location.replace(topic_url);
+    // window.location.replace(topic_url);
+    window.location = (topic_url);
   })
 })
