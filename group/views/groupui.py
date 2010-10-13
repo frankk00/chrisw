@@ -118,7 +118,7 @@ class GroupUI(PermissionUI):
     """docstring for delete"""
     message = 'Topic has been successfully deleted.'
     self.group.delete()
-    return template('item_new', locals())
+    return back()
   
   @view_method
   @check_permission('quit', "Is not member")
