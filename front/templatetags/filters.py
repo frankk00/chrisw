@@ -39,11 +39,14 @@ def truncatesmart(value, limit=80):
     if len(value) <= limit:
         return value
     
+    import logging
     # Cut the string
     value = value[:limit]
-    
+        
     # Break into words and remove the last
     words = value.split(' ')[:-1]
+    if not words:
+      words = (value,)
     
     # Join the words and return
     return ' '.join(words) + '...'
