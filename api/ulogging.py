@@ -12,12 +12,13 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 
 import logging
-
+import datetime
 
 def log(url):
   """docstring for log"""
   user = get_current_user()
   
-  logging.info("USER:[%d] Visited URL[%s]")
+  logging.info("%s USER:[%d] Visited URL[%s]" % str(datetime.now()), 
+                                                user.key().id(), url)
 
 
