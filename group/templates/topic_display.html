@@ -25,7 +25,7 @@
 				<div class="topic-content post-content">
 					<div class="topic-meta post-meta">
 						{{ topic.create_time|date:"Y-n-j H:i" }} by
-						<a href="/u/topic.author.key.id">{{ topic.author.fullname }}</a>
+						<a href="/u/{{topic.author.key.id}}">{{ topic.author.fullname }}</a>
 						{% if topic.author.status_message %}
 							({{ topic.author.status_message }})
 						{% endif %}
@@ -48,7 +48,7 @@
 				<div class="post-content"> 
 					<div class="post-meta" style="color: #999999;">
 						{{ post.create_time|date:"Y-n-j H:i" }} by 
-						<a href="/u/post.author.key.id">
+						<a href="/u/{{post.author.key.id}}">
 							{{ post.author.fullname }} 
 						</a>
 						{% if post.author.status_message %}
@@ -69,4 +69,10 @@
 		<p><input type="submit" value="Add Post"></p>
 	</form>
 	
+{% endblock %}
+
+{% block sidebar %}
+	<div class="grid_6 dashboard-widget">
+		<a href="/group/{{topic.group.key.id}}">Back to {{ topic.group.title }} Group</a>
+	</div>
 {% endblock %}
