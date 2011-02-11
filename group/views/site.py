@@ -47,7 +47,7 @@ class SiteUI(PermissionUI):
 
     recommend_groups = Group.all().fetch(10)
     
-    groups = ()
+    groups = recommend_groups
     
     if self.groupinfo:
       # user
