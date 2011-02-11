@@ -37,10 +37,10 @@
 	<div id="control" class="sidebar_box">
 		<ul>
 			{% if can_join %}
-				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/join"><span>Join Group</span></a>
+				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/join"><span>Follow Group</span></a>
 			{% endif %}
 			{% if can_quit %}
-				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/quit"><span>Quit Group</span></a>
+				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/quit"><span>Unfollow Group</span></a>
 			{% endif %}
 			{% if can_edit %}
 				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/edit"><span>Group Settings</span></a>

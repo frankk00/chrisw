@@ -105,6 +105,12 @@ class TopicUI(PermissionUI):
       new_post.topic = self.topic
       new_post.author = get_current_user()
       new_post.put()
+      
+      # update the topic's update time
+      import datetime
+      self.topic.update_time = datetime.datetime.now()
+      self.topic.put()
+      
       return redirect('/group/topic/%d' % self.topic.key().id())
     return template('item_new', locals())
 
