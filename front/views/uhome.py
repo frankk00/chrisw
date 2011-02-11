@@ -124,7 +124,9 @@ class UHomeUI(PermissionUI):
     form = RegForm(data=request.POST)
     if form.is_valid():
       new_user = form.save(commit=False)
+      new_user.change_to_gravatar_icon()
       new_user.put()
+      
       return template('signup_successful.html', locals())
     else:
       return template('signup.html', locals())

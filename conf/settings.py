@@ -33,11 +33,13 @@ DEFAULT_HOME = "/group"
 
 INSTALLED_APPS = ('front',)
 
-DEFAULT_USER_PHOTO = "http://www.waynejohn.com/wp-content/uploads/WindowsLiveWriter/WayneSimpson_120F1/_1221625200_102_thumb.gif"
+DEFAULT_USER_PHOTO = "http://www.gravatar.com/avatar.php?"
 
-DEFAULT_GROUP_PHOTO = DEFAULT_USER_PHOTO
+DEFAULT_GROUP_PHOTO = "http://www.gravatar.com/avatar/cf4773410a19cd50fc2b8bcaaef9a9dc?s=32"
 
 USE_I18N = True
+
+GRAVATAR_BASE = "http://www.gravatar.com/avatar/"
 
 # Valid languages
 LANGUAGES = (

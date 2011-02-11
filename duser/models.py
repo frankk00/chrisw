@@ -29,6 +29,13 @@ class User(db.Model):
       # can be visible by the user himself
       return user and user.username == self.username
     return True
+    
+  def change_to_gravatar_icon(self):
+    """docstring for change_to_gravatar"""
+    # use gravatar icon
+    import hashlib
+    self.photo_url = settings.GRAVATAR_BASE + \
+      str(hashlib.md5(self.email.lower()).hexdigest()) + "?d=identicon&s=48"
   
   def put(self):
     """User could be built from sessions, need write through these users"""
