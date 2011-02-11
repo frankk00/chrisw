@@ -3,6 +3,10 @@ Introduction of Chrisw
 Chrisw is designed to be a flexible, group-based social network site running
 on Google AppEngine, which shipped with an interactive web user interface.
 
+A running version of Chrisw can be found at:
+
+	http://daoshicha.appspot.com
+
 Installation
 ============
 Chrisw is not ready for release now. It's still under heavily development. 
