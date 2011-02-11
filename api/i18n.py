@@ -7,5 +7,4 @@ Created by Kang Zhang on 2010-09-26.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-import gettext
-_ = gettext.gettext
+from django.utils.translation import ugettext as _

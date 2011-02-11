@@ -44,8 +44,8 @@ GRAVATAR_BASE = "http://www.gravatar.com/avatar/"
 # Valid languages
 LANGUAGES = (
     # 'en', 'zh_TW' match the directories in conf/locale/*
-    ('en', _('English')),
-    ('zh_CN', _('Chinese')),
+    ('en', 'English'),
+    ('zh_CN', 'Chinese'),
     # or ('zh-tw', _('Chinese')), # But the directory must still be conf/locale/zh_TW
     )
 
