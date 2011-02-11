@@ -26,6 +26,9 @@ it yet.
 About
 =====
 
-Maintainer:
-    Kang Zhang (jobo.zh AT gmail.com)
-    Yizhen Zhao(andyzhau AT gmail.com)
+:Authors:
+    Kang Zhang (jobo.zh AT gmail.com) http://home.kangzhang.org
+
+    Yizhen Zhao(andyzhau AT gmail.com) http://andyzh1314.ycool.com
+
+:Version: 0.2
