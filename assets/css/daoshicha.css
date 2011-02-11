@@ -1,4 +1,6 @@
-
+body {
+    font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
+}
 
 #wrapper {
   padding: 1.5em 10px;
