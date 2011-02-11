@@ -136,6 +136,10 @@ def view_method(func):
       for key in ('self', 'model_obj', 'model_user'):
         if var_dict.has_key(key): 
           del var_dict[key]
+      
+      from api.helpers import inspect_permissions
+      # add permission info in vardict
+      var_dict.update( inspect_permissions(self.model_obj, get_current_user()) )
     
     return action
     

@@ -63,6 +63,7 @@ class TopicUI(PermissionUI):
     count = query.count(2000)
     posts = query.fetch(limit, offset)
     post_form = PostForm()
+    
     return template('topic_display', locals())
   
   @view_method

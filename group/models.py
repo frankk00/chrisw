@@ -95,11 +95,11 @@ class Topic(db.Model):
   
   def can_edit(self, user):
     """docstring for can_edit"""
-    return user.username == author.username
+    return user.username == self.author.username
   
   def can_reply(self, user):
     """docstring for can_create_thread"""
-    from duser.auth import get_current_user, Guest
+    from duser.auth import Guest
     return self.can_view(user) and user != Guest
   
   def can_delete(self):
