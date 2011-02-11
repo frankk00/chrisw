@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-11 23:37+0800\n"
+"POT-Creation-Date: 2011-02-11 23:51+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,19 +36,19 @@ msgstr ""
 
 #: front/views/uhome.py:64 front/views/userui.py:45
 msgid "Full Name"
-msgstr ""
+msgstr "昵称"
 
 #: front/views/uhome.py:70 front/views/userui.py:49
 msgid "Email"
-msgstr ""
+msgstr "邮件地址"
 
 #: front/views/userui.py:47
 msgid "Status Message"
-msgstr ""
+msgstr "状态信息"
 
 #: front/views/userui.py:53 group/views/groupui.py:37
 msgid "Profile Picture"
-msgstr ""
+msgstr "用户头像"
 
 #: group/templates/group_display.html:20 group/templates/topic_display.html:17
 msgid "New Topic"
@@ -104,7 +104,7 @@ msgstr "回复"
 
 #: group/views/groupui.py:30
 msgid "Group Title"
-msgstr ""
+msgstr "小组名称"
 
 #: group/views/groupui.py:32
 #, fuzzy
@@ -113,12 +113,12 @@ msgstr "小组设置"
 
 #: group/views/topic.py:40
 msgid "Topic Title"
-msgstr ""
+msgstr "标题"
 
 #: group/views/topic.py:42
 msgid "Topic Content"
-msgstr ""
+msgstr "内容"
 
 #: group/views/topic.py:51
 msgid "Post Content"
-msgstr ""
+msgstr "回复"
