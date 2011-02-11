@@ -30,11 +30,11 @@ class GroupForm(djangoforms.ModelForm):
   title = fields.CharField(label = _("Group Title"), min_length=2,\
     max_length=10)
   introduction = fields.CharField(label = _("Group Introductioin"),\
-    min_length=2, max_length = 2000)
+    widget=forms.Textarea, min_length=2, max_length = 2000)
 
 class GroupPhotoForm(forms.Form):
   """docstring for ProfilePhoto"""
-  photo = fields.ImageField(label = _("Profile Picture"))
+  photo = fields.ImageField(label = _("Group Picture"))
 
 class GroupUI(PermissionUI):
   """docstring for GroupUI"""
