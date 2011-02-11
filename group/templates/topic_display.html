@@ -65,11 +65,13 @@
 		{% endfor %}
 	</ol>
 	
-	<form action="/group/topic/{{topic.key.id}}/new" method="POST" accept-charset="utf-8">
-		{{ post_form.as_p }}
+	{% if can_reply %}
+		<form action="/group/topic/{{topic.key.id}}/new" method="POST" accept-charset="utf-8">
+			{{ post_form.as_p }}
 
-		<p><input type="submit" value="{% trans "Add Post" %}"></p>
-	</form>
+			<p><input type="submit" value="{% trans "Add Post" %}"></p>
+		</form>
+	{% endif %}
 	
 {% endblock %}
 

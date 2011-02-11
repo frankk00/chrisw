@@ -53,7 +53,8 @@ class TopicUI(PermissionUI):
     self.topic = topic
   
   @view_method
-  @check_permission('view', "Not allowed to open topic")
+  #allow guest usesrs to login
+  #@check_permission('view', "Not allowed to open topic")
   def view(self, request):
     """docstring for view"""
     limit = int(request.get('limit', '20'))

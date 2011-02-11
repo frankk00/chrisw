@@ -99,7 +99,8 @@ class Topic(db.Model):
   
   def can_reply(self, user):
     """docstring for can_create_thread"""
-    return self.can_view(user)
+    from duser.auth import get_current_user, Guest
+    return self.can_view(user) and user != Guest
   
   def can_delete(self):
     """docstring for can_delete"""
