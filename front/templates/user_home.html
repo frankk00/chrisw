@@ -1,0 +1,13 @@
+{% extends "front_master.html" %}
+
+{% block title %}
+	The homepage for user
+{% endblock %}
+
+
+{% block content %}
+	<table border="0" cellspacing="5" cellpadding="5">
+		<tr><th>User Name</th></tr>
+		<tr><td>{{ user.username }}</td></tr>
+	</table>
+{% endblock %}
