@@ -39,7 +39,6 @@ def truncatesmart(value, limit=80):
     if len(value) <= limit:
         return value
     
-    import logging
     # Cut the string
     value = value[:limit]
         

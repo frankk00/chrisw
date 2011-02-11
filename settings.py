@@ -28,7 +28,7 @@ LOGIN_URL = "/login"
 
 DEFAULT_HOME = "/group"
 
-INSTALLED_APPS = ('front')
+INSTALLED_APPS = ('front',)
 
 DEFAULT_USER_PHOTO = "http://www.waynejohn.com/wp-content/uploads/WindowsLiveWriter/WayneSimpson_120F1/_1221625200_102_thumb.gif"
 
