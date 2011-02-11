@@ -55,7 +55,7 @@ class UserUI(PermissionUI):
   @check_permission("view", "Can't view the user's profile")
   def view(self):
     """the view of user profile"""
-    return None
+    return template('user_home', locals())
   
   # every user can only see his/her own setting page, don't need check
   # the permission

@@ -27,6 +27,7 @@ class PhotoHandler(blobstore_handlers.BlobstoreUploadHandler):
   @api_enabled
   def post(self):
     upload_files = self.get_uploads()  # 'file' is file upload field in the form
+    photo_url = None
     back_url = self.request.headers.get('Referer','/') #self.request.get("back_url", "/")
     max_size = int(self.request.get("max_size", 102400))
     
@@ -44,19 +45,22 @@ class PhotoHandler(blobstore_handlers.BlobstoreUploadHandler):
       from google.appengine.api import images
       
       blob_key = str(blob_info.key())
-      url = images.get_serving_url(blob_key)
+      photo_url = images.get_serving_url(blob_key)
       
-      photo = Photo(blob_key=blob_key, url=url)
+      photo = Photo(blob_key=blob_key, url=photo_url)
       photo.put()
         
-      import urllib
-      back_url = back_url + "?image_url=" + urllib.quote_plus(url)
-      
-      return redirect(back_url)
     else:
       blob_info.delete()
-      import errors
-      raise errors.Error("File is too large")
+      logging.error("User's avatar is too large for %s", user.username)
+
+    import urllib
+    if photo_url:
+      back_url = back_url + "?image_url=" + urllib.quote_plus(photo_url)
+
+    return redirect(back_url)
+    
+    
 
 apps = [(r'/img/upload', PhotoHandler),
         ]

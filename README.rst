@@ -26,4 +26,6 @@ it yet.
 About
 =====
 
-To contact me, you could mail jobo DOT zh AT gmail.com, :-)
+Maintainer:
+    Kang Zhang (jobo.zh AT gmail.com)
+    Yizhen Zhao(andyzhau AT gmail.com)

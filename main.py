@@ -39,7 +39,7 @@ def main():
                        "Resources/google_appengine/lib/django/")
   
   for k in [k for k in sys.modules if k.startswith('django')]:
-     del sys.modules[k]
+    del sys.modules[k]
   
   from google.appengine.dist import use_library
   use_library('django', '1.1')
@@ -47,6 +47,9 @@ def main():
   # patchs for django 0.96, should be remove for 1.1
   from django.conf import settings as djsettings
   djsettings.TEMPLATE_DIRS += settings.TEMPLATE_DIRS
+  
+  # try to fix SystemError: Parent module 'django.utils.translation' not loaded
+  djsettings._target = None
   
   import front, group
   application = webapp.WSGIApplication( front.apps + group.apps, 
