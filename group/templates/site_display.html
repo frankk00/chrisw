@@ -19,7 +19,7 @@
 
 {% block sidebar %}
 	<hr></hr>
-	<div id="groups" class="grid_3 alpha dashboard-widget">
+	<div id="groups" class="grid_9 dashboard-widget">
 		<h3>{% trans "You Followed Groups" %}</h3>
 		<ul>
 			{% for group in my_groups %}
@@ -35,7 +35,7 @@
 		
 		<p class="clear"></p>
 	</div>
-	<div id="recommend-groups" class="grid_3 omega dashboard-widget">
+	<div id="recommend-groups" class="grid_9 dashboard-widget">
 		<h3>{% trans "Recommend Groups" %}</h3>
 		<ul>
 			{% for group in recommend_groups %}
