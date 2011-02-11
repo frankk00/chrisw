@@ -87,6 +87,7 @@ class Topic(db.Model):
   title = db.TextProperty()
   content = db.TextProperty()
   group = db.ReferenceProperty(Group)
+  length = db.IntegerProperty(default=1)
   
   def can_view(self, user):
     """docstring for can_view"""

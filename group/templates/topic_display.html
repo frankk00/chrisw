@@ -1,5 +1,7 @@
 {% extends "group_master.html" %}
 
+{% load i18n %}
+
 {% block title %}
 	
 {% endblock %}
@@ -12,7 +14,7 @@
 				
 				{% if can_create_topic %}
 					<span style="float: right;">
-						<a class="a-btn a-btn-m" tabindex="2" href="/group/topic/{{topic.key.id}}/new"><span>New Post</span></a>
+						<a class="a-btn a-btn-m" tabindex="2" href="/group/topic/{{topic.key.id}}/new"><span>{% trans "New Topic" %}</span></a>
 					</span>
 				{% endif %}
 			</h2>
@@ -66,13 +68,13 @@
 	<form action="/group/topic/{{topic.key.id}}/new" method="POST" accept-charset="utf-8">
 		{{ post_form.as_p }}
 
-		<p><input type="submit" value="Add Post"></p>
+		<p><input type="submit" value="{% trans "Add Post" %}"></p>
 	</form>
 	
 {% endblock %}
 
 {% block sidebar %}
 	<div class="grid_6 dashboard-widget">
-		<a href="/group/{{topic.group.key.id}}">Back to {{ topic.group.title }} Group</a>
+		<a href="/group/{{topic.group.key.id}}">{% trans "Back to Group: " %}{{ topic.group.title }}</a>
 	</div>
 {% endblock %}

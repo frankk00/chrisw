@@ -154,11 +154,12 @@ li.topic_list {
   outline:medium none;
   padding-left:2px;
   padding-top:2px;
+  height: 40px;
 }
 
 .group-name{
   display:inline-block;
-  font-size:13px;
+  font-size:12px;
   font-weight:bold;
   margin-top:-1px;
   max-width:88px;

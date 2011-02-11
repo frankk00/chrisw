@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-11 17:40+0800\n"
+"POT-Creation-Date: 2011-02-11 19:59+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,67 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: conf/settings.py:45
+#: conf/settings.py:47
 msgid "English"
 msgstr ""
 
-#: conf/settings.py:46
+#: conf/settings.py:48
 msgid "Chinese"
+msgstr ""
+
+#: front/templates/user_home.html:12
+msgid "User Name"
+msgstr ""
+
+#: group/templates/group_display.html:20 group/templates/topic_display.html:17
+msgid "New Topic"
+msgstr ""
+
+#: group/templates/group_display.html:32
+msgid "Created at"
+msgstr ""
+
+#: group/templates/group_display.html:42
+msgid "Follow"
+msgstr ""
+
+#: group/templates/group_display.html:45
+msgid "Unfollow"
+msgstr ""
+
+#: group/templates/group_display.html:48 group/templates/group_settings.html:6
+msgid "Group Settings"
+msgstr ""
+
+#: group/templates/group_display.html:53
+msgid "Group Members"
+msgstr ""
+
+#: group/templates/site_display.html:6
+msgid "Welcome"
 msgstr ""
 
 #: group/templates/site_display.html:15
 msgid "Latest Post"
+msgstr "Latest Post from your group2"
+
+#: group/templates/site_display.html:23
+msgid "You Followed Groups"
+msgstr ""
+
+#: group/templates/site_display.html:39
+msgid "Recommend Groups"
+msgstr ""
+
+#: group/templates/topic_display.html:71
+msgid "Add Post"
+msgstr ""
+
+#: group/templates/topic_display.html:78
+msgid "Back to Group: "
+msgstr ""
+
+#: group/templates/topic_list.html:13
+#, fuzzy
+msgid "Posts"
 msgstr "Latest Post from your group2"

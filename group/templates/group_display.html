@@ -1,5 +1,7 @@
 {% extends "group_master.html" %}
 
+{% load i18n %}
+
 {% block title %}
 	Group Info
 {% endblock %}
@@ -15,7 +17,7 @@
 				
 				{% if can_create_topic %}
 					<span style="float: right;">
-						<a class="a-btn a-btn-m" tabindex="2" href="/group/{{group.key.id}}/new"><span>New Post</span></a>
+						<a class="a-btn a-btn-m" tabindex="2" href="/group/{{group.key.id}}/new"><span>{% trans "New Topic" %}</span></a>
 					</span>
 				{% endif %}
 			</h2>
@@ -27,7 +29,7 @@
 	<div class="info_box">
 		<div id="group_info" class="sidebar_box">
 			<p>
-				Created at {{group.create_time}} by {{group.create_user.fullname}}
+				{% trans "Created at" %} {{group.create_time}} by {{group.create_user.fullname}}
 			</p>
 			{% for line in group.introduction.splitlines %}
 				<p>{{line}}</p>
@@ -37,18 +39,18 @@
 	<div id="control" class="sidebar_box">
 		<ul>
 			{% if can_join %}
-				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/join"><span>Follow Group</span></a>
+				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/join"><span>{% trans "Follow" %}</span></a>
 			{% endif %}
 			{% if can_quit %}
-				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/quit"><span>Unfollow Group</span></a>
+				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/quit"><span>{% trans "Unfollow" %}</span></a>
 			{% endif %}
 			{% if can_edit %}
-				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/edit"><span>Group Settings</span></a>
+				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/edit"><span>{% trans "Group Settings" %}</span></a>
 			{% endif %}
 		</ul>
 	</div>
 	<div id="group_member_box" class="sidebar_box" >
-		<h3>Group Members</h3>
+		<h3>{% trans "Group Members" %}</h3>
 		{% for member in members %}
 			<dl class="member_box">
 				<dt class="photo">

@@ -109,6 +109,7 @@ class TopicUI(PermissionUI):
       # update the topic's update time
       import datetime
       self.topic.update_time = datetime.datetime.now()
+      self.topic.length += 1
       self.topic.put()
       
       return redirect('/group/topic/%d' % self.topic.key().id())
