@@ -33,6 +33,7 @@ from duser.auth import get_current_user
 from duser import auth, User
 from front.models import *
 from conf import settings
+from api.i18n import _
 import photo
 
 class UserForm(djangoforms.ModelForm):
@@ -40,10 +41,16 @@ class UserForm(djangoforms.ModelForm):
   class Meta:
     model = User
     fields = ["fullname", "email", "status_message"]
+  
+  fullname = fields.CharField(label = _('Full Name'), min_length=1,\
+    max_length=10)
+  status_message = fields.CharField(label = _("Status Message"), min_length=1\
+    max_length=70)
+  email = fields.EmailField(label = _('Email'))
 
 class ProfilePhotoForm(forms.Form):
   """docstring for ProfilePhoto"""
-  photo = fields.ImageField(label="Profile Picture")
+  photo = fields.ImageField(label = _("Profile Picture"))
       
 class UserUI(PermissionUI):
   """docstring for UserUI"""

@@ -20,14 +20,21 @@ from topic import TopicForm
 from api.helpers import fields, forms
 from conf import settings
 
+from api.i18n import _
+
 class GroupForm(djangoforms.ModelForm):
   class Meta:
     model = Group
     fields = ['title', 'introduction']
+  
+  title = fields.CharField(label = _("Group Title"), min_length=2,\
+    max_length=10)
+  introduction = fields.CharField(label = _("Group Introductioin"),\
+    min_length=2, max_length = 2000)
 
 class GroupPhotoForm(forms.Form):
   """docstring for ProfilePhoto"""
-  photo = fields.ImageField(label="Profile Picture")
+  photo = fields.ImageField(label = _("Profile Picture"))
 
 class GroupUI(PermissionUI):
   """docstring for GroupUI"""

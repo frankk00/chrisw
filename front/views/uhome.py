@@ -30,14 +30,16 @@ from duser.auth import get_current_user
 from api.webapp import login_required, api_enabled, template, redirect
 from api.webapp import view_method, check_permission,PermissionUI
 from api.shortcuts import render_to_string
+from api.i18n import _
 from conf import settings
 
 from front.models import UHome
 
 class LoginForm(forms.Form):
   """docstring for LoginForm"""
-  username = fields.CharField()
-  password = fields.CharField(widget=forms.PasswordInput)
+  username = fields.CharField(label = _('User Name'))
+  password = fields.CharField(label = _('Password'),\
+    widget=forms.PasswordInput)
   
   def is_valid(self):
     """docstring for is_valid"""
@@ -59,11 +61,13 @@ class RegForm(djangoforms.ModelForm):
     model = auth.User
     fields = ['fullname', 'username', 'password', 'email']
     
-  fullname = fields.CharField(label='Full name', min_length=6, max_length=30)
-  username = fields.CharField(min_length=5, max_length=30)
-  password = fields.CharField(widget=forms.PasswordInput, min_length=4, 
-                              max_length=30)
-  email = fields.EmailField()
+  fullname = fields.CharField(label = _('Full Name'), min_length=6,\
+    max_length=30)
+  username = fields.CharField(label = _('User Name'), min_length=5,\
+    max_length=30)
+  password = fields.CharField(label = _('Password'),\
+    widget=forms.PasswordInput, min_length=4, max_length=30)
+  email = fields.EmailField(label = _('Email'))
   
   def is_valid(self):
     """docstring for is_valid"""

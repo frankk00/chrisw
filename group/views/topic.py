@@ -17,6 +17,7 @@ from duser.auth import get_current_user
 from api.webapp import login_required, api_enabled
 from api.webapp import check_permission, view_method, PermissionUI
 from api.webapp import template, redirect
+from api.i18n import _
 
 from conf import settings
 from group.models import *
@@ -30,21 +31,25 @@ except ImportError:
   # django 0.9
   from django.db import models as fields
 
-apps = []
-
 class TopicForm(djangoforms.ModelForm):
   """docstring for TopicForm"""
   class Meta:
     model = Topic
     fields = ['title', 'content']
   
-  title = fields.CharField(min_length=5, max_length=60)
+  title = fields.CharField(label = _('Topic Title'), min_length=5,\
+    max_length=30)
+  content = fields.CharField(label = _('Topic Content'), min_length=5,\
+    max_length=5000)
 
 class PostForm(djangoforms.ModelForm):
   """docstring for PostForm"""
   class Meta:
     model = Post
     fields = ['content']
+  
+  content = fields.CharField(label = _('Post Content'), min_length=1,\
+    max_length=2000)
 
 class TopicUI(PermissionUI):
   """docstring for TopicUI"""
