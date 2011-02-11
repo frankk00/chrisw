@@ -8,7 +8,6 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
 import logging
-import settings
 
 from google.appengine.ext import webapp, db
 from google.appengine.ext.db import djangoforms
@@ -17,6 +16,7 @@ from duser.auth import get_current_user, Guest
 from api.webapp import *
 from group.models import *
 from groupui import GroupForm
+from conf import settings
 
 class SiteUI(PermissionUI):
   """docstring for GroupUI"""

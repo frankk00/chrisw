@@ -20,7 +20,7 @@
 #   It boils down to this: Use exactly one of either configure() or 
 #   DJANGO_SETTINGS_MODULE. Not both, and not neither.
 import os, sys
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'conf.settings'
 
 # patch for google's app_engine laucher, the shipped django's version is
 # 0.96, need this hack if you are going to run it in your local server.
@@ -34,8 +34,9 @@ if os.environ.get('SERVER_SOFTWARE','').startswith('Devel'):
 from google.appengine.dist import use_library
 use_library('django', '1.1')
 
-import logging, settings
+import logging
 
+from conf import settings
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
@@ -51,9 +52,12 @@ def main():
   from django.conf import settings as djsettings
   djsettings.TEMPLATE_DIRS += settings.TEMPLATE_DIRS
   djsettings.INSTALLED_APPS += settings.INSTALLED_APPS
+  djsettings.LANGUAGE_CODE = settings.LANGUAGE_CODE
+  djsettings.LOCALE_PATHS += settings.LOCALE_PATHS
   
-  # try to fix SystemError: Parent module 'django.utils.translation' not loaded
-  djsettings._target = None
+  logging.debug(djsettings.LOCALE_PATHS)
+  logging.debug(djsettings.LANGUAGE_CODE)
+  logging.debug(djsettings.USE_I18N)
   
   import front, group
   application = webapp.WSGIApplication( front.apps + group.apps, 

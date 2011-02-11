@@ -8,8 +8,8 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
 import logging
-import settings
 import os
+
 
 from google.appengine.ext import webapp
 from google.appengine.ext.db import djangoforms
@@ -30,6 +30,7 @@ from duser.auth import get_current_user
 from api.webapp import login_required, api_enabled, template, redirect
 from api.webapp import view_method, check_permission,PermissionUI
 from api.shortcuts import render_to_string
+from conf import settings
 
 from front.models import UHome
 

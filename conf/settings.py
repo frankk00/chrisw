@@ -10,12 +10,13 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 import os
 
 from local_settings import *
+from api.i18n import _
 
 APP_ID = "daoshicha"
 
 # django template path config
 
-ROOT_PATH = os.path.dirname(__file__)
+ROOT_PATH, CONFIG_PATH = os.path.split(os.path.dirname(__file__))
 
 TEMPLATE_DIRS = (ROOT_PATH + "/templates",
                  ROOT_PATH + "/front/templates",
@@ -23,6 +24,8 @@ TEMPLATE_DIRS = (ROOT_PATH + "/templates",
                 )
 
 LIB_DIRS = (ROOT_PATH + "/lib",)
+
+LOCALE_PATHS = (ROOT_PATH + '/conf/locale',)
 
 LOGIN_URL = "/login"
 
@@ -33,4 +36,18 @@ INSTALLED_APPS = ('front',)
 DEFAULT_USER_PHOTO = "http://www.waynejohn.com/wp-content/uploads/WindowsLiveWriter/WayneSimpson_120F1/_1221625200_102_thumb.gif"
 
 DEFAULT_GROUP_PHOTO = DEFAULT_USER_PHOTO
+
+USE_I18N = True
+
+# Valid languages
+LANGUAGES = (
+    # 'en', 'zh_TW' match the directories in conf/locale/*
+    ('en', _('English')),
+    ('zh_CN', _('Chinese')),
+    # or ('zh-tw', _('Chinese')), # But the directory must still be conf/locale/zh_TW
+    )
+
+# This is a default language
+LANGUAGE_CODE = 'zh_CN'
+
 

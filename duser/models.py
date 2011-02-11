@@ -9,7 +9,7 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 from google.appengine.api import users
 from api import db
-import settings
+from conf import settings
 
 class User(db.Model):
   """docstring for User"""

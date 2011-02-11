@@ -7,8 +7,6 @@ Created by Kang Zhang on 2010-09-25.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-import settings
-
 import views
 import models
 

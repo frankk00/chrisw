@@ -7,8 +7,8 @@ Created by Kang Zhang on 2010-09-29.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-import settings
 import uhome, userui, photo
+from conf import settings
 from google.appengine.ext import webapp
 
 class V2UIHandler(webapp.RequestHandler):

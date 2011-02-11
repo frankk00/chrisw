@@ -11,8 +11,7 @@ from google.appengine.api import users
 
 from api import db
 from duser import User
-
-import settings
+from conf import settings
 
 class Site(db.Model):
   """a faked object"""

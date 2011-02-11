@@ -8,7 +8,6 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
 import logging
-import settings
 import os
 
 from google.appengine.ext import webapp
@@ -33,6 +32,7 @@ from api.shortcuts import render_to_string
 from duser.auth import get_current_user
 from duser import auth, User
 from front.models import *
+from conf import settings
 import photo
 
 class UserForm(djangoforms.ModelForm):

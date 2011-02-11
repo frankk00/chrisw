@@ -8,7 +8,8 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
 import os, sys
-import settings
+
+from conf import settings
 
 # patch for libs
 sys.path += settings.LIB_DIRS

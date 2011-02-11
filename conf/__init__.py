@@ -3,10 +3,6 @@
 """
 __init__.py
 
-Created by Kang Zhang on 2010-09-22.
+Created by Kang Zhang on 2011-02-11.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
-
-import views
-
-from views import create_login_url, apps

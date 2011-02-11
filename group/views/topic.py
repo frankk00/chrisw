@@ -9,7 +9,6 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 
 import logging
-import settings
 
 from google.appengine.ext import webapp
 from google.appengine.ext.db import djangoforms
@@ -19,6 +18,7 @@ from api.webapp import login_required, api_enabled
 from api.webapp import check_permission, view_method, PermissionUI
 from api.webapp import template, redirect
 
+from conf import settings
 from group.models import *
 
 # import form fields

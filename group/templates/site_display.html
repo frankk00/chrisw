@@ -1,5 +1,6 @@
 {% extends "group_master.html" %}
 {% load filters %}
+{% load i18n %}
 
 {% block title %}
 	Welcome to daoshicha.com
@@ -11,7 +12,7 @@
 
 {% block content %}
 	<div id="group_title">
-		<h2>Latest Post</h2>
+		<h2>{% trans "Latest Post" %}</h2>
 	</div>
 	{% include "topic_list.html" %}
 {% endblock %}
