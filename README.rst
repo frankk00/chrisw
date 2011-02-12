@@ -7,6 +7,9 @@ A running version of Chrisw can be found at:
 
 	http://daoshicha.appspot.com
 
+Note that i18n is supported by Chrisw. It now supports both English and 
+Chinese as the language.
+
 Installation
 ============
 Chrisw is not ready for release now. It's still under heavily development. 
@@ -14,11 +17,18 @@ Chrisw is not ready for release now. It's still under heavily development.
 All data is logged on the server. **Even you remove it from the site**. It's 
 for debugging usage, please don't use it for production environment.
 
+1. Generate your COOKIE_KEY using os.urandom(64) and store it in 
+local_settings.py.
+
+2. Modify the app.yaml to specify your appengine box.
+
+3. Deploy it to server.
+
 Settings 
 ========
 
-Most settings can be config using the settings.py, **except** the cookie 
-encryption key. 
+Most settings can be config using the settings.py, and local_settings.py. You
+Should rewrite the options in local_settings.py in your production release.
 
 License
 =======
