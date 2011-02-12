@@ -114,6 +114,7 @@ class Topic(db.Model):
   content = db.TextProperty()
   group = db.ReferenceProperty(Group)
   length = db.IntegerProperty(default=1)
+  hits = db.IntegerProperty(default=1)
   
   def can_view(self, user):
     """docstring for can_view"""

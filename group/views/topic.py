@@ -62,6 +62,9 @@ class TopicUI(PermissionUI):
     posts = query.fetch(limit, offset)
     post_form = PostForm()
     
+    self.topic.hits += 1
+    self.topic.put()
+    
     return template('topic_display', locals())
   
   @view_method

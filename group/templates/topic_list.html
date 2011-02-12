@@ -12,7 +12,7 @@
 					<span style="display: block; margin-bottom: 5px;">
 						{{ topic.title }}
 					</span>
-					<span style=" color: #999999;">{{ topic.create_time|date:"Y-n-j H:i" }} by {{ topic.author.fullname }}. • {{ topic.length }} {% trans "Posts" %} </span>
+					<span style=" color: #999999;">{{ topic.create_time|date:"Y-n-j H:i" }} by {{ topic.author.fullname }}. • {{ topic.length }} {% trans "Posts" %} • {{ topic.hits }} {% trans "Hits" %} </span>
 				</span>
 			</li>
 		{% endfor %}
