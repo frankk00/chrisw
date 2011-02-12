@@ -22,10 +22,10 @@
 		<div id="user-info" class="grid_9 dashboard-widget">
 			<div id="user-title">
 			  <h2>
-				<img class="ies" alt="{{ user.fullname }}" src="{{user.photo_url}}">
-				{{ user.fullname }}
-				{% if user.status_message %}
-					<span class="status-message">({{ user.status_message }})</span>
+				<img class="ies" alt="{{ login_user.fullname }}" src="{{login_user.photo_url}}">
+				{{ login_user.fullname }}
+				{% if login_user.status_message %}
+					<span class="status-message">({{ login_user.status_message }})</span>
 				{% endif %}
 				</h2>
 			</div>

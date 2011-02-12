@@ -141,7 +141,7 @@ def view_method(func):
       # add permission info in vardict
       user = get_current_user()
       var_dict.update( inspect_permissions(self.model_obj, user) )
-      user_info = {'user':user, 'is_not_guest':user != Guest}
+      user_info = {'login_user':user, 'is_not_guest':user != Guest}
       var_dict.update( user_info )
     
     return action
