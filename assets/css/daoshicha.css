@@ -204,6 +204,7 @@ li.topic_list {
   height:32px;
   overflow:hidden;
   width:32px;
+  margin-top:4px;
 }
 
 .group-title{
@@ -230,7 +231,7 @@ li.topic_list {
 .group-info{
   display:block;
   font-size:12px;
-  height:14px;
+  height:16px;
   margin-top:-2px;
   overflow:hidden;
 }
@@ -321,4 +322,9 @@ a.btn-disabled {
   text-decoration: pointer;
 }
 
+#user-title h2{
+  font-size: 16px;
+  font-weight: 300;
+  padding-bottom: 6px;
+}
 
