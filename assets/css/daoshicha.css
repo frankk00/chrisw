@@ -17,7 +17,11 @@ img.is{
 }
 
 img.il{
-  width:64px;
+  width: 64px;
+}
+
+img.ies{
+  width: 24px;
 }
 
 #wrapper {

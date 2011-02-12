@@ -23,15 +23,13 @@ class SiteUI(PermissionUI):
   def __init__(self, site):
     super(SiteUI, self).__init__(site)
     self.site = site
-    user = get_current_user()
-    self.groupinfo = UserGroupInfo.get_by_user(user)
+    self.user = get_current_user()
+    self.groupinfo = UserGroupInfo.get_by_user(self.user)
     
   @view_method
   def view(self, request):
     offset = int(request.get("offset", "0"))
     limit = int(request.get("limit", "20"))
-    
-    user = get_current_user()
     
     recommend_groups = Group.all().fetch(10)
     

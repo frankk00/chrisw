@@ -34,12 +34,28 @@
 		
 		<div id="top-bar-outer" class="container_24">
 			<div id="top-bar-bg">
-				<div id="top-bar">
+				<div id="top-bar" style="color:white;">
 					<div id="top-bar-inside">
-						<a href="/">
-							<h1 id="daoshicha" style="vertical-align:text-top; margin: 0px; color:white;"><strong>Daoshicha</strong>.com</h1>
-						</a>
-						<hr>
+						<div id="logo" class= "grid_20" style="vertical-align:text-top; margin: 0px; float:left;">
+							<a href="/" style="vertical-align:text-top; margin: 0px; color:white; font-size:1.5em;">
+								<strong>Daoshicha</strong>.com
+							</a>
+						</div>
+						
+						{% if is_not_guest %}
+							<div id="name">
+								<span>
+									<a href="/u/{{user.key.id}}">
+										<img style="margin-bottom:-3px;" width="20px" height="20px" src="{{user.photo_url}}" />																			
+									</a>
+								</span>
+								<span style="padding-left:3px;">
+									<a href="/u/{{user.key.id}}" style="color:#aaa;">
+										{{ user.fullname }}
+									</a>
+								</span>
+							</div>
+						{% endif %}
 					</div>
 				</div>
 			</div>

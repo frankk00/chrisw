@@ -34,6 +34,8 @@ def to_dict(model):
       output['model_id'] = model.key().id()
     except db.NotSavedError, e:
       output['model_id'] = "undefined"
+  elif isinstance(model, db.Key):
+    return to_dict(db.get(model))
   elif hasattr(model, 'items'):
     items = model.items()
   elif isinstance(model, SIMPLE_TYPES) or model is None:
@@ -74,6 +76,8 @@ def to_dict(model):
       output[key] = int(ms)
     elif isinstance(value, db.Model):
       output[key] = to_dict(value)
+    elif isinstance(value, db.Key):
+      output[key] = to_dict(db.get(value))
     elif isinstance(value, list):
       output[key] = [ to_dict(x) for x in value]
     elif isinstance(value, djangoforms.ModelForm) or \
