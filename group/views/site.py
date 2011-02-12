@@ -33,14 +33,13 @@ class SiteUI(PermissionUI):
     
     user = get_current_user()
     
-    def build_groups(group_keys):
-      return Group.get(group_keys)
-          
+    recommend_groups = Group.all().fetch(10)
+    
     my_groups = recommend_groups
     
     if self.groupinfo:
       # user
-      my_groups = Group.get(self.groupinfo.groups)
+      my_groups = db.get(self.groupinfo.groups)
       
     topics = Topic.all().filter("group IN", my_groups).order("-update_time")\
       .fetch(20)
