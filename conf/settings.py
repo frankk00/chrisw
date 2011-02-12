@@ -35,7 +35,7 @@ INSTALLED_APPS = ('front',)
 
 DEFAULT_USER_PHOTO = "http://www.gravatar.com/avatar.php?"
 
-DEFAULT_GROUP_PHOTO = "http://www.gravatar.com/avatar/cf4773410a19cd50fc2b8bcaaef9a9dc?s=32"
+DEFAULT_GROUP_PHOTO = "http://www.gravatar.com/avatar/cf4773410a19cd50fc2b8bcaaef9a9dc?s=48"
 
 USE_I18N = True
 

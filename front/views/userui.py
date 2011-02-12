@@ -15,15 +15,8 @@ from google.appengine.ext.db import djangoforms
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import blobstore_handlers
 
-# import form fields
-from django import forms
-try:
-  # for django 1.1
-  from django.forms import CharField
-  from django import forms as fields
-except ImportError:
-  # django 0.9
-  from django.db import models as fields
+
+from api.helpers import fields, forms
 
 from api.webapp import login_required, api_enabled, template, redirect
 from api.webapp import view_method, check_permission,PermissionUI
@@ -32,6 +25,7 @@ from api.shortcuts import render_to_string
 from duser.auth import get_current_user
 from duser import auth, User
 from front.models import *
+from group.models import UserGroupInfo
 from conf import settings
 from api.i18n import _
 import photo
@@ -62,6 +56,8 @@ class UserUI(PermissionUI):
   @check_permission("view", "Can't view the user's profile")
   def view(self):
     """the view of user profile"""
+    groupinfo = UserGroupInfo.get_by_user(self.user)
+    joined_groups = db.get(groupinfo.groups)
     return template('user_home', locals())
   
   # every user can only see his/her own setting page, don't need check

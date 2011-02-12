@@ -44,9 +44,6 @@ from google.appengine.ext.webapp import template
 
 def main():
   sys.path += settings.LIB_DIRS
-
-  # for k in [k for k in sys.modules if k.startswith('django')]:
-  #     del sys.modules[k]
   
   # patchs for django 0.96, should be remove for 1.1
   from django.conf import settings as djsettings

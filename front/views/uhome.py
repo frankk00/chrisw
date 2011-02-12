@@ -16,20 +16,13 @@ from google.appengine.ext.db import djangoforms
 from django import forms
 from google.appengine.ext.webapp import template
 
-# import form fields
-try:
-  # for django 1.1
-  from django.forms import CharField
-  from django import forms as fields
-except ImportError:
-  # django 0.9
-  from django.db import models as fields
 
 from duser import auth
 from duser.auth import get_current_user
 from api.webapp import login_required, api_enabled, template, redirect
 from api.webapp import view_method, check_permission,PermissionUI
 from api.shortcuts import render_to_string
+from api.helpers import fields, forms
 from api.i18n import _
 from conf import settings
 
@@ -83,7 +76,7 @@ class RegForm(djangoforms.ModelForm):
     
 class UHomeUI(PermissionUI):
   """docstring for UHomeUI"""
-  def __init__(self, uhome = UHome()):
+  def __init__(self, uhome = UHome.get_instance()):
     super(UHomeUI, self).__init__(uhome)
     self.uhome = uhome
   

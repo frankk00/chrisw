@@ -2,6 +2,11 @@ body {
     font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
 }
 
+a {
+  color: #336699;
+  text-decoration: none;
+}
+
 #wrapper {
   padding: 1.5em 10px;
 }
@@ -87,6 +92,23 @@ dl.member_box {
     margin-left: 0;
   }
 
+dl.item-box {
+  display: inline; 
+  float:left; 
+  width: 78px;
+  text-align: center;
+}
+  dl.item-box dt.photo {
+    text-align: center;
+  }
+  dl.item-box dd.name {
+    text-align: center; 
+    height: 30px; 
+    margin-left: 0;
+    white-space: nowrap;
+  }
+
+
 li.topic_list {
   list-style: none outside none;
   border-bottom: 1px solid #EEEEEE;
@@ -132,6 +154,11 @@ li.topic_list {
 .post-body{
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.status-message{
+  color: #666666;
+  font: 12px/150% Arial,Helvetica,sans-serif;
 }
 
 .dashboard-widget{

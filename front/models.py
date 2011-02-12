@@ -11,7 +11,16 @@ from api import db
 
 class UHome(db.Model):
   """A faked object for the user management"""
-  pass
+  
+  @classmethod
+  def get_instance(cls):
+    """docstring for get_instance"""
+    instance = super(UHome, cls).all().get()
+    if not instance:
+      instance = UHome()
+      instance.put()
+      
+    return instance
     
 
 class Photo(db.Model):

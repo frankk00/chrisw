@@ -10,7 +10,7 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 from google.appengine.api import users
 
 from api import db
-from duser import User
+from duser import User, Guest
 from conf import settings
 
 class Site(db.Model):
@@ -22,12 +22,34 @@ class Site(db.Model):
   def can_create_group(self, user):
     return True
   
+  @classmethod
+  def get_instance(cls):
+    """docstring for get_instance"""
+    instance = super(Site, cls).all().get()
+    if not instance:
+      instance = Site()
+      instance.put()
+      
+    return instance
 
 class UserGroupInfo(db.Model):
   """docstring for UserGroupProfile"""
-  user_id = db.IntegerProperty(required=True)
+  user = db.ReferenceProperty(required=True)
   # stored group using keys
-  group_ids = db.ListProperty(int,required=True, default=[])
+  groups = db.ListProperty(db.Key,required=True, default=[])
+  
+  @classmethod
+  def get_by_user(self, user):
+    """docstring for get_by_user"""
+    # init all needed object here
+    if user != Guest:
+      groupinfo = UserGroupInfo.all().filter("user =", user).get()
+      if not groupinfo:
+        groupinfo = UserGroupInfo(user=user)
+        groupinfo.put()
+    
+    else: groupinfo = None
+    return groupinfo
 
 class Group(db.Model):
   """docstring for Board"""
@@ -35,8 +57,8 @@ class Group(db.Model):
   title = db.StringProperty()
   introduction = db.TextProperty()
   create_user = db.ReferenceProperty(User)
-  admin_user_ids = db.ListProperty(int,required=True, default=[])
-  member_ids = db.ListProperty(int,required=True, default=[])
+  admin_users = db.ListProperty(db.Key,required=True, default=[])
+  members = db.ListProperty(db.Key,required=True, default=[])
   photo_url = db.StringProperty(default=settings.DEFAULT_GROUP_PHOTO)
     
   def can_view(self, user):
@@ -57,22 +79,26 @@ class Group(db.Model):
   
   def can_join(self, user):
     """docstring for can_join"""
-    return not user.key().id() in self.member_ids
+    return not user.key() in self.members
   
   def join(self, user):
-    userinfo = UserGroupInfo.all().filter("user_id =", user.key().id()).get()
-    userinfo.group_ids.append(self.key().id())
-    self.member_ids.append(userinfo.user_id)
+    userinfo = UserGroupInfo.get_by_user(user)
+    userinfo.groups.append(self.key())
+    self.members.append(userinfo.user.key())
     userinfo.put()
     self.put()
     
   def quit(self, user):
     """docstring for quit"""
-    pass
+    userinfo = UserGroupInfo.get_by_user(user)
+    userinfo.groups.remove(self.key())
+    self.members.remove(user.key())
+    userinfo.put()
+    self.put()
     
   def can_quit(self, user):
     """docstring for can_quit"""
-    return user.key().id() in self.member_ids and user.key().id() != self.create_user.key().id()
+    return user.key() in self.members and user.key() != self.create_user.key()
   
   def get_topics(self):
     """docstring for get_topics"""

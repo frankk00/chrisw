@@ -3,13 +3,45 @@
 {% load i18n %}
 
 {% block title %}
-	The homepage for user
+	{{ user.fullname }}
 {% endblock %}
 
 
 {% block content %}
-	<table border="0" cellspacing="5" cellpadding="5">
-		<tr><th>{% trans "User Name" %}</th></tr>
-		<tr><td>{{ user.username }}</td></tr>
-	</table>
+
+	<div id="user-profile" style = "margin-bottom:4em;">
+		<div class="pic" style="float:left;">
+		    <a href="http://www.douban.com/u/{{user.id}}">
+		        <img src="{{user.photo_url}}" alt="{{user.fullname}}" style="height:48px; width:48px;">
+		    </a>
+		</div>
+		<div class="info" style="margin-left:53px;padding-top:10px;">
+		    <h1>
+		        {{ user.fullname }}
+				{% if user.status_message %}
+					<span id="display" class="status-message">({{ user.status_message }})</span>
+				{% endif %}
+		    </h1>
+		</div>
+	</div>
+	
+	
+	
+	<div id="group-box">
+		<h3>{% trans "Followed Group" %}:</h3>
+		{% for group in joined_groups %}
+			<dl class="item-box">
+				<dt class="photo">
+					<a href="/group/{{group.key.id}}">
+						<img src="{{group.photo_url}}">
+					</a>
+				</dt>
+				<dd class="name">
+					<a href="/group/{{group.key.id}}">{{ group.title }}</a>
+					<span>({{group.members|length}})</span>
+				</dd>
+			</dl>
+		{% endfor %}
+	</div>
+
 {% endblock %}

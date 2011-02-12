@@ -24,15 +24,7 @@ class SiteUI(PermissionUI):
     super(SiteUI, self).__init__(site)
     self.site = site
     user = get_current_user()
-    
-    if user != Guest:
-      groupinfo = UserGroupInfo.all().filter("user_id =", user.key().id()).get()
-      if not groupinfo:
-        groupinfo = UserGroupInfo(user_id=user.key().id())
-        groupinfo.put()
-    
-    else: groupinfo = None
-    self.groupinfo = groupinfo
+    self.groupinfo = UserGroupInfo.get_by_user(user)
     
   @view_method
   def view(self, request):
@@ -43,7 +35,7 @@ class SiteUI(PermissionUI):
     
     def build_groups(group_keys):
       logging.debug("group_keys " + str(group_keys))
-      return [Group.get_by_id(gk) for gk in group_keys]
+      return [Group.get(gk) for gk in group_keys]
 
     recommend_groups = Group.all().fetch(10)
     
@@ -51,7 +43,7 @@ class SiteUI(PermissionUI):
     
     if self.groupinfo:
       # user
-      my_groups = build_groups(self.groupinfo.group_ids)
+      my_groups = self.groupinfo.groups
       
     topics = Topic.all().filter("group IN", my_groups).order("-update_time")\
       .fetch(20)
@@ -91,11 +83,11 @@ class SiteHandler(webapp.RequestHandler):
   
   @api_enabled
   def get(self):
-    return self.get_impl(SiteUI(Site()))
+    return self.get_impl(SiteUI(Site.get_instance()))
   
   @api_enabled
   def post(self):
-    return self.post_impl(SiteUI(Site()), self.request)
+    return self.post_impl(SiteUI(Site.get_instance()), self.request)
     
 class SiteViewHandler(SiteHandler):
   """docstring for SiteViewHandler"""

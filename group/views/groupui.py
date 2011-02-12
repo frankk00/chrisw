@@ -54,7 +54,7 @@ class GroupUI(PermissionUI):
     count = query.count(2000)
     topics = query.fetch(limit, offset)
     
-    members = [User.get_by_id(mk) for mk in self.group.member_ids]
+    members = [User.get(mk) for mk in self.group.members]
     
     var_dict = locals() # can't assign variable below this line
     
@@ -131,7 +131,9 @@ class GroupUI(PermissionUI):
   @check_permission('quit', "Is not member")
   def quit(self):
     """docstring for quite"""
-    pass
+    self.group.quit(get_current_user())
+    message = "You've been quited from the Group " + self.group.title
+    return back()
   
   @view_method
   @check_permission('create_topic', "Not allowed to create topic here")
