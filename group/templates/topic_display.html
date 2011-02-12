@@ -77,6 +77,8 @@
 
 {% block sidebar %}
 	<div class="grid_6 dashboard-widget">
-		<a href="/group/{{topic.group.key.id}}">{% trans "Back to Group: " %}{{ topic.group.title }}</a>
+		<p class="pl">
+			> <a href="/group/{{topic.group.key.id}}">{% trans "Back to Group: " %}{{ topic.group.title }}</a>			
+		</p>
 	</div>
 {% endblock %}

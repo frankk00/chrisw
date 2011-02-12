@@ -7,6 +7,12 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  background: none repeat scroll 0 0 #003399;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
 /*Icon Medium*/
 img.im{
   width: 48px;
@@ -22,6 +28,10 @@ img.il{
 
 img.ies{
   width: 24px;
+}
+
+p.pl{
+  font-size: 1.2em;
 }
 
 #wrapper {
@@ -305,5 +315,10 @@ a.btn-disabled {
   background-image: none;
 }
 
+#logo a:hover{
+  background: none;
+  color: #FFFFFF;
+  text-decoration: pointer;
+}
 
 
