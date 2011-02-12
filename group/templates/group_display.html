@@ -52,9 +52,9 @@
 	<div id="group_member_box" class="sidebar_box" >
 		<h3>{% trans "Group Members" %}</h3>
 		{% for member in members %}
-			<dl class="member_box">
+			<dl class="item-box">
 				<dt class="photo">
-					<a href="/u/{{member.key.id}}"><img src="{{member.photo_url}}=s48"/></a>
+					<a href="/u/{{member.key.id}}"><img src="{{member.photo_url}}=s48"/ class="im"></a>
 				</dt>
 				<dd class="name">
 					<a href="/u/{{member.key.id}}">{{ member.fullname }}</a>

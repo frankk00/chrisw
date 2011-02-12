@@ -7,6 +7,19 @@ a {
   text-decoration: none;
 }
 
+/*Icon Medium*/
+img.im{
+  width: 48px;
+}
+
+img.is{
+  width: 32px;
+}
+
+img.il{
+  width:64px;
+}
+
 #wrapper {
   padding: 1.5em 10px;
 }
@@ -103,10 +116,12 @@ dl.item-box {
   }
   dl.item-box dd.name {
     text-align: center; 
-    height: 30px; 
-    margin-left: 0;
-    white-space: nowrap;
+    height: 55px; 
+    margin: 0;
   }
+    dl.item-box dd.name span{
+      white-space: nowrap;
+    }
 
 
 li.topic_list {
