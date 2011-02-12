@@ -49,7 +49,6 @@ LANGUAGES = (
     # or ('zh-tw', _('Chinese')), # But the directory must still be conf/locale/zh_TW
     )
 
-# This is a default language
-LANGUAGE_CODE = 'zh_CN'
+
 
 
