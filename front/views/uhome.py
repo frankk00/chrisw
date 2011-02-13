@@ -54,7 +54,7 @@ class RegForm(djangoforms.ModelForm):
     model = auth.User
     fields = ['fullname', 'username', 'password', 'email']
     
-  fullname = fields.CharField(label = _('Full Name'), min_length=6,\
+  fullname = fields.CharField(label = _('Full Name'), min_length=2,\
     max_length=30)
   username = fields.CharField(label = _('User Name'), min_length=5,\
     max_length=30)
