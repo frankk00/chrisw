@@ -148,6 +148,9 @@ def view_method(func):
       from front.models import Site
       site_info = {'site':Site.get_instance()}
       var_dict.update(site_info)
+      
+      # for debugging
+      # var_dict.update({'site_message':"You've created a new group."})
     
     return action
     

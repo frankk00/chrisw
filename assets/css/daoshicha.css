@@ -110,6 +110,16 @@ p.pl{
   -webkit-box-shadow: 0 3px 4px #999;*border-right:1px solid #eee;
 }
 
+#site-message{
+  background: white; 
+  margin-top: 50px;
+  margin-bottom: -30px;
+  padding-top: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
 div.sidebar_box {
   border: 1px solid #EEEEEE;
   padding: 10px;

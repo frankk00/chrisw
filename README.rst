@@ -8,7 +8,7 @@ A running version of Chrisw can be found at:
 	http://daoshicha.appspot.com
 
 Note that i18n is supported by Chrisw. It now supports both English and 
-Chinese as the language.
+Chinese as the UI language.
 
 Installation
 ============
@@ -27,8 +27,9 @@ local_settings.py.
 Settings 
 ========
 
-Most settings can be config using the settings.py, and local_settings.py. You
-Should rewrite the options in local_settings.py in your production release.
+Most settings can be config using the settings.py, and local_settings.py. The
+options in local_settings.py are recommended to be changed in your production 
+release.
 
 License
 =======
@@ -43,4 +44,8 @@ About
 :Authors:
     Kang Zhang (jobo.zh AT gmail.com) http://home.kangzhang.org
 
-:Version: 0.2
+:Version: 
+	0.2
+
+:Python: 
+	2.5+

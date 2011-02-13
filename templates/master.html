@@ -69,6 +69,31 @@
 				</div>
 			</div>
 		</div>
+		
+		{% if not is_not_guest %}
+			<div id="site-message">
+				<div id="message-content" class="grid_24">
+					<h3 style="color:#666;">
+						{{ site_message }}
+					</h3>
+				</div>
+				<div class="clear">
+				</div>
+			</div>
+		{% endif %}
+		
+		{% if site_message %}
+			<div id="site-message">
+				<div id="message-content" class="grid_24">
+					<h3 style="color:#666;">
+						{{ site_message }}
+					</h3>
+				</div>
+				<div class="clear">
+				</div>
+			</div>
+		{% endif %}
+		
 		<div id="content">
 			<div id="main_panel" class="grid_15">
 				{% block content %}
