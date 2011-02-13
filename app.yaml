@@ -7,18 +7,23 @@ handlers:
 - url: /images/(.*)
   static_files: assets/images/\1
   upload: assets/images/(.*)
+  secure: optional
 
 - url: /css/(.*)
   static_files: assets/css/\1
   upload: assets/css/(.*)
+  secure: optional
 
 - url: /js/(.*)
   static_files: assets/js/\1
   upload: assets/js/(.*)
+  secure: optional
 
 - url: /javascript/(.*)
   static_files: assets/javascript/\1
   upload: assets/javascript/(.*)
+  secure: optional
 
 - url: .*
   script: main.py
+  secure: optional
