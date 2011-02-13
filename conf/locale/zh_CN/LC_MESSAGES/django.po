@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 14:39+0800\n"
+"POT-Creation-Date: 2011-02-13 17:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,14 @@ msgstr "关注小组"
 #: front/templates/user_home.html:54
 msgid "User Settings"
 msgstr "用户设置"
+
+#: front/templates/user_profile.html:15
+msgid "Change Photo"
+msgstr "更换图片"
+
+#: front/templates/user_profile.html:22
+msgid "Save"
+msgstr "保存"
 
 #: front/views/uhome.py:33 front/views/uhome.py:59
 msgid "User Name"
@@ -93,13 +101,38 @@ msgstr "关注小组的最新动态"
 msgid "Latest Post"
 msgstr "最新话题"
 
-#: group/templates/groupsite_display.html:42
+#: group/templates/groupsite_display.html:43
+#: group/templates/topic_list.html:15
+msgid "Posts"
+msgstr "回复"
+
+#: group/templates/groupsite_display.html:47
+msgid "Topics"
+msgstr "话题"
+
+#: group/templates/groupsite_display.html:51 templates/master.html:49
+msgid "Groups"
+msgstr "小组"
+
+#: group/templates/groupsite_display.html:60
+msgid "Want to create a new group?"
+msgstr "想创建自己的小组?"
+
+#: group/templates/groupsite_display.html:61
+msgid "Click here"
+msgstr "点击这里"
+
+#: group/templates/groupsite_display.html:68
 msgid "You Followed Groups"
 msgstr "关注小组"
 
-#: group/templates/groupsite_display.html:62
+#: group/templates/groupsite_display.html:88
 msgid "Recommend Groups"
 msgstr "推荐小组"
+
+#: group/templates/item_new.html:4 group/templates/item_new.html.py:13
+msgid "Create"
+msgstr "创建于"
 
 #: group/templates/topic_display.html:72
 msgid "Add Post"
@@ -108,10 +141,6 @@ msgstr "提交回复"
 #: group/templates/topic_display.html:81
 msgid "Back to Group: "
 msgstr "回到 "
-
-#: group/templates/topic_list.html:15
-msgid "Posts"
-msgstr "回复"
 
 #: group/templates/topic_list.html:15
 msgid "Hits"
@@ -141,6 +170,14 @@ msgstr "内容"
 msgid "Post Content"
 msgstr "回复"
 
-#: templates/master.html:49
-msgid "Groups"
-msgstr "小组"
+#: templates/master.html:90
+msgid "Sign up"
+msgstr "注册"
+
+#: templates/master.html:96
+msgid "Have an account?"
+msgstr "创建账户"
+
+#: templates/master.html:97
+msgid "Sign in"
+msgstr "登陆"

@@ -84,6 +84,8 @@ class UserUI(PermissionUI):
     return template('user_profile', locals())
   
   # same to the previous method
+  @view_method
+  @check_permission("edit", "Can't edit the user's profile")
   def profile_post(self, request):
     """docstring for edit_post"""
     form = UserForm(data=request.POST, instance=self.user)

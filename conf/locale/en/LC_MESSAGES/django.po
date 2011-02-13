@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 14:39+0800\n"
+"POT-Creation-Date: 2011-02-13 17:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,14 @@ msgstr ""
 
 #: front/templates/user_home.html:54
 msgid "User Settings"
+msgstr ""
+
+#: front/templates/user_profile.html:15
+msgid "Change Photo"
+msgstr ""
+
+#: front/templates/user_profile.html:22
+msgid "Save"
 msgstr ""
 
 #: front/views/uhome.py:33 front/views/uhome.py:59
@@ -93,12 +101,38 @@ msgstr ""
 msgid "Latest Post"
 msgstr "Latest Post from your group2"
 
-#: group/templates/groupsite_display.html:42
+#: group/templates/groupsite_display.html:43
+#: group/templates/topic_list.html:15
+#, fuzzy
+msgid "Posts"
+msgstr "Latest Post from your group2"
+
+#: group/templates/groupsite_display.html:47
+msgid "Topics"
+msgstr ""
+
+#: group/templates/groupsite_display.html:51 templates/master.html:49
+msgid "Groups"
+msgstr ""
+
+#: group/templates/groupsite_display.html:60
+msgid "Want to create a new group?"
+msgstr ""
+
+#: group/templates/groupsite_display.html:61
+msgid "Click here"
+msgstr ""
+
+#: group/templates/groupsite_display.html:68
 msgid "You Followed Groups"
 msgstr ""
 
-#: group/templates/groupsite_display.html:62
+#: group/templates/groupsite_display.html:88
 msgid "Recommend Groups"
+msgstr ""
+
+#: group/templates/item_new.html:4 group/templates/item_new.html.py:13
+msgid "Create"
 msgstr ""
 
 #: group/templates/topic_display.html:72
@@ -108,11 +142,6 @@ msgstr ""
 #: group/templates/topic_display.html:81
 msgid "Back to Group: "
 msgstr ""
-
-#: group/templates/topic_list.html:15
-#, fuzzy
-msgid "Posts"
-msgstr "Latest Post from your group2"
 
 #: group/templates/topic_list.html:15
 msgid "Hits"
@@ -142,6 +171,14 @@ msgstr ""
 msgid "Post Content"
 msgstr ""
 
-#: templates/master.html:49
-msgid "Groups"
+#: templates/master.html:90
+msgid "Sign up"
+msgstr ""
+
+#: templates/master.html:96
+msgid "Have an account?"
+msgstr ""
+
+#: templates/master.html:97
+msgid "Sign in"
 msgstr ""

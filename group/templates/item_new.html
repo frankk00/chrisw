@@ -1,7 +1,7 @@
 {% extends "group_master.html" %}
 
 {% block title %}
-	create a group
+	{% trans "Create" %}
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@
 			{{ form.as_p }}
 		</table>
 
-		<p><input type="submit" value="Create Group"></p>
+		<p><input type="submit" value="{% trans "Create" %}"></p>
 	</form>
 	
 {% endblock %}
