@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 19:41+0800\n"
+"POT-Creation-Date: 2011-02-13 19:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,18 @@ msgstr ""
 #: front/models.py:16
 msgid "Want to be the best open source SNS!"
 msgstr "努力做最好的开源SNS!"
+
+#: front/templates/login.html:4 front/templates/login_successful.html:4
+msgid "Sign In"
+msgstr "登陆"
+
+#: front/templates/login.html:11
+msgid "Login"
+msgstr "登陆"
+
+#: front/templates/login_successful.html:8
+msgid "Login successfully"
+msgstr "登陆成功,四处看看吧~"
 
 #: front/templates/signup.html:6
 msgid "Signup New User"
