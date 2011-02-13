@@ -73,6 +73,8 @@ class UserUI(PermissionUI):
     if request.get('image_url', ''):
       self.user.photo_url = request.get('image_url')
       self.user.put()
+      
+      site_message = _("Your photo has been changed.:-)")
     
     form = UserForm(data=self.user.to_dict())
     photo_form = ProfilePhotoForm()
