@@ -71,6 +71,8 @@
 
 			<p><input type="submit" value="{% trans "Add Post" %}"></p>
 		</form>
+	{% else %}
+		{% trans "Login to leave your message here." %}
 	{% endif %}
 	
 {% endblock %}

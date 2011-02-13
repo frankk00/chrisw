@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 19:53+0800\n"
+"POT-Creation-Date: 2011-02-13 20:26+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "Want to be the best open source SNS!"
 msgstr ""
 
-#: front/templates/login.html:4 front/templates/login_successful.html:4
+#: front/templates/login.html:6 front/templates/login_successful.html:6
 msgid "Sign In"
 msgstr ""
 
-#: front/templates/login.html:11
+#: front/templates/login.html:13
 msgid "Login"
 msgstr ""
 
-#: front/templates/login_successful.html:8
+#: front/templates/login_successful.html:10
 msgid "Login successfully"
 msgstr ""
 
@@ -41,11 +41,11 @@ msgstr ""
 msgid "Greate My Account"
 msgstr ""
 
-#: front/templates/signup_successful.html:4
+#: front/templates/signup_successful.html:6
 msgid "Register New User"
 msgstr ""
 
-#: front/templates/signup_successful.html:9
+#: front/templates/signup_successful.html:11
 msgid "Your account has been created successfully."
 msgstr ""
 
@@ -89,6 +89,10 @@ msgstr ""
 msgid "Profile Picture"
 msgstr ""
 
+#: front/views/userui.py:77
+msgid "Your photo has been changed.:-)"
+msgstr ""
+
 #: group/templates/group_display.html:20 group/templates/topic_display.html:17
 msgid "New Topic"
 msgstr ""
@@ -126,7 +130,7 @@ msgid "Latest Post"
 msgstr "Latest Post from your group2"
 
 #: group/templates/groupsite_display.html:43
-#: group/templates/topic_list.html:15
+#: group/templates/topic_list.html:24
 #, fuzzy
 msgid "Posts"
 msgstr "Latest Post from your group2"
@@ -155,7 +159,7 @@ msgstr ""
 msgid "Recommend Groups"
 msgstr ""
 
-#: group/templates/item_new.html:4 group/templates/item_new.html.py:13
+#: group/templates/item_new.html:6 group/templates/item_new.html.py:15
 msgid "Create"
 msgstr ""
 
@@ -163,11 +167,15 @@ msgstr ""
 msgid "Add Post"
 msgstr ""
 
-#: group/templates/topic_display.html:81
+#: group/templates/topic_display.html:75
+msgid "Login to leave your message here."
+msgstr ""
+
+#: group/templates/topic_display.html:83
 msgid "Back to Group: "
 msgstr ""
 
-#: group/templates/topic_list.html:15
+#: group/templates/topic_list.html:24
 msgid "Hits"
 msgstr ""
 

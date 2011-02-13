@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 19:53+0800\n"
+"POT-Creation-Date: 2011-02-13 20:26+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "Want to be the best open source SNS!"
 msgstr "努力做最好的开源SNS!"
 
-#: front/templates/login.html:4 front/templates/login_successful.html:4
+#: front/templates/login.html:6 front/templates/login_successful.html:6
 msgid "Sign In"
 msgstr "登陆"
 
-#: front/templates/login.html:11
+#: front/templates/login.html:13
 msgid "Login"
 msgstr "登陆"
 
-#: front/templates/login_successful.html:8
+#: front/templates/login_successful.html:10
 msgid "Login successfully"
 msgstr "登陆成功,四处看看吧~"
 
@@ -41,11 +41,11 @@ msgstr "注册新用户"
 msgid "Greate My Account"
 msgstr "创建账户"
 
-#: front/templates/signup_successful.html:4
+#: front/templates/signup_successful.html:6
 msgid "Register New User"
 msgstr "注册新用户"
 
-#: front/templates/signup_successful.html:9
+#: front/templates/signup_successful.html:11
 msgid "Your account has been created successfully."
 msgstr "你的账户已经被创建.快登陆看看吧~"
 
@@ -89,6 +89,10 @@ msgstr "状态信息"
 msgid "Profile Picture"
 msgstr "用户头像"
 
+#: front/views/userui.py:77
+msgid "Your photo has been changed.:-)"
+msgstr "头像更换成功"
+
 #: group/templates/group_display.html:20 group/templates/topic_display.html:17
 msgid "New Topic"
 msgstr "新话题"
@@ -126,7 +130,7 @@ msgid "Latest Post"
 msgstr "最新话题"
 
 #: group/templates/groupsite_display.html:43
-#: group/templates/topic_list.html:15
+#: group/templates/topic_list.html:24
 msgid "Posts"
 msgstr "回复"
 
@@ -154,7 +158,7 @@ msgstr "关注小组"
 msgid "Recommend Groups"
 msgstr "推荐小组"
 
-#: group/templates/item_new.html:4 group/templates/item_new.html.py:13
+#: group/templates/item_new.html:6 group/templates/item_new.html.py:15
 msgid "Create"
 msgstr "创建于"
 
@@ -162,11 +166,15 @@ msgstr "创建于"
 msgid "Add Post"
 msgstr "提交回复"
 
-#: group/templates/topic_display.html:81
+#: group/templates/topic_display.html:75
+msgid "Login to leave your message here."
+msgstr "登陆后开始留言."
+
+#: group/templates/topic_display.html:83
 msgid "Back to Group: "
 msgstr "回到 "
 
-#: group/templates/topic_list.html:15
+#: group/templates/topic_list.html:24
 msgid "Hits"
 msgstr "点击"
 

@@ -30,7 +30,7 @@ class TopicForm(djangoforms.ModelForm):
     model = Topic
     fields = ['title', 'content']
   
-  title = fields.CharField(label = _('Topic Title'), min_length=5,\
+  title = fields.CharField(label = _('Topic Title'), min_length=2,\
     max_length=30)
   content = fields.CharField(label = _('Topic Content'), min_length=5,\
     widget=forms.Textarea, max_length=5000)
