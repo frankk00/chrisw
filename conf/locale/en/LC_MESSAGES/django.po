@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-11 23:51+0800\n"
+"POT-Creation-Date: 2011-02-13 13:49+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,36 +17,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: conf/settings.py:47
-msgid "English"
+#: front/templates/signup.html:6
+msgid "Signup New User"
 msgstr ""
 
-#: conf/settings.py:48
-msgid "Chinese"
+#: front/templates/signup.html:13
+msgid "Greate My Account"
 msgstr ""
 
-#: front/templates/user_home.html:12 front/views/uhome.py:40
-#: front/views/uhome.py:66
+#: front/templates/user_home.html:31
+msgid "Followed Groups"
+msgstr ""
+
+#: front/templates/user_home.html:54
+msgid "User Settings"
+msgstr ""
+
+#: front/views/uhome.py:33 front/views/uhome.py:59
 msgid "User Name"
 msgstr ""
 
-#: front/views/uhome.py:41 front/views/uhome.py:68
+#: front/views/uhome.py:34 front/views/uhome.py:61
 msgid "Password"
 msgstr ""
 
-#: front/views/uhome.py:64 front/views/userui.py:45
+#: front/views/uhome.py:57 front/views/userui.py:39
 msgid "Full Name"
 msgstr ""
 
-#: front/views/uhome.py:70 front/views/userui.py:49
+#: front/views/uhome.py:63 front/views/userui.py:43
 msgid "Email"
 msgstr ""
 
-#: front/views/userui.py:47
+#: front/views/userui.py:41
 msgid "Status Message"
 msgstr ""
 
-#: front/views/userui.py:53 group/views/groupui.py:37
+#: front/views/userui.py:47
 msgid "Profile Picture"
 msgstr ""
 
@@ -54,23 +61,23 @@ msgstr ""
 msgid "New Topic"
 msgstr ""
 
-#: group/templates/group_display.html:32
+#: group/templates/group_display.html:33
 msgid "Created at"
 msgstr ""
 
-#: group/templates/group_display.html:42
+#: group/templates/group_display.html:46
 msgid "Follow"
 msgstr ""
 
-#: group/templates/group_display.html:45
+#: group/templates/group_display.html:49
 msgid "Unfollow"
 msgstr ""
 
-#: group/templates/group_display.html:48 group/templates/group_settings.html:6
+#: group/templates/group_display.html:52 group/templates/group_settings.html:6
 msgid "Group Settings"
 msgstr ""
 
-#: group/templates/group_display.html:53
+#: group/templates/group_display.html:57
 msgid "Group Members"
 msgstr ""
 
@@ -78,15 +85,19 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
-#: group/templates/site_display.html:15
+#: group/templates/site_display.html:17
+msgid "Latest Posts from the Groups You Followed"
+msgstr ""
+
+#: group/templates/site_display.html:19
 msgid "Latest Post"
 msgstr "Latest Post from your group2"
 
-#: group/templates/site_display.html:23
+#: group/templates/site_display.html:42
 msgid "You Followed Groups"
 msgstr ""
 
-#: group/templates/site_display.html:39
+#: group/templates/site_display.html:62
 msgid "Recommend Groups"
 msgstr ""
 
@@ -94,7 +105,7 @@ msgstr ""
 msgid "Add Post"
 msgstr ""
 
-#: group/templates/topic_display.html:80
+#: group/templates/topic_display.html:81
 msgid "Back to Group: "
 msgstr ""
 
@@ -102,6 +113,10 @@ msgstr ""
 #, fuzzy
 msgid "Posts"
 msgstr "Latest Post from your group2"
+
+#: group/templates/topic_list.html:15
+msgid "Hits"
+msgstr ""
 
 #: group/views/groupui.py:30
 msgid "Group Title"
@@ -111,14 +126,22 @@ msgstr ""
 msgid "Group Introductioin"
 msgstr ""
 
-#: group/views/topic.py:40
+#: group/views/groupui.py:37
+msgid "Group Picture"
+msgstr ""
+
+#: group/views/topic.py:33
 msgid "Topic Title"
 msgstr ""
 
-#: group/views/topic.py:42
+#: group/views/topic.py:35
 msgid "Topic Content"
 msgstr ""
 
-#: group/views/topic.py:51
+#: group/views/topic.py:44
 msgid "Post Content"
+msgstr ""
+
+#: templates/master.html:49
+msgid "Group"
 msgstr ""

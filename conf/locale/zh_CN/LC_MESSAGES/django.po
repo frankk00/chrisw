@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-11 23:51+0800\n"
+"POT-Creation-Date: 2011-02-13 13:49+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,36 +17,45 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: conf/settings.py:47
-msgid "English"
-msgstr ""
+#: front/templates/signup.html:6
+msgid "Signup New User"
+msgstr "注册新用户"
 
-#: conf/settings.py:48
-msgid "Chinese"
-msgstr ""
+#: front/templates/signup.html:13
+msgid "Greate My Account"
+msgstr "创建账户"
 
-#: front/templates/user_home.html:12 front/views/uhome.py:40
-#: front/views/uhome.py:66
+#: front/templates/user_home.html:31
+#, fuzzy
+msgid "Followed Groups"
+msgstr "关注小组"
+
+#: front/templates/user_home.html:54
+#, fuzzy
+msgid "User Settings"
+msgstr "小组设置"
+
+#: front/views/uhome.py:33 front/views/uhome.py:59
 msgid "User Name"
 msgstr "用户名"
 
-#: front/views/uhome.py:41 front/views/uhome.py:68
+#: front/views/uhome.py:34 front/views/uhome.py:61
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
-#: front/views/uhome.py:64 front/views/userui.py:45
+#: front/views/uhome.py:57 front/views/userui.py:39
 msgid "Full Name"
 msgstr "昵称"
 
-#: front/views/uhome.py:70 front/views/userui.py:49
+#: front/views/uhome.py:63 front/views/userui.py:43
 msgid "Email"
 msgstr "邮件地址"
 
-#: front/views/userui.py:47
+#: front/views/userui.py:41
 msgid "Status Message"
 msgstr "状态信息"
 
-#: front/views/userui.py:53 group/views/groupui.py:37
+#: front/views/userui.py:47
 msgid "Profile Picture"
 msgstr "用户头像"
 
@@ -54,23 +63,23 @@ msgstr "用户头像"
 msgid "New Topic"
 msgstr "新话题"
 
-#: group/templates/group_display.html:32
+#: group/templates/group_display.html:33
 msgid "Created at"
 msgstr "创建于"
 
-#: group/templates/group_display.html:42
+#: group/templates/group_display.html:46
 msgid "Follow"
 msgstr "关注小组"
 
-#: group/templates/group_display.html:45
+#: group/templates/group_display.html:49
 msgid "Unfollow"
 msgstr "取消关注"
 
-#: group/templates/group_display.html:48 group/templates/group_settings.html:6
+#: group/templates/group_display.html:52 group/templates/group_settings.html:6
 msgid "Group Settings"
 msgstr "小组设置"
 
-#: group/templates/group_display.html:53
+#: group/templates/group_display.html:57
 msgid "Group Members"
 msgstr "小组成员"
 
@@ -78,15 +87,19 @@ msgstr "小组成员"
 msgid "Welcome"
 msgstr "欢迎"
 
-#: group/templates/site_display.html:15
+#: group/templates/site_display.html:17
+msgid "Latest Posts from the Groups You Followed"
+msgstr "关注小组的最新动态"
+
+#: group/templates/site_display.html:19
 msgid "Latest Post"
 msgstr "最新话题"
 
-#: group/templates/site_display.html:23
+#: group/templates/site_display.html:42
 msgid "You Followed Groups"
 msgstr "关注小组"
 
-#: group/templates/site_display.html:39
+#: group/templates/site_display.html:62
 msgid "Recommend Groups"
 msgstr "推荐小组"
 
@@ -94,13 +107,17 @@ msgstr "推荐小组"
 msgid "Add Post"
 msgstr "提交回复"
 
-#: group/templates/topic_display.html:80
+#: group/templates/topic_display.html:81
 msgid "Back to Group: "
 msgstr "回到 "
 
 #: group/templates/topic_list.html:15
 msgid "Posts"
 msgstr "回复"
+
+#: group/templates/topic_list.html:15
+msgid "Hits"
+msgstr "点击"
 
 #: group/views/groupui.py:30
 msgid "Group Title"
@@ -111,14 +128,24 @@ msgstr "小组名称"
 msgid "Group Introductioin"
 msgstr "小组设置"
 
-#: group/views/topic.py:40
+#: group/views/groupui.py:37
+#, fuzzy
+msgid "Group Picture"
+msgstr "小组名称"
+
+#: group/views/topic.py:33
 msgid "Topic Title"
 msgstr "标题"
 
-#: group/views/topic.py:42
+#: group/views/topic.py:35
 msgid "Topic Content"
 msgstr "内容"
 
-#: group/views/topic.py:51
+#: group/views/topic.py:44
 msgid "Post Content"
 msgstr "回复"
+
+#: templates/master.html:49
+#, fuzzy
+msgid "Group"
+msgstr "小组"
