@@ -42,13 +42,10 @@ class UserGroupInfo(db.Model):
   def get_by_user(self, user):
     """docstring for get_by_user"""
     # init all needed object here
-    if user != Guest:
-      groupinfo = UserGroupInfo.all().filter("user =", user).get()
-      if not groupinfo:
-        groupinfo = UserGroupInfo(user=user)
-        groupinfo.put()
-    
-    else: groupinfo = None
+    groupinfo = UserGroupInfo.all().filter("user =", user).get()
+    if not groupinfo:
+      groupinfo = UserGroupInfo(user=user)
+      groupinfo.put()
     return groupinfo
 
 class Group(db.Model):

@@ -12,7 +12,7 @@ from api import db
 class Site(db.Model):
   """a faked object"""
   site_name = db.StringProperty(required=True, default="Daoshicha.com")
-  
+  site_slogan = db.StringProperty(required=True, default="Want to be the best open source SNS!")
   @classmethod
   def get_instance(cls):
     """docstring for get_instance"""

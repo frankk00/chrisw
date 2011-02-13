@@ -73,9 +73,30 @@
 		{% if not is_not_guest %}
 			<div id="site-message">
 				<div id="message-content" class="grid_24">
-					<h3 style="color:#666;">
-						{{ site_message }}
-					</h3>
+					<div id="site-name" class="grid_4">
+						<h2>
+							{{ site.site_name }}
+						</h2>
+					</div>
+					<div id="login-slogan" class="grid_11">
+						<h3 style="color:#666; padding-top:2px;">
+							{{ site.site_slogan }}
+						</h3>
+					</div>
+					
+					<div id="login-reminder" class="container_8">
+						<div id="sign-up-button" class="grid_2">
+							<ul class="buttom">
+								<a class="a-btn a-btn-m" href="/signup"><span>{% trans "Sign up" %}</span></a>
+							</ul>
+						</div>
+						
+						
+						<div class="grid_6" style="height:30px; padding-top:2px;">
+							{% trans "Have an account?" %}
+								<a href="/login"><span style="font-size:1.2em; font-weight:900;">{% trans "Sign in" %}</span></a>
+						</div>
+					</div>
 				</div>
 				<div class="clear">
 				</div>
@@ -108,8 +129,11 @@
 			<div class="clear">
 			</div>
 			
-			<div id="footer" class="grid_24" style="bottom:0px;">
-				<hr></hr>
+		</div>
+		
+		
+		<div id="footer-bar">
+			<div id="footer" class="grid_24" style="padding-bottom:10px;">
 				<span id="cp">
 				    &copy; 2011-2011 <a href="http://home.kangzhang.org">Kang Zhang</a> all rights reserved
 				</span>
@@ -118,8 +142,10 @@
 				</span>
 			</div>
 			<div class="clear">
+			</div>
 		</div>
 	</div>
+	
 
 </body>
 

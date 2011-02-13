@@ -120,6 +120,15 @@ p.pl{
   border-radius: 5px;
 }
 
+#footer-bar{
+  background: white; 
+  margin-top: 50px;
+  padding-top: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
 div.sidebar_box {
   border: 1px solid #EEEEEE;
   padding: 10px;
