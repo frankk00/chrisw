@@ -22,7 +22,7 @@ from api.i18n import _
 from conf import settings
 from group.models import *
 
-from api.helpers import fields, forms
+from api.helpers import fields, forms, Page
 
 class TopicForm(djangoforms.ModelForm):
   """docstring for TopicForm"""
@@ -61,6 +61,7 @@ class TopicUI(PermissionUI):
     count = query.count(2000)
     posts = query.fetch(limit, offset)
     post_form = PostForm()
+    page = Page(count=count, offset=offset, limit=limit, request=request)
     
     self.topic.hits += 1
     self.topic.put()

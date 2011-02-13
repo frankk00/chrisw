@@ -17,7 +17,7 @@ from api.webapp import *
 from group.models import *
 from duser.models import User
 from topic import TopicForm
-from api.helpers import fields, forms
+from api.helpers import fields, forms, Page
 from conf import settings
 
 from api.i18n import _
@@ -48,11 +48,12 @@ class GroupUI(PermissionUI):
   # @check_permission('view', "Not allowed to open the group")
   def view(self, request):
     """docstring for view"""
-    limit = int(request.get('limit', '20'))
+    limit = int(request.get('limit', '1'))
     offset = int(request.get('offset', '0'))
     query = self.group.get_topics()
     count = query.count(2000)
     topics = query.fetch(limit, offset)
+    page = Page(count=count, offset=offset, limit=limit, request=request)
     
     members = [User.get(mk) for mk in self.group.members]
     

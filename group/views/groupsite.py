@@ -17,6 +17,7 @@ from api.webapp import *
 from group.models import *
 from groupui import GroupForm
 from conf import settings
+from api.helpers import Page
 
 class GroupSiteUI(PermissionUI):
   """docstring for GroupSiteUI"""
@@ -44,8 +45,13 @@ class GroupSiteUI(PermissionUI):
     if self.user == Guest:
       topic_groups = recommend_groups
     
-    topics = Topic.all().filter("group IN", topic_groups)\
-      .order("-update_time").fetch(20)
+    query = Topic.all().filter("group IN", topic_groups)\
+      .order("-update_time")
+      
+    count = query.count(2000)
+    topics = query.fetch(limit, offset)
+    
+    page = Page(count=count, offset=offset, limit=limit, request=request)
     
     logging.debug("Fetched recent topics" + str(topics))
     

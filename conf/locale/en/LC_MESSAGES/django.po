@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 20:54+0800\n"
+"POT-Creation-Date: 2011-02-14 00:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,15 +163,23 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: group/templates/topic_display.html:72
+#: group/templates/pager.html:9
+msgid "Previous Page"
+msgstr ""
+
+#: group/templates/pager.html:17
+msgid "Next Page"
+msgstr ""
+
+#: group/templates/topic_display.html:74
 msgid "Add Post"
 msgstr ""
 
-#: group/templates/topic_display.html:75
+#: group/templates/topic_display.html:77
 msgid "Login to leave your message here."
 msgstr ""
 
-#: group/templates/topic_display.html:83
+#: group/templates/topic_display.html:85
 msgid "Back to Group: "
 msgstr ""
 

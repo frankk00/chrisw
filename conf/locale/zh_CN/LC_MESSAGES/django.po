@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 20:54+0800\n"
+"POT-Creation-Date: 2011-02-14 00:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,15 +162,23 @@ msgstr "推荐小组"
 msgid "Create"
 msgstr "创建于"
 
-#: group/templates/topic_display.html:72
+#: group/templates/pager.html:9
+msgid "Previous Page"
+msgstr "上一页"
+
+#: group/templates/pager.html:17
+msgid "Next Page"
+msgstr "下一页"
+
+#: group/templates/topic_display.html:74
 msgid "Add Post"
 msgstr "提交回复"
 
-#: group/templates/topic_display.html:75
+#: group/templates/topic_display.html:77
 msgid "Login to leave your message here."
 msgstr "登陆后开始留言."
 
-#: group/templates/topic_display.html:83
+#: group/templates/topic_display.html:85
 msgid "Back to Group: "
 msgstr "回到 "
 
