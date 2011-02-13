@@ -48,7 +48,7 @@ class GroupUI(PermissionUI):
   # @check_permission('view', "Not allowed to open the group")
   def view(self, request):
     """docstring for view"""
-    limit = int(request.get('limit', '1'))
+    limit = int(request.get('limit', '20'))
     offset = int(request.get('offset', '0'))
     query = self.group.get_topics()
     count = query.count(2000)
