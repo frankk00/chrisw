@@ -31,16 +31,21 @@ class SiteUI(PermissionUI):
     offset = int(request.get("offset", "0"))
     limit = int(request.get("limit", "20"))
     
-    recommend_groups = Group.all().fetch(10)
-    
-    my_groups = recommend_groups
+    my_groups = []
     
     if self.groupinfo:
       # user
       my_groups = db.get(self.groupinfo.groups)
-      
-    topics = Topic.all().filter("group IN", my_groups).order("-update_time")\
-      .fetch(20)
+    
+    recommend_groups = [g for g in Group.all().fetch(10) \
+      if g.key() not in self.groupinfo.groups]
+    
+    topic_groups = my_groups
+    if not topic_groups:
+      topic_groups = recommend_groups
+    
+    topics = Topic.all().filter("group IN", topic_groups)\
+      .order("-update_time").fetch(20)
     
     logging.debug("Fetched recent topics" + str(topics))
     
