@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 17:54+0800\n"
+"POT-Creation-Date: 2011-02-13 19:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: front/models.py:16
+msgid "Want to be the best open source SNS!"
+msgstr ""
+
 #: front/templates/signup.html:6
 msgid "Signup New User"
 msgstr ""
 
 #: front/templates/signup.html:13
 msgid "Greate My Account"
+msgstr ""
+
+#: front/templates/signup_successful.html:4
+msgid "Register New User"
+msgstr ""
+
+#: front/templates/signup_successful.html:9
+msgid "Your account has been created successfully."
 msgstr ""
 
 #: front/templates/user_home.html:31
