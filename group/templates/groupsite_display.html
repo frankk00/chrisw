@@ -35,9 +35,32 @@
 				{% endif %}
 				</h2>
 			</div>
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<span class="stats-count" id="group-count"> {{ post_count }} </span>
+							<span class="label">{% trans "Posts" %}</span>
+						</td>
+						<td>
+							<span class="stats-count" id="topic_count"> {{ topic_count }} </span>
+							<span class="label">{% trans "Topics" %}</span>
+						</td>
+						 <td>
+							<span class="stats-count" id="group_count">{{ group_count }} </span>
+							<span class="label">{% trans "Groups" %}</span>
+						</td>
+					  </tr>
+				</tbody>
+			</table>
 		</div>
-		<div class="clear">
+		<div id="group-site-info" style="padding:10px; color:#666;">
+			{% trans "Want to create a new group?" %}
+			<a href="/login"><span style="font-size:1em; font-weight:900;">{% trans "Click here" %}</span></a>
+			<div class="clear">
+			</div>
 		</div>
+
 		<div id="groups" class="grid_9 dashboard-widget">
 			<h3>{% trans "You Followed Groups" %}</h3>
 			<ul>

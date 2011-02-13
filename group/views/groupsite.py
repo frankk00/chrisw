@@ -49,6 +49,11 @@ class GroupSiteUI(PermissionUI):
     
     logging.debug("Fetched recent topics" + str(topics))
     
+    # count the topics etc
+    topic_count = Topic.all().filter("author =", self.user).count()
+    post_count = Post.all().filter("author =", self.user).count()
+    group_count = len(my_groups)
+    
     return template('groupsite_display.html', locals())
   
   @view_method
@@ -67,6 +72,8 @@ class GroupSiteUI(PermissionUI):
       new_group.put()
       # add itself as a member
       new_group.join(get_current_user())
+      # add new group to site
+      self.group_site.add(new_group)
       
       return redirect('/group/%d' % new_group.key().id())
     return template('item_new', locals())

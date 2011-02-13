@@ -15,12 +15,20 @@ from conf import settings
 
 class GroupSite(db.Model):
   """a faked object"""
+  
+  avaliable_group_slots = db.IntegerProperty(required=True, default=100)
+  
   def get_groups(self):
     """docstring for get_groups"""
     pass
   
+  def add_group(self, group):
+    """docstring for add_group"""
+    self.avaliable_group_slots -= 1
+    self.put()
+  
   def can_create_group(self, user):
-    return True
+    return self.avaliable_group_slots > 0
   
   @classmethod
   def get_instance(cls):
