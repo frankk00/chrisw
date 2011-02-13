@@ -13,7 +13,7 @@ from api import db
 from duser import User, Guest
 from conf import settings
 
-class Site(db.Model):
+class GroupSite(db.Model):
   """a faked object"""
   def get_groups(self):
     """docstring for get_groups"""
@@ -25,9 +25,9 @@ class Site(db.Model):
   @classmethod
   def get_instance(cls):
     """docstring for get_instance"""
-    instance = super(Site, cls).all().get()
+    instance = super(GroupSite, cls).all().get()
     if not instance:
-      instance = Site()
+      instance = GroupSite()
       instance.put()
       
     return instance

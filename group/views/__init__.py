@@ -9,9 +9,9 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 import groupui
 import topic
-import site
+import groupsite
 
-apps = groupui.apps + topic.apps + site.apps
+apps = groupui.apps + topic.apps + groupsite.apps
 
 
 

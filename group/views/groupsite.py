@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-site.py
+group_site.py
 
 Created by Kang Zhang on 2010-09-27.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
@@ -18,11 +18,11 @@ from group.models import *
 from groupui import GroupForm
 from conf import settings
 
-class SiteUI(PermissionUI):
-  """docstring for GroupUI"""
-  def __init__(self, site):
-    super(SiteUI, self).__init__(site)
-    self.site = site
+class GroupSiteUI(PermissionUI):
+  """docstring for GroupSiteUI"""
+  def __init__(self, group_site):
+    super(GroupSiteUI, self).__init__(group_site)
+    self.group_site = group_site
     self.user = get_current_user()
     self.groupinfo = UserGroupInfo.get_by_user(self.user)
     
@@ -49,7 +49,7 @@ class SiteUI(PermissionUI):
     
     logging.debug("Fetched recent topics" + str(topics))
     
-    return template('site_display.html', locals())
+    return template('groupsite_display.html', locals())
   
   @view_method
   @check_permission("create_group", "Can't create group")
@@ -71,37 +71,37 @@ class SiteUI(PermissionUI):
       return redirect('/group/%d' % new_group.key().id())
     return template('item_new', locals())
 
-class SiteHandler(webapp.RequestHandler):
+class GroupSiteHandler(webapp.RequestHandler):
   """docstring for SiteHandler"""
   
-  def get_impl(self, site):
+  def get_impl(self, group_site):
     raise Exception("Have not implemented")
   
-  def post_impl(self, site, request):
-    return self.get_impl(site)
+  def post_impl(self, group_site, request):
+    return self.get_impl(group_site)
   
   @api_enabled
   def get(self):
-    return self.get_impl(SiteUI(Site.get_instance()))
+    return self.get_impl(GroupSiteUI(GroupSite.get_instance()))
   
   @api_enabled
   def post(self):
-    return self.post_impl(SiteUI(Site.get_instance()), self.request)
+    return self.post_impl(GroupSiteUI(GroupSite.get_instance()), self.request)
     
-class SiteViewHandler(SiteHandler):
+class GroupSiteViewHandler(GroupSiteHandler):
   """docstring for SiteViewHandler"""
-  def get_impl(self, site):
-    return site.view(self.request)
+  def get_impl(self, group_site):
+    return group_site.view(self.request)
 
-class SiteNewGroupHandler(SiteHandler):
+class GroupSiteNewGroupHandler(GroupSiteHandler):
   """docstring for SiteNewGroupHandler"""
-  def get_impl(self, site):
-    return site.create_group()
+  def get_impl(self, group_site):
+    return group_site.create_group()
   
-  def post_impl(self, site, request):
-    return site.create_group_post(request)
+  def post_impl(self, group_site, request):
+    return group_site.create_group_post(request)
 
 
-apps = [(r'/group', SiteViewHandler),
-        (r'/group/new', SiteNewGroupHandler),
+apps = [(r'/group', GroupSiteViewHandler),
+        (r'/group/new', GroupSiteNewGroupHandler),
         ]
