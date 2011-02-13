@@ -82,11 +82,22 @@ p.pl{
   width: 960px;
   text-align: left;
 }
-#top-bar .top-bar-inside {
-  margin: 0 40px;
-  position: relative;
-  vertical-align: middle;
-}
+  #top-bar .top-bar-inside {
+    margin: 0 40px;
+    position: relative;
+    vertical-align: middle;
+  }
+  #top-bar .top-bar-item{
+    vertical-align: text-top; 
+    margin: 0px;
+  }
+  #top-bar ul{
+    list-style-type:none;
+  }
+    #top-bar ul li{
+      float:left;
+      margin-left:20px;
+    }
 
 #content{
   background: white; 
@@ -319,11 +330,23 @@ a.btn-disabled {
   background-image: none;
 }
 
-#logo a:hover{
-  background: none;
-  color: #FFFFFF;
-  text-decoration: pointer;
+#logo a{
+  color: #FFF;
 }
+  #logo a:hover{
+    background: none;
+    text-decoration: pointer;
+  }
+
+#nav-menu a{
+  display:block;  
+  color:#DADADA;
+}
+  #nav-menu a:hover{
+    background: none;
+    color: #FFFFFF;
+    text-decoration: pointer;
+  }
 
 #user-title h2{
   font-size: 16px;

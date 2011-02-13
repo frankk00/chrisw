@@ -43,6 +43,4 @@ About
 :Authors:
     Kang Zhang (jobo.zh AT gmail.com) http://home.kangzhang.org
 
-    Yizhen Zhao(andyzh1314 AT gmail.com) http://andyzh1314.ycool.com
-
 :Version: 0.2
