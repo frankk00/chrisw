@@ -143,16 +143,6 @@ def view_method(func):
       # add permission info in vardict
       user = get_current_user()
       var_dict.update( inspect_permissions(self.model_obj, user) )
-      # add login info
-      user_info = {'login_user':user, 'is_not_guest':user != Guest}
-      var_dict.update(user_info)
-      
-      from front.models import Site
-      site_info = {'site':Site.get_instance()}
-      var_dict.update(site_info)
-      
-      # for debugging
-      # var_dict.update({'site_message':"You've created a new group."})
     
     return action
     
@@ -228,6 +218,20 @@ def api_enabled(func):
     elif isinstance(action, login):
       from front import create_login_url
       action = redirect(create_login_url(self.request.url))
+    elif isinstance(action, template):
+      # add always needed info
+      var_dict = action.var_dict
+      # add login info
+      user = get_current_user()
+      user_info = {'login_user':user, 'is_not_guest':user != Guest}
+      var_dict.update(user_info)
+      
+      from front.models import Site
+      site_info = {'site':Site.get_instance()}
+      var_dict.update(site_info)
+      
+      # for debugging
+      # var_dict.update({'site_message':"You've created a new group."})
     
     if result_type == 'html':
       
