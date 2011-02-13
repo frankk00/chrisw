@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 20:26+0800\n"
+"POT-Creation-Date: 2011-02-13 20:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,11 +49,11 @@ msgstr ""
 msgid "Your account has been created successfully."
 msgstr ""
 
-#: front/templates/user_home.html:31
+#: front/templates/user_home.html:30
 msgid "Followed Groups"
 msgstr ""
 
-#: front/templates/user_home.html:54
+#: front/templates/user_home.html:53
 msgid "User Settings"
 msgstr ""
 
@@ -203,14 +203,22 @@ msgstr ""
 msgid "Post Content"
 msgstr ""
 
-#: templates/master.html:90
+#: templates/master.html:69
+msgid "Settings"
+msgstr ""
+
+#: templates/master.html:75
+msgid "Logout"
+msgstr ""
+
+#: templates/master.html:102
 msgid "Sign up"
 msgstr ""
 
-#: templates/master.html:96
+#: templates/master.html:108
 msgid "Have an account?"
 msgstr ""
 
-#: templates/master.html:97
+#: templates/master.html:109
 msgid "Sign in"
 msgstr ""
