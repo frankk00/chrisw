@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 13:51+0800\n"
+"POT-Creation-Date: 2011-02-13 14:39+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,14 +26,12 @@ msgid "Greate My Account"
 msgstr "创建账户"
 
 #: front/templates/user_home.html:31
-#, fuzzy
 msgid "Followed Groups"
 msgstr "关注小组"
 
 #: front/templates/user_home.html:54
-#, fuzzy
 msgid "User Settings"
-msgstr "小组设置"
+msgstr "用户设置"
 
 #: front/views/uhome.py:33 front/views/uhome.py:59
 msgid "User Name"
@@ -83,23 +81,23 @@ msgstr "小组设置"
 msgid "Group Members"
 msgstr "小组成员"
 
-#: group/templates/site_display.html:6
+#: group/templates/groupsite_display.html:6
 msgid "Welcome"
 msgstr "欢迎"
 
-#: group/templates/site_display.html:17
+#: group/templates/groupsite_display.html:17
 msgid "Latest Posts from the Groups You Followed"
 msgstr "关注小组的最新动态"
 
-#: group/templates/site_display.html:19
+#: group/templates/groupsite_display.html:19
 msgid "Latest Post"
 msgstr "最新话题"
 
-#: group/templates/site_display.html:42
+#: group/templates/groupsite_display.html:42
 msgid "You Followed Groups"
 msgstr "关注小组"
 
-#: group/templates/site_display.html:62
+#: group/templates/groupsite_display.html:62
 msgid "Recommend Groups"
 msgstr "推荐小组"
 
@@ -124,14 +122,12 @@ msgid "Group Title"
 msgstr "小组名称"
 
 #: group/views/groupui.py:32
-#, fuzzy
 msgid "Group Introductioin"
-msgstr "小组设置"
+msgstr "小组简介"
 
 #: group/views/groupui.py:37
-#, fuzzy
 msgid "Group Picture"
-msgstr "小组名称"
+msgstr "小组图标"
 
 #: group/views/topic.py:33
 msgid "Topic Title"
@@ -146,6 +142,5 @@ msgid "Post Content"
 msgstr "回复"
 
 #: templates/master.html:49
-#, fuzzy
-msgid "Group"
+msgid "Groups"
 msgstr "小组"

@@ -9,6 +9,20 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 from api import db
 
+class Site(db.Model):
+  """a faked object"""
+  site_name = db.StringProperty(required=True, default="Daoshicha.com")
+  
+  @classmethod
+  def get_instance(cls):
+    """docstring for get_instance"""
+    instance = super(Site, cls).all().get()
+    if not instance:
+      instance = Site()
+      instance.put()
+      
+    return instance
+
 class UHome(db.Model):
   """A faked object for the user management"""
   

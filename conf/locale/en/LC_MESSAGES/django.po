@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-13 13:51+0800\n"
+"POT-Creation-Date: 2011-02-13 14:39+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,23 +81,23 @@ msgstr ""
 msgid "Group Members"
 msgstr ""
 
-#: group/templates/site_display.html:6
+#: group/templates/groupsite_display.html:6
 msgid "Welcome"
 msgstr ""
 
-#: group/templates/site_display.html:17
+#: group/templates/groupsite_display.html:17
 msgid "Latest Posts from the Groups You Followed"
 msgstr ""
 
-#: group/templates/site_display.html:19
+#: group/templates/groupsite_display.html:19
 msgid "Latest Post"
 msgstr "Latest Post from your group2"
 
-#: group/templates/site_display.html:42
+#: group/templates/groupsite_display.html:42
 msgid "You Followed Groups"
 msgstr ""
 
-#: group/templates/site_display.html:62
+#: group/templates/groupsite_display.html:62
 msgid "Recommend Groups"
 msgstr ""
 
@@ -143,5 +143,5 @@ msgid "Post Content"
 msgstr ""
 
 #: templates/master.html:49
-msgid "Group"
+msgid "Groups"
 msgstr ""
