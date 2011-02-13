@@ -63,6 +63,7 @@ class GroupSiteUI(PermissionUI):
     post_url = '/group/new'
     return template('item_new', locals())
   
+  @view_method
   @check_permission("create_group", "Can't create group")
   def create_group_post(self, request):
     form = GroupForm(data=request.POST)
@@ -73,7 +74,7 @@ class GroupSiteUI(PermissionUI):
       # add itself as a member
       new_group.join(get_current_user())
       # add new group to site
-      self.group_site.add(new_group)
+      self.group_site.add_group(new_group)
       
       return redirect('/group/%d' % new_group.key().id())
     return template('item_new', locals())

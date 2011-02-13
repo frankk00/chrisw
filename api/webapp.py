@@ -65,11 +65,12 @@ class check_permission(object):
       """docstring for wrapper"""
       f = getattr(ui.model_obj, 'can_' + self.action)
       
-      if ui.model_user == Guest:
+      if f(ui.model_user):
+        return func(ui, *args, **kwargs)
+      elif ui.model_user == Guest:
         # Guest can't be used to do anything
         return login()
-      elif f(ui.model_user):
-        return func(ui, *args, **kwargs)
+        
       raise PermissionError(self.error_msg, ui.model_user, ui.model_obj)
 
     return wrapper  
@@ -128,6 +129,7 @@ def view_method(func):
     """docstring for wrapper"""
     
     action = func(self, *args, **kwargs)
+
     # append the instance variable
     if hasattr(action, 'var_dict'):
       var_dict = action.var_dict
@@ -136,7 +138,7 @@ def view_method(func):
       for key in ('self', 'model_obj', 'model_user'):
         if var_dict.has_key(key): 
           del var_dict[key]
-      
+
       from api.helpers import inspect_permissions
       # add permission info in vardict
       user = get_current_user()

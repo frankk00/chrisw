@@ -54,12 +54,15 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="group-site-info" style="padding:10px; color:#666;">
-			{% trans "Want to create a new group?" %}
-			<a href="/login"><span style="font-size:1em; font-weight:900;">{% trans "Click here" %}</span></a>
-			<div class="clear">
+		
+		{% if can_create_group %}
+			<div id="group-site-info" style="padding:10px; color:#666;">
+				{% trans "Want to create a new group?" %}
+				<a href="/group/new"><span style="font-size:1em; font-weight:900;">{% trans "Click here" %}</span></a>
+				<div class="clear">
+				</div>
 			</div>
-		</div>
+		{% endif %}
 
 		<div id="groups" class="grid_9 dashboard-widget">
 			<h3>{% trans "You Followed Groups" %}</h3>

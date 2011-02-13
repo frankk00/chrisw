@@ -82,6 +82,7 @@ class GroupUI(PermissionUI):
     
     return template('group_settings', locals())
   
+  @view_method
   @check_permission('edit', "Not a admin user")
   def edit_post(self, request):
     """the post_back handler for edit group info"""
@@ -142,7 +143,8 @@ class GroupUI(PermissionUI):
     form = TopicForm()
     post_url = '/group/%d/new' % self.group.key().id()
     return template('item_new', locals())
-    
+  
+  @view_method
   @check_permission('create_topic', "Not allowed to create topic here")
   def create_topic_post(self, request):
     """docstring for create_topic_post"""

@@ -75,6 +75,7 @@ class TopicUI(PermissionUI):
     post_url = '/group/topic/%d/edit' % self.topic.key().id()
     return template('item_new', locals())
   
+  @view_method
   @check_permission('edit', "Not the author")
   def edit_post(self, request):
     """docstring for edit_post"""
@@ -85,6 +86,7 @@ class TopicUI(PermissionUI):
       return redirect('/group/topic/%d' % new_topic.key().id())
     return template('item_new', locals())
   
+  @view_method
   @check_permission('delete', "Can't delete topic")
   def delete(self):
     """docstring for delete"""
@@ -98,6 +100,7 @@ class TopicUI(PermissionUI):
     post_url = '/group/topic/%d/new' % self.topic.key().id()
     return template('item_new', locals())
   
+  @view_method
   @check_permission('reply', "Not allowed to reply the thread")
   def create_post_post(self, request):
     """docstring for create_post_post"""

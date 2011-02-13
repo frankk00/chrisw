@@ -72,19 +72,19 @@ class Group(db.Model):
     
   def can_edit(self, user):
     """docstring for can_edit"""
-    return True
+    return user.key() == self.create_user.key() or user.key() in self.admin_users
   
   def can_delete(self):
     """docstring for can_delete"""
-    return True
+    return user.key() == self.create_user.key()
   
   def can_create_topic(self, user):
     """docstring for can_create_thread"""
-    return True
+    return user.key() in self.members
   
   def can_join(self, user):
     """docstring for can_join"""
-    return not user.key() in self.members
+    return user != Guest and (not user.key() in self.members)
   
   def join(self, user):
     userinfo = UserGroupInfo.get_by_user(user)
@@ -127,16 +127,16 @@ class Topic(db.Model):
   
   def can_edit(self, user):
     """docstring for can_edit"""
-    return user.username == self.author.username
+    return user.key() == self.author.key()
   
   def can_reply(self, user):
     """docstring for can_create_thread"""
     from duser.auth import Guest
     return self.can_view(user) and user != Guest
   
-  def can_delete(self):
+  def can_delete(self, user):
     """docstring for can_delete"""
-    return True
+    return self.author.key() == user.key()
   
   def get_posts(self):
     """docstring for get_posts"""

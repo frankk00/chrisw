@@ -54,7 +54,7 @@ class User(db.Model):
     
   def can_edit(self, user):
     """docstring for can_edit"""
-    return True
+    return self.key() == user.key()
   
   def full_photo(self):
     """docstring for full_photo"""
