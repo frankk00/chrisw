@@ -41,7 +41,7 @@ class GroupSiteUI(PermissionUI):
       if g.key() not in self.groupinfo.groups]
     
     topic_groups = my_groups
-    if not topic_groups:
+    if self.user == Guest:
       topic_groups = recommend_groups
     
     topics = Topic.all().filter("group IN", topic_groups)\
@@ -53,6 +53,8 @@ class GroupSiteUI(PermissionUI):
     topic_count = Topic.all().filter("author =", self.user).count()
     post_count = Post.all().filter("author =", self.user).count()
     group_count = len(my_groups)
+    
+    display_group_name = True
     
     return template('groupsite_display.html', locals())
   
