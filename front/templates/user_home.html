@@ -45,3 +45,14 @@
 	</div>
 
 {% endblock %}
+
+
+{% block sidebar %}
+	{% if is_login_user %}
+		<div id="control" class="sidebar_box">
+			<ul class="buttom">
+				<a class="a-btn a-btn-m" href="/u/profile"><span>{% trans "User Settings" %}</span></a>
+			</ul>
+		</div>
+	{% endif %}
+{% endblock %}

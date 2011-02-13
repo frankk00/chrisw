@@ -137,6 +137,9 @@ dl.item-box {
       white-space: nowrap;
     }
 
+ul.buttom{
+  margin: 0 0 0 0;
+}
 
 li.topic_list {
   list-style: none outside none;

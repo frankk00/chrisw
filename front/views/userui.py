@@ -58,6 +58,8 @@ class UserUI(PermissionUI):
     """the view of user profile"""
     groupinfo = UserGroupInfo.get_by_user(self.user)
     joined_groups = db.get(groupinfo.groups)
+    is_login_user = self.user.key() == get_current_user().key()
+    
     return template('user_home', locals())
   
   # every user can only see his/her own setting page, don't need check

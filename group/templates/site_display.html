@@ -12,7 +12,13 @@
 
 {% block content %}
 	<div id="group_title">
-		<h2>{% trans "Latest Post" %}</h2>
+		<h2>
+			{% if is_not_guest %}
+				{% trans "Latest Posts from the Groups You Followed" %}
+			{% else %}
+				{% trans "Latest Post" %}
+			{% endif %}
+		</h2>
 	</div>
 	{% include "topic_list.html" %}
 {% endblock %}
