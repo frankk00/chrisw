@@ -5,6 +5,8 @@ on Google AppEngine, which shipped with an interactive web user interface.
 
 A running version of Chrisw can be found at:
 
+	http://daoshicha.kangzhang.org
+	or
 	http://daoshicha.appspot.com
 
 Note that i18n is supported by Chrisw. It now supports both English and 
