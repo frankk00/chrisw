@@ -12,8 +12,7 @@ A running version of Chrisw can be found at:
 It now supports:
 
 * a group-based community 
-* i18n is supported by Chrisw. It now supports both English and 
-Chinese as the UI language.
+* i18n. (It now supports both English and Chinese as the UI language).
 * more features are comming :-P
 
 Chrisw is not only a website but also a micro web framework for AppEngine
