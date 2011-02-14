@@ -3,9 +3,17 @@ Introduction of Chrisw
 Chrisw is designed to be a flexible, group-based social network site running
 on Google AppEngine, which shipped with an interactive web user interface.
 
+A running version of Chrisw can be found at:
+
+	http://daoshicha.kangzhang.org
+	or
+	http://daoshicha.appspot.com
+
 It now supports:
 
 * a group-based community 
+* i18n is supported by Chrisw. It now supports both English and 
+Chinese as the UI language.
 * more features are comming :-P
 
 Chrisw is not only a website but also a micro web framework for AppEngine
@@ -20,16 +28,6 @@ It contains:
 * a privacy sensitive storage module
 * an AOP liked web programming workflow
 * some basic css resets  
-  
-
-A running version of Chrisw can be found at:
-
-	http://daoshicha.kangzhang.org
-	or
-	http://daoshicha.appspot.com
-
-Note that i18n is supported by Chrisw. It now supports both English and 
-Chinese as the UI language.
 
 
 Installation
@@ -58,7 +56,7 @@ production release.
 About Chrisw2
 =============
 
-Yes, Chrisw2 is under development. The mission of Chrisw2 is becoming a 
+Yes, **Chrisw2** is under development. The mission of Chrisw2 is becoming a 
 scalable, fast, module based web framework. Once it has been done, we will 
 re-implement Chrisw using it.
 
