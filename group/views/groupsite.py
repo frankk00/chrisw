@@ -44,6 +44,11 @@ class GroupSiteUI(PermissionUI):
     topic_groups = my_groups
     if self.user == Guest:
       topic_groups = recommend_groups
+    else:
+      # count the topics etc
+      topic_count = Topic.all().filter("author =", self.user).count()
+      post_count = Post.all().filter("author =", self.user).count()
+      group_count = len(my_groups)
     
     query = Topic.all().filter("group IN", topic_groups)\
       .order("-update_time")
@@ -54,11 +59,6 @@ class GroupSiteUI(PermissionUI):
     page = Page(count=count, offset=offset, limit=limit, request=request)
     
     logging.debug("Fetched recent topics" + str(topics))
-    
-    # count the topics etc
-    topic_count = Topic.all().filter("author =", self.user).count()
-    post_count = Post.all().filter("author =", self.user).count()
-    group_count = len(my_groups)
     
     display_group_name = True
     
