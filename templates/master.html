@@ -104,9 +104,19 @@
 						</div>
 						
 						
-						<div class="grid_6" style="height:30px; padding-top:2px;">
-							{% trans "Have an account?" %}
-								<a href="/login"><span style="font-size:1.2em; font-weight:900;">{% trans "Sign in" %}</span></a>
+						<div class="grid_6" style="height:30px; margin-top:-5px;">
+							<table border="0" cellspacing="0" cellpadding="0">
+								<tr><td style="padding:0;margin:0; text-align: center;">
+									{% trans "Have an account?" %}
+										<a href="/login"><span style="font-size:1.2em; font-weight:900;">{% trans "Sign in" %}</span></a>
+									</td>
+								</tr>
+								<tr><td style="padding:0;margin:0; text-align: center;">
+									<span style="font-size:0.8em;max-width:20px;">
+										{% trans "(Google Account is supported)" %}
+									</span>
+								</td></tr>
+							</table>
 						</div>
 					</div>
 				</div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-14 00:53+0800\n"
+"POT-Creation-Date: 2011-02-14 12:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,19 @@ msgstr "努力做最好的开源SNS!"
 msgid "Sign In"
 msgstr "登陆"
 
-#: front/templates/login.html:13
+#: front/templates/login.html:16
+msgid "Have a google account already?"
+msgstr "已经拥有Google账户?"
+
+#: front/templates/login.html:20
+msgid "Login with my Google Account"
+msgstr "使用我的Google帐号登陆"
+
+#: front/templates/login.html:29
+msgid "Or"
+msgstr "或者"
+
+#: front/templates/login.html:34
 msgid "Login"
 msgstr "登陆"
 
@@ -65,19 +77,19 @@ msgstr "更换图片"
 msgid "Save"
 msgstr "保存"
 
-#: front/views/uhome.py:33 front/views/uhome.py:59
+#: front/views/uhome.py:34 front/views/uhome.py:60
 msgid "User Name"
 msgstr "用户名"
 
-#: front/views/uhome.py:34 front/views/uhome.py:61
+#: front/views/uhome.py:35 front/views/uhome.py:62
 msgid "Password"
 msgstr "密码"
 
-#: front/views/uhome.py:57 front/views/userui.py:39
+#: front/views/uhome.py:58 front/views/userui.py:39
 msgid "Full Name"
 msgstr "昵称"
 
-#: front/views/uhome.py:63 front/views/userui.py:43
+#: front/views/uhome.py:64 front/views/userui.py:43
 msgid "Email"
 msgstr "邮件地址"
 
@@ -210,6 +222,10 @@ msgstr "内容"
 msgid "Post Content"
 msgstr "回复"
 
+#: templates/error.html:6
+msgid "Sorry, got a error :-("
+msgstr "对不起,遇到错误了:-("
+
 #: templates/master.html:69
 msgid "Settings"
 msgstr "设置"
@@ -222,10 +238,14 @@ msgstr "登出"
 msgid "Sign up"
 msgstr "注册"
 
-#: templates/master.html:108
+#: templates/master.html:110
 msgid "Have an account?"
 msgstr "已经拥有账户?"
 
-#: templates/master.html:109
+#: templates/master.html:111
 msgid "Sign in"
 msgstr "登陆"
+
+#: templates/master.html:116
+msgid "(Google Account is supported)"
+msgstr "(支持Google账户登陆)"

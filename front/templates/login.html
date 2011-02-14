@@ -7,10 +7,32 @@
 {% endblock %}
 
 {% block content %}
+	
 
-	<form action="{{page_url}}" method="post" accept-charset="utf-8">
-		{{ form.as_p }}
-		<p><input type="submit" value="{% trans "Login" %}"></p>
-	</form>
+	
+	<div id="google-login-panel" class="grid_10" style="padding-top:20px;">
+
+			
+			{% trans "Have a google account already?" %}
+			
+			<h3>
+						<a href="{{google_login_url}}">
+				{% trans "Login with my Google Account" %}
+			</a>
+		
+		</h3>
+	</div>
+	<div class="clear">
+		
+	</div>
+	<h2 style="color:#777;">
+		{% trans "Or" %}
+	</h2>
+	<div id="login-panel" class="grid_10">
+		<form action="{{page_url}}" method="post" accept-charset="utf-8">
+			{{ form.as_p }}
+			<p><input type="submit" value="{% trans "Login" %}"></p>
+		</form>
+	</div>
 	
 {% endblock %}

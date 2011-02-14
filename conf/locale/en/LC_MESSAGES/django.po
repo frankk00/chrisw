@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-14 00:53+0800\n"
+"POT-Creation-Date: 2011-02-14 12:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,19 @@ msgstr ""
 msgid "Sign In"
 msgstr ""
 
-#: front/templates/login.html:13
+#: front/templates/login.html:16
+msgid "Have a google account already?"
+msgstr ""
+
+#: front/templates/login.html:20
+msgid "Login with my Google Account"
+msgstr ""
+
+#: front/templates/login.html:29
+msgid "Or"
+msgstr ""
+
+#: front/templates/login.html:34
 msgid "Login"
 msgstr ""
 
@@ -65,19 +77,19 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: front/views/uhome.py:33 front/views/uhome.py:59
+#: front/views/uhome.py:34 front/views/uhome.py:60
 msgid "User Name"
 msgstr ""
 
-#: front/views/uhome.py:34 front/views/uhome.py:61
+#: front/views/uhome.py:35 front/views/uhome.py:62
 msgid "Password"
 msgstr ""
 
-#: front/views/uhome.py:57 front/views/userui.py:39
+#: front/views/uhome.py:58 front/views/userui.py:39
 msgid "Full Name"
 msgstr ""
 
-#: front/views/uhome.py:63 front/views/userui.py:43
+#: front/views/uhome.py:64 front/views/userui.py:43
 msgid "Email"
 msgstr ""
 
@@ -211,6 +223,10 @@ msgstr ""
 msgid "Post Content"
 msgstr ""
 
+#: templates/error.html:6
+msgid "Sorry, got a error :-("
+msgstr ""
+
 #: templates/master.html:69
 msgid "Settings"
 msgstr ""
@@ -223,10 +239,14 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
-#: templates/master.html:108
+#: templates/master.html:110
 msgid "Have an account?"
 msgstr ""
 
-#: templates/master.html:109
+#: templates/master.html:111
 msgid "Sign in"
+msgstr ""
+
+#: templates/master.html:116
+msgid "(Google Account is supported)"
 msgstr ""

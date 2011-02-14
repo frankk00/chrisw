@@ -15,6 +15,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.db import djangoforms
 from django import forms
 from google.appengine.ext.webapp import template
+from google.appengine.api import users as gusers
 
 
 from duser import auth
@@ -86,6 +87,33 @@ class UHomeUI(PermissionUI):
     form = LoginForm()
     
     page_url = request.path + "?" + request.query_string
+    
+    # if google user login
+    guser = gusers.get_current_user()
+    if guser:
+      # google user login already,
+      email = guser.email()
+      user = auth.User.all().filter("email =", email).get()
+      
+      if not user:
+        import random, string
+        
+        password = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(6))
+        user = auth.User(email=email, fullname=guser.nickname(), \
+          username = (guser.user_id() + "_google"), 
+          password = password) # an always false password
+        user.change_to_gravatar_icon()
+        user.save()
+        
+      auth.login(user)
+      
+      back_url = request.get('back_url', '/')
+      if back_url:
+        return redirect(back_url)
+      
+    else:
+      google_login_url = gusers.create_login_url(settings.LOGIN_URL)
+    
     return template('login.html', locals())
   
   @view_method
