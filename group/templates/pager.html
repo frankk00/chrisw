@@ -1,0 +1,22 @@
+{% load i18n %}
+
+
+<table border="0" cellspacing="5" cellpadding="5" style="margin-left:10px;">
+	<tr>
+		{% if page.has_prev %}
+			<td>
+				<a href="{{page.prev_url}}">
+					{% trans "Previous Page" %}
+				</a>
+			</td>
+		{% endif %}
+		
+		{% if page.has_next %}
+			<td>
+				<a href="{{page.next_url}}">
+					{% trans "Next Page" %}
+				</a>
+			</td>
+		{% endif %}
+	</tr>
+</table>

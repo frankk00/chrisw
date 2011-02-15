@@ -141,19 +141,17 @@ def topic_view_get(topic_ui, request):
   """docstring for topic_view_handler"""
   return topic_ui.view(request)
 
-
 @get_handler(r'/group/topic/(\d+)/new')
 @topic_handler
-def topic_new_post_get(topic_ui, request):
+def topic_create_post_get(topic_ui, request):
   """docstring for topic_new_get"""
   return topic_ui.create_post()
   
 @post_handler(r'/group/topic/(\d+)/new')
 @topic_handler
-def topic_new_post_post(topic_ui, request):
+def topic_create_post_post(topic_ui, request):
   """docstring for topic_new_post"""
   return topic_ui.create_post_post(request)
-
 
 @get_handler(r'/group/topic/(\d+)/edit')
 @topic_handler

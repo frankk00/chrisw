@@ -51,6 +51,7 @@ class BaseHandler(webapp.RequestHandler):
     """docstring for handle_request"""
     path = self.request.path
     handler_func = router.resolve_path(path, request_type)
+    
     if handler_func:
       api_enabled(handler_func)(self, *args)
     else:

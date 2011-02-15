@@ -17,6 +17,5 @@ def render_to_string(*args, **kwargs):
     Returns a HttpResponse whose content is filled with the result of calling
     django.template.loader.render_to_string() with the passed arguments.
     """
-    logging.debug(" args " + str(args))
     return loader.render_to_string(*args, **kwargs)
 
