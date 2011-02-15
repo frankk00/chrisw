@@ -11,7 +11,7 @@ import groupui
 import topic
 import groupsite
 
-apps = groupui.apps + topic.apps + groupsite.apps
+apps = groupui.apps + groupsite.apps
 
 
 

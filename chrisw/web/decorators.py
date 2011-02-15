@@ -11,23 +11,23 @@ def request_handler(func, path, request_type = 'get'):
   """docstring for request_handler"""
   func.is_request_handler = True
   func.path = path
-  func.request_type = 'get'
+  func.request_type = request_type
   return func
 
-def Get(func, path):
+def get_handler(path):
   """docstring for get"""
-  return request_handler(func, path, 'get')
+  return lambda func: request_handler(func, path, 'get')
 
-def Post(func, path):
+def post_handler(path):
   """docstring for Post"""
-  return request_handler(func, path, 'post')
+  return lambda func: request_handler(func, path, 'post')
 
-def Options(func, path):
+def options_handler(path):
   """docstring for Options"""
-  return request_handler(func, path, 'options')
+  return lambda func: request_handler(func, path, 'options')
 
-def Head(func, path):
+def head_handler(path):
   """docstring for Head"""
-  return request_handler(func, path, 'head')
+  return lambda func: request_handler(func, path, 'head')
 
 

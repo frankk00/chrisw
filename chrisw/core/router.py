@@ -24,7 +24,11 @@ def register_path_handler(path, handler_method, handle_type):
 
 def resolve_path(path, request_type):
   """docstring for route_url"""
+  import logging
+  logging.debug("request_type" + request_type)
   for path_reg, handler_method, handle_type in _handler_map.values():
+    
+    logging.debug("Resolve " + path + handle_type + request_type)
     if request_type == handle_type and path_reg.match(path):
       return handler_method
       

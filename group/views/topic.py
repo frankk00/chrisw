@@ -24,6 +24,8 @@ from group.models import *
 
 from api.helpers import fields, forms, Page
 
+from chrisw.web.util import *
+
 class TopicForm(djangoforms.ModelForm):
   """docstring for TopicForm"""
   class Meta:
@@ -122,53 +124,45 @@ class TopicUI(PermissionUI):
       return redirect('/group/topic/%d' % self.topic.key().id())
     return template('item_new', locals())
 
-
-class TopicHandler(webapp.RequestHandler):
-  """docstring for GroupHandler"""
-  def get_impl(self, topic):
-    """docstring for get_impl"""
-    raise Exception("Have not implemented")
-
-  def post_impl(self, topic, request):
-    """docstring for post_impl"""
-    return self.get_impl(topic)
-
-  @api_enabled
-  def get(self, topic_id):
-    """docstring for get"""
+def topic_handler(func):
+  """docstring for topic_handler"""
+  def wrapper(handler, topic_id):
+    """docstring for wrapper"""
     topic = Topic.get_by_id(int(topic_id))
-    return self.get_impl(TopicUI(topic))
+    topic_ui = TopicUI(topic)
+    
+    return func(topic_ui, handler.request)
+    
+  return wrapper
 
-  @api_enabled
-  def post(self, topic_id):
-    """docstring for post"""
-    topic = Topic.get_by_id(int(topic_id))
-    return self.post_impl(TopicUI(topic), self.request)
-
-class TopicViewHandler(TopicHandler):
-  """docstring for GroupViewHandler"""
-  def get_impl(self, topic):
-    """docstring for get_impl"""
-    return topic.view(self.request)
-
-class TopicNewPostHandler(TopicHandler):
-  """docstring for GroupNewTopicHandler"""
-  def get_impl(self, topic):
-    return topic.create_post()
-
-  def post_impl(self, topic, request):
-    return topic.create_post_post(request)
-
-class TopicEditHandler(TopicHandler):
-  """docstring for GroupNewTopicHandler"""
-  def get_impl(self, topic):
-    return topic.edit()
-
-  def post_impl(self, topic, request):
-    return topic.edit_post(request)
+@get_handler(r'/group/topic/(\d+)')
+@topic_handler
+def topic_view_get(topic_ui, request):
+  """docstring for topic_view_handler"""
+  return topic_ui.view(request)
 
 
-apps = [(r'/group/topic/(\d+)', TopicViewHandler),
-        (r'/group/topic/(\d+)/new', TopicNewPostHandler),
-        (r'/group/topic/(\d+)/edit', TopicEditHandler),
-        ]
+@get_handler(r'/group/topic/(\d+)/new')
+@topic_handler
+def topic_new_post_get(topic_ui, request):
+  """docstring for topic_new_get"""
+  return topic_ui.create_post()
+  
+@post_handler(r'/group/topic/(\d+)/new')
+@topic_handler
+def topic_new_post_post(topic_ui, request):
+  """docstring for topic_new_post"""
+  return topic_ui.create_post_post(request)
+
+
+@get_handler(r'/group/topic/(\d+)/edit')
+@topic_handler
+def topic_edit_get(topic_ui, request):
+  """docstring for topic_edit_get"""
+  return topic_ui.edit()
+
+@post_handler(r'/group/topic/(\d+)/edit')
+@topic_handler
+def topic_edit_post(topic_ui, request):
+  """docstring for topic_edit_post"""
+  return topic_ui.edit_post(request)

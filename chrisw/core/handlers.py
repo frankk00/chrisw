@@ -52,13 +52,12 @@ class BaseHandler(webapp.RequestHandler):
     path = self.request.path
     handler_func = router.resolve_path(path, request_type)
     if handler_func:
-      api_enabled(view_method(handler_func))(*args)
-    
-    #exception happend  
-    raise CannotResolvePath()
+      api_enabled(handler_func)(self, *args)
+    else:
+      #exception happend  
+      raise CannotResolvePath(path)
   
 def get_handler_bindings():
   """docstring for get_handler_bindings"""
   pathes = router.get_all_pathes()
-  handler = BaseHandler()
-  return [(path, handler) for path in pathes]
+  return [(path, BaseHandler) for path in pathes]

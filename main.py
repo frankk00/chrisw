@@ -65,6 +65,7 @@ def main():
   application = webapp.WSGIApplication( front.apps + group.apps + \
                                         handlers.get_handler_bindings(), 
                                         debug=True)
+  logging.debug(handlers.get_handler_bindings())
   util.run_wsgi_app(application)
 
 
