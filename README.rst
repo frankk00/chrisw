@@ -52,6 +52,13 @@ Most settings can be config using the ``settings.py``, and ``local_settings.py``
 The options in ``local_settings.py`` are recommended to be changed in your 
 production release.
 
+Documentations
+==============
+
+For more document, you can refer to
+
+    https://github.com/kangzhang/chrisw/wiki
+
 About Chrisw2
 =============
 
