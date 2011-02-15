@@ -17,5 +17,10 @@ sys.path += settings.LIB_DIRS
 from gaesessions import SessionMiddleware
 def webapp_add_wsgi_middleware(app):
     app = SessionMiddleware(app, cookie_key=settings.COOKIE_KEY)
+    
+    # load profiling tool
+    from google.appengine.ext.appstats import recording
+    app = recording.appstats_wsgi_middleware(app)
+    
     return app
 

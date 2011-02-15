@@ -27,3 +27,11 @@ handlers:
 - url: .*
   script: main.py
   secure: optional
+
+- url: /stats.*
+  script: $PYTHON_LIB/google/appengine/ext/appstats/ui.py
+
+admin_console:
+  pages:
+  - name: Appstats
+    url: /stats
