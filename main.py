@@ -57,7 +57,13 @@ def main():
   logging.debug(djsettings.USE_I18N)
   
   import front, group
-  application = webapp.WSGIApplication( front.apps + group.apps, 
+  
+  from chrisw.core import handlers
+  from chrisw.web.util import register_app
+  register_app(['group',])
+  
+  application = webapp.WSGIApplication( front.apps + group.apps + \
+                                        handlers.get_handler_bindings(), 
                                         debug=True)
   util.run_wsgi_app(application)
 

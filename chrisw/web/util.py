@@ -30,7 +30,7 @@ def register_app(app_names):
       
       for submodule in submodules:
         smembers = [submodule.__dict__[m] for m in dir(submodule)]
-        sfunctions = [m for m im smembers if inspect.isfunction(m)]:
+        sfunctions = [m for m in smembers if inspect.isfunction(m)]
         
         for func in sfunctions:
           if func.is_request_handler:
