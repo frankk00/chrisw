@@ -20,7 +20,7 @@ AppEngine based application development.
 
 It contains:
 
-* a implemented authentication and authorization module
+* an implemented authentication and authorization module
 * a set of helper classes for daily development 
 * an integrated gaesession in the framework
 * some useful hotfixs for Google AppEngine's django runtime
