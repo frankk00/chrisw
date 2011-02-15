@@ -15,8 +15,8 @@ It now supports:
 * i18n. (It now supports both English and Chinese as the UI language).
 * more features are comming :-P
 
-Chrisw is not only a website but also a micro web framework for AppEngine
-based application development. 
+Chrisw is not only a website but also a micro web framework for Google 
+AppEngine based application development. 
 
 It contains:
 
@@ -31,9 +31,9 @@ It contains:
 
 Installation
 ============
-Chrisw is not ready for release now. It's still under heavily development. 
+**Chrisw is not ready for release now. It's still under heavily development.** 
 
-All data is logged on the server. **Even you remove it from the site**. It's 
+All data is logged on the server. Even you remove it from the site. It's 
 for debugging usage, please don't use it for production environment.
 
 Instructions:
