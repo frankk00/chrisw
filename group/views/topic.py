@@ -167,6 +167,7 @@ class TopicEditHandler(TopicHandler):
   def post_impl(self, topic, request):
     return topic.edit_post(request)
 
+
 apps = [(r'/group/topic/(\d+)', TopicViewHandler),
         (r'/group/topic/(\d+)/new', TopicNewPostHandler),
         (r'/group/topic/(\d+)/edit', TopicEditHandler),
