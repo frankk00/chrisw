@@ -28,8 +28,8 @@ handlers:
   script: main.py
   secure: optional
 
-- url: /stats.*
-  script: $PYTHON_LIB/google/appengine/ext/appstats/ui.py
+builtins:
+- appstats: on
 
 admin_console:
   pages:

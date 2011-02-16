@@ -54,7 +54,7 @@ class GroupSiteUI(PermissionUI):
       .order("-update_time")
       
     count = query.count(2000)
-    topics = query.fetch(limit, offset)
+    topics = db.get(query.fetch(limit, offset))
     
     page = Page(count=count, offset=offset, limit=limit, request=request)
     
