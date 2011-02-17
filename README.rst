@@ -52,8 +52,8 @@ Most settings can be config using the ``settings.py``, and ``local_settings.py``
 The options in ``local_settings.py`` are recommended to be changed in your 
 production release.
 
-Documentations
-==============
+Documentation
+=============
 
 For more document, you can refer to
 

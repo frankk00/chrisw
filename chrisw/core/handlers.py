@@ -57,7 +57,46 @@ class BaseHandler(webapp.RequestHandler):
     else:
       #exception happend  
       raise CannotResolvePath(path)
-  
+
+class RequestHandlerMeta(type):
+  """docstring for RequestHandlerMeta"""
+  def __new__(cls, name, bases, attrs):
+    """Thanks God, there is something called MetaClass!!!!      
+                                                     -- Kang Zhang 2011-02-17      
+    """
+    
+    """"Metaclasses are deeper magic than 99% of users should ever worry
+    about. If you wonder whether you need them, you don't (the people who
+    actually need them know with certainty that they need them, and don't
+    need an explanation about why). -- Python Guru Tim Peters"
+    """
+    
+    """
+    Note that decorate the instance method in Python, the only way would be
+    using Meta class. The most important reason for this is the im_self field
+    in the function object. It seems that field will be initialized after the
+    __new__ method from meta class, but before the __init__ method of instance
+    class.
+    """
+    
+    """
+    If you still can't understand the aboving words, refer to 
+      '''http://mail.python.org/pipermail/tutor/2003-December/026707.html'''.
+    """
+    
+    wrap_method_list = ['get', 'post', 'put', 'head', 'delete', 'options', 
+      'trace']
+    
+    for attr, handler_func in attrs.items():
+      if attr in wrap_method_list and callable(handler_func):
+        attrs[attr] = api_enabled(attrs[attr])
+    
+    return super(RequestHandlerMeta, cls).__new__(cls, name, bases, attrs)
+
+class RequestHandler(webapp.RequestHandler):
+  """docstring for RequestHandler"""
+  __metaclass__ = RequestHandlerMeta
+        
 def get_handler_bindings():
   """docstring for get_handler_bindings"""
   pathes = router.get_all_pathes()

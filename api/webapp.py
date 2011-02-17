@@ -187,14 +187,13 @@ def api_enabled(func):
   
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
-
     result_type = self.request.get('result_type', default_value="html")  
     fields = self.request.get('fields', default_value="{}")
     error = None
     fields_dict = {}
     
     try:
-      
+      logging.debug("self" + str(self) + str(*args) + str(**kwargs))
       action = func(self, *args, **kwargs)
       fields_dict = json.loads(fields)
       
@@ -266,6 +265,7 @@ def api_enabled(func):
       result_string = json.dumps(response_dict, sort_keys=False, indent=4)
     
     return self.response.out.write(result_string)
+    
     
   return wrapper
 

@@ -12,6 +12,8 @@ import logging
 from google.appengine.ext import webapp, db
 from google.appengine.ext.db import djangoforms
 
+from chrisw.core import handlers
+
 from duser.auth import get_current_user
 from api.webapp import *
 from group.models import *
@@ -158,7 +160,7 @@ class GroupUI(PermissionUI):
       return redirect('/group/topic/%d' % new_topic.key().id())
     return template('item_new', locals())
 
-class GroupHandler(webapp.RequestHandler):
+class GroupHandler(handlers.RequestHandler):
   """docstring for GroupHandler"""
   def get_impl(self, groupui):
     """docstring for get_impl"""
@@ -168,13 +170,14 @@ class GroupHandler(webapp.RequestHandler):
     """docstring for post_impl"""
     return self.get_impl(groupui)
 
-  @api_enabled
-  def get(self, group_id):
+  #@api_enabled
+  def get(self, group_id,*args):
     """docstring for get"""
+    logging.debug("%s %s %s haha",str(self), str(group_id), str(*args) )
     group = Group.get_by_id(int(group_id))
     return self.get_impl(GroupUI(group))
   
-  @api_enabled
+  #@api_enabled
   def post(self, group_id):
     """docstring for post"""
     group = Group.get_by_id(int(group_id))
