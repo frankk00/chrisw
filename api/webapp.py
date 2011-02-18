@@ -125,6 +125,7 @@ def view_method(func):
       template_name, var_dict to be used by api_enabled decorator
       it will wrap the instance's fields in to the returned var_dict
   """
+  
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
     

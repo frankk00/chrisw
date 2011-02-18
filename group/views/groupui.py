@@ -13,6 +13,7 @@ from google.appengine.ext import webapp, db
 from google.appengine.ext.db import djangoforms
 
 from chrisw.core import handlers
+from chrisw.core.ui import ModelUI
 
 from duser.auth import get_current_user
 from api.webapp import *
@@ -38,13 +39,12 @@ class GroupPhotoForm(forms.Form):
   """docstring for ProfilePhoto"""
   photo = fields.ImageField(label = _("Group Picture"))
 
-class GroupUI(PermissionUI):
+class GroupUI(ModelUI):
   """docstring for GroupUI"""
   def __init__(self, group):
     super(GroupUI, self).__init__(group)
     self.group = group
   
-  @view_method
   # it dosen't need check permission, as it's opened to all people. include th
   # the guest account
   # @check_permission('view', "Not allowed to open the group")
@@ -66,7 +66,6 @@ class GroupUI(PermissionUI):
             
     return template('group_display.html', var_dict)
   
-  @view_method
   @check_permission('edit', "Not a admin user")
   def edit(self, request):
     """docstring for edit"""
@@ -85,7 +84,6 @@ class GroupUI(PermissionUI):
     
     return template('group_settings', locals())
   
-  @view_method
   @check_permission('edit', "Not a admin user")
   def edit_post(self, request):
     """the post_back handler for edit group info"""
@@ -97,7 +95,6 @@ class GroupUI(PermissionUI):
     return template('item_new', locals())
     
   """ deprecated  
-  @view_method
   @check_permission('view', "Not allowed to open the group")
   def query(self, request):
     ""docstring for query""
@@ -116,14 +113,12 @@ class GroupUI(PermissionUI):
     return template('item_list', locals())
   """  
   
-  @view_method
   @check_permission('join', "Can't join group")
   def join(self):
     """docstring for join"""
     self.group.join(get_current_user())
     return back()
   
-  @view_method
   @check_permission('delete', "Cant' delete topic")
   def delete(self):
     """docstring for delete"""
@@ -131,7 +126,6 @@ class GroupUI(PermissionUI):
     self.group.delete()
     return back()
   
-  @view_method
   @check_permission('quit', "Is not member")
   def quit(self):
     """docstring for quite"""
@@ -139,7 +133,6 @@ class GroupUI(PermissionUI):
     message = "You've been quited from the Group " + self.group.title
     return back()
   
-  @view_method
   @check_permission('create_topic', "Not allowed to create topic here")
   def create_topic(self):
     """docstring for create_topic"""
@@ -147,7 +140,6 @@ class GroupUI(PermissionUI):
     post_url = '/group/%d/new' % self.group.key().id()
     return template('item_new', locals())
   
-  @view_method
   @check_permission('create_topic', "Not allowed to create topic here")
   def create_topic_post(self, request):
     """docstring for create_topic_post"""
@@ -170,14 +162,12 @@ class GroupHandler(handlers.RequestHandler):
     """docstring for post_impl"""
     return self.get_impl(groupui)
 
-  #@api_enabled
   def get(self, group_id,*args):
     """docstring for get"""
     logging.debug("%s %s %s haha",str(self), str(group_id), str(*args) )
     group = Group.get_by_id(int(group_id))
     return self.get_impl(GroupUI(group))
   
-  #@api_enabled
   def post(self, group_id):
     """docstring for post"""
     group = Group.get_by_id(int(group_id))
