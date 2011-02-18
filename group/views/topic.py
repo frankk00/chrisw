@@ -13,18 +13,17 @@ import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.db import djangoforms
 
-from duser.auth import get_current_user
-from api.webapp import login_required, api_enabled
-from api.webapp import check_permission, view_method, PermissionUI
-from api.webapp import template, redirect
-from api.i18n import _
+from chrisw.core.action import *
+from chrisw.core.ui import ModelUI, check_permission
+from chrisw.i18n import _
+from chrisw.helper import Page
+from chrisw.helper.django import fields, forms
+from chrisw.web.util import *
 
+from duser.auth import get_current_user
 from conf import settings
 from group.models import *
 
-from api.helpers import fields, forms, Page
-
-from chrisw.web.util import *
 
 class TopicForm(djangoforms.ModelForm):
   """docstring for TopicForm"""
@@ -46,13 +45,12 @@ class PostForm(djangoforms.ModelForm):
   content = fields.CharField(label = _('Post Content'), min_length=1,\
     widget=forms.Textarea, max_length=2000)
 
-class TopicUI(PermissionUI):
+class TopicUI(ModelUI):
   """docstring for TopicUI"""
   def __init__(self, topic):
     super(TopicUI, self).__init__(topic)
     self.topic = topic
   
-  @view_method
   #allow guest usesrs to login
   #@check_permission('view', "Not allowed to open topic")
   def view(self, request):
@@ -70,7 +68,6 @@ class TopicUI(PermissionUI):
     
     return template('topic_display', locals())
   
-  @view_method
   @check_permission('edit', "Not the author")
   def edit(self):
     """docstring for edit"""
@@ -78,7 +75,6 @@ class TopicUI(PermissionUI):
     post_url = '/group/topic/%d/edit' % self.topic.key().id()
     return template('item_new', locals())
   
-  @view_method
   @check_permission('edit', "Not the author")
   def edit_post(self, request):
     """docstring for edit_post"""
@@ -89,13 +85,11 @@ class TopicUI(PermissionUI):
       return redirect('/group/topic/%d' % new_topic.key().id())
     return template('item_new', locals())
   
-  @view_method
   @check_permission('delete', "Can't delete topic")
   def delete(self):
     """docstring for delete"""
     pass
   
-  @view_method
   @check_permission('reply', "Not allowed to reply the thread")
   def create_post(self):
     """docstring for create_post"""
@@ -103,7 +97,6 @@ class TopicUI(PermissionUI):
     post_url = '/group/topic/%d/new' % self.topic.key().id()
     return template('item_new', locals())
   
-  @view_method
   @check_permission('reply', "Not allowed to reply the thread")
   def create_post_post(self, request):
     """docstring for create_post_post"""
