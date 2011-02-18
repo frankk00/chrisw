@@ -12,7 +12,9 @@ import logging
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext import blobstore
 
-from api.webapp import api_enabled, redirect
+from chrisw.core.handlers import api_enabled
+from chrisw.core.action import *
+
 from duser.auth import get_current_user
 from api import errors
 
@@ -24,7 +26,6 @@ def create_upload_url():
 
 class PhotoHandler(blobstore_handlers.BlobstoreUploadHandler):
   
-  @api_enabled
   def post(self):
     upload_files = self.get_uploads()  # 'file' is file upload field in the form
     photo_url = None

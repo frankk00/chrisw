@@ -9,26 +9,25 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 import logging
 import os
+import photo
 
 from google.appengine.ext import webapp
 from google.appengine.ext.db import djangoforms
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import blobstore_handlers
 
-
-from api.helpers import fields, forms
-
-from api.webapp import login_required, api_enabled, template, redirect
-from api.webapp import view_method, check_permission,PermissionUI
-from api.shortcuts import render_to_string
+from chrisw.core import handlers
+from chrisw.core.action import *
+from chrisw.core.ui import ModelUI, check_permission
+from chrisw.helper import Page
+from chrisw.helper.django import fields, forms
+from chrisw.i18n import _
 
 from duser.auth import get_current_user
 from duser import auth, User
 from front.models import *
 from group.models import UserGroupInfo
 from conf import settings
-from api.i18n import _
-import photo
 
 class UserForm(djangoforms.ModelForm):
   """docstring for UserForm"""
@@ -46,13 +45,12 @@ class ProfilePhotoForm(forms.Form):
   """docstring for ProfilePhoto"""
   photo = fields.ImageField(label = _("Profile Picture"))
       
-class UserUI(PermissionUI):
+class UserUI(ModelUI):
   """docstring for UserUI"""
   def __init__(self, user):
     super(UserUI, self).__init__(user)
     self.user = user
   
-  @view_method
   @check_permission("view", "Can't view the user's profile")
   def view(self):
     """the view of user profile"""
@@ -64,7 +62,6 @@ class UserUI(PermissionUI):
   
   # every user can only see his/her own setting page, don't need check
   # the permission
-  @view_method
   @check_permission("edit", "Cant't edit the user's profile")
   def profile(self, request):
     """The user profile settings page"""
@@ -86,7 +83,6 @@ class UserUI(PermissionUI):
     return template('user_profile', locals())
   
   # same to the previous method
-  @view_method
   @check_permission("edit", "Can't edit the user's profile")
   def profile_post(self, request):
     """docstring for edit_post"""
@@ -105,7 +101,7 @@ class UserUI(PermissionUI):
     return template('user_profile', locals())
   
 
-class UserHandler(webapp.RequestHandler):
+class UserHandler(handlers.RequestHandler):
   """docstring for UserHandler"""
   
   def get_impl(self, userui):
@@ -116,14 +112,12 @@ class UserHandler(webapp.RequestHandler):
     """docstring for post_impl"""
     return self.get_impl(userui)
   
-  @api_enabled
   def get(self, userid):
     """docstring for get"""
     logging.debug("Hello world")
     user = User.get_by_id(int(userid))
     return self.get_impl(UserUI(user))
   
-  @api_enabled
   def post(self, userid):
     """docstring for post"""
     user = User.get_by_id(int(userid))
@@ -135,16 +129,12 @@ class UserProfileHandler(UserHandler):
   def get_impl(self, userui):
     return userui.view()
   
-class UserProfileSettingHandler(webapp.RequestHandler):
+class UserProfileSettingHandler(handlers.RequestHandler):
   """docstring for UserSettingHandler"""
-  @login_required
-  @api_enabled
   def get(self):
     userui = UserUI(get_current_user())
     return userui.profile(self.request)
   
-  @login_required
-  @api_enabled
   def post(self):
     userui = UserUI(get_current_user())
     return userui.profile_post(self.request)

@@ -12,14 +12,19 @@ import logging
 from google.appengine.ext import webapp, db
 from google.appengine.ext.db import djangoforms
 
+from chrisw.core import handlers
+from chrisw.core.action import *
+from chrisw.core.ui import ModelUI, check_permission
+from chrisw.i18n import _
+from chrisw.helper import Page
+from chrisw.helper.django import fields, forms
+
 from duser.auth import get_current_user, Guest
-from api.webapp import *
 from group.models import *
 from groupui import GroupForm
 from conf import settings
-from api.helpers import Page
 
-class GroupSiteUI(PermissionUI):
+class GroupSiteUI(ModelUI):
   """docstring for GroupSiteUI"""
   def __init__(self, group_site):
     super(GroupSiteUI, self).__init__(group_site)
@@ -27,7 +32,6 @@ class GroupSiteUI(PermissionUI):
     self.user = get_current_user()
     self.groupinfo = UserGroupInfo.get_by_user(self.user)
     
-  @view_method
   def view(self, request):
     offset = int(request.get("offset", "0"))
     limit = int(request.get("limit", "20"))
@@ -64,14 +68,12 @@ class GroupSiteUI(PermissionUI):
     
     return template('groupsite_display.html', locals())
   
-  @view_method
   @check_permission("create_group", "Can't create group")
   def create_group(self):
     form = GroupForm()
     post_url = '/group/new'
     return template('item_new', locals())
   
-  @view_method
   @check_permission("create_group", "Can't create group")
   def create_group_post(self, request):
     form = GroupForm(data=request.POST)
@@ -87,7 +89,7 @@ class GroupSiteUI(PermissionUI):
       return redirect('/group/%d' % new_group.key().id())
     return template('item_new', locals())
 
-class GroupSiteHandler(webapp.RequestHandler):
+class GroupSiteHandler(handlers.RequestHandler):
   """docstring for SiteHandler"""
   
   def get_impl(self, group_site):
@@ -96,11 +98,9 @@ class GroupSiteHandler(webapp.RequestHandler):
   def post_impl(self, group_site, request):
     return self.get_impl(group_site)
   
-  @api_enabled
   def get(self):
     return self.get_impl(GroupSiteUI(GroupSite.get_instance()))
   
-  @api_enabled
   def post(self):
     return self.post_impl(GroupSiteUI(GroupSite.get_instance()), self.request)
     

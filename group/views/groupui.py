@@ -13,17 +13,17 @@ from google.appengine.ext import webapp, db
 from google.appengine.ext.db import djangoforms
 
 from chrisw.core import handlers
-from chrisw.core.ui import ModelUI
+from chrisw.core.action import *
+from chrisw.core.ui import ModelUI, check_permission
+from chrisw.i18n import _
+from chrisw.helper import Page
+from chrisw.helper.django import fields, forms
 
 from duser.auth import get_current_user
-from api.webapp import *
 from group.models import *
 from duser.models import User
 from topic import TopicForm
-from api.helpers import fields, forms, Page
 from conf import settings
-
-from api.i18n import _
 
 class GroupForm(djangoforms.ModelForm):
   class Meta:

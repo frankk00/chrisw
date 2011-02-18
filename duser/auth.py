@@ -10,11 +10,11 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
 import logging
-
+import chrisw.auth
 
 from models import *
-from chrisw.auth import login, logout
-import chrisw.auth
+from chrisw.auth import login, logout, update_current_user
+
 
 def authenticate(username='', password=''):
   """Return a user object"""

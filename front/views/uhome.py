@@ -18,13 +18,15 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users as gusers
 
 
+from chrisw.core import handlers
+from chrisw.core.action import *
+from chrisw.core.ui import ModelUI, check_permission
+from chrisw.helper import Page
+from chrisw.helper.django import fields, forms
+from chrisw.i18n import _
+
 from duser import auth
 from duser.auth import get_current_user
-from api.webapp import login_required, api_enabled, template, redirect
-from api.webapp import view_method, check_permission,PermissionUI
-from api.shortcuts import render_to_string
-from api.helpers import fields, forms
-from api.i18n import _
 from conf import settings
 
 from front.models import UHome
@@ -75,13 +77,12 @@ class RegForm(djangoforms.ModelForm):
       
     return False
     
-class UHomeUI(PermissionUI):
+class UHomeUI(ModelUI):
   """docstring for UHomeUI"""
   def __init__(self, uhome = UHome.get_instance()):
     super(UHomeUI, self).__init__(uhome)
     self.uhome = uhome
   
-  @view_method
   def login(self, request):
     """docstring for login"""
     form = LoginForm()
@@ -116,7 +117,6 @@ class UHomeUI(PermissionUI):
     
     return template('login.html', locals())
   
-  @view_method
   def login_post(self, request):
     """The post handler for user login"""
     form = LoginForm(data=request.POST)
@@ -131,19 +131,16 @@ class UHomeUI(PermissionUI):
     else:
       return template('login.html', locals())
   
-  @view_method
   def logout(self):
     """docstring for logout"""
     auth.logout()
     return redirect("/")
   
-  @view_method
   def signup(self):
     """The user sign up page"""
     form = RegForm()
     return template('signup.html', locals())
   
-  @view_method
   def signup_post(self, request):
     """The post handler for user signup"""
     form = RegForm(data=request.POST)
@@ -156,7 +153,7 @@ class UHomeUI(PermissionUI):
     else:
       return template('signup.html', locals())
 
-class UHomeHandler(webapp.RequestHandler):
+class UHomeHandler(handlers.RequestHandler):
   """docstring for UHomeHandler"""
   
   def get_impl(self, uhomeui):
@@ -167,13 +164,11 @@ class UHomeHandler(webapp.RequestHandler):
     """docstring for post_imple"""
     return self.get_impl(uhomeui)
   
-  @api_enabled
   def get(self):
     """docstring for get"""
     uhomeui = UHomeUI()
     return self.get_impl(uhomeui)
   
-  @api_enabled
   def post(self):
     """docstring for post"""
     uhomeui = UHomeUI()
@@ -202,7 +197,6 @@ class LogoutUserHandler(UHomeHandler):
 
 class LoginDemoHandler(UHomeHandler):
   """docstring for ClassName"""
-  @login_required
   def get(self):
     import gaesessions
     logging.debug("current session %s", gaesessions.get_current_session())
