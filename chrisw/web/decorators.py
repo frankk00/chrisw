@@ -30,4 +30,17 @@ def head_handler(path):
   """docstring for Head"""
   return lambda func: request_handler(func, path, 'head')
 
+def options_handler(path):
+  """docstring for options_handler"""
+  return lambda func: request_handler(func, path, 'options')
+
+def delete_handler():
+  """docstring for delete_handler"""
+  return lambda func: request_handler(func, path, 'delete')
+
+def trace_handler(path):
+  """docstring for trace_handler"""
+  return lambda func: request_handler(func, path, 'trace')
+
+
 

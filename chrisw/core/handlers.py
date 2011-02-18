@@ -7,12 +7,170 @@ Created by Kang Zhang on 2011-02-15.
 Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 """
 
-from api.webapp import api_enabled, view_method
+import logging
+
+from duser.auth import get_current_user, Guest
 
 from google.appengine.ext import webapp
 
-from chrisw.core import router
+from chrisw.core import router, exceptions
 from chrisw.core.exceptions import CannotResolvePath
+
+from action import *
+
+try:
+  import json
+except Exception, e:
+  # before appengine's python upgrade to 2.7, we need import json from django
+  from django.utils import simplejson as json
+
+
+class APIError(exceptions.ChriswException):
+  """docstring for APIError"""
+  def __init__(self, reason):
+    super(APIError, self).__init__(reason)
+    self.reason = reason
+
+def login_required(func):
+  """
+  Usage:
+  @login_required
+  def post(self):
+    pass
+  """
+  from duser.auth import get_current_user
+
+  def wrapper(self, *args, **kwargs):
+    """docstring for wrapper"""
+
+    if get_current_user() != Guest:
+      return func(self, *args, **kwargs)
+    else:
+      import front
+      return self.redirect(front.create_login_url(self.request.url))
+
+  return wrapper
+
+def filter_result(result, fields_dict):
+  """docstring for filter_result"""
+  output = result
+  if fields_dict:
+    output = {}
+    keys = fields_dict['fields']
+    for key in keys:
+      result_key = key
+      
+      if key[0] == '$': # trim the starting $
+        result_key = key[1:]
+      
+      output[key] = filter_result(result[key], fields_dict.get(key, {}))
+  return output
+
+def api_enabled(func):
+  """
+  To enable a handler's result can be returned as JSON object.
+  
+  For a handler on 
+    /example/path/to/handler
+  The JSON result can be accesssed from
+    /example/path/to/handler?result_type=json
+  
+  Useage:
+  @api_enabled
+  def get(self):
+    return template('template-name.html', varible_dict)
+  
+  The return type of the handler can be
+    1. template_name, var_dict . will be rendered with var_dict using template
+      named template_name.
+    2. new_url. will be directed to the new url.
+    3. a exception raised from the method. will be wrapped with error:{}
+  
+  """
+  
+  def wrapper(self, *args, **kwargs):
+    """docstring for wrapper"""
+    result_type = self.request.get('result_type', default_value="html")  
+    fields = self.request.get('fields', default_value="{}")
+    error = None
+    fields_dict = {}
+    
+    try:
+      logging.debug("self" + str(self) + str(*args) + str(**kwargs))
+      action = func(self, *args, **kwargs)
+      fields_dict = json.loads(fields)
+      
+    except exceptions.ChriswException, e:
+      # api execute fault
+      error = 'API Execution error' + e.msg
+    except ValueError, e:
+      # fields parse fault
+      error, fields_dict = 'API fields error: ' + str(e), {}
+    finally:
+      if error:
+        action = template('error.html', {'error':error})
+        action.status = 'error'
+    
+    if isinstance(action, back):
+      from_url = self.request.headers.get('Referer','/')
+      if from_url == self.request.url:
+        action = template('error.html', {'error':"Visiting loop"})
+      else:
+        action = redirect(from_url)
+    elif isinstance(action, login):
+      from front import create_login_url
+      action = redirect(create_login_url(self.request.url))
+    elif isinstance(action, template):
+      # add always needed info
+      var_dict = action.var_dict
+      # add login info
+      user = get_current_user()
+      user_info = {'login_user':user, 'is_not_guest':user != Guest}
+      var_dict.update(user_info)
+      
+      from front.models import Site
+      site_info = {'site':Site.get_instance()}
+      var_dict.update(site_info)
+      
+      # for debugging
+      # var_dict.update({'site_message':"You've created a new group."})
+    
+    if result_type == 'html':
+      
+      if isinstance(action, redirect):
+        # redirect action
+        return self.redirect(action.to_url)
+        
+      # template action
+      from chrisw.helper.django_helper import render_to_string
+      result_string = render_to_string(action.name + '.html', action.var_dict)
+    elif result_type == 'json':
+      
+      if isinstance(action, template):
+        action_name = 'render' # means template
+        data_dict = action.var_dict
+      else:
+        action_name = 'redirect'
+        # here is the trick :-)
+        data_dict = {"to_url": action.to_url}
+      
+      from chrisw.db import to_dict
+      result_dict = filter_result(to_dict(data_dict),fields_dict)
+      
+      response_dict = {'status': action.status,
+                       'action': {
+                          'cmd': action_name,
+                          'data': result_dict
+                          },
+                       'error': error,
+                       }
+      
+      result_string = json.dumps(response_dict, sort_keys=False, indent=4)
+    
+    return self.response.out.write(result_string)
+    
+    
+  return wrapper
 
 class BaseHandler(webapp.RequestHandler):
   """docstring for BaseHandler"""

@@ -22,7 +22,7 @@ from chrisw.core import handlers
 from chrisw.core.action import *
 from chrisw.core.ui import ModelUI, check_permission
 from chrisw.helper import Page
-from chrisw.helper.django import fields, forms
+from chrisw.helper.django_helper import fields, forms
 from chrisw.i18n import _
 
 from duser import auth

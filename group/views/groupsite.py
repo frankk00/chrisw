@@ -17,7 +17,7 @@ from chrisw.core.action import *
 from chrisw.core.ui import ModelUI, check_permission
 from chrisw.i18n import _
 from chrisw.helper import Page
-from chrisw.helper.django import fields, forms
+from chrisw.helper.django_helper import fields, forms
 
 from duser.auth import get_current_user, Guest
 from group.models import *
