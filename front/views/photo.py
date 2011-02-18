@@ -16,7 +16,6 @@ from chrisw.core.handlers import api_enabled
 from chrisw.core.action import *
 
 from duser.auth import get_current_user
-from api import errors
 
 from front.models import *
 
