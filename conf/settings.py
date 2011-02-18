@@ -10,7 +10,7 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 import os
 
 from local_settings import *
-from api.i18n import _
+from chrisw.i18n import _
 
 APP_ID = "daoshicha"
 

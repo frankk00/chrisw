@@ -8,7 +8,7 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
 from google.appengine.api import users
-from api import db
+from chrisw import db
 from conf import settings
 
 class User(db.Model):

@@ -7,8 +7,8 @@ Created by Kang Zhang on 2010-09-29.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-from api import db
-from api.i18n import _
+from chrisw import db
+from chrisw.i18n import _
 
 class Site(db.Model):
   """a faked object"""
