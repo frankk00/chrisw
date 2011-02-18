@@ -59,12 +59,12 @@ class GroupUI(ModelUI):
     
     members = [User.get(mk) for mk in self.group.members]
     
-    var_dict = locals() # can't assign variable below this line
+    #var_dict = locals() # can't assign variable below this line
     
-    from api.helpers import inspect_permissions
-    var_dict.update( inspect_permissions(self.group, get_current_user()) )
+    #from api.helpers import inspect_permissions
+    #var_dict.update( inspect_permissions(self.group, get_current_user()) )
             
-    return template('group_display.html', var_dict)
+    return template('group_display.html', locals())
   
   @check_permission('edit', "Not a admin user")
   def edit(self, request):

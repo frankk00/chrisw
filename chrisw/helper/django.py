@@ -9,3 +9,4 @@ Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 
 
 from api.helpers import fields, forms, CharField
+from api.shortcuts import render_to_string
