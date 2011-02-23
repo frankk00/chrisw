@@ -44,6 +44,11 @@ def register_app(app_names):
     except ImportError, e:
       logging.error("Can't import " + module_name)
 
+def register_handler_classes(handler_url_pairs):
+  """docstring for register_handler_class"""
+  for path, handler_class in handler_url_pairs:
+    router.register_path_handler(path, handler_class)
+
 def run_appengine_app():
   """docstring for run_appengine_app"""
   

@@ -59,10 +59,13 @@ def main():
   import front, group
   
   from chrisw.core import handlers
-  from chrisw.web.util import register_app
+  from chrisw.web.util import register_app, register_handler_classes
   register_app(['group',])
   
-  application = webapp.WSGIApplication( front.apps + group.apps + \
+  handler_path_mappings = front.apps + group.apps
+  register_handler_classes(handler_path_mappings)
+  
+  application = webapp.WSGIApplication( handler_path_mappings + \
                                         handlers.get_handler_bindings(), 
                                         debug=True)
   logging.debug(handlers.get_handler_bindings())

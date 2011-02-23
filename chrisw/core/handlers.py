@@ -222,32 +222,30 @@ class BaseHandler(webapp.RequestHandler):
       import inspect
       
       if inspect.isclass(handler):
-        handler_class = handler:
+        handler_class = handler
         
         request_handler = handler_class()
         request_handler.initialize(self.request, self.response)
         
-        method = request_type.upper()
-        
-        if method == 'GET':
+        if request_type == 'get':
           request_handler.get(*args)
-        elif method == 'POST':
+        elif request_type == 'post':
           request_handler.post(*args)
-        elif method == 'HEAD':
+        elif request_type == 'head':
           request_handler.head(*args)
-        elif method == 'OPTIONS':
+        elif request_type == 'options':
           request_handler.options(*args)
-        elif method == 'PUT':
+        elif request_type == 'put':
           request_handler.put(*args)
-        elif method == 'DELETE':
+        elif request_type == 'delete':
           request_handler.delete(*args)
-        elif method == 'TRACE':
+        elif request_type == 'trace':
           request_handler.trace(*args)
         else:
           request_handler.error(501)
         
       elif inspect.isfunction(handler):
-        handler_func = handler:
+        handler_func = handler
         api_enabled(handler_func)(self, *args)
         
     else:

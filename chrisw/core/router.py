@@ -21,11 +21,12 @@ from chrisw.core import exceptions
 
 _handler_map = {}
 
-class NotSupportedHandlerException(exceptions.Exception):
+class NotSupportedHandlerException(exceptions.ChriswException):
   """docstring for NotSupportedHandlerException"""
   def __init__(self, handler):
-    super(NotSupportedHandlerException, self).__init__()
-    self.reason = "Handler is neither class nor function " + str(handler)
+    super(NotSupportedHandlerException, self).__init__("Handler is neither "
+    "class nor function " + str(handler))
+
     
 
 def register_path_handler(path, handler, handle_type = None):
@@ -34,13 +35,13 @@ def register_path_handler(path, handler, handle_type = None):
   """
   global _handler_map
   
-  if _handler_map[path]:
+  if _handler_map.has_key(path):
     logging.warning("Duiplicated handler has been specified for URL: %s", path)
   
   if handle_type:
     handle_type = handle_type.lower()
   
-  if not inspect.isclass(handler) and not inspect.isclass(handler):
+  if not inspect.isclass(handler) and not inspect.isfunction(handler):
     raise NotSupportedHandlerException(handler)
     
   _handler_map[path] = re.compile(path), handler, handle_type
