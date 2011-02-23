@@ -12,7 +12,7 @@ from chrisw.i18n import _
 
 class Site(db.Model):
   """a faked object"""
-  site_name = db.StringProperty(required=True, default="Daoshicha.com")
+  site_name = db.StringProperty(required=True, default= _("Daoshicha.com"))
   site_slogan = db.StringProperty(required=True, default= _("Want to be the best open source SNS!"))
   @classmethod
   def get_instance(cls):

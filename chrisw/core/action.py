@@ -46,15 +46,35 @@ class redirect(Action):
 class forward(Action):
   """forward action: load the content from the forwarding url.
   """
-  def __init__(self, to_url, var_dict = {}):
+  def __init__(self, owner_handler, to_url, *args):
     super(forward, self).__init__()
     self.to_url = to_url
-    self.var_dict = var_dict
+    self.args = args
+    self.owner_handler = owner_handler
   
   def resolve_action(self):
     """docstring for resolve_action"""
+    
     pass
   
   def render_to_string(self):
     """docstring for render"""
-    pass
+    action = self.resolve_action()
+    
+    result_string = "Forward to URL " + self.to_url 
+    
+    if action:
+      if isinstance(action, template) or isinstance(action, forward):
+        result_string = action.render_to_string()
+      elif isinstance(action, redirect):
+        result_string = "Redirect to " + action.to_url
+      elif isinstance(action, login):
+        result_string = "Login is required."
+      elif isinstance(action, back):
+        result_string = "Back to previous page."
+    else:
+      pass
+    
+    return result_string
+    
+    
