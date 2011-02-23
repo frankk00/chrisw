@@ -216,10 +216,40 @@ class BaseHandler(webapp.RequestHandler):
   def handle_request(self, request_type, *args):
     """docstring for handle_request"""
     path = self.request.path
-    handler_func = router.resolve_path(path, request_type)
+    handler = router.resolve_path(path, request_type)
     
-    if handler_func:
-      api_enabled(handler_func)(self, *args)
+    if handler:
+      import inspect
+      
+      if inspect.isclass(handler):
+        handler_class = handler:
+        
+        request_handler = handler_class()
+        request_handler.initialize(self.request, self.response)
+        
+        method = request_type.upper()
+        
+        if method == 'GET':
+          request_handler.get(*args)
+        elif method == 'POST':
+          request_handler.post(*args)
+        elif method == 'HEAD':
+          request_handler.head(*args)
+        elif method == 'OPTIONS':
+          request_handler.options(*args)
+        elif method == 'PUT':
+          request_handler.put(*args)
+        elif method == 'DELETE':
+          request_handler.delete(*args)
+        elif method == 'TRACE':
+          request_handler.trace(*args)
+        else:
+          request_handler.error(501)
+        
+      elif inspect.isfunction(handler):
+        handler_func = handler:
+        api_enabled(handler_func)(self, *args)
+        
     else:
       #exception happend  
       raise CannotResolvePath(path)
