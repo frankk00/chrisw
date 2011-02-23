@@ -31,6 +31,13 @@ class APIError(exceptions.ChriswException):
     super(APIError, self).__init__(reason)
     self.reason = reason
 
+class UnknownActionException(exceptions.ChriswException):
+  """docstring for UnknownActionException"""
+  def __init__(self, action):
+    super(UnknownActionException, self).__init__()
+    self.reason = "Can't recognized Action: " + str(action)
+    
+
 def login_required(func):
   """
   Usage:
@@ -134,6 +141,8 @@ def api_enabled(func):
       
       # for debugging
       # var_dict.update({'site_message':"You've created a new group."})
+    else:
+      raise UnknownActionException(action)
     
     if result_type == 'html':
       
@@ -142,8 +151,7 @@ def api_enabled(func):
         return self.redirect(action.to_url)
         
       # template action
-      from chrisw.helper.django_helper import render_to_string
-      result_string = render_to_string(action.name + '.html', action.var_dict)
+      result_string = action.render_to_string()
     elif result_type == 'json':
       
       if isinstance(action, template):

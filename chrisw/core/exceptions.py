@@ -15,9 +15,9 @@ class CannotResolvePath(ChriswException):
   """docstring for CannotResolvePath"""
   pass
 
-  class PermissionException(ChriswException):
-    """docstring for PermissionError"""
-    def __init__(self, msg, user, obj):
-      super(PermissionError, self).__init__(msg)
-      self.user = user
-      self.obj = obj
+class PermissionException(ChriswException):
+  """docstring for PermissionError"""
+  def __init__(self, msg, user, obj):
+    super(PermissionError, self).__init__(msg)
+    self.user = user
+    self.obj = obj

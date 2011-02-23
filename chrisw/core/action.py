@@ -31,9 +31,26 @@ class template(Action):
     if name[-5:] == '.html': name = name[:-5]
     self.name = name
     self.var_dict = var_dict
+  
+  def render_to_string(self):
+    """docstring for render"""
+    from chrisw.helper.django_helper import render_to_string
+    return render_to_string(self.name + ".html", self.var_dict)
     
 class redirect(Action):
   """Redirect the user to page URL"""
   def __init__(self, to_url):
     super(redirect, self).__init__()
     self.to_url = to_url
+
+class forward(Action):
+  """forward action: load the content from the forwarding url.
+  """
+  def __init__(self, to_url, var_dict = {}):
+    super(forward, self).__init__()
+    self.to_url = to_url
+    self.var_dict = var_dict
+  
+  def render(self):
+    """docstring for render"""
+    pass
