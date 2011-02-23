@@ -51,6 +51,10 @@ class forward(Action):
     self.to_url = to_url
     self.var_dict = var_dict
   
-  def render(self):
+  def resolve_action(self):
+    """docstring for resolve_action"""
+    pass
+  
+  def render_to_string(self):
     """docstring for render"""
     pass

@@ -17,18 +17,21 @@ import re
 
 _handler_map = {}
 
-def register_path_handler(path, handler_method, handle_type):
-  """docstring for register_url_handler"""
+def register_path_handler(path, handler, handle_type):
+  """Regiester a handler for a path, the handler could be a handler method or
+  a handler class. 
+  """
   global _handler_map
-  _handler_map[path] = re.compile(path), handler_method, handle_type.lower()
+  _handler_map[path] = re.compile(path), handler, handle_type.lower()
 
 def resolve_path(path, request_type):
-  """docstring for route_url"""
+  """request_type could
+  """
   
-  for path_reg, handler_method, handle_type in _handler_map.values():
+  for path_reg, handler, handle_type in _handler_map.values():
     
     if request_type == handle_type and path_reg.match(path):
-      return handler_method
+      return handler
       
   return None
 
