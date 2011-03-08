@@ -22,13 +22,6 @@
 import os, sys
 os.environ['DJANGO_SETTINGS_MODULE'] = 'conf.settings'
 
-# patch for google's app_engine laucher, the shipped django's version is
-# 0.96, need this hack if you are going to run it in your local server.
-if os.environ.get('SERVER_SOFTWARE','').startswith('Devel'):
-  sys.path.insert(0, "/Applications/GoogleAppEngineLauncher.app/Contents/"
-                     "Resources/GoogleAppEngine-default.bundle/Contents/"
-                     "Resources/google_appengine/lib/django/")
-
 # patch from google
 # refer to http://code.google.com/appengine/docs/python/tools/libraries.html#Django
 from google.appengine.dist import use_library
