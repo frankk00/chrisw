@@ -32,7 +32,7 @@ if os.environ.get('SERVER_SOFTWARE','').startswith('Devel'):
 # patch from google
 # refer to http://code.google.com/appengine/docs/python/tools/libraries.html#Django
 from google.appengine.dist import use_library
-use_library('django', '1.1')
+use_library('django', '1.2')
 
 import logging
 
