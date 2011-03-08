@@ -34,7 +34,7 @@ class APIError(exceptions.ChriswException):
 class UnknownActionException(exceptions.ChriswException):
   """docstring for UnknownActionException"""
   def __init__(self, action):
-    super(UnknownActionException, self).__init__()
+    super(UnknownActionException, self).__init__(str(action))
     self.reason = "Can't recognized Action: " + str(action)
     
 
@@ -141,6 +141,8 @@ def api_enabled(func):
       
       # for debugging
       # var_dict.update({'site_message':"You've created a new group."})
+    elif isinstance(action, redirect):
+      pass
     else:
       raise UnknownActionException(action)
     
@@ -283,6 +285,7 @@ class RequestHandlerMeta(type):
     
     for attr, handler_func in attrs.items():
       if attr in wrap_method_list and callable(handler_func):
+        attrs[attr + '_action'] = attrs[attr]
         attrs[attr] = api_enabled(attrs[attr])
     
     return super(RequestHandlerMeta, cls).__new__(cls, name, bases, attrs)

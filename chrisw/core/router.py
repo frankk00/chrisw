@@ -43,7 +43,8 @@ def register_path_handler(path, handler, handle_type = None):
   
   if not inspect.isclass(handler) and not inspect.isfunction(handler):
     raise NotSupportedHandlerException(handler)
-    
+  
+  path = '^' + path + '$'
   _handler_map[path] = re.compile(path), handler, handle_type
 
 def resolve_path(path, request_type = None):
@@ -52,8 +53,8 @@ def resolve_path(path, request_type = None):
   
   for path_reg, handler, handle_type in _handler_map.values():
     
-    if not request_type or (request_type == handle_type and \
-      path_reg.match(path)):
+    if path_reg.match(path) and ( not request_type or \
+      request_type == handle_type):
       
       return handler
       

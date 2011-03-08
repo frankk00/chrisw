@@ -41,21 +41,14 @@ class GroupSiteUI(ModelUI):
     if self.groupinfo:
       # user
       my_groups = db.get(self.groupinfo.groups)
-    
-    recommend_groups = [g for g in Group.all().fetch(10) \
-      if g.key() not in self.groupinfo.groups]
-    
-    topic_groups = my_groups
-    if self.user == Guest:
-      topic_groups = recommend_groups
-    else:
-      # count the topics etc
       topic_count = Topic.all().filter("author =", self.user).count()
       post_count = Post.all().filter("author =", self.user).count()
       group_count = len(my_groups)
     
-    query = Topic.all().filter("group IN", topic_groups)\
-      .order("-update_time")
+    query = Topic.all()
+    if my_groups: # filter the groups for non guest user
+      query = query.filter("group IN", my_groups)
+    query = query.order("-update_time")
       
     count = query.count(2000)
     topics = query.fetch(limit, offset)
@@ -64,9 +57,18 @@ class GroupSiteUI(ModelUI):
     
     logging.debug("Fetched recent topics" + str(topics))
     
+    sidebar_widgets = [forward('/group/recommend').render()]
+    
     display_group_name = True
     
     return template('groupsite_display.html', locals())
+  
+  def recommend_groups(self):
+    """docstring for recommend_groups"""
+    
+    recommend_groups = [g for g in Group.all().fetch(10)]
+    
+    return template('window_recommend_groups', locals())
   
   @check_permission("create_group", "Can't create group")
   def create_group(self):
@@ -117,7 +119,14 @@ class GroupSiteNewGroupHandler(GroupSiteHandler):
   def post_impl(self, group_site, request):
     return group_site.create_group_post(request)
 
+class GroupSiteRecommandGroupsHandler(GroupSiteHandler):
+  """docstring for GroupSiteRecommandGroupsHandler"""
+  def get_impl(self, group_site):
+    """docstring for get_impl"""
+    return group_site.recommend_groups()
+
 
 apps = [(r'/group', GroupSiteViewHandler),
         (r'/group/new', GroupSiteNewGroupHandler),
+        (r'/group/recommend', GroupSiteRecommandGroupsHandler)
         ]

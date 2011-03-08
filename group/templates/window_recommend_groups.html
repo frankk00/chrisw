@@ -1,0 +1,15 @@
+{% load i18n %}
+{% load filters %}
+
+<h3>{% trans "Recommend Groups" %}</h3>
+<ul>
+	{% for group in recommend_groups %}
+		<li>
+			<a class="group-photo" href="/group/{{group.key.id}}"><img src="{{group.photo_url}}=s32" class="is"/></a>
+			<div class="group-title">
+				<a class="group-name" href="/group/{{group.key.id}}">{{ group.title }}</a>
+				<span class="group-info">{{ group.introduction|truncatesmart:20 }}</span>
+			</div>
+		</li>
+	{% endfor %}
+</ul>
