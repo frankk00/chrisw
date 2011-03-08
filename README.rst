@@ -84,7 +84,7 @@ About
     Kang Zhang (jobo.zh AT gmail.com) http://home.kangzhang.org
 
 :Version: 
-	0.2
+	0.3
 
 :Python: 
 	2.5+
