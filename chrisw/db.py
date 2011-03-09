@@ -11,12 +11,17 @@ import logging
 import datetime
 import time
 
+try:
+  import cPickle as pickle
+except ImportError:
+  import pickle
+
 from google.appengine.ext import db
 from google.appengine.ext.db import *
 from google.appengine.api import datastore_errors
+from google.appengine.api.datastore_types import Blob
 from google.appengine.ext.db import djangoforms
 from django import forms
-
 
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring)
 
