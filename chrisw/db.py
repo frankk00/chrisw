@@ -23,6 +23,61 @@ from google.appengine.api.datastore_types import Blob
 from google.appengine.ext.db import djangoforms
 from django import forms
 
+
+class DictProperty(db.Property):
+  """ 
+  """
+  def validate(self, value):
+    value = super(DictProperty, self).validate(value)
+    if not isinstance(value, dict):
+      raise Exception("NOT A DICT %s" % value)
+    return value
+
+  def default_value(self):
+    return {}
+
+  def datastore_type(self):
+    return Blob
+
+  def get_value_for_datastore(self, model_instance):
+    value = super(DictProperty, self).get_value_for_datastore(model_instance)
+    return Blob(pickle.dumps(value, protocol=-1))
+
+  def make_value_from_datastore(self, model_instance):
+    value = super(DictProperty, self).make_value_from_datastore(model_instance)
+    return pickle.loads(str(value))
+
+class FlyProperty(object):
+  """FlyProperty is something lightweight than normal 
+  """
+  
+  def __init__(self, default=None, name = None):
+    """docstring for __init__"""
+    self.default = None
+    self.name = name
+  
+  def __property_config__(self, model_class, property_name, dct):
+    """docstring for __property_config"""
+    if not dct.has_key('extra_dict'):
+      raise Exception('Model %s is not a subclass of FatModel' % \
+                        type(owner_cls))
+                        
+    self.model_class = model_class
+    if self.name is None:
+      self.name = property_name
+    
+  def __get__(self, owner_instance, owner_cls):
+    """docstring for __get__"""
+    
+    if owner_instance:
+      return owner_instance.extra_dict.get(self.name, self.default)
+    else:
+      return self;
+  
+  def __set__(self, owner_instance, value):
+    """docstring for __set__"""
+    owner_instance.extra_dict.set(self.name, value)
+
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring)
 
 def to_dict(model):
@@ -139,3 +194,30 @@ class Model(db.Model):
     """
     """
     raise Exception("GQL is not allowed in this extension")
+
+def _initialize_fly_properties(model_class, name, bases, dct):
+  """docstring for _initialize_fly_properties"""
+  defined = set()
+  for attr, prop in dct.items():
+    if isinstance(prop, FlyProperty):
+      if attr in defined:
+        raise Exception("Duplicated FlyProperty %s Dectected", attr)
+      defined.add(attr)
+      model_class._properties[attr] = prop
+      prop.__property_config__(model_class, attr, dct)
+  
+class FlyPropertiedMeta(type):
+  """docstring for FlyPropertiedClass"""
+  def __init__(cls, name, bases, dct):
+    super(FlyPropertiedMeta, cls).__init__(name, bases, dct)
+    
+    _initialize_fly_properties(cls, name, bases, dct)
+    
+
+class FlyModel(Model):
+  """Fot Model added extra_dict on Model to enable the usage of FlyProperty"""
+  
+  __metaclass__ = FlyPropertiedMeta
+  
+  extra_dict = DictProperty(default={})
+    
