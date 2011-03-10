@@ -9,7 +9,7 @@ Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 
 from chrisw import db
 
-class Entity(db.Model):
+class Entity(db.FlyModel):
   """docstring for Entity"""
 
 class Relation(db.Model):
@@ -18,7 +18,7 @@ class Relation(db.Model):
   source = db.StringProperty(required=True)
   target = db.StringProperty(required=True)
   
-class Stream(db.Model):
+class Stream(db.FlyModel):
   """docstring for Stream"""
   author = db.StringProperty(required=True)
 
