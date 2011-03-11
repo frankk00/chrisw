@@ -60,6 +60,10 @@ class WeakReferenceProperty(db.Property):
       raise Exception("Not a Key %s" % value)
     return value
   
+  def default_value(self):
+    """docstring for default_value"""
+    return Key()
+  
   def get_value_for_datastore(self, model_instance):
     """docstring for get_value_for_datastore"""
     value = super(WeakReferenceProperty, self).get_value_for_datastore(model_instance)
@@ -82,9 +86,9 @@ class FlyProperty(object):
   
   def __property_config__(self, model_class, property_name, dct):
     """docstring for __property_config"""
-    if not dct.has_key('extra_dict'):
+    if not isinstance(model_class, FlyPropertiedMeta):
       raise Exception('Model %s is not a subclass of FatModel' % \
-                        type(owner_cls))
+                        type(model_class))
                         
     self.model_class = model_class
     if self.name is None:
@@ -100,7 +104,7 @@ class FlyProperty(object):
   
   def __set__(self, owner_instance, value):
     """docstring for __set__"""
-    owner_instance.extra_dict.set(self.name, value)
+    owner_instance.extra_dict[self.name] = value
 
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring)
 
@@ -227,10 +231,9 @@ def _initialize_fly_properties(model_class, name, bases, dct):
       if attr in defined:
         raise Exception("Duplicated FlyProperty %s Dectected", attr)
       defined.add(attr)
-      model_class._properties[attr] = prop
       prop.__property_config__(model_class, attr, dct)
   
-class FlyPropertiedMeta(type):
+class FlyPropertiedMeta(PropertiedClass):
   """docstring for FlyPropertiedClass"""
   def __init__(cls, name, bases, dct):
     super(FlyPropertiedMeta, cls).__init__(name, bases, dct)

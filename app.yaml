@@ -24,6 +24,9 @@ handlers:
   upload: assets/javascript/(.*)
   secure: optional
 
+- url: /unittest/(.*)
+  script: tests/main.py
+
 - url: .*
   script: main.py
   secure: optional
