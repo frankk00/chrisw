@@ -220,7 +220,8 @@ class Model(db.Model):
   def all(cls, **kwargs):
     """Deleted items has been filtered.
     """
-    return super(Model, cls).all(**kwargs).filter('deleted = ', False)
+    return super(Model, cls).all(kwargs.get('keys_only', False))\
+                            .filter('deleted = ', False)
   
   @classmethod
   def gql(cls, query_string, *args, **kwds):
