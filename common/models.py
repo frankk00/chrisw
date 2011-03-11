@@ -11,7 +11,7 @@ from chrisw import db
 
 class Entity(db.FlyModel):
   """docstring for Entity"""
-  create_at = db.DateTimeProperty(required=True)
+  create_at = db.DateTimeProperty(auto_now_add=True)
   
   def create_relation(self, relation, target):
     """docstring for create_relation_with"""
@@ -31,7 +31,6 @@ class Entity(db.FlyModel):
     relations = self._get_relations(relation, target).fetch()
     for rel in relations:
       rel.delete()
-  
   
   def get_target(self, relation, limit=24):
     """docstring for get_by_relation"""
@@ -129,17 +128,25 @@ class Message(db.FlyModel):
     keys = _init_user_keys(users)
     
     index = MessageIndex(subscribers=keys, target=self,\
-                         type_name=self.type_name)
+                         type_name=self.get_type_name())
     index.put()
+  
+  def get_type_name(self):
+    """docstring for get_type_name"""
+    return self.__class__.get_cls_type_name()
+  
+  @classmethod
+  def get_cls_type_name(cls):
+    """docstring for get_message_type_name"""
+    return cls.__name__
     
   @classmethod
-  def latest_by_user(self, user, limit=24):
+  def latest_by_user(cls, user, limit=24):
     """docstring for all_by_user"""
-    keys = MessageIndex.all(subscribers=user, target=self).order('-create_at')\
-                       .fetch(limit)
-    return db.get(keys)
-  
-  type_name = 'basic_message'
+    indexes = MessageIndex.all(subscribers=user, \
+                               type_name=cls.get_cls_type_name())\
+                                 .order('-create_at').fetch(limit)
+    return db.get([index.target for index in indexes])
 
 class MessageIndex(db.Model):
   """docstring for MessageIndex"""
