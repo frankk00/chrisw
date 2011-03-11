@@ -46,7 +46,16 @@ class Relation(db.Model):
   """docstring for Relation"""
   relation = db.StringProperty(required=True)
   source = db.WeakReferenceProperty(required=True)
+  source_type = db.StringProperty(required=True)
   target = db.WeakReferenceProperty(required=True)
+  target_type = db.StringProperty(required=True)
+  
+  def __init__(self, **kwargs):
+    """docstring for __init__"""
+    super(Relation, self).__init__(**kwargs)
+    
+    self.source_type = kwargs.get('source').__class__.__name__
+    self.target_type = kwargs.get('target').__class__.__name__
   
   @classmethod
   def all(cls, **kwargs):
@@ -57,12 +66,21 @@ class Relation(db.Model):
       if kwargs.has_key(f):
         query = query.filter(f, kwargs[f])
     
-    return query
-    
+    return query    
+
 class Subscription(db.Model):
   """docstring for Subscription"""
   subscriber = db.WeakReferenceProperty(required=True)
+  subscriber_type = db.StringProperty(required=True)
   topic = db.WeakReferenceProperty(required=True)
+  topic_type = db.StringProperty(required=True)
+  
+  def __init__(self, **kwargs):
+    """docstring for __init__"""
+    super(Relation, self).__init__(**kwargs)
+    
+    self.subscriber_type = kwargs.get('subscriber').__class__.__name__
+    self.topic_type = kwargs.get('topic').__class__.__name__
   
   @classmethod
   def all(cls, **kwargs):
