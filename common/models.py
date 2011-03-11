@@ -12,6 +12,20 @@ from chrisw import db
 class Entity(db.FlyModel):
   """docstring for Entity"""
   create_at = db.DateTimeProperty(required=True)
+  
+  def create_relation_with(self, relation, target):
+    """docstring for create_relation_with"""
+    pass
+  
+  def get_target_by_relation(self, relation):
+    """docstring for get_by_relation"""
+    return [x.target for x in \
+              Relation.get_by_source_and_relation(self, relation)]
+  
+  def get_source_by_relation(self, relation):
+    """docstring for get_source_by_relation"""
+    return [x.source for x in \
+              Relation.get_by_relation_and_target(relation, self)]
 
 class Relation(db.Model):
   """docstring for Relation"""

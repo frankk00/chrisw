@@ -23,6 +23,20 @@ from google.appengine.api.datastore_types import Blob
 from google.appengine.ext.db import djangoforms
 from django import forms
 
+def _check_dict_content(dct):
+  """docstring for _check_dict_content"""
+  valid = True
+  
+  for value in dct.values():
+    if value is not None and not isinstance(value, SIMPLE_TYPES + (Key,)):
+      valid = False
+    elif isinstance(value, dict):
+      valid = _check_dict_content(value) is not None
+  
+  if valid:
+    return dct
+  else:
+    return None
 
 class DictProperty(db.Property):
   """ 
@@ -31,7 +45,7 @@ class DictProperty(db.Property):
     value = super(DictProperty, self).validate(value)
     if not isinstance(value, dict):
       raise Exception("NOT A DICT %s" % value)
-    return value
+    return _check_dict_content(value)
 
   def default_value(self):
     return {}
