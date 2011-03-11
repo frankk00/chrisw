@@ -47,8 +47,32 @@ class DictProperty(db.Property):
     value = super(DictProperty, self).make_value_from_datastore(model_instance)
     return pickle.loads(str(value))
 
+class WeakReferenceProperty(db.Property):
+  """WeakReference is designed to store only the Key for the model"""
+  def validate(self, value):
+    """docstring for validate"""
+    value = super(WeakReferenceProperty, self).validate(value)
+    
+    if isinstance(value, Model):
+      value = value.key()
+      
+    if not isinstance(value, Key):
+      raise Exception("Not a Key %s" % value)
+    return value
+  
+  def get_value_for_datastore(self, model_instance):
+    """docstring for get_value_for_datastore"""
+    value = super(WeakReferenceProperty, self).get_value_for_datastore(model_instance)
+    return str(value)
+  
+  def make_value_from_datastore(self, model_instance):
+    """docstring for make_value_from_datastore"""
+    value = super(WeakReferenceProperty, self).make_value_from_datastore(model_instance)
+    return Key(value)
+
 class FlyProperty(object):
-  """FlyProperty is something lightweight than normal 
+  """FlyProperty is something lightweight than normal property and it cannot 
+  be in search field
   """
   
   def __init__(self, default=None, name = None):
