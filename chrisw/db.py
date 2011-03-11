@@ -190,7 +190,7 @@ class Model(db.Model):
   
   def delete(self, **kwargs):
     """docstring for def delete(self, **kwargs):"""
-    self.delete = True
+    self.deleted = True
     self.put()
   
   @classmethod
@@ -220,7 +220,7 @@ class Model(db.Model):
   def all(cls, **kwargs):
     """Deleted items has been filtered.
     """
-    return super(Model, cls).all(kwargs.get('keys_only', False))\
+    return super(Model, cls).all(keys_only=kwargs.get('keys_only', False))\
                             .filter('deleted = ', False)
   
   @classmethod

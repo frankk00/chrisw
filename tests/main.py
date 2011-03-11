@@ -15,6 +15,8 @@ from chrisw import db
 
 def main():
   from tests.chrisw import test_db
+  from tests.common import test_models
+  
   pass
 
 

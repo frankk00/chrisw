@@ -9,7 +9,7 @@ Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 
 
 from chrisw import db
-
+from tests import unittest
 import logging
 
 class TestStudent(db.FlyModel):
@@ -22,17 +22,9 @@ class TestLaptop(db.Model):
   """docstring for Laptop"""
   student = db.WeakReferenceProperty()
     
-class DBTestCase(object):
+class DBTestCase(unittest.TestCase):
   """docstring for DBTestCase"""
-  
-  def assert_equal(self, x, y):
-    """docstring for assert_equal"""
-    logging.debug("x %s y %s" % (x, y))
-    if ((x is None and y is None) or (x is not None and y is not None)) and \
-      (x == y):
-      return True
-    else:
-      raise Exception("unit test faile, %s is not equal to %s " % (x, y))
+
   
   def create_foo(self):
     """docstring for create_foo"""

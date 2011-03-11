@@ -9,6 +9,12 @@ Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 
 from chrisw import db
 
+def _get_type_name(cls):
+  """docstring for _get_type_name"""
+  if isinstance(cls, type):
+    return cls.__name__
+  return cls.__class__.__name__
+
 class Entity(db.FlyModel):
   """docstring for Entity"""
   create_at = db.DateTimeProperty(auto_now_add=True)
@@ -20,6 +26,8 @@ class Entity(db.FlyModel):
     
   def has_relation(self, relation, target):
     """docstring for has_relation_with"""
+    import logging
+    logging.debug(self._get_relations(relation, target).get())
     return self._get_relations(relation, target).get() is not None
   
   def _get_relations(self, relation, target):
@@ -28,19 +36,19 @@ class Entity(db.FlyModel):
   
   def delete_relation(self, relation, target):
     """docstring for remove_relation_with"""
-    relations = self._get_relations(relation, target).fetch()
+    relations = self._get_relations(relation, target)
     for rel in relations:
       rel.delete()
   
-  def get_target(self, relation, limit=24):
+  def get_target_keys(self, relation, target_type, limit=24):
     """docstring for get_by_relation"""
-    return [x.target for x in Relation.all(source=self, relation=relation)\
-                                      .fetch(limit)]
+    return [x.target for x in Relation.all(source=self, relation=relation,\
+                        target_type=_get_type_name(target_type)).fetch(limit)]
   
-  def get_source(self, relation, limit=24):
+  def get_source_keys(self, relation, source_type, limit=24):
     """docstring for get_source_by_relation"""
-    return [x.source for x in Relation.all(relation=relation, target=self)\
-                                      .fetch(limit)]
+    return [x.source for x in Relation.all(relation=relation, target=self,\
+                        source_type=_get_type_name(source_type)).fetch(limit)]
 
 class Relation(db.Model):
   """docstring for Relation"""
@@ -50,20 +58,20 @@ class Relation(db.Model):
   target = db.WeakReferenceProperty(required=True)
   target_type = db.StringProperty(required=True)
   
-  def __init__(self, **kwargs):
+  def __init__(self, *args, **kwargs):
     """docstring for __init__"""
-    super(Relation, self).__init__(**kwargs)
+    kwargs['source_type'] = kwargs.get('source').__class__.__name__
+    kwargs['target_type'] = kwargs.get('target').__class__.__name__
     
-    self.source_type = kwargs.get('source').__class__.__name__
-    self.target_type = kwargs.get('target').__class__.__name__
-  
+    super(Relation, self).__init__(*args, **kwargs)
+    
   @classmethod
   def all(cls, **kwargs):
     """docstring for get_sources_by_relation"""
     query = super(Relation, cls).all(**kwargs)
     
-    for f in ('source', 'relation', 'target'):
-      if kwargs.has_key(f):
+    for f in ('source', 'relation', 'target', 'source_type', 'target_type'):
+      if kwargs.has_key(f) and kwargs[f] is not None:
         query = query.filter(f, kwargs[f])
     
     return query    
@@ -75,20 +83,20 @@ class Subscription(db.Model):
   topic = db.WeakReferenceProperty(required=True)
   topic_type = db.StringProperty(required=True)
   
-  def __init__(self, **kwargs):
+  def __init__(self, *args, **kwargs):
     """docstring for __init__"""
-    super(Relation, self).__init__(**kwargs)
+    kwargs['subscriber_type'] = kwargs.get('subscriber').__class__.__name__
+    kwargs['topic_type'] = kwargs.get('topic').__class__.__name__
     
-    self.subscriber_type = kwargs.get('subscriber').__class__.__name__
-    self.topic_type = kwargs.get('topic').__class__.__name__
+    super(Relation, self).__init__(*args, **kwargs)
   
   @classmethod
   def all(cls, **kwargs):
     """docstring for all"""
     query = super(Subscription, cls).all(**kwargs)
     
-    for f in ('subscriber', 'topic'):
-      if kwargs.has_key(f):
+    for f in ('subscriber', 'topic', 'subscriber_type', 'topic_type'):
+      if kwargs.has_key(f) and kwargs[f] is not None:
         query = query.filter(f, kwargs[f])
     
     return query
@@ -146,7 +154,7 @@ class Message(db.FlyModel):
     keys = _init_user_keys(users)
     
     index = MessageIndex(subscribers=keys, target=self,\
-                         type_name=self.get_type_name())
+                         target_type=self.get_type_name())
     index.put()
   
   def get_type_name(self):
@@ -162,7 +170,7 @@ class Message(db.FlyModel):
   def latest_by_user(cls, user, limit=24):
     """docstring for all_by_user"""
     indexes = MessageIndex.all(subscribers=user, \
-                               type_name=cls.get_cls_type_name())\
+                               target_type=cls.get_cls_type_name())\
                                  .order('-create_at').fetch(limit)
     return db.get([index.target for index in indexes])
 
@@ -170,6 +178,6 @@ class MessageIndex(db.Model):
   """docstring for MessageIndex"""
   subscribers = db.StringListProperty(required=True)
   target = db.WeakReferenceProperty(required=True)
-  type_name = db.StringProperty(required=True)
+  target_type = db.StringProperty(required=True)
   create_at = db.DateTimeProperty(auto_now_add=True)
 
