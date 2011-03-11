@@ -77,14 +77,11 @@ class DBTestCase(object):
     top.put()
     
     lap_ref = TestLaptop.all().filter("student =", foo).get()
-    logging.debug('lap_ref %s', lap_ref)
+    self.assert_equal(lap_ref.student, foo.key())
     
     top_ref = TestLaptop.all().filter("student =", foo.key()).get()
-    logging.debug('top_ref %s', top_ref)
+    self.assert_equal(top_ref.student, foo.key())
     
-    top_ref = TestLaptop.all().filter("student =", str(foo.key())).get()
-    logging.debug('top_ref %s', top_ref)
-
 testcase = DBTestCase()
 
 testcase.test_fly_property()  

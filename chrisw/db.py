@@ -64,15 +64,6 @@ class WeakReferenceProperty(db.Property):
     """docstring for default_value"""
     return Key()
   
-  def get_value_for_datastore(self, model_instance):
-    """docstring for get_value_for_datastore"""
-    value = super(WeakReferenceProperty, self).get_value_for_datastore(model_instance)
-    return str(value)
-  
-  def make_value_from_datastore(self, model_instance):
-    """docstring for make_value_from_datastore"""
-    value = super(WeakReferenceProperty, self).make_value_from_datastore(model_instance)
-    return Key(value)
 
 class FlyProperty(object):
   """FlyProperty is something lightweight than normal property and it cannot 
