@@ -15,8 +15,8 @@ from chrisw import db
 class TestStudent(db.FlyModel):
   """docstring for Student"""
   name = db.StringProperty()
-  age = db.FlyProperty()
-  sex = db.FlyProperty()
+  age = db.IntegerFlyProperty()
+  sex = db.StringFlyProperty()
 
 class TestLaptop(db.Model):
   """docstring for Laptop"""

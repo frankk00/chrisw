@@ -94,7 +94,7 @@ def _init_user_keys(users):
     keys.append(str(key))
   return list(set(keys))
   
-class Message(db.Model):
+class Message(db.FlyModel):
   """docstring for Message"""
   author = db.ReferenceProperty(required=False)
   create_at = db.DateTimeProperty(auto_now_add=True)

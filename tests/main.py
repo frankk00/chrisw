@@ -31,7 +31,6 @@ def main():
   
   loader = unittest.defaultTestLoader
   
-  
   suite = unittest.TestSuite()
   
   test_modules = []

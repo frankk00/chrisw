@@ -84,10 +84,11 @@ class FlyProperty(object):
   be in search field
   """
   
-  def __init__(self, default=None, name = None):
+  def __init__(self, default=None, name=None, required=False):
     """docstring for __init__"""
     self.default = None
     self.name = name
+    self.required = False
   
   def __property_config__(self, model_class, property_name, dct):
     """docstring for __property_config"""
@@ -98,6 +99,17 @@ class FlyProperty(object):
     self.model_class = model_class
     if self.name is None:
       self.name = property_name
+  
+  def validate(self, value):
+    """docstring for validate"""
+    
+    if self.required:
+      raise Exception('Property %s is required', self.name)
+    
+    if value is not None and not isinstance(value, self.datatype()):
+      raise Exception('Type %s Required, but %s detected', self.datatype(),\
+                      value)
+    return value
     
   def __get__(self, owner_instance, owner_cls):
     """docstring for __get__"""
@@ -109,7 +121,22 @@ class FlyProperty(object):
   
   def __set__(self, owner_instance, value):
     """docstring for __set__"""
+    self.validate(value)
     owner_instance.extra_dict[self.name] = value
+  
+  def datatype(self):
+    """docstring for datatype"""
+    return self.data_type
+  
+  data_type = str
+
+class StringFlyProperty(FlyProperty):
+  """docstring for StringFlyProperty"""
+  data_type = basestring
+
+class IntegerFlyProperty(FlyProperty):
+  """docstring for IntegerFlyProperty"""
+  data_type = int
 
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring)
 
