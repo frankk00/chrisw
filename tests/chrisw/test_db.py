@@ -40,7 +40,7 @@ class DBTestCase(unittest.TestCase):
     return TestStudent.all().filter('name =', 'foo').get()
 
   def test_fly_property(self):
-    """docstring for test_fly_property"""
+    """Test the FlyProperty"""
     foo = self.create_foo()
     
     bar = TestStudent()
@@ -57,7 +57,7 @@ class DBTestCase(unittest.TestCase):
     foo.delete()
   
   def test_weak_reference(self):
-    """docstring for test_weak_reference"""
+    """Test the WeakReferenceProperty"""
     foo = self.create_foo()
     
     lap = TestLaptop()

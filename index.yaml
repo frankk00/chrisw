@@ -10,6 +10,30 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: MessageIndex
+  properties:
+  - name: deleted
+  - name: create_at
+    direction: desc
+
+- kind: MessageIndex
+  properties:
+  - name: deleted
+  - name: subscribers
+  - name: subscribers
+  - name: target_type
+  - name: target_type
+  - name: create_at
+    direction: desc
+
+- kind: MessageIndex
+  properties:
+  - name: deleted
+  - name: subscribers
+  - name: target_type
+  - name: create_at
+    direction: desc
+
 - kind: Post
   properties:
   - name: deleted

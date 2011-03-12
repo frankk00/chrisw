@@ -220,8 +220,17 @@ class Model(db.Model):
   def all(cls, **kwargs):
     """Deleted items has been filtered.
     """
-    return super(Model, cls).all(keys_only=kwargs.get('keys_only', False))\
-                            .filter('deleted = ', False)
+    
+    keys_only = kwargs.get('keys_only', False)
+    
+    query = super(Model, cls).all(keys_only=keys_only)\
+                             .filter('deleted = ', False)
+
+    for f in cls._properties.keys():
+      if kwargs.has_key(f) and kwargs[f] is not None:
+        query = query.filter(f, kwargs[f])
+    
+    return query
   
   @classmethod
   def gql(cls, query_string, *args, **kwds):

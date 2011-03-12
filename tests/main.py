@@ -24,16 +24,26 @@ import unittest
 
 from chrisw import db
 
+from conf import settings
+sys.path += settings.LIB_DIRS
 
 def main():
   
+  loader = unittest.defaultTestLoader
+  
+  
   suite = unittest.TestSuite()
   
-  from tests.chrisw import test_db
-  suite.addTests(test_db.suite)
+  test_modules = []
   
+  from tests.chrisw import test_db
+  test_modules.append(test_db)
   from tests.common import test_models
-  suite.addTests(test_models.suite)
+  test_modules.append(test_models)
+  
+  logging.debug('start loading tests')
+  for test_module in test_modules:
+    suite.addTests(loader.loadTestsFromModule(test_module))
   
   unittest.TextTestRunner(verbosity=2).run(suite)
   pass

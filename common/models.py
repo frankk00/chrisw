@@ -62,18 +62,8 @@ class Relation(db.Model):
     kwargs['target_type'] = kwargs.get('target').__class__.__name__
     
     super(Relation, self).__init__(*args, **kwargs)
+  
     
-  @classmethod
-  def all(cls, **kwargs):
-    """docstring for get_sources_by_relation"""
-    query = super(Relation, cls).all(**kwargs)
-    
-    for f in ('source', 'relation', 'target', 'source_type', 'target_type'):
-      if kwargs.has_key(f) and kwargs[f] is not None:
-        query = query.filter(f, kwargs[f])
-    
-    return query    
-
 class Subscription(db.Model):
   """docstring for Subscription"""
   subscriber = db.WeakReferenceProperty(required=True)
@@ -84,21 +74,9 @@ class Subscription(db.Model):
   def __init__(self, *args, **kwargs):
     """docstring for __init__"""
     kwargs['subscriber_type'] = kwargs.get('subscriber').__class__.__name__
-    kwargs['topic_type'] = kwargs.get('topic').__class__.__name__
     
-    super(Relation, self).__init__(*args, **kwargs)
-  
-  @classmethod
-  def all(cls, **kwargs):
-    """docstring for all"""
-    query = super(Subscription, cls).all(**kwargs)
+    super(Subscription, self).__init__(*args, **kwargs)
     
-    for f in ('subscriber', 'topic', 'subscriber_type', 'topic_type'):
-      if kwargs.has_key(f) and kwargs[f] is not None:
-        query = query.filter(f, kwargs[f])
-    
-    return query
-  
 def _init_user_keys(users):
   """docstring for _init_users"""
   from duser.models import Guest
@@ -116,32 +94,37 @@ def _init_user_keys(users):
     keys.append(str(key))
   return list(set(keys))
   
-class Message(db.FlyModel):
+class Message(db.Model):
   """docstring for Message"""
-  author = db.ReferenceProperty(required=True)
+  author = db.ReferenceProperty(required=False)
   create_at = db.DateTimeProperty(auto_now_add=True)
   
-  def add_subscriber(self, user):
+  def add_subscriber(self, users):
     """docstring for subscribe"""
-    s = Subscription(subscriber=user, topic=self)
-    s.put()
+    if isinstance(users, db.Model):
+      users = [users]
+      
+    for user in users:
+      s = Subscription(subscriber=user, topic=self, \
+                       topic_type=self.get_type_name())
+      s.put()
   
   def _get_subscriptions(self, user):
     """docstring for _get_subscriptions"""
     return Subscription.all(subscriber=user, topic=self)
   
-  def delte_subscriber(self, user):
+  def delete_subscriber(self, user):
     """docstring for delte_subscriber"""
-    for s in self._get_subscriptions().fetch():
+    for s in self._get_subscriptions(user):
       s.delete()
   
-  def has_subcriber(self, user):
+  def has_subscriber(self, user):
     """docstring for has_subcriber"""
-    return self._get_subscriptions().get() != None
+    return self._get_subscriptions(user).get() != None
   
   def get_subscriber_keys(self):
     """docstring for get_subscriber_keys"""
-    return [s.subscriber for s in self._get_subscriptions().fetch()]
+    return [s.subscriber for s in self._get_subscriptions(None)]
   
   def notify_subscribers(self):
     """docstring for notify_subscribers"""
@@ -165,12 +148,17 @@ class Message(db.FlyModel):
     return cls.__name__
     
   @classmethod
-  def latest_by_user(cls, user, limit=24):
+  def latest_keys_by_subscriber(cls, user, limit=24):
     """docstring for all_by_user"""
     indexes = MessageIndex.all(subscribers=user, \
                                target_type=cls.get_cls_type_name())\
                                  .order('-create_at').fetch(limit)
-    return db.get([index.target for index in indexes])
+    return [index.target for index in indexes]
+  
+  @classmethod
+  def latest_by_subscriber(self, user, limit=24):
+    """docstring for latest_keys_by_subscriber"""
+    return db.get(self.latest_keys_by_subscriber(user, limit))
 
 class MessageIndex(db.Model):
   """docstring for MessageIndex"""
@@ -178,4 +166,17 @@ class MessageIndex(db.Model):
   target = db.WeakReferenceProperty(required=True)
   target_type = db.StringProperty(required=True)
   create_at = db.DateTimeProperty(auto_now_add=True)
-
+  
+  @classmethod
+  def all(cls, **kwargs):
+    """docstring for all"""
+    if kwargs.has_key('subscribers'):
+      value = kwargs['subscribers']
+      if isinstance(value, db.Model):
+        value = value.key()
+      if not isinstance(value, db.Key):
+        raise Exception('Subscriber must be key or model %s' % value)
+      value = str(value)
+      kwargs['subscribers'] = value
+    
+    return super(MessageIndex, cls).all(**kwargs)
