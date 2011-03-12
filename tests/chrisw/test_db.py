@@ -24,7 +24,14 @@ class TestLaptop(db.Model):
     
 class DBTestCase(unittest.TestCase):
   """docstring for DBTestCase"""
-
+  
+  def setUp(self):
+    """docstring for delete_data"""
+    for foo in TestStudent.all():
+      foo.delete()
+    
+    for bar in TestLaptop.all():
+      bar.delete()
   
   def create_foo(self):
     """docstring for create_foo"""
@@ -57,10 +64,7 @@ class DBTestCase(unittest.TestCase):
     self.assertEqual(foo_ref.name, 'foo')
     self.assertEqual(foo_ref.age, 1)
     self.assertEqual(foo_ref.sex, 'male')
-    
-    for foo in TestStudent.all():
-      foo.delete()
-  
+      
   def test_weak_reference(self):
     """Test the WeakReferenceProperty"""
     foo = self.create_foo()

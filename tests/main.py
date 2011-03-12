@@ -40,11 +40,14 @@ def main():
   from tests.common import test_models
   test_modules.append(test_models)
   
-  logging.debug('start loading tests')
+  print 'Start loading tests:' 
   for test_module in test_modules:
+    print 'Loading test from %s ' % test_module.__name__
     suite.addTests(loader.loadTestsFromModule(test_module))
   
-  unittest.TextTestRunner(verbosity=2).run(suite)
+  print '%d Testsuites loaded.\n' % len(test_modules)
+  print '-' * 70 
+  unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
   pass
 
 

@@ -38,8 +38,14 @@ class TestHuman(ndb.Entity):
 
 class TestEntityRelationTestCase(unittest.TestCase):
   """docstring for TestEntityRelationTestCase"""
+  
+  def setUp(self):
+    """docstring for setUp"""
+    for lap in TestHuman.all():
+      lap.delete()
+  
   def test_love(self):
-    """Test the entity and relation API"""
+    """Test the Entity and Relation API"""
     lap = TestHuman(name='lap')
     lap.put()
     
@@ -96,6 +102,17 @@ class TestTalkComment(TestTalk):
 
 class TestMessageIndex(unittest.TestCase):
   """docstring for TestMessageIndex"""
+  
+  def setUp(self):
+    """docstring for setUp"""
+    for lap in TestHuman.all():
+      lap.delete()
+    
+    for top in TestTalk.all():
+      top.delete()
+    
+    for foo in TestTalkComment.all():
+      foo.delete()
   
   def test_message_index(self):
     """Test for MessageIndex and the Subscriptions"""

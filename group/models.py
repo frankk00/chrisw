@@ -86,6 +86,10 @@ class Group(db.Model):
   def can_join(self, user):
     """docstring for can_join"""
     return user != Guest and (not user.key() in self.members)
+
+  def can_quit(self, user):
+    """docstring for can_quit"""
+    return user.key() in self.members and user.key() != self.create_user.key()
   
   def join(self, user):
     userinfo = UserGroupInfo.get_by_user(user)
@@ -101,10 +105,18 @@ class Group(db.Model):
     self.members.remove(user.key())
     userinfo.put()
     self.put()
-    
-  def can_quit(self, user):
-    """docstring for can_quit"""
-    return user.key() in self.members and user.key() != self.create_user.key()
+  
+  def has_member(self, user):
+    """docstring for has_member"""
+    pass
+  
+  def get_latest_joined_members(self):
+    """docstring for get_latest_joined_members"""
+    pass
+  
+  def get_members(self, limit=24):
+    """docstring for get_members"""
+    pass
   
   def get_topics(self):
     """docstring for get_topics"""

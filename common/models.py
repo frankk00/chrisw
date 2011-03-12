@@ -79,9 +79,6 @@ class Subscription(db.Model):
     
 def _init_user_keys(users):
   """docstring for _init_users"""
-  from duser.models import Guest
-  # also putinto guest inbox
-  users.append(Guest)
   
   keys = []
   for user in users:
