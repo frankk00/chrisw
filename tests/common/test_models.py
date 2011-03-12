@@ -7,9 +7,10 @@ Created by Kang Zhang on 2011-03-11.
 Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 """
 
+import unittest
 from chrisw import db
 from common import models as ndb
-from tests import unittest
+
 
 LOVE = 'love'
 
@@ -43,34 +44,33 @@ class TestEntityRelationTestCase(unittest.TestCase):
     top = TestHuman(name='top')
     top.put()
     
-    self.assert_false(lap.is_loving(top))
-    self.assert_false(top.is_loving(lap))
+    self.assertFalse(lap.is_loving(top))
+    self.assertFalse(top.is_loving(lap))
     
     lap.love(top)
     
-    self.assert_true(lap.is_loving(top))
-    self.assert_false(top.is_loving(lap))
+    self.assertTrue(lap.is_loving(top))
+    self.assertFalse(top.is_loving(lap))
     
     top.love(lap)
     
-    self.assert_true(lap.is_loving(top))
-    self.assert_true(top.is_loving(lap))
+    self.assertTrue(lap.is_loving(top))
+    self.assertTrue(top.is_loving(lap))
     
     lap_lovers = lap.get_lovers()
-    self.assert_equal(lap_lovers[0], top.key())
+    self.assertEqual(lap_lovers[0], top.key())
     
     lap.unlove(top)
     
-    self.assert_equal(lap.get_lovers(), [])
-    self.assert_false(lap.is_loving(top))
-    self.assert_true(top.is_loving(lap))
+    self.assertEqual(lap.get_lovers(), [])
+    self.assertFalse(lap.is_loving(top))
+    self.assertTrue(top.is_loving(lap))
     
     top.unlove(lap)
     
     lap.delete()
     top.delete()
 
-TestEntityRelationTestCase().test_love()
 
 class TestTalk(ndb.Message):
   """docstring for TestTalk"""
@@ -97,12 +97,16 @@ class TestTalkComment(TestTalk):
     kwargs['is_comment'] = True
     super(TestTalkComment, self).__init__(*args, **kwargs)
   
+  
+  
 
 
   
     
     
   
-    
+suite = unittest.TestLoader().loadTestsFromTestCase(TestEntityRelationTestCase)
+unittest.TextTestRunner(verbosity=2).run(suite)
+
         
 

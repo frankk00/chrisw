@@ -8,9 +8,9 @@ Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 """
 
 
-from chrisw import db
-from tests import unittest
+import unittest
 import logging
+from chrisw import db
 
 class TestStudent(db.FlyModel):
   """docstring for Student"""
@@ -50,9 +50,9 @@ class DBTestCase(unittest.TestCase):
     
     
     foo_ref = self.query_foo()
-    self.assert_equal(foo_ref.name, 'foo')
-    self.assert_equal(foo_ref.age, 1)
-    self.assert_equal(foo_ref.sex, 'male')
+    self.assertEqual(foo_ref.name, 'foo')
+    self.assertEqual(foo_ref.age, 1)
+    self.assertEqual(foo_ref.sex, 'male')
     
     foo.delete()
   
@@ -69,20 +69,9 @@ class DBTestCase(unittest.TestCase):
     top.put()
     
     lap_ref = TestLaptop.all().filter("student =", foo).get()
-    self.assert_equal(lap_ref.student, foo.key())
+    self.assertEqual(lap_ref.student, foo.key())
     
     top_ref = TestLaptop.all().filter("student =", foo.key()).get()
-    self.assert_equal(top_ref.student, foo.key())
+    self.assertEqual(top_ref.student, foo.key())
     
-testcase = DBTestCase()
-
-testcase.test_fly_property()  
-testcase.test_weak_reference()
-
-def main():
-  pass
-
-
-if __name__ == '__main__':
-  main()
-
+suite = unittest.TestLoader().loadTestsFromTestCase(DBTestCase)

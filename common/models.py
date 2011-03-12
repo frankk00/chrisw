@@ -26,8 +26,6 @@ class Entity(db.FlyModel):
     
   def has_relation(self, relation, target):
     """docstring for has_relation_with"""
-    import logging
-    logging.debug(self._get_relations(relation, target).get())
     return self._get_relations(relation, target).get() is not None
   
   def _get_relations(self, relation, target):
