@@ -100,10 +100,14 @@ class FlyProperty(object):
     if self.name is None:
       self.name = property_name
   
+  def empty(self, value):
+    """docstring for empty"""
+    return value is None
+  
   def validate(self, value):
     """docstring for validate"""
     
-    if self.required:
+    if self.required and self.empty(value):
       raise Exception('Property %s is required', self.name)
     
     if value is not None and not isinstance(value, self.datatype()):
@@ -115,13 +119,16 @@ class FlyProperty(object):
     """docstring for __get__"""
     
     if owner_instance:
-      return owner_instance.extra_dict.get(self.name, self.default)
+      value = owner_instance.extra_dict.get(self.name, self.default)
+      logging.debug('get %s value %s', self.name, value)
+      return value
     else:
       return self;
   
   def __set__(self, owner_instance, value):
     """docstring for __set__"""
-    self.validate(value)
+    value = self.validate(value)
+    logging.debug('set %s value %s', self.name, value)
     owner_instance.extra_dict[self.name] = value
   
   def datatype(self):
@@ -273,10 +280,13 @@ def _initialize_fly_properties(model_class, name, bases, dct):
       if attr in defined:
         raise Exception("Duplicated FlyProperty %s Dectected", attr)
       defined.add(attr)
+      model_class._fly_properties[attr] = prop
       prop.__property_config__(model_class, attr, dct)
   
 class FlyPropertiedMeta(PropertiedClass):
   """docstring for FlyPropertiedClass"""
+  _fly_properties = {}
+  
   def __init__(cls, name, bases, dct):
     super(FlyPropertiedMeta, cls).__init__(name, bases, dct)
     
@@ -289,4 +299,8 @@ class FlyModel(Model):
   __metaclass__ = FlyPropertiedMeta
   
   extra_dict = DictProperty(default={})
-    
+  
+  @classmethod
+  def fly_properties(cls):
+    """docstring for fly_properties"""
+    return cls._fly_properties

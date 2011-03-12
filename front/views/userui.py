@@ -12,14 +12,13 @@ import os
 import photo
 
 from google.appengine.ext import webapp
-from google.appengine.ext.db import djangoforms
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import blobstore_handlers
 
 from chrisw.core import handlers
 from chrisw.core.action import *
 from chrisw.core.ui import ModelUI, check_permission
-from chrisw.helper import Page
+from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 from chrisw.i18n import _
 
@@ -91,7 +90,7 @@ class UserUI(ModelUI):
       user = form.save(commit=False)
       user.put()
       
-      redirect('u/profile')
+      # redirect('u/profile')
     
     # redraw the settings page
     photo_form = ProfilePhotoForm()

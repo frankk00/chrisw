@@ -26,3 +26,4 @@ def render_to_string(*args, **kwargs):
     django.template.loader.render_to_string() with the passed arguments.
     """
     return loader.render_to_string(*args, **kwargs)
+

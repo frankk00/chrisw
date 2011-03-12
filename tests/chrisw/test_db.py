@@ -48,13 +48,18 @@ class DBTestCase(unittest.TestCase):
     bar.age = 2
     bar.sex = 'female'
     
+    self.assertEqual(foo.name, 'foo')
+    self.assertEqual(foo.age, 1)
+    self.assertEqual(foo.sex, 'male')
+    
     
     foo_ref = self.query_foo()
     self.assertEqual(foo_ref.name, 'foo')
     self.assertEqual(foo_ref.age, 1)
     self.assertEqual(foo_ref.sex, 'male')
     
-    foo.delete()
+    for foo in TestStudent.all():
+      foo.delete()
   
   def test_weak_reference(self):
     """Test the WeakReferenceProperty"""
