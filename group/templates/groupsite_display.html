@@ -39,15 +39,15 @@
 				<tbody>
 					<tr>
 						<td>
-							<span class="stats-count" id="group-count"> {{ post_count }} </span>
+							<span class="stats-count" id="group-count"> {{ group_info.post_count }} </span>
 							<span class="label">{% trans "Posts" %}</span>
 						</td>
 						<td>
-							<span class="stats-count" id="topic_count"> {{ topic_count }} </span>
+							<span class="stats-count" id="topic_count"> {{ group_info.topic_count }} </span>
 							<span class="label">{% trans "Topics" %}</span>
 						</td>
 						 <td>
-							<span class="stats-count" id="group_count">{{ group_count }} </span>
+							<span class="stats-count" id="group_count">{{ group_info.group_count }} </span>
 							<span class="label">{% trans "Groups" %}</span>
 						</td>
 					  </tr>
@@ -64,22 +64,25 @@
 			</div>
 		{% endif %}
 
-		<div id="groups" class="grid_9 dashboard-widget">
-			<h3>{% trans "You Followed Groups" %}</h3>
-			<ul>
-				{% for group in my_groups %}
-					<li>
-						<a class="group-photo" href="/group/{{group.key.id}}"><img class="is" src="{{group.photo_url}}=s32" /></a>
-						<div class="group-title">
-							<a class="group-name" href="/group/{{group.key.id}}">{{ group.title }}</a>
-							<span class="group-info">{{ group.introduction|truncatesmart:20 }}</span>
-						</div>
-					</li>
-				{% endfor %}
-			</ul>
-
-			<p class="clear"></p>
-		</div>
+		{% if my_groups %}
+			<div id="groups" class="grid_9 dashboard-widget">
+				
+				<h3>{% trans "You Followed Groups" %}</h3>
+				<ul>
+					{% for group in my_groups %}
+						<li>
+							<a class="group-photo" href="/group/{{group.key.id}}"><img class="is" src="{{group.photo_url}}=s32" /></a>
+							<div class="group-title">
+								<a class="group-name" href="/group/{{group.key.id}}">{{ group.title }}</a>
+								<span class="group-info">{{ group.introduction|truncatesmart:20 }}</span>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+        	
+				<p class="clear"></p>
+			</div>
+		{% endif %}
 		
 		<div class="clear">
 		</div>

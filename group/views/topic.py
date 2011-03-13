@@ -10,13 +10,10 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 import logging
 
-from google.appengine.ext import webapp
-from google.appengine.ext.db import djangoforms
-
 from chrisw.core.action import *
 from chrisw.core.ui import ModelUI, check_permission
 from chrisw.i18n import _
-from chrisw.helper import Page
+from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 from chrisw.web.util import *
 
@@ -28,7 +25,7 @@ from group.models import *
 class TopicForm(djangoforms.ModelForm):
   """docstring for TopicForm"""
   class Meta:
-    model = Topic
+    model = GroupTopic
     fields = ['title', 'content']
   
   title = fields.CharField(label = _('Topic Title'), min_length=2,\
@@ -39,7 +36,7 @@ class TopicForm(djangoforms.ModelForm):
 class PostForm(djangoforms.ModelForm):
   """docstring for PostForm"""
   class Meta:
-    model = Post
+    model = GroupPost
     fields = ['content']
   
   content = fields.CharField(label = _('Post Content'), min_length=1,\
@@ -50,6 +47,7 @@ class TopicUI(ModelUI):
   def __init__(self, topic):
     super(TopicUI, self).__init__(topic)
     self.topic = topic
+    self.current_user = get_current_user()
   
   #allow guest usesrs to login
   #@check_permission('view', "Not allowed to open topic")
@@ -57,7 +55,8 @@ class TopicUI(ModelUI):
     """docstring for view"""
     limit = int(request.get('limit', '20'))
     offset = int(request.get('offset', '0'))
-    query = self.topic.get_posts()
+  
+    query = self.topic.get_all_posts(has_order=True)
     count = query.count(2000)
     posts = query.fetch(limit, offset)
     post_form = PostForm()
@@ -78,7 +77,7 @@ class TopicUI(ModelUI):
   @check_permission('edit', "Not the author")
   def edit_post(self, request):
     """docstring for edit_post"""
-    form = Topic(data=request.POST, instance=self.topic)
+    form = GroupTopic(data=request.POST, instance=self.topic)
     if form.is_valid():
       new_topic = form.save(commit=False)
       new_topic.put()
@@ -90,29 +89,21 @@ class TopicUI(ModelUI):
     """docstring for delete"""
     pass
   
-  @check_permission('reply', "Not allowed to reply the thread")
+  @check_permission('create_post', "Not allowed to reply the thread")
   def create_post(self):
     """docstring for create_post"""
     form = PostForm()
     post_url = '/group/topic/%d/new' % self.topic.key().id()
     return template('item_new', locals())
   
-  @check_permission('reply', "Not allowed to reply the thread")
+  @check_permission('create_post', "Not allowed to reply the thread")
   def create_post_post(self, request):
     """docstring for create_post_post"""
     form = PostForm(data=request.POST)
     if form.is_valid():
-      logging.debug("created a new post ")
-      new_post = form.save(commit=False)
-      new_post.topic = self.topic
-      new_post.author = get_current_user()
-      new_post.put()
       
-      # update the topic's update time
-      import datetime
-      self.topic.update_time = datetime.datetime.now()
-      self.topic.length += 1
-      self.topic.put()
+      new_post = form.save(commit=False)
+      self.topic.create_post(new_post, self.current_user)
       
       return redirect('/group/topic/%d' % self.topic.key().id())
     return template('item_new', locals())
@@ -121,7 +112,7 @@ def topic_handler(func):
   """docstring for topic_handler"""
   def wrapper(handler, topic_id):
     """docstring for wrapper"""
-    topic = Topic.get_by_id(int(topic_id))
+    topic = GroupTopic.get_by_id(int(topic_id))
     topic_ui = TopicUI(topic)
     
     return func(topic_ui, handler.request)

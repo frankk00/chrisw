@@ -9,14 +9,11 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 import logging
 
-from google.appengine.ext import webapp, db
-from google.appengine.ext.db import djangoforms
-
 from chrisw.core import handlers
 from chrisw.core.action import *
 from chrisw.core.ui import ModelUI, check_permission
 from chrisw.i18n import _
-from chrisw.helper import Page
+from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 
 from duser.auth import get_current_user, Guest
@@ -30,7 +27,7 @@ class GroupSiteUI(ModelUI):
     super(GroupSiteUI, self).__init__(group_site)
     self.group_site = group_site
     self.user = get_current_user()
-    self.groupinfo = UserGroupInfo.get_by_user(self.user)
+    self.group_info = UserGroupInfo.get_by_user(self.user)
     
   def view(self, request):
     offset = int(request.get("offset", "0"))
@@ -38,20 +35,10 @@ class GroupSiteUI(ModelUI):
     
     my_groups = []
     
-    if self.groupinfo:
-      # user
-      my_groups = db.get(self.groupinfo.groups)
-      topic_count = Topic.all().filter("author =", self.user).count()
-      post_count = Post.all().filter("author =", self.user).count()
-      group_count = len(my_groups)
+    group_info = self.group_info
     
-    query = Topic.all()
-    if my_groups: # filter the groups for non guest user
-      query = query.filter("group IN", my_groups)
-    query = query.order("-update_time")
-      
-    count = query.count(2000)
-    topics = query.fetch(limit, offset)
+    count = GroupTopic.count_latest_by_subscriber(self.user)
+    topics = GroupTopic.latest_by_subscriber(self.user, limit, offset)
     
     page = Page(count=count, offset=offset, limit=limit, request=request)
     
@@ -81,12 +68,7 @@ class GroupSiteUI(ModelUI):
     form = GroupForm(data=request.POST)
     if form.is_valid():
       new_group = form.save(commit=False)
-      new_group.create_user = get_current_user()
-      new_group.put()
-      # add itself as a member
-      new_group.join(get_current_user())
-      # add new group to site
-      self.group_site.add_group(new_group)
+      self.group_site.add_group(new_group, self.user)
       
       return redirect('/group/%d' % new_group.key().id())
     return template('item_new', locals())

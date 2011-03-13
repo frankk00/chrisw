@@ -22,15 +22,18 @@ RECENT_MEMBER_LIMIT = 20
 
 class GroupSite(db.Model):
   """a faked object"""
-  
   avaliable_group_slots = db.IntegerProperty(required=True, default=100)
   
-  def get_groups(self):
+  def get_all_joined_group_keys(self, user):
+    """docstring for get_all_joined_group_keys"""
+    return Group.all(creator=user, keys_only=True)
+    
+  def get_joined_groups(self, user, limit=24, offset=0):
     """docstring for get_groups"""
-    pass
+    return Group.all(creator=user).fetch(limit=limit, offset=offset)
   
   def add_group(self, group, user):
-    """docstring for add_group"""
+    """add a new group to this site"""
     self.avaliable_group_slots -= 1
     self.put()
     
@@ -43,7 +46,8 @@ class GroupSite(db.Model):
     UserGroupInfo.get_by_user(user).update_group_count()
   
   def delete_group(self):
-    """docstring for delete_group"""
+    """TODO:
+    """
     pass
   
   def can_create_group(self, user):
@@ -69,18 +73,22 @@ class UserGroupInfo(ndb.Entity):
   
   def update_topic_count(self):
     """docstring for update_topic_count"""
-    topic_count = GroupTopic.all(author=self).count()
+    self.topic_count = GroupTopic.all(author=self.user).count()
     self.put()
   
   def update_post_count(self):
     """docstring for update_post_count"""
-    post_count = GroupPost.all(author=self).count()
+    self.post_count = GroupPost.all(author=self.user).count()
     self.put()
   
   def update_group_count(self):
     """docstring for update_group_count"""
-    group_count = Group.all(creator=self).count()
+    self.group_count = Group.all(creator=self.user).count()
     self.put()
+  
+  def get_joined_groups(self):
+    """docstring for get_joined_groups"""
+    Group.
   
   @classmethod
   def get_by_user(self, user):
@@ -97,10 +105,10 @@ class Group(ndb.Entity):
   create_time = db.DateTimeProperty(auto_now_add=True)
   creator = db.ReferenceProperty(User)
   
-  title = db.StringFlyProperty()
-  introduction = db.TextFlyProperty()
+  title = db.StringFlyProperty(default='')
+  introduction = db.TextFlyProperty(default='')
   photo_url = db.StringFlyProperty(default=settings.DEFAULT_GROUP_PHOTO)
-  recent_members = db.ListFlyProperty()
+  recent_members = db.ListFlyProperty(default=[])
     
   def can_view(self, user):
     """docstring for can_see"""
@@ -132,8 +140,7 @@ class Group(ndb.Entity):
     self.create_relation(GROUP_MEMEBERSHIP, user)
     
     # add user to recent added users list
-    self.recent_members.append(user.key())
-    self.recent_members = self.recent_members[:RECENT_MEMBER_LIMIT]
+    self.recent_members = list(self.get_member_keys(limit=6))
     
     self.put()
     
@@ -143,7 +150,7 @@ class Group(ndb.Entity):
     
   def has_member(self, user):
     """docstring for has_member"""
-    self.has_relation(GROUP_MEMEBERSHIP, user)
+    return self.has_relation(GROUP_MEMEBERSHIP, user)
   
   def get_latest_joined_members(self):
     """docstring for get_latest_joined_members"""
@@ -197,15 +204,15 @@ class Group(ndb.Entity):
     """docstring for get_admins"""
     return db.get(self.get_admin_keys(self, limit=limit, offset=offset))
 
-  def can_create_topic(self, user):
-    """docstring for can_create_thread"""
-    return user.key() in self.members  
-
   #######
   #
   # topic related apis
   #
   #######
+
+  def can_create_topic(self, user):
+    """docstring for can_create_thread"""
+    return self.has_member(user) 
   
   def create_topic(self, topic, user):
     """ Create a new topi in group
@@ -217,6 +224,10 @@ class Group(ndb.Entity):
     topic.put()
     
     topic.add_subscribers(self.get_member_keys(limit=1000))
+    
+    #TODO: support for private group
+    topic.add_subscriber(Guest)
+    
     topic.notify_subscribers()
     
     UserGroupInfo.get_by_user(user).update_topic_count()
@@ -226,21 +237,26 @@ class Group(ndb.Entity):
     topic.undo_notify()
     topic.delete()
   
-  def latest_topics_by_user(self, user limit=24, offset=0):
-    """docstring for get_topics"""
-    return self.latest_by_subscriber(user, limit=limit, offset=offset)
+  def get_all_topics(self, has_order=False):
+    """docstring for get_all_topics"""
+    query = GroupTopic.all(group=self)
+    if has_order: query = query.order('-update_at')
+    return query
   
+  @classmethod
+  def get_group_keys_by_user(self, user):
+    """docstring for get_groups_by_user"""
+    pass
 
 class GroupTopic(ndb.Message):
   """docstring for Thread"""
-  update_at = db.DateTimeProperty(auto_now=True)
   author = db.ReferenceProperty(User)
   group = db.ReferenceProperty(Group)
   
-  title = db.FlyTextProperty()
-  content = db.FlyTextProperty()
-  length = db.FlyIntegerProperty(default=1)
-  hits = db.FlyIntegerProperty(default=0)
+  title = db.TextFlyProperty(default='')
+  content = db.TextFlyProperty(default='')
+  length = db.IntegerFlyProperty(default=1)
+  hits = db.IntegerFlyProperty(default=0)
   
   def can_view(self, user):
     """docstring for can_view"""
@@ -275,7 +291,11 @@ class GroupTopic(ndb.Message):
   def create_post(self, post, user):
     """docstring for add_group_post"""
     post.author = user
+    post.topic = self
     post.put()
+    
+    import logging
+    logging.debug("Post content:" + post.content)
     
     self.length = self.get_all_posts().count()
     self.put()
@@ -288,16 +308,15 @@ class GroupTopic(ndb.Message):
     """docstring for delete_post"""
     post.delete()
   
-  def get_latest_posts(self, user, limit=24, offset=0):
-    """docstring for get_posts"""
-    return self.get_all_posts().order("create_at")
-  
-  def get_all_posts(self):
+  def get_all_posts(self, has_order=False):
     """docstring for get_all_posts"""
-    return GroupPost.all(topic=self)
+    query = GroupPost.all(topic=self)
+    if has_order:
+      query = query.order("-create_at")
+    return query
   
 class GroupPost(ndb.Message):
   """docstring for Post"""
   author = db.ReferenceProperty(User)
-  topic = db.ReferenceProperty(Topic)
-  content = db.TextFlyProperty()
+  topic = db.ReferenceProperty(GroupTopic)
+  content = db.TextFlyProperty(default='')

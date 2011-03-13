@@ -103,7 +103,6 @@ def api_enabled(func):
     fields_dict = {}
     
     try:
-      logging.debug("self" + str(self) + str(*args) + str(**kwargs))
       action = func(self, *args, **kwargs)
       fields_dict = json.loads(fields)
       

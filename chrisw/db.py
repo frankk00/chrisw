@@ -86,9 +86,9 @@ class FlyProperty(object):
   
   def __init__(self, default=None, name=None, required=False):
     """docstring for __init__"""
-    self.default = None
+    self.default = default
     self.name = name
-    self.required = False
+    self.required = required
   
   def __property_config__(self, model_class, property_name, dct):
     """docstring for __property_config"""
@@ -120,7 +120,6 @@ class FlyProperty(object):
     
     if owner_instance:
       value = owner_instance.extra_dict.get(self.name, self.default)
-      logging.debug('get %s value %s', self.name, value)
       return value
     else:
       return self;
@@ -128,7 +127,6 @@ class FlyProperty(object):
   def __set__(self, owner_instance, value):
     """docstring for __set__"""
     value = self.validate(value)
-    logging.debug('set %s value %s', self.name, value)
     owner_instance.extra_dict[self.name] = value
   
   def datatype(self):
@@ -149,7 +147,7 @@ class TextFlyProperty(FlyProperty):
   """docstring for TextFlyProperty"""
   data_type = basestring
 
-class ListFlyProperty(object):
+class ListFlyProperty(FlyProperty):
   """docstring for ListFlyProperty"""
   data_type = list
 

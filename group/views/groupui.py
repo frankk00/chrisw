@@ -9,14 +9,11 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 import logging
 
-from google.appengine.ext import webapp, db
-from google.appengine.ext.db import djangoforms
-
 from chrisw.core import handlers
 from chrisw.core.action import *
 from chrisw.core.ui import ModelUI, check_permission
 from chrisw.i18n import _
-from chrisw.helper import Page
+from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 
 from duser.auth import get_current_user
@@ -44,6 +41,7 @@ class GroupUI(ModelUI):
   def __init__(self, group):
     super(GroupUI, self).__init__(group)
     self.group = group
+    self.current_user = get_current_user()
   
   # it dosen't need check permission, as it's opened to all people. include th
   # the guest account
@@ -52,12 +50,13 @@ class GroupUI(ModelUI):
     """docstring for view"""
     limit = int(request.get('limit', '20'))
     offset = int(request.get('offset', '0'))
-    query = self.group.get_topics()
+    
+    query = self.group.get_all_topics(has_order=True)
     count = query.count(2000)
     topics = query.fetch(limit, offset)
     page = Page(count=count, offset=offset, limit=limit, request=request)
     
-    members = [User.get(mk) for mk in self.group.members]
+    members = [User.get(mk) for mk in self.group.recent_members]
     
     #var_dict = locals() # can't assign variable below this line
                 
@@ -143,9 +142,8 @@ class GroupUI(ModelUI):
     form = TopicForm(data=request.POST)
     if form.is_valid():
       new_topic = form.save(commit=False)
-      new_topic.group = self.group
-      new_topic.author = get_current_user()
-      new_topic.put()
+      self.group.create_topic(new_topic, self.current_user)
+      
       return redirect('/group/topic/%d' % new_topic.key().id())
     return template('item_new', locals())
 
@@ -161,7 +159,6 @@ class GroupHandler(handlers.RequestHandler):
 
   def get(self, group_id,*args):
     """docstring for get"""
-    logging.debug("%s %s %s haha",str(self), str(group_id), str(*args) )
     group = Group.get_by_id(int(group_id))
     return self.get_impl(GroupUI(group))
   

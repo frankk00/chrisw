@@ -13,17 +13,20 @@ from google.appengine.ext.db import djangoforms
 class ModelForm(djangoforms.ModelForm):
   """docstring for ModelForm"""
   
-  def save(self, commit=True):
+  def save(self, commit=False):
     """docstring for save"""
     
-    fly_properties = self._meta.model.fly_properties()
-    instance = self.instance
-    
-    clean_data = self._cleaned_data()
+    instance = super(ModelForm, self).save(commit)
     
     if instance:
+      
+      fly_properties = self._meta.model.fly_properties()
+      clean_data = self._cleaned_data()
+      
       for attr, fly_propertie in fly_properties.iteritems():
         if clean_data.has_key(attr):
           setattr(instance, attr, clean_data[attr])
+      if commit:
+        instance.put()
     
-    return super(ModelForm, self).save(commit)
+    return instance

@@ -67,7 +67,7 @@
 		{% include "pager.html" %}
 	</ol>
 	
-	{% if can_reply %}
+	{% if can_create_post %}
 		<form action="/group/topic/{{topic.key.id}}/new" method="POST" accept-charset="utf-8">
 			{{ post_form.as_p }}
 

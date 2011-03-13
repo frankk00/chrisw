@@ -45,10 +45,6 @@ def main():
   djsettings.LANGUAGE_CODE = settings.LANGUAGE_CODE
   djsettings.LOCALE_PATHS += settings.LOCALE_PATHS
   
-  logging.debug(djsettings.LOCALE_PATHS)
-  logging.debug(djsettings.LANGUAGE_CODE)
-  logging.debug(djsettings.USE_I18N)
-  
   import front, group
   
   from chrisw.core import handlers

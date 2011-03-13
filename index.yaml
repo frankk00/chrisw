@@ -10,6 +10,32 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: GroupPost
+  properties:
+  - name: deleted
+  - name: topic
+  - name: create_at
+
+- kind: GroupPost
+  properties:
+  - name: deleted
+  - name: topic
+  - name: create_at
+    direction: desc
+
+- kind: GroupTopic
+  properties:
+  - name: deleted
+  - name: group
+  - name: update_at
+
+- kind: GroupTopic
+  properties:
+  - name: deleted
+  - name: group
+  - name: update_at
+    direction: desc
+
 - kind: MessageIndex
   properties:
   - name: deleted
@@ -32,6 +58,14 @@ indexes:
   - name: subscribers
   - name: target_type
   - name: create_at
+    direction: desc
+
+- kind: MessageIndex
+  properties:
+  - name: deleted
+  - name: subscribers
+  - name: target_type
+  - name: update_at
     direction: desc
 
 - kind: Post

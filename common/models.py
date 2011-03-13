@@ -97,6 +97,7 @@ def _init_user_keys(users):
 class Message(db.FlyModel):
   """docstring for Message"""
   create_at = db.DateTimeProperty(auto_now_add=True)
+  update_at = db.DateTimeProperty(auto_now=True)
   
   def add_subscriber(self, users):
     """docstring for subscribe"""
@@ -159,12 +160,18 @@ class Message(db.FlyModel):
   def get_cls_type_name(cls):
     """docstring for get_message_type_name"""
     return cls.__name__
-    
+  
+  @classmethod
+  def count_latest_by_subscriber(cls, user, count=200):
+    """docstring for count_latest_by_subscriber"""
+    return MessageIndex.all(subscribers=user, \
+      target_type=cls.get_cls_type_name()).count(count)
+  
   @classmethod
   def latest_keys_by_subscriber(cls, user, limit=24, offset=0):
     """docstring for all_by_user"""
     indexes = MessageIndex.all(subscribers=user, \
-      target_type=cls.get_cls_type_name()).order('-create_at')\
+      target_type=cls.get_cls_type_name()).order('-update_at')\
       .fetch(limit, offset=offset)
     
     for index in indexes:
@@ -181,6 +188,7 @@ class MessageIndex(db.Model):
   target = db.WeakReferenceProperty(required=True)
   target_type = db.StringProperty(required=True)
   create_at = db.DateTimeProperty(auto_now_add=True)
+  update_at = db.DateTimeProperty(auto_now=True)
   
   @classmethod
   def all(cls, **kwargs):
