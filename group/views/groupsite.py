@@ -11,6 +11,7 @@ import logging
 
 from chrisw.core import handlers
 from chrisw.core.action import *
+from chrisw.core.memcache import cache_action
 from chrisw.core.ui import ModelUI, check_permission
 from chrisw.i18n import _
 from chrisw.helper import Page, djangoforms
@@ -49,6 +50,7 @@ class GroupSiteUI(ModelUI):
     
     return template('groupsite_display.html', locals())
   
+  @cache_action('group-recommend-group')
   def recommend_groups(self):
     """docstring for recommend_groups"""
     

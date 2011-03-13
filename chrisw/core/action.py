@@ -6,7 +6,7 @@ action.py
 Created by Kang Zhang on 2011-02-18.
 Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 """
-from chrisw.core import router
+from chrisw.core import router, memcache
 from chrisw.core.exceptions import *
 
 class Action(object):
@@ -24,7 +24,13 @@ class login(Action):
   def __init__(self):
     super(login, self).__init__()
 
-class template(Action):
+class _RenderAction(Action):
+  """docstring for _RenderAction"""
+  def render_to_string(self):
+    """docstring for render_to_string"""
+    raise Exception('Not implemented method')
+
+class template(_RenderAction):
   """docstring for template"""
   def __init__(self, name, var_dict):
     super(template, self).__init__()
@@ -44,7 +50,35 @@ class redirect(Action):
     super(redirect, self).__init__()
     self.to_url = to_url
 
-class forward(Action):
+class cache(_RenderAction):
+  """docstring for cache"""
+  def __init__(self, func, func_args, func_kwargs, key, time=60):
+    super(cache, self).__init__()
+    self.key = key
+    self.time = time
+    self.func = func
+    self.func_args = func_args
+    self.func_kwargs = func_kwargs
+  
+  def render_to_string(self):
+    """docstring for render_to_string"""
+    data = memcache.get(self.key)
+    if data is not None:
+      import logging
+      logging.debug("cache hitted for key: %s", self.key)
+      return data
+    
+    action = self.func(*self.func_args, **self.func_kwargs)
+    
+    if not isinstance(action, _RenderAction) or isinstance(action, cache):
+      raise Exception("Can't cache the action besides template and forward")
+      
+    data = action.render_to_string()
+    memcache.set(self.key, data, self.time)
+    return data
+    
+
+class forward(_RenderAction):
   """forward action: load the content from the forwarding url.
   """
   def __init__(self, to_path, *args):
@@ -108,7 +142,7 @@ class forward(Action):
     result_string = "Forward to PATH " + self.to_path 
     
     if action:
-      if isinstance(action, template) or isinstance(action, forward):
+      if isinstance(action, _RenderAction):
         result_string = action.render_to_string()
       elif isinstance(action, redirect):
         result_string = "Redirect to " + action.to_url

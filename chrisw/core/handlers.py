@@ -140,7 +140,7 @@ def api_enabled(func):
       
       # for debugging
       # var_dict.update({'site_message':"You've created a new group."})
-    elif isinstance(action, redirect):
+    elif isinstance(action, redirect) or isinstance(action, cache):
       pass
     else:
       raise UnknownActionException(action)
@@ -150,7 +150,7 @@ def api_enabled(func):
       if isinstance(action, redirect):
         # redirect action
         return self.redirect(action.to_url)
-        
+      
       # template action
       result_string = action.render_to_string()
     elif result_type == 'json':

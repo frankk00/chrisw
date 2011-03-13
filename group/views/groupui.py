@@ -12,6 +12,7 @@ import logging
 from chrisw.core import handlers
 from chrisw.core.action import *
 from chrisw.core.ui import ModelUI, check_permission
+from chrisw.core.memcache import cache_action
 from chrisw.i18n import _
 from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
