@@ -118,8 +118,7 @@ class Message(db.FlyModel):
   
   def delete_subscriber(self, user):
     """docstring for delte_subscriber"""
-    for s in self._get_subscriptions(user):
-      s.delete()
+    db.delete(self._get_subscriptions(user))
   
   def has_subscriber(self, user):
     """docstring for has_subcriber"""
@@ -150,8 +149,7 @@ class Message(db.FlyModel):
   
   def undo_notify(self):
     """docstring for undo_notify"""
-    for index in MessageIndex(target=self):
-      index.delete()
+    db.delete(MessageIndex.all(target=self, keys_only=True))
   
   def get_type_name(self):
     """docstring for get_type_name"""

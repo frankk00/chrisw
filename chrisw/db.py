@@ -312,3 +312,14 @@ class FlyModel(Model):
   def fly_properties(cls):
     """docstring for fly_properties"""
     return cls._fly_properties
+    
+
+def delete(models):
+  """docstring for delete"""
+  if isinstance(models, db.Key) or isinstance(models, Model):
+    models = [models]
+    
+  for model in models:
+    if isinstance(model, db.Key):
+      model = db.get(model)
+    model.delete()

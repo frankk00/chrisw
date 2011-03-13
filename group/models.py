@@ -33,6 +33,18 @@ class GroupSite(db.Model):
     """docstring for add_group"""
     self.avaliable_group_slots -= 1
     self.put()
+    
+    group.creator = user
+    group.put()
+    
+    group.join(user)
+    group.add_admin(user)
+    
+    UserGroupInfo.get_by_user(user).update_group_count()
+  
+  def delete_group(self):
+    """docstring for delete_group"""
+    pass
   
   def can_create_group(self, user):
     return self.avaliable_group_slots > 0
@@ -50,7 +62,25 @@ class GroupSite(db.Model):
 class UserGroupInfo(ndb.Entity):
   """docstring for UserGroupProfile"""
   user = db.ReferenceProperty(required=True)
-  # stored group using keys
+  
+  topic_count = db.IntegerFlyProperty(default=0)
+  post_count = db.IntegerFlyProperty(default=0)
+  group_count = db.IntegerFlyProperty(default=0)
+  
+  def update_topic_count(self):
+    """docstring for update_topic_count"""
+    topic_count = GroupTopic.all(author=self).count()
+    self.put()
+  
+  def update_post_count(self):
+    """docstring for update_post_count"""
+    post_count = GroupPost.all(author=self).count()
+    self.put()
+  
+  def update_group_count(self):
+    """docstring for update_group_count"""
+    group_count = Group.all(creator=self).count()
+    self.put()
   
   @classmethod
   def get_by_user(self, user):
@@ -189,6 +219,7 @@ class Group(ndb.Entity):
     topic.add_subscribers(self.get_member_keys(limit=1000))
     topic.notify_subscribers()
     
+    UserGroupInfo.get_by_user(user).update_topic_count()
   
   def delete_topic(self, topic):
     """docstring for delete_topic"""
@@ -246,15 +277,24 @@ class GroupTopic(ndb.Message):
     post.author = user
     post.put()
     
+    self.length = self.get_all_posts().count()
+    self.put()
+    
     self.notify_subscribers()
+    
+    UserGroupInfo.get_by_user(user).update_post_count()
 
   def delete_post(self, post):
     """docstring for delete_post"""
     post.delete()
   
-  def get_posts(self, user, limit=24, offset=0):
+  def get_latest_posts(self, user, limit=24, offset=0):
     """docstring for get_posts"""
-    return GroupPost.all().filter("topic =", self).order("create_at")
+    return self.get_all_posts().order("create_at")
+  
+  def get_all_posts(self):
+    """docstring for get_all_posts"""
+    return GroupPost.all(topic=self)
   
 class GroupPost(ndb.Message):
   """docstring for Post"""
