@@ -45,8 +45,8 @@ Really Useful Storage API
 ::
   
   def get_recent_post_titles(user):
-    """The example for MapQuery"""
-    return db.MapQuery(User.all(user=user), lambda x: x.title)\
+    """The example for MapQuery and Model.all()"""
+    return db.MapQuery(Post.all(user=user), lambda x: x.title)\
       .order("-create_at").fetch(10)
 
 
