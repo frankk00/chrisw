@@ -310,7 +310,66 @@ class FlyModel(Model):
   def fly_properties(cls):
     """docstring for fly_properties"""
     return cls._fly_properties
-    
+
+class _MapQueryIterator(object):
+  """docstring for _MapQueryIterator"""
+  def __init__(self, iterator, map_func):
+    super(_MapQueryIterator, self).__init__()
+    self.iterator = iterator
+    self.map_func = map_func
+  
+  def __iter__(self):
+    """docstring for __iter__"""
+    return self
+  
+  def next(self):
+    """docstring for next"""
+    next_item = self.iterator.next()
+    if next_item:
+      next_item = self.map_func(next_item)
+    return next_item
+  
+
+class MapQuery(object):
+  """docstring for LambdaQuery"""
+  def __init__(self, query, map_func):
+    super(MapQuery, self).__init__()
+    self.query = query
+    self.map_func = map_func
+  
+  def filter(self, *args):
+    """docstring for filter"""
+    return MapQuery(self.query.filter(*args), self.map_func)
+  
+  def order(self, *args):
+    """docstring for order"""
+    return MapQuery(self.query.order(*args), self.map_func)
+  
+  def get(self):
+    """docstring for get"""
+    result = self.query.get()
+    if result:
+      return self.map_func(result)
+    return result;
+  
+  def fetch(self, *args, **kwargs):
+    """docstring for fetch"""
+    results = self.query.fetch(*args, **kwargs)
+    return [self.map_func(r) for r in results]
+  
+  def count(self, *args):
+    """docstring for count"""
+    return self.query.count(*args)
+  
+  def __getitem__(self, *args):
+    """docstring for __get_item__"""
+    return [self.map_func(r) for r in self.query.__get_item__(*args)]
+  
+  def __iter__(self):
+    """docstring for __iter__"""
+    return _MapQueryIterator(self.query.__iter__(), self.map_func)
+  
+  
 
 def delete(models):
   """docstring for delete"""

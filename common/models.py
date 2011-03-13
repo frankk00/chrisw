@@ -38,18 +38,15 @@ class Entity(db.FlyModel):
     for rel in relations:
       rel.delete()
   
-  def get_target_keys(self, relation, target_type, limit=24, offset=0):
+  def get_target_keys(self, relation, target_type):
     """docstring for get_by_relation"""
-    for x in Relation.all(source=self, relation=relation,\
-      target_type=_get_type_name(target_type)).fetch(limit, offset=offset):
-      yield x.target 
-      
+    return db.MapQuery(Relation.all(source=self, relation=relation,\
+      target_type=_get_type_name(target_type)), lambda x: x.target)
   
-  def get_source_keys(self, relation, source_type, limit=24, offset=0):
+  def get_source_keys(self, relation, source_type):
     """docstring for get_source_by_relation"""
-    for x in Relation.all(relation=relation, target=self,\
-      source_type=_get_type_name(source_type)).fetch(limit, offset=offset):
-      yield x.source
+    return db.MapQuery(Relation.all(relation=relation, target=self,\
+      source_type=_get_type_name(source_type)), lambda x: x.target)
 
 class Relation(db.Model):
   """docstring for Relation"""
@@ -162,25 +159,17 @@ class Message(db.FlyModel):
     return cls.__name__
   
   @classmethod
-  def count_latest_by_subscriber(cls, user, count=200):
-    """docstring for count_latest_by_subscriber"""
-    return MessageIndex.all(subscribers=user, \
-      target_type=cls.get_cls_type_name()).count(count)
-  
-  @classmethod
-  def latest_keys_by_subscriber(cls, user, limit=24, offset=0):
+  def latest_keys_by_subscriber(cls, user):
     """docstring for all_by_user"""
-    indexes = MessageIndex.all(subscribers=user, \
-      target_type=cls.get_cls_type_name()).order('-update_at')\
-      .fetch(limit, offset=offset)
-    
-    for index in indexes:
-      yield index.target
+    return db.MapQuery(MessageIndex.all(subscribers=user, \
+      target_type=cls.get_cls_type_name()).order('-update_at'),
+      lambda x: x.target)
   
   @classmethod
-  def latest_by_subscriber(self, user, limit=24, offset=0):
+  def latest_by_subscriber(self, user):
     """docstring for latest_keys_by_subscriber"""
-    return db.get(self.latest_keys_by_subscriber(user, limit, offset))
+    return db.MapQuery(self.latest_keys_by_subscriber(user), 
+      lambda x: db.get(x))
 
 class MessageIndex(db.Model):
   """docstring for MessageIndex"""

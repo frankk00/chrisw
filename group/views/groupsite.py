@@ -37,8 +37,9 @@ class GroupSiteUI(ModelUI):
     
     group_info = self.group_info
     
-    count = GroupTopic.count_latest_by_subscriber(self.user)
-    topics = GroupTopic.latest_by_subscriber(self.user, limit, offset)
+    query = GroupTopic.latest_by_subscriber(self.user)
+    count = query.count(200)
+    topics = query.fetch(limit, offset)
     
     page = Page(count=count, offset=offset, limit=limit, request=request)
     

@@ -88,7 +88,7 @@ class UserGroupInfo(ndb.Entity):
   
   def get_joined_groups(self):
     """docstring for get_joined_groups"""
-    Group.
+    pass
   
   @classmethod
   def get_by_user(self, user):
