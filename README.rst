@@ -13,28 +13,45 @@ It now supports:
 
 * a group-based community 
 * i18n. (It now supports both English and Chinese as the UI language).
-* more features are comming :-P
+* a storage designed for speed and large scale
+* more features are coming :-P
 
-Chrisw is not only a website but also a micro web framework for Google 
+Chrisw is not only a website but also a macro web framework for Google 
 AppEngine based application development. 
 
+
 It contains:
+
+AOP Web Development Workflow
+----------------------------
+
+::
+
+  class WelcomeHandler(handlers.RequestHandler):
+
+    @cache("welcome-page-for-{user.name}s",time=60)
+    def get(self, user):
+      slogan = 'Hi %s, Welcome to Chrisw' % user.name
+      return template('welcome.html', locals())
+
+
+The above code declared a welcome page for user, it will be rendered using a
+template called ``welcome.html`` and the ``locals()`` dict. The rendered page
+will be cached for 60 seconds in memcache for each user.
+
+and it also contains:
 
 * an implemented authentication and authorization module
 * a set of helper classes for daily development 
 * an integrated gaesession in the framework
 * some useful hotfixs for Google AppEngine's django runtime
 * a privacy sensitive storage module
-* an AOP liked web programming workflow
 * some basic css resets  
 
 
 Installation
 ============
-**Chrisw is not ready for release now. It's still under heavily development.** 
-
-All data is logged on the server. Even you remove it from the site. It's 
-for debugging usage, please don't use it for production environment.
+**Chrisw is not ready for deployment now. It's still under heavily development.** 
 
 Instructions:
 
@@ -44,6 +61,8 @@ Instructions:
 2. Modify the ``app.yaml`` to specify your appengine box.
 
 3. Deploy it to server.
+
+4. Change the ``DEBUG`` in ``local_settings.py`` to ``False``
 
 Settings 
 ========

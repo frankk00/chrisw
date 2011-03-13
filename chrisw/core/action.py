@@ -71,7 +71,7 @@ class cache(_RenderAction):
     action = self.func(*self.func_args, **self.func_kwargs)
     
     if not isinstance(action, _RenderAction) or isinstance(action, cache):
-      raise Exception("Can't cache the action besides template and forward")
+      raise Exception("Can't cache the action except template and forward")
       
     data = action.render_to_string()
     memcache.set(self.key, data, self.time)
