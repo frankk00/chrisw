@@ -15,3 +15,5 @@ COOKIE_KEY = '\xe4\xc0z\xc0|\x0b*o\xe7<\xe4i?\xf3X\x04\xc6\xad\x92\x87\x9d\xc3|\
 
 # This is the language for your site
 LANGUAGE_CODE = 'zh_CN'
+
+DEBUG = True

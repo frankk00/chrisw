@@ -306,9 +306,6 @@ class GroupTopic(ndb.Message):
     post.topic = self
     post.put()
     
-    import logging
-    logging.debug("Post content:" + post.content)
-    
     self.length = self.get_all_posts().count()
     self.put()
     

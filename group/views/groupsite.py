@@ -43,8 +43,6 @@ class GroupSiteUI(ModelUI):
     
     page = Page(count=count, offset=offset, limit=limit, request=request)
     
-    logging.debug("Fetched recent topics" + str(topics))
-    
     sidebar_widgets = [forward('/group/recommend').render()]
     
     display_group_name = True

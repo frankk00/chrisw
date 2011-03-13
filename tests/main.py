@@ -27,8 +27,9 @@ from chrisw import db
 from conf import settings
 sys.path += settings.LIB_DIRS
 
-def main():
-  
+
+def run_unittest():
+  """docstring for run_unittest"""
   loader = unittest.defaultTestLoader
   
   suite = unittest.TestSuite()
@@ -48,7 +49,32 @@ def main():
   print '%d Testsuites loaded.\n' % len(test_modules)
   print '-' * 70 
   unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
-  pass
+
+def main():
+  
+  if not settings.DEBUG:
+    print \
+"""
+ ::::::::  :::    ::: :::::::::  ::::::::::: ::::::::  :::       ::: 
+:+:    :+: :+:    :+: :+:    :+:     :+:    :+:    :+: :+:       :+: 
++:+        +:+    +:+ +:+    +:+     +:+    +:+        +:+       +:+ 
++#+        +#++:++#++ +#++:++#:      +#+    +#++:++#++ +#+  +:+  +#+ 
++#+        +#+    +#+ +#+    +#+     +#+           +#+ +#+ +#+#+ +#+ 
+#+#    #+# #+#    #+# #+#    #+#     #+#    #+#    #+#  #+#+# #+#+#  
+ ########  ###    ### ###    ### ########### ########    ###   ###  
+     
+              
+              Kang Zhang (jobo.zh AT gmail.com) 
+
+          Unittest only could be viewed in DEBUG model!
+
+*********************************************************************
+"""
+
+  else:
+    run_unittest()
+  
+
 
 
 if __name__ == '__main__':
