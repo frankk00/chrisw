@@ -108,6 +108,10 @@ class Message(db.FlyModel):
                        topic_type=self.get_type_name())
       s.put()
   
+  def add_subscribers(self, users):
+    """docstring for add_subscriber"""
+    self.add_subscriber(users)
+  
   def _get_subscriptions(self, user):
     """docstring for _get_subscriptions"""
     return Subscription.all(subscriber=user, topic=self)
@@ -134,9 +138,20 @@ class Message(db.FlyModel):
     """docstring for notify_users"""
     keys = _init_user_keys(users)
     
-    index = MessageIndex(subscribers=keys, target=self,\
+    index = MessageIndex.all(target=self).get()
+    
+    if not index:
+      index = MessageIndex(subscribers=keys, target=self,\
                          target_type=self.get_type_name())
+    
+    index.subscribers = keys
+    
     index.put()
+  
+  def undo_notify(self):
+    """docstring for undo_notify"""
+    for index in MessageIndex(target=self):
+      index.delete()
   
   def get_type_name(self):
     """docstring for get_type_name"""
@@ -160,7 +175,7 @@ class Message(db.FlyModel):
   @classmethod
   def latest_by_subscriber(self, user, limit=24, offset=0):
     """docstring for latest_keys_by_subscriber"""
-    return db.get(self.latest_keys_by_subscriber(user, limit))
+    return db.get(self.latest_keys_by_subscriber(user, limit, offset))
 
 class MessageIndex(db.Model):
   """docstring for MessageIndex"""
