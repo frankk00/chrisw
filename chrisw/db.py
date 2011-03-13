@@ -28,7 +28,7 @@ def _check_dict_content(dct):
   valid = True
   
   for value in dct.values():
-    if value is not None and not isinstance(value, SIMPLE_TYPES + (Key,)):
+    if value is not None and not isinstance(value, SIMPLE_TYPES + (Key,list)):
       valid = False
     elif isinstance(value, dict):
       valid = _check_dict_content(value) is not None
@@ -144,6 +144,14 @@ class StringFlyProperty(FlyProperty):
 class IntegerFlyProperty(FlyProperty):
   """docstring for IntegerFlyProperty"""
   data_type = int
+
+class TextFlyProperty(FlyProperty):
+  """docstring for TextFlyProperty"""
+  data_type = basestring
+
+class ListFlyProperty(object):
+  """docstring for ListFlyProperty"""
+  data_type = list
 
 SIMPLE_TYPES = (int, long, float, bool, dict, basestring)
 

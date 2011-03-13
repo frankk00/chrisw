@@ -11,8 +11,13 @@ from google.appengine.api import users
 
 from chrisw import db
 
+from common import models as ndb
 from duser import User, Guest
 from conf import settings
+
+
+GROUP_MEMEBERSHIP = 'has-group-member'
+GROUP_ADMIN = 'has-group-admin'
 
 class GroupSite(db.Model):
   """a faked object"""
@@ -41,11 +46,10 @@ class GroupSite(db.Model):
       
     return instance
 
-class UserGroupInfo(db.Model):
+class UserGroupInfo(ndb.Entity):
   """docstring for UserGroupProfile"""
   user = db.ReferenceProperty(required=True)
   # stored group using keys
-  groups = db.ListProperty(db.Key,required=True, default=[])
   
   @classmethod
   def get_by_user(self, user):
@@ -57,15 +61,15 @@ class UserGroupInfo(db.Model):
       groupinfo.put()
     return groupinfo
 
-class Group(db.Model):
+class Group(ndb.Entity):
   """docstring for Board"""
   create_time = db.DateTimeProperty(auto_now_add=True)
-  title = db.StringProperty()
-  introduction = db.TextProperty()
   create_user = db.ReferenceProperty(User)
-  admin_users = db.ListProperty(db.Key,required=True, default=[])
-  members = db.ListProperty(db.Key,required=True, default=[])
-  photo_url = db.StringProperty(default=settings.DEFAULT_GROUP_PHOTO)
+  
+  title = db.StringFlyProperty()
+  introduction = db.TextFlyProperty()
+  photo_url = db.StringFlyProperty(default=settings.DEFAULT_GROUP_PHOTO)
+  recent_members = db.ListFlyProperty()
     
   def can_view(self, user):
     """docstring for can_see"""
@@ -78,10 +82,12 @@ class Group(db.Model):
   def can_delete(self):
     """docstring for can_delete"""
     return user.key() == self.create_user.key()
-  
-  def can_create_topic(self, user):
-    """docstring for can_create_thread"""
-    return user.key() in self.members
+
+  #######
+  #
+  # membership related apis
+  #
+  #######
   
   def can_join(self, user):
     """docstring for can_join"""
@@ -118,21 +124,63 @@ class Group(db.Model):
     """docstring for get_members"""
     pass
   
+  #######
+  #
+  # admin related apis
+  #
+  #######
+  def can_edit_admin(self):
+    """docstring for can_add_admin"""
+    pass
+  
+  def add_admin(self, new_admin):
+    """docstring for add_admin"""
+    pass
+  
+  def remove_admin(self, new_admin):
+    """docstring for remove_admin"""
+    pass
+  
+  def has_admin(self, user):
+    """docstring for has_admin"""
+    pass
+  
+  def get_admins(self, limit=24):
+    """docstring for get_admins"""
+    pass
+  
+
+  def can_create_topic(self, user):
+    """docstring for can_create_thread"""
+    return user.key() in self.members  
+  
+  def can_delete_topic(self):
+    """docstring for can_delete_topic"""
+    pass
+  
+  def create_topic(self, topic):
+    """docstring for create_topic"""
+    pass
+  
+  def delete_topic(self, topic):
+    """docstring for delete_topic"""
+    pass
+  
   def get_topics(self):
     """docstring for get_topics"""
     return Topic.all().filter("group =", self).order("-update_time")
   
 
-class Topic(db.Model):
+class GroupTopic(ndb.Message):
   """docstring for Thread"""
-  create_time = db.DateTimeProperty(auto_now_add=True)
-  update_time = db.DateTimeProperty(auto_now_add=True)
+  update_at = db.DateTimeProperty(auto_now=True)
   author = db.ReferenceProperty(User)
-  title = db.TextProperty()
-  content = db.TextProperty()
   group = db.ReferenceProperty(Group)
-  length = db.IntegerProperty(default=1)
-  hits = db.IntegerProperty(default=0)
+  
+  title = db.FlyTextProperty()
+  content = db.FlyTextProperty()
+  length = db.FlyIntegerProperty(default=1)
+  hits = db.FlyIntegerProperty(default=0)
   
   def can_view(self, user):
     """docstring for can_view"""
@@ -141,24 +189,40 @@ class Topic(db.Model):
   def can_edit(self, user):
     """docstring for can_edit"""
     return user.key() == self.author.key()
-  
-  def can_reply(self, user):
+
+  def can_delete(self, user):
+    """docstring for can_delete"""
+    return self.author.key() == user.key()
+
+  #######
+  #
+  # post related apis
+  #
+  #######
+
+  def can_create_post(self, user):
     """docstring for can_create_thread"""
     from duser.auth import Guest
     return self.can_view(user) and user != Guest
   
-  def can_delete(self, user):
-    """docstring for can_delete"""
-    return self.author.key() == user.key()
+  def can_delete_post(self, user):
+    """docstring for can_delete_post"""
+    pass
+  
+  def create_post(self, post):
+    """docstring for add_group_post"""
+    pass
+
+  def delete_post(self, post):
+    """docstring for delete_post"""
+    pass
   
   def get_posts(self):
     """docstring for get_posts"""
     return Post.all().filter("topic =", self).order("create_time")
   
-class Post(db.Model):
+class GroupPost(ndb.Message):
   """docstring for Post"""
-  create_time = db.DateTimeProperty(auto_now_add=True) 
   author = db.ReferenceProperty(User)
   topic = db.ReferenceProperty(Topic)
-  content = db.TextProperty()
-
+  content = db.TextFlyProperty()

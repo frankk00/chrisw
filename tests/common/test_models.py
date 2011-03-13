@@ -66,11 +66,11 @@ class TestEntityRelationTestCase(unittest.TestCase):
     self.assertTrue(top.is_loving(lap))
     
     lap_lovers = lap.get_lovers()
-    self.assertEqual(lap_lovers[0], top.key())
+    self.assertEqual(list(lap_lovers)[0], top.key())
     
     lap.unlove(top)
     
-    self.assertEqual(lap.get_lovers(), [])
+    self.assertEqual(list(lap.get_lovers()), [])
     self.assertFalse(lap.is_loving(top))
     self.assertTrue(top.is_loving(lap))
     
@@ -133,15 +133,15 @@ class TestMessageIndex(unittest.TestCase):
     self.assertTrue(lap_post.has_subscriber(lap))
     self.assertFalse(lap_post.has_subscriber(top))
     
-    self.assertEqual(lap_post.get_subscriber_keys(), [lap.key()])
+    self.assertEqual(list(lap_post.get_subscriber_keys()), [lap.key()])
     
-    self.assertNotEqual([lap_post.key()], TestTalk.latest_keys_by_subscriber(top)[:1])
-    self.assertNotEqual([lap_post.key()], TestTalk.latest_keys_by_subscriber(lap)[:1])
+    self.assertNotEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(top))[:1])
+    self.assertNotEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(lap))[:1])
     
     lap_post.notify_subscribers()
     
-    self.assertEqual([lap_post.key()], TestTalk.latest_keys_by_subscriber(lap)[:1])
-    self.assertNotEqual([lap_post.key()], TestTalk.latest_keys_by_subscriber(top)[:1])
+    self.assertEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(lap))[:1])
+    self.assertNotEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(top))[:1])
     
     lap_post.add_subscriber(top)
   
@@ -150,20 +150,20 @@ class TestMessageIndex(unittest.TestCase):
     
     top_post.add_subscriber([lap, top])
     
-    self.assertNotEqual([top.key()], TestTalk.latest_keys_by_subscriber(top)[:1])
-    self.assertNotEqual([lap.key()], TestTalk.latest_keys_by_subscriber(lap)[:1])
+    self.assertNotEqual([top.key()], list(TestTalk.latest_keys_by_subscriber(top))[:1])
+    self.assertNotEqual([lap.key()], list(TestTalk.latest_keys_by_subscriber(lap))[:1])
     
     top_post.notify_subscribers()
 
-    self.assertEqual([top_post.key()], TestTalkComment.latest_keys_by_subscriber(lap)[:1])
-    self.assertEqual([top_post.key()], TestTalkComment.latest_keys_by_subscriber(top)[:1])
+    self.assertEqual([top_post.key()], list(TestTalkComment.latest_keys_by_subscriber(lap))[:1])
+    self.assertEqual([top_post.key()], list(TestTalkComment.latest_keys_by_subscriber(top))[:1])
     
     lap_post.notify_subscribers()
     top_post.delete_subscriber(lap)
     top_post.notify_subscribers()
     
-    self.assertEqual([lap_post.key()], TestTalkComment.latest_keys_by_subscriber(lap)[:1])
-    self.assertEqual([top_post.key()], TestTalkComment.latest_keys_by_subscriber(top)[:1])
+    self.assertEqual([lap_post.key()], list(TestTalkComment.latest_keys_by_subscriber(lap))[:1])
+    self.assertEqual([top_post.key()], list(TestTalkComment.latest_keys_by_subscriber(top))[:1])
     
     lap_post.delete()
     top_post.delete()

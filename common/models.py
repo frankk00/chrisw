@@ -38,15 +38,18 @@ class Entity(db.FlyModel):
     for rel in relations:
       rel.delete()
   
-  def get_target_keys(self, relation, target_type, limit=24):
+  def get_target_keys(self, relation, target_type, limit=24, offset=0):
     """docstring for get_by_relation"""
-    return [x.target for x in Relation.all(source=self, relation=relation,\
-                        target_type=_get_type_name(target_type)).fetch(limit)]
+    for x in Relation.all(source=self, relation=relation,\
+      target_type=_get_type_name(target_type)).fetch(limit, offset=offset):
+      yield x.target 
+      
   
-  def get_source_keys(self, relation, source_type, limit=24):
+  def get_source_keys(self, relation, source_type, limit=24, offset=0):
     """docstring for get_source_by_relation"""
-    return [x.source for x in Relation.all(relation=relation, target=self,\
-                        source_type=_get_type_name(source_type)).fetch(limit)]
+    for x in Relation.all(relation=relation, target=self,\
+      source_type=_get_type_name(source_type)).fetch(limit, offset=offset):
+      yield x.source
 
 class Relation(db.Model):
   """docstring for Relation"""
@@ -93,7 +96,6 @@ def _init_user_keys(users):
   
 class Message(db.FlyModel):
   """docstring for Message"""
-  author = db.ReferenceProperty(required=False)
   create_at = db.DateTimeProperty(auto_now_add=True)
   
   def add_subscriber(self, users):
@@ -121,7 +123,8 @@ class Message(db.FlyModel):
   
   def get_subscriber_keys(self):
     """docstring for get_subscriber_keys"""
-    return [s.subscriber for s in self._get_subscriptions(None)]
+    for s in self._get_subscriptions(None):
+      yield s.subscriber
   
   def notify_subscribers(self):
     """docstring for notify_subscribers"""
@@ -145,15 +148,17 @@ class Message(db.FlyModel):
     return cls.__name__
     
   @classmethod
-  def latest_keys_by_subscriber(cls, user, limit=24):
+  def latest_keys_by_subscriber(cls, user, limit=24, offset=0):
     """docstring for all_by_user"""
     indexes = MessageIndex.all(subscribers=user, \
-                               target_type=cls.get_cls_type_name())\
-                                 .order('-create_at').fetch(limit)
-    return [index.target for index in indexes]
+      target_type=cls.get_cls_type_name()).order('-create_at')\
+      .fetch(limit, offset=offset)
+    
+    for index in indexes:
+      yield index.target
   
   @classmethod
-  def latest_by_subscriber(self, user, limit=24):
+  def latest_by_subscriber(self, user, limit=24, offset=0):
     """docstring for latest_keys_by_subscriber"""
     return db.get(self.latest_keys_by_subscriber(user, limit))
 
