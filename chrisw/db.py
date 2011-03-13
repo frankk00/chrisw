@@ -369,7 +369,10 @@ class MapQuery(object):
     """docstring for __iter__"""
     return _MapQueryIterator(self.query.__iter__(), self.map_func)
   
-  
+class GetQuery(MapQuery):
+  """docstring for GetQuery"""
+  def __init__(self, query):
+    super(GetQuery, self).__init__(query, lambda x: db.get(x))
 
 def delete(models):
   """docstring for delete"""

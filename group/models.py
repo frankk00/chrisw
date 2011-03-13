@@ -71,6 +71,8 @@ class UserGroupInfo(ndb.Entity):
   post_count = db.IntegerFlyProperty(default=0)
   group_count = db.IntegerFlyProperty(default=0)
   
+  recent_joined_groups = db.ListFlyProperty(default=[])
+  
   def update_topic_count(self):
     """docstring for update_topic_count"""
     self.topic_count = GroupTopic.all(author=self.user).count()
@@ -86,12 +88,18 @@ class UserGroupInfo(ndb.Entity):
     self.group_count = Group.all(creator=self.user).count()
     self.put()
   
-  def get_joined_groups(self):
+  def get_recent_joined_groups(self):
+    """docstring for joined_groups"""
+    return db.get(self.recent_joined_groups)
+  
+  def update_recent_joined_groups(self):
     """docstring for get_joined_groups"""
-    pass
+    self.recent_joined_groups = Group.get_group_keys_by_user(self.user)\
+      .fetch(limit=6, offset=0)
+    self.put()
   
   @classmethod
-  def get_by_user(self, user):
+  def get_by_user(cls, user):
     """docstring for get_by_user"""
     # init all needed object here
     groupinfo = UserGroupInfo.all().filter("user =", user).get()
@@ -140,13 +148,17 @@ class Group(ndb.Entity):
     self.create_relation(GROUP_MEMEBERSHIP, user)
     
     # add user to recent added users list
-    self.recent_members = list(self.get_member_keys(limit=6))
+    self.recent_members = list(self.get_member_keys().fetch(limit=6))
     
     self.put()
+    
+    UserGroupInfo.get_by_user(user).update_recent_joined_groups()
     
   def quit(self, user):
     """docstring for quit"""
     self.delete_relation(GROUP_MEMEBERSHIP, user)
+    
+    UserGroupInfo.get_by_user(user).update_recent_joined_groups()
     
   def has_member(self, user):
     """docstring for has_member"""
@@ -156,14 +168,14 @@ class Group(ndb.Entity):
     """docstring for get_latest_joined_members"""
     return db.get(self.recent_members.reverse())
   
-  def get_member_keys(self, limit=24, offset=0):
+  def get_member_keys(self):
     """docstring for get_members"""
-    return self.get_target_keys(GROUP_MEMEBERSHIP, User, limit=limit, \
-      offset=offset)
+    return self.get_target_keys(GROUP_MEMEBERSHIP, User)
   
-  def get_members(self, limit=24, offset=0):
+  def get_members(self):
     """docstring for get_members"""
-    return db.get(self.get_member_keys(limit=limit, offset=offset))
+    return db.MapQuery(self.get_member_keys(limit=limit, offset=offset),\
+      lambda x:db.get(x))
   
   #######
   #
@@ -244,9 +256,9 @@ class Group(ndb.Entity):
     return query
   
   @classmethod
-  def get_group_keys_by_user(self, user):
+  def get_group_keys_by_user(cls, user):
     """docstring for get_groups_by_user"""
-    pass
+    return cls.get_source_keys(GROUP_MEMEBERSHIP, user)
 
 class GroupTopic(ndb.Message):
   """docstring for Thread"""

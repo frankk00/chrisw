@@ -33,9 +33,9 @@ class GroupSiteUI(ModelUI):
     offset = int(request.get("offset", "0"))
     limit = int(request.get("limit", "20"))
     
-    my_groups = []
-    
     group_info = self.group_info
+    
+    my_groups = group_info.get_recent_joined_groups()
     
     query = GroupTopic.latest_by_subscriber(self.user)
     count = query.count(200)

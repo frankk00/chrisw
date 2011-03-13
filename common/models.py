@@ -43,10 +43,11 @@ class Entity(db.FlyModel):
     return db.MapQuery(Relation.all(source=self, relation=relation,\
       target_type=_get_type_name(target_type)), lambda x: x.target)
   
-  def get_source_keys(self, relation, source_type):
+  @classmethod
+  def get_source_keys(cls, relation, target):
     """docstring for get_source_by_relation"""
-    return db.MapQuery(Relation.all(relation=relation, target=self,\
-      source_type=_get_type_name(source_type)), lambda x: x.target)
+    return db.MapQuery(Relation.all(relation=relation, target=target,\
+      source_type=_get_type_name(cls)), lambda x: x.source)
 
 class Relation(db.Model):
   """docstring for Relation"""
@@ -58,8 +59,9 @@ class Relation(db.Model):
   
   def __init__(self, *args, **kwargs):
     """docstring for __init__"""
-    kwargs['source_type'] = kwargs.get('source').__class__.__name__
-    kwargs['target_type'] = kwargs.get('target').__class__.__name__
+    for attr in ('source', 'target'):
+      if kwargs.has_key(attr):
+        kwargs[attr + '_type'] = _get_type_name(kwargs.get(attr))
     
     super(Relation, self).__init__(*args, **kwargs)
   
@@ -73,7 +75,9 @@ class Subscription(db.Model):
   
   def __init__(self, *args, **kwargs):
     """docstring for __init__"""
-    kwargs['subscriber_type'] = kwargs.get('subscriber').__class__.__name__
+    for attr in ('subscriber',):
+      if kwargs.has_key(attr):
+        kwargs[attr + '_type'] = _get_type_name(kwargs.get(attr))
     
     super(Subscription, self).__init__(*args, **kwargs)
     
