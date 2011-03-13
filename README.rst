@@ -29,15 +29,28 @@ AOP Web Development Workflow
 
   class WelcomeHandler(handlers.RequestHandler):
 
-    @cache("welcome-page-for-{user.name}s",time=60)
-    def get(self, user):
-      slogan = 'Hi %s, Welcome to Chrisw' % user.name
+    @cache("welcome-page-for-{user_name}s",time=60)
+    def get(self, user_name):
+      slogan = 'Hi %s, Welcome to Chrisw' % user_name
       return template('welcome.html', locals())
 
 
 The above code declared a welcome page for user, it will be rendered using a
 template called ``welcome.html`` and the ``locals()`` dict. The rendered page
 will be cached for 60 seconds in memcache for each user.
+
+Really Useful Storage API
+-------------------------
+
+::
+  
+  def get_recent_post_titles(user):
+    """The example for MapQuery"""
+    return db.MapQuery(User.all(user=user), lambda x: x.title)\
+      .order("-create_at").fetch(10)
+
+
+The above code get all recent posts' titles by the given user. 
 
 and it also contains:
 
@@ -93,7 +106,7 @@ jobo.zh AT gmail.com without any hesitate. :-)
 License
 =======
 
-Chrisw is going to be distributed under GPL license or MIT license. We've not 
+Chrisw is going to be distributed under GPL license or MIT license. I've not 
 decided it yet.
 
 About
