@@ -45,12 +45,41 @@ Really Useful Storage API
 ::
   
   def get_recent_post_titles(user):
-    """The example for MapQuery and Model.all()"""
+    """The example for MapQuery and Model.all()."""
     return db.MapQuery(Post.all(user=user), lambda x: x.title)\
       .order("-create_at").fetch(10)
 
 
 The above code get all recent posts' titles by the given user. 
+
+Pipline Rendering
+-----------------
+
+::
+
+  def view(self, request):
+    """The example for forward action."""
+    # list group content and display group info
+    # ...
+
+    # add recommend groups widget in page    
+    sidebar_widgets = [forward('/group/recommend').render()]
+    
+    return template('groupsite_display.html', locals())
+  
+  @cache_action('group-recommend-groups', 60)
+  def recommend_groups(self):
+    """Example for forwarded action and the cache syntax."""
+
+    recommend_groups = [g for g in Group.all().fetch(10)]
+
+    return template('window_recommend_groups', locals())
+
+
+The above code creates a view for the given group. The recommend groups are 
+list in a widget on the page. The rendering of the widget are forwarded to the
+``recommend_groups`` handler, while the rendered html will be cached for 60
+seconds in memcache. 
 
 and it also contains:
 
