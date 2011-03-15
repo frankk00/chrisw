@@ -82,7 +82,7 @@ list in a widget on the page. The rendering of the widget are forwarded to the
 seconds in memcache. The following figure show the workflow of pipeline 
 rendering.
 
-.. image:: docs/PipelineRendering.png
+.. image:: docs/PipelineRendering.png?raw=true
 
 
 
