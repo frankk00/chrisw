@@ -50,7 +50,7 @@ class GroupSiteUI(ModelUI):
     
     return template('groupsite_display.html', locals())
   
-  @cache_action('group-recommend-group')
+  @cache_action('group-recommend-groups')
   def recommend_groups(self):
     """docstring for recommend_groups"""
     
