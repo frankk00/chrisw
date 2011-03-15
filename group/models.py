@@ -235,7 +235,7 @@ class Group(ndb.Entity):
     
     topic.put()
     
-    topic.add_subscribers(self.get_member_keys(limit=1000))
+    topic.add_subscribers(self.get_member_keys().fetch(limit=100))
     
     #TODO: support for private group
     topic.add_subscriber(Guest)

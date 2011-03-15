@@ -79,7 +79,12 @@ Pipline Rendering
 The above code creates a view for the given group. The recommend groups are 
 list in a widget on the page. The rendering of the widget are forwarded to the
 ``recommend_groups`` handler, while the rendered html will be cached for 60
-seconds in memcache. 
+seconds in memcache. The following figure show the workflow of pipeline 
+rendering.
+
+.. image:: docs/PipelineRendering.png
+
+
 
 and it also contains:
 
