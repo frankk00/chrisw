@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-models.py
+gdb.py
+
+Graph Database module for SNS liked application. It could be used to describe 
+the *Network* between humans, and be used to broadcast the updates info of 
+specified entities.
 
 Created by Kang Zhang on 2011-03-09.
 Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
@@ -22,8 +26,8 @@ class Entity(db.FlyModel):
   
   def link(self, link_type, target):
     """docstring for create_link_with"""
-    rel = Link(source=self, link_type=link_type, target=target)
-    rel.put()
+    link = Link(source=self, link_type=link_type, target=target)
+    link.put()
     
   def has_link(self, link_type, target):
     """docstring for has_link_with"""
@@ -36,8 +40,8 @@ class Entity(db.FlyModel):
   def unlink(self, link_type, target):
     """docstring for remove_link_with"""
     links = self._get_links(link_type, target)
-    for rel in links:
-      rel.delete()
+    for link in links:
+      link.delete()
   
   def get_target_keys(self, link_type, target_type):
     """docstring for get_by_link"""

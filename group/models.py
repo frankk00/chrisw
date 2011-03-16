@@ -123,10 +123,10 @@ class Group(gdb.Entity):
       
   def can_delete(self, user):
     """docstring for can_delete"""
-    return self.has_creator(user)
+    return self.is_creator(user)
   
-  def has_creator(self, user):
-    """docstring for has_creator"""
+  def is_creator(self, user):
+    """docstring for is_creator"""
     return user.key() == self.creator.key()
 
   #######
@@ -141,7 +141,7 @@ class Group(gdb.Entity):
 
   def can_quit(self, user):
     """docstring for can_quit"""
-    return self.has_member(user) and not self.has_creator(user)
+    return self.has_member(user) and not self.is_creator(user)
   
   def join(self, user):
     self.link(GROUP_MEMEBER, user)
@@ -188,11 +188,11 @@ class Group(gdb.Entity):
   
   def can_add_admin(self, user):
     """docstring for can_add_admin"""
-    return self.has_creator(user)
+    return self.is_creator(user)
   
   def can_remove_admin(self, user):
     """docstring for can_remove_admin"""
-    return self.has_creator(user)
+    return self.is_creator(user)
   
   def add_admin(self, new_admin):
     """docstring for add_admin"""
@@ -275,14 +275,14 @@ class GroupTopic(gdb.Message):
   
   def can_edit(self, user):
     """docstring for can_edit"""
-    return self.has_author(user)
+    return self.is_author(user)
 
   def can_delete(self, user):
     """docstring for can_delete"""
-    return self.has_author(user)
+    return self.is_author(user)
   
-  def has_author(self, user):
-    """docstring for has_author"""
+  def is_author(self, user):
+    """docstring for is_author"""
     return self.author.key() == user.key()
 
   #######
