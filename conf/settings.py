@@ -49,7 +49,7 @@ LANGUAGES = (
     # or ('zh-tw', _('Chinese')), # But the directory must still be conf/locale/zh_TW
     )
 
-DISABLE_CACHE = False
+ENABLE_CACHE = True
 
 
 

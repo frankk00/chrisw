@@ -10,6 +10,7 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 from google.appengine.api import users
 
 from chrisw import db, gdb
+from chrisw.core.memcache import cache_result
 
 from duser import User, Guest
 from conf import settings
@@ -33,6 +34,8 @@ class GroupSite(db.Model):
   
   def add_group(self, group, user):
     """add a new group to this site"""
+    # Race condition could happen here, but... ... I don't care 
+    # Since it just allow users to create more groups than we expect :-)
     self.avaliable_group_slots -= 1
     self.put()
     
@@ -53,6 +56,7 @@ class GroupSite(db.Model):
     return self.avaliable_group_slots > 0
   
   @classmethod
+  @cache_result('group-site', 240)
   def get_instance(cls):
     """docstring for get_instance"""
     instance = super(GroupSite, cls).all().get()

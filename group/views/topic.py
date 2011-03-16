@@ -3,6 +3,9 @@
 """
 topic.py
 
+Notice this file is the demostration for the new style handler. Don't change
+it to class handler style that in other files.
+
 Created by Kang Zhang on 2010-09-27.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """

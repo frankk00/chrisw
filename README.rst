@@ -29,7 +29,7 @@ AOP Web Development Workflow
 
   class WelcomeHandler(handlers.RequestHandler):
 
-    @cache("welcome-page-for-{user_name}s",time=60)
+    @cache_action("welcome-page-for-{user_name}s",time=60)
     def get(self, user_name):
       slogan = 'Hi %s, Welcome to Chrisw' % user_name
       return template('welcome.html', locals())
@@ -72,8 +72,8 @@ Pipline Rendering
     """Example for forwarded action and the cache syntax."""
 
     recommend_groups = [g for g in Group.all().fetch(10)]
-
-    return template('window_recommend_groups', locals())
+	# .html postfix can be omit for template name
+    return template('window_recommend_groups', locals()) 
 
 
 The above code creates a view for the given group. The recommend groups are 
@@ -90,9 +90,7 @@ and it also contains:
 
 * an implemented authentication and authorization module
 * a set of helper classes for daily development 
-* an integrated gaesession in the framework
 * some useful hotfixs for Google AppEngine's django runtime
-* a privacy sensitive storage module
 * some basic css resets  
 
 

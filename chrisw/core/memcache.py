@@ -28,7 +28,7 @@ def cache_result(keyformat, time=60):
       return data
     return wrapper
     
-  return decorator if not settings.DISABLE_CACHE else lambda x:x
+  return decorator if settings.ENABLE_CACHE else lambda x:x
 
 def cache_action(keyformat, time=60):
   """docstring for cache_action"""
@@ -43,4 +43,4 @@ def cache_action(keyformat, time=60):
       return cache(func, args, kwargs, key, time)
     return wrapper
     
-  return decorator if not settings.DISABLE_CACHE else lambda x:x
+  return decorator if settings.ENABLE_CACHE else lambda x:x

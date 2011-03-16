@@ -7,4 +7,4 @@ Created by Kang Zhang on 2011-03-11.
 Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 """
 
-import test_db
+import test_db, test_gdb
