@@ -148,7 +148,7 @@ About
     Kang Zhang (jobo.zh AT gmail.com) http://home.kangzhang.org
 
 :Version: 
-	0.3
+	0.4
 
 :Python: 
 	2.5+
