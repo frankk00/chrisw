@@ -9,14 +9,13 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 from google.appengine.api import users
 
-from chrisw import db
+from chrisw import db, gdb
 
-from common import models as ndb
 from duser import User, Guest
 from conf import settings
 
 
-GROUP_MEMEBERSHIP = 'has-group-member'
+GROUP_MEMEBER = 'has-group-member'
 GROUP_ADMIN = 'has-group-admin'
 RECENT_MEMBER_LIMIT = 20
 
@@ -63,7 +62,7 @@ class GroupSite(db.Model):
       
     return instance
 
-class UserGroupInfo(ndb.Entity):
+class UserGroupInfo(gdb.Entity):
   """docstring for UserGroupProfile"""
   user = db.ReferenceProperty(required=True)
   
@@ -108,7 +107,7 @@ class UserGroupInfo(ndb.Entity):
       groupinfo.put()
     return groupinfo
 
-class Group(ndb.Entity):
+class Group(gdb.Entity):
   """docstring for Board"""
   create_time = db.DateTimeProperty(auto_now_add=True)
   creator = db.ReferenceProperty(User)
@@ -145,7 +144,7 @@ class Group(ndb.Entity):
     return self.has_member(user) and not self.has_creator(user)
   
   def join(self, user):
-    self.create_relation(GROUP_MEMEBERSHIP, user)
+    self.link(GROUP_MEMEBER, user)
     
     # add user to recent added users list
     self.recent_members = list(self.get_member_keys().fetch(limit=6))
@@ -156,13 +155,13 @@ class Group(ndb.Entity):
     
   def quit(self, user):
     """docstring for quit"""
-    self.delete_relation(GROUP_MEMEBERSHIP, user)
+    self.unlink(GROUP_MEMEBER, user)
     
     UserGroupInfo.get_by_user(user).update_recent_joined_groups()
     
   def has_member(self, user):
     """docstring for has_member"""
-    return self.has_relation(GROUP_MEMEBERSHIP, user)
+    return self.has_link(GROUP_MEMEBER, user)
   
   def get_latest_joined_members(self):
     """docstring for get_latest_joined_members"""
@@ -170,7 +169,7 @@ class Group(ndb.Entity):
   
   def get_member_keys(self):
     """docstring for get_members"""
-    return self.get_target_keys(GROUP_MEMEBERSHIP, User)
+    return self.get_target_keys(GROUP_MEMEBER, User)
   
   def get_members(self):
     """docstring for get_members"""
@@ -197,15 +196,15 @@ class Group(ndb.Entity):
   
   def add_admin(self, new_admin):
     """docstring for add_admin"""
-    return self.create_relation(GROUP_ADMIN, new_admin)
+    return self.link(GROUP_ADMIN, new_admin)
   
   def remove_admin(self, new_admin):
     """docstring for remove_admin"""
-    return self.delete_relation(GROUP_ADMIN, new_admin)
+    return self.unlink(GROUP_ADMIN, new_admin)
   
   def has_admin(self, user):
     """docstring for has_admin"""
-    return self.has_relation(GROUP_ADMIN, user)
+    return self.has_link(GROUP_ADMIN, user)
   
   def get_admin_keys(self, limit=24, offset=0):
     """docstring for get_admins"""
@@ -258,9 +257,9 @@ class Group(ndb.Entity):
   @classmethod
   def get_group_keys_by_user(cls, user):
     """docstring for get_groups_by_user"""
-    return cls.get_source_keys(GROUP_MEMEBERSHIP, user)
+    return cls.get_source_keys(GROUP_MEMEBER, user)
 
-class GroupTopic(ndb.Message):
+class GroupTopic(gdb.Message):
   """docstring for Thread"""
   author = db.ReferenceProperty(User)
   group = db.ReferenceProperty(Group)
@@ -324,7 +323,7 @@ class GroupTopic(ndb.Message):
       query = query.order("-create_at")
     return query
   
-class GroupPost(ndb.Message):
+class GroupPost(gdb.Message):
   """docstring for Post"""
   author = db.ReferenceProperty(User)
   topic = db.ReferenceProperty(GroupTopic)

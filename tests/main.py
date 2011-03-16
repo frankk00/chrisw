@@ -36,10 +36,9 @@ def run_unittest():
   
   test_modules = []
   
-  from tests.chrisw import test_db
+  from tests.chrisw import test_db, test_gdb
   test_modules.append(test_db)
-  from tests.common import test_models
-  test_modules.append(test_models)
+  test_modules.append(test_gdb)
   
   print 'Start loading tests:' 
   for test_module in test_modules:

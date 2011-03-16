@@ -7,6 +7,7 @@ Created by Kang Zhang on 2011-03-09.
 Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 """
 
+from chrisw.db import *
 from chrisw import db
 
 def _get_type_name(cls):
@@ -19,39 +20,39 @@ class Entity(db.FlyModel):
   """docstring for Entity"""
   create_at = db.DateTimeProperty(auto_now_add=True)
   
-  def create_relation(self, relation, target):
-    """docstring for create_relation_with"""
-    rel = Relation(source=self, relation=relation, target=target)
+  def link(self, link_type, target):
+    """docstring for create_link_with"""
+    rel = Link(source=self, link_type=link_type, target=target)
     rel.put()
     
-  def has_relation(self, relation, target):
-    """docstring for has_relation_with"""
-    return self._get_relations(relation, target).get() is not None
+  def has_link(self, link_type, target):
+    """docstring for has_link_with"""
+    return self._get_links(link_type, target).get() is not None
   
-  def _get_relations(self, relation, target):
-    """docstring for get_relations"""
-    return Relation.all(source=self, relation=relation, target=target)
+  def _get_links(self, link_type, target):
+    """docstring for get_links"""
+    return Link.all(source=self, link_type=link_type, target=target)
   
-  def delete_relation(self, relation, target):
-    """docstring for remove_relation_with"""
-    relations = self._get_relations(relation, target)
-    for rel in relations:
+  def unlink(self, link_type, target):
+    """docstring for remove_link_with"""
+    links = self._get_links(link_type, target)
+    for rel in links:
       rel.delete()
   
-  def get_target_keys(self, relation, target_type):
-    """docstring for get_by_relation"""
-    return db.MapQuery(Relation.all(source=self, relation=relation,\
+  def get_target_keys(self, link_type, target_type):
+    """docstring for get_by_link"""
+    return db.MapQuery(Link.all(source=self, link_type=link_type,\
       target_type=_get_type_name(target_type)), lambda x: x.target)
   
   @classmethod
-  def get_source_keys(cls, relation, target):
-    """docstring for get_source_by_relation"""
-    return db.MapQuery(Relation.all(relation=relation, target=target,\
+  def get_source_keys(cls, link_type, target):
+    """docstring for get_source_by_link"""
+    return db.MapQuery(Link.all(link=link_type, target=target,\
       source_type=_get_type_name(cls)), lambda x: x.source)
 
-class Relation(db.Model):
-  """docstring for Relation"""
-  relation = db.StringProperty(required=True)
+class Link(db.Model):
+  """docstring for Link"""
+  link_type = db.StringProperty(required=True)
   source = db.WeakReferenceProperty(required=True)
   source_type = db.StringProperty(required=True)
   target = db.WeakReferenceProperty(required=True)
@@ -63,7 +64,7 @@ class Relation(db.Model):
       if kwargs.has_key(attr):
         kwargs[attr + '_type'] = _get_type_name(kwargs.get(attr))
     
-    super(Relation, self).__init__(*args, **kwargs)
+    super(Link, self).__init__(*args, **kwargs)
   
     
 class Subscription(db.Model):
@@ -128,8 +129,7 @@ class Message(db.FlyModel):
   
   def get_subscriber_keys(self):
     """docstring for get_subscriber_keys"""
-    for s in self._get_subscriptions(None):
-      yield s.subscriber
+    return db.MapQuery(self._get_subscriptions(None), lambda x:x.subscriber)
   
   def notify_subscribers(self):
     """docstring for notify_subscribers"""

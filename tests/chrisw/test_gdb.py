@@ -10,27 +10,26 @@ Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 import unittest
 import logging
 
-from chrisw import db
-from common import models as ndb
+from chrisw import db, gdb
 
 
 LOVE = 'love'
 
-class TestHuman(ndb.Entity):
+class TestHuman(gdb.Entity):
   """docstring for TestHuman"""
   name = db.StringProperty()
   
   def love(self, other):
     """docstring for love"""
-    self.create_relation(LOVE, other)
+    self.link(LOVE, other)
   
   def is_loving(self, other):
     """docstring for is_loving"""
-    return self.has_relation(LOVE, other)
+    return self.has_link(LOVE, other)
   
   def unlove(self, other):
     """docstring for unlove"""
-    self.delete_relation(LOVE, other)
+    self.unlink(LOVE, other)
   
   def get_lovers(self):
     """docstring for get_lovers"""
@@ -80,7 +79,7 @@ class TestEntityRelationTestCase(unittest.TestCase):
     top.delete()
 
 
-class TestTalk(ndb.Message):
+class TestTalk(gdb.Message):
   """docstring for TestTalk"""
   
   is_comment = db.BooleanProperty(default=False)

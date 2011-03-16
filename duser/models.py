@@ -8,11 +8,10 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
 from google.appengine.api import users
-from chrisw import db
-from common import models as ndb
+from chrisw import db, gdb
 from conf import settings
 
-class User(ndb.Entity):
+class User(gdb.Entity):
   """docstring for User"""
   fullname = db.StringFlyProperty(required=True)
   username = db.StringProperty(required=True)
