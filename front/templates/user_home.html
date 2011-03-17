@@ -26,9 +26,7 @@
 	</div>
 	
 	
-	<div id="group-box">
-		{% include "joined_groups_box.html" %}
-	</div>
+
 
 {% endblock %}
 
@@ -41,4 +39,8 @@
 			</ul>
 		</div>
 	{% endif %}
+	<div id="group-box" class="sidebar_box no-border">
+		{% include "joined_groups_box.html" %}
+		<div class="clear"></div>
+	</div>
 {% endblock %}

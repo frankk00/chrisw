@@ -11,14 +11,6 @@ import uhome, userui, photo
 from conf import settings
 from google.appengine.ext import webapp
 
-class V2UIHandler(webapp.RequestHandler):
-  def get(self):
-    # path = os.path.join(os.path.dirname(__file__), '../templates/base.html')
-    # self.response.out.write(template.render(path, {'user': 'andyzhau'}))
-    from chrisw.helper.django import render_to_string
-    from duser.auth import get_current_user
-    self.response.out.write(render_to_string('base.html', {'user': get_current_user()}))
-
 class RootHandler(webapp.RequestHandler):
   """docstring for RootHandler"""
   def get(self):
@@ -31,7 +23,7 @@ class URLStripper(webapp.RequestHandler):
     """docstring for get"""
     self.redirect(naked_url, True)
 
-apps = uhome.apps + userui.apps + photo.apps + [('/v2', V2UIHandler),] \
+apps = uhome.apps + userui.apps + photo.apps + \
   +[('/', RootHandler),] + [('(.*)/', URLStripper),]
 
 def create_login_url(back_url):

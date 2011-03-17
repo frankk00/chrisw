@@ -43,10 +43,15 @@
 						</div>
 						<div id="nav-menu" class="grid_14 top-bar-item" style="margin-bottom:-2px;">
 							<ul>
-								<li>
-									<a href="/group" style="vertical-align:text-top; margin: 0px;">
+								<li class="{% block group_menu %}{% endblock %}">
+									<a href="/group/all" style="vertical-align:text-top; margin: 0px;">
 										<strong>{% trans "Groups" %}</strong>
 									</a>
+								</li>
+								<li class="{% block ask_menu %}{% endblock %}">
+									<a href="/group/all" style="vertical-align:text-top; margin: 0px;">
+										<strong>{% trans "Ask" %}</strong>
+									</a>									
 								</li>
 							</ul>
 						</div>

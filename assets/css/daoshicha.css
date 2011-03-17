@@ -135,6 +135,10 @@ div.sidebar_box {
   margin: 10px;
 }
 
+.no-border{
+  border: 1px solid transparent !important;
+}
+
 dl.member_box {
   display: inline; 
   float:left; 
@@ -178,7 +182,7 @@ ul.medium-tabs{
   border-bottom: 1px solid #EEEEEE;
   clear: both;
   display: block;
-  height: 30px;
+  height: 25px;
   list-style-type: none;
   margin: 0;
   padding: 0 10px;
@@ -213,7 +217,7 @@ a.text-tab{
   border: 1px solid transparent;
   cursor: pointer;
   display: block;
-  line-height: 24px;
+  line-height: 19px;
   outline: medium none;
   overflow: hidden;
   padding: 3px 10px 2px;
