@@ -23,11 +23,11 @@ from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 from chrisw.i18n import _
 
-from duser import auth
-from duser.auth import get_current_user
+from common import auth
+from common.auth import get_current_user
 from conf import settings
 
-from front.models import UHome
+from home.models import UHome
 
 class LoginForm(forms.Form):
   """docstring for LoginForm"""

@@ -19,7 +19,7 @@ APP_ID = "daoshicha"
 ROOT_PATH, CONFIG_PATH = os.path.split(os.path.dirname(__file__))
 
 TEMPLATE_DIRS = (ROOT_PATH + "/templates",
-                 ROOT_PATH + "/front/templates",
+                 ROOT_PATH + "/home/templates",
                  ROOT_PATH + "/group/templates",
                 )
 
@@ -31,7 +31,7 @@ LOGIN_URL = "/login"
 
 DEFAULT_HOME = "/group/all"
 
-INSTALLED_APPS = ('front',)
+INSTALLED_APPS = ('home',)
 
 DEFAULT_USER_PHOTO = "http://www.gravatar.com/avatar.php?"
 

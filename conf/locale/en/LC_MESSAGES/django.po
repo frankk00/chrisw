@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 17:18+0800\n"
+"POT-Creation-Date: 2011-03-17 21:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,94 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: front/models.py:16
-msgid "Daoshicha.com"
-msgstr ""
-
-#: front/models.py:17
-msgid "Want to be the best open source SNS!"
-msgstr ""
-
-#: front/templates/login.html:6 front/templates/login_successful.html:6
-msgid "Sign In"
-msgstr ""
-
-#: front/templates/login.html:16
-msgid "Have a google account already?"
-msgstr ""
-
-#: front/templates/login.html:20
-msgid "Login with my Google Account"
-msgstr ""
-
-#: front/templates/login.html:29
-msgid "Or"
-msgstr ""
-
-#: front/templates/login.html:34
-msgid "Login"
-msgstr ""
-
-#: front/templates/login_successful.html:10
-msgid "Login successfully"
-msgstr ""
-
-#: front/templates/signup.html:6
-msgid "Signup New User"
-msgstr ""
-
-#: front/templates/signup.html:13
-msgid "Greate My Account"
-msgstr ""
-
-#: front/templates/signup_successful.html:6
-msgid "Register New User"
-msgstr ""
-
-#: front/templates/signup_successful.html:11
-msgid "Your account has been created successfully."
-msgstr ""
-
-#: front/templates/user_home.html:40
-msgid "User Settings"
-msgstr ""
-
-#: front/templates/user_profile.html:15
-msgid "Change Photo"
-msgstr ""
-
-#: front/templates/user_profile.html:22
-msgid "Save"
-msgstr ""
-
-#: front/views/uhome.py:34 front/views/uhome.py:60
-msgid "User Name"
-msgstr ""
-
-#: front/views/uhome.py:35 front/views/uhome.py:62
-msgid "Password"
-msgstr ""
-
-#: front/views/uhome.py:58 front/views/userui.py:37
-msgid "Full Name"
-msgstr ""
-
-#: front/views/uhome.py:64 front/views/userui.py:41
-msgid "Email"
-msgstr ""
-
-#: front/views/userui.py:39
-msgid "Status Message"
-msgstr ""
-
-#: front/views/userui.py:45
-msgid "Profile Picture"
-msgstr ""
-
-#: front/views/userui.py:73
-msgid "Your photo has been changed.:-)"
-msgstr ""
 
 #: group/templates/group_display.html:20 group/templates/topic_display.html:17
 msgid "New Topic"
@@ -221,31 +133,123 @@ msgstr ""
 msgid "Post Content"
 msgstr ""
 
+#: home/models.py:16
+msgid "Daoshicha.com"
+msgstr ""
+
+#: home/models.py:17
+msgid "Want to be the best open source SNS!"
+msgstr ""
+
+#: home/templates/login.html:6 home/templates/login_successful.html:6
+msgid "Sign In"
+msgstr ""
+
+#: home/templates/login.html:16
+msgid "Have a google account already?"
+msgstr ""
+
+#: home/templates/login.html:20
+msgid "Login with my Google Account"
+msgstr ""
+
+#: home/templates/login.html:29
+msgid "Or"
+msgstr ""
+
+#: home/templates/login.html:34
+msgid "Login"
+msgstr ""
+
+#: home/templates/login_successful.html:10
+msgid "Login successfully"
+msgstr ""
+
+#: home/templates/signup.html:6
+msgid "Signup New User"
+msgstr ""
+
+#: home/templates/signup.html:13
+msgid "Greate My Account"
+msgstr ""
+
+#: home/templates/signup_successful.html:6
+msgid "Register New User"
+msgstr ""
+
+#: home/templates/signup_successful.html:11
+msgid "Your account has been created successfully."
+msgstr ""
+
+#: home/templates/user_home.html:38
+msgid "User Settings"
+msgstr ""
+
+#: home/templates/user_profile.html:15
+msgid "Change Photo"
+msgstr ""
+
+#: home/templates/user_profile.html:22
+msgid "Save"
+msgstr ""
+
+#: home/views/uhome.py:34 home/views/uhome.py:60
+msgid "User Name"
+msgstr ""
+
+#: home/views/uhome.py:35 home/views/uhome.py:62
+msgid "Password"
+msgstr ""
+
+#: home/views/uhome.py:58 home/views/userui.py:37
+msgid "Full Name"
+msgstr ""
+
+#: home/views/uhome.py:64 home/views/userui.py:41
+msgid "Email"
+msgstr ""
+
+#: home/views/userui.py:39
+msgid "Status Message"
+msgstr ""
+
+#: home/views/userui.py:45
+msgid "Profile Picture"
+msgstr ""
+
+#: home/views/userui.py:73
+msgid "Your photo has been changed.:-)"
+msgstr ""
+
 #: templates/error.html:6
 msgid "Sorry, got a error :-("
 msgstr ""
 
-#: templates/master.html:68
+#: templates/master.html:53
+msgid "Ask"
+msgstr ""
+
+#: templates/master.html:73
 msgid "Settings"
 msgstr ""
 
-#: templates/master.html:74
+#: templates/master.html:79
 msgid "Logout"
 msgstr ""
 
-#: templates/master.html:101
+#: templates/master.html:106
 msgid "Sign up"
 msgstr ""
 
-#: templates/master.html:109
+#: templates/master.html:114
 msgid "Have an account?"
 msgstr ""
 
-#: templates/master.html:110
+#: templates/master.html:115
 msgid "Sign in"
 msgstr ""
 
-#: templates/master.html:115
+#: templates/master.html:120
 msgid "(Google Account is supported)"
 msgstr ""
 

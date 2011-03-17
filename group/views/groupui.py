@@ -17,9 +17,9 @@ from chrisw.i18n import _
 from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 
-from duser.auth import get_current_user
+from common.auth import get_current_user
 from group.models import *
-from duser.models import User
+from common.models import User
 from topic import TopicForm
 from conf import settings
 
@@ -74,7 +74,7 @@ class GroupUI(ModelUI):
     form = GroupForm(data=self.group.to_dict())
     post_url = '/group/%d/edit' % self.group.key().id()
     
-    from front.views import photo
+    from home.views import photo
     photo_form = GroupPhotoForm()
     photo_upload_url = photo.create_upload_url()
     back_url = request.path

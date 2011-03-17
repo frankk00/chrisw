@@ -17,7 +17,7 @@ from chrisw.i18n import _
 from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 
-from duser.auth import get_current_user, Guest
+from common.auth import get_current_user, Guest
 from group.models import *
 from groupui import GroupForm
 from conf import settings

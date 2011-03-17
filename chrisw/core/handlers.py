@@ -9,7 +9,7 @@ Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 
 import logging
 
-from duser.auth import get_current_user, Guest
+from common.auth import get_current_user, Guest
 
 from google.appengine.ext import webapp
 
@@ -45,7 +45,7 @@ def login_required(func):
   def post(self):
     pass
   """
-  from duser.auth import get_current_user
+  from common.auth import get_current_user
 
   def wrapper(self, *args, **kwargs):
     """docstring for wrapper"""
@@ -53,8 +53,8 @@ def login_required(func):
     if get_current_user() != Guest:
       return func(self, *args, **kwargs)
     else:
-      import front
-      return self.redirect(front.create_login_url(self.request.url))
+      import home
+      return self.redirect(home.create_login_url(self.request.url))
 
   return wrapper
 
@@ -124,7 +124,7 @@ def api_enabled(func):
       else:
         action = redirect(from_url)
     elif isinstance(action, login):
-      from front import create_login_url
+      from home import create_login_url
       action = redirect(create_login_url(self.request.url))
     elif isinstance(action, template):
       # add always needed info
@@ -134,7 +134,7 @@ def api_enabled(func):
       user_info = {'login_user':user, 'is_not_guest':user != Guest}
       var_dict.update(user_info)
       
-      from front.models import Site
+      from home.models import Site
       site_info = {'site':Site.get_instance()}
       var_dict.update(site_info)
       

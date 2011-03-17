@@ -15,9 +15,9 @@ from google.appengine.ext import blobstore
 from chrisw.core.handlers import api_enabled
 from chrisw.core.action import *
 
-from duser.auth import get_current_user
+from common.auth import get_current_user
 
-from front.models import *
+from home.models import *
 
 def create_upload_url():
   """docstring for create_upload_url"""

@@ -20,7 +20,7 @@ from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 from chrisw.web.util import *
 
-from duser.auth import get_current_user
+from common.auth import get_current_user
 from conf import settings
 from group.models import *
 

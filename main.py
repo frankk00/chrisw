@@ -45,13 +45,13 @@ def main():
   djsettings.LANGUAGE_CODE = settings.LANGUAGE_CODE
   djsettings.LOCALE_PATHS += settings.LOCALE_PATHS
   
-  import front, group
+  import home, group
   
   from chrisw.core import handlers
   from chrisw.web.util import register_app, register_handler_classes
   register_app(['group',])
   
-  handler_path_mappings = front.apps + group.apps
+  handler_path_mappings = home.apps + group.apps
   register_handler_classes(handler_path_mappings)
   
   application = webapp.WSGIApplication( handler_path_mappings + \

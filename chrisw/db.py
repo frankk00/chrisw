@@ -181,7 +181,7 @@ def to_dict(model):
   else:
     check_key = lambda x, y : True # can be visited by default
   
-  from duser import auth
+  from common import auth
   user = auth.get_current_user()
   
   for key, prop in items:

@@ -23,7 +23,7 @@ class URLStripper(webapp.RequestHandler):
     """docstring for get"""
     self.redirect(naked_url, True)
 
-apps = uhome.apps + userui.apps + photo.apps + \
+apps = uhome.apps + userui.apps + photo.apps\
   +[('/', RootHandler),] + [('(.*)/', URLStripper),]
 
 def create_login_url(back_url):

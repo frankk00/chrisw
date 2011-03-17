@@ -14,7 +14,7 @@ from google.appengine.api import users
 from chrisw import db, gdb
 from chrisw.core.memcache import cache_result
 
-from duser import User, Guest
+from common.auth import get_current_user, User, Guest
 from conf import settings
 
 

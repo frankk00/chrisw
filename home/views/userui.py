@@ -22,9 +22,9 @@ from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 from chrisw.i18n import _
 
-from duser.auth import get_current_user
-from duser import auth, User
-from front.models import *
+from common.auth import get_current_user, User
+from common import auth
+from home.models import *
 from group.models import UserGroupInfo
 from conf import settings
 

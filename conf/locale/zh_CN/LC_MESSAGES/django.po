@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 17:18+0800\n"
+"POT-Creation-Date: 2011-03-17 21:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,94 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: front/models.py:16
-msgid "Daoshicha.com"
-msgstr ""
-
-#: front/models.py:17
-msgid "Want to be the best open source SNS!"
-msgstr "努力做最好的开源SNS!"
-
-#: front/templates/login.html:6 front/templates/login_successful.html:6
-msgid "Sign In"
-msgstr "登陆"
-
-#: front/templates/login.html:16
-msgid "Have a google account already?"
-msgstr "已经拥有Google账户?"
-
-#: front/templates/login.html:20
-msgid "Login with my Google Account"
-msgstr "使用我的Google帐号登陆"
-
-#: front/templates/login.html:29
-msgid "Or"
-msgstr "或者"
-
-#: front/templates/login.html:34
-msgid "Login"
-msgstr "登陆"
-
-#: front/templates/login_successful.html:10
-msgid "Login successfully"
-msgstr "登陆成功,四处看看吧~"
-
-#: front/templates/signup.html:6
-msgid "Signup New User"
-msgstr "注册新用户"
-
-#: front/templates/signup.html:13
-msgid "Greate My Account"
-msgstr "创建账户"
-
-#: front/templates/signup_successful.html:6
-msgid "Register New User"
-msgstr "注册新用户"
-
-#: front/templates/signup_successful.html:11
-msgid "Your account has been created successfully."
-msgstr "你的账户已经被创建.快登陆看看吧~"
-
-#: front/templates/user_home.html:40
-msgid "User Settings"
-msgstr "用户设置"
-
-#: front/templates/user_profile.html:15
-msgid "Change Photo"
-msgstr "更换图片"
-
-#: front/templates/user_profile.html:22
-msgid "Save"
-msgstr "保存"
-
-#: front/views/uhome.py:34 front/views/uhome.py:60
-msgid "User Name"
-msgstr "用户名"
-
-#: front/views/uhome.py:35 front/views/uhome.py:62
-msgid "Password"
-msgstr "密码"
-
-#: front/views/uhome.py:58 front/views/userui.py:37
-msgid "Full Name"
-msgstr "昵称"
-
-#: front/views/uhome.py:64 front/views/userui.py:41
-msgid "Email"
-msgstr "邮件地址"
-
-#: front/views/userui.py:39
-msgid "Status Message"
-msgstr "状态信息"
-
-#: front/views/userui.py:45
-msgid "Profile Picture"
-msgstr "用户头像"
-
-#: front/views/userui.py:73
-msgid "Your photo has been changed.:-)"
-msgstr "头像更换成功"
 
 #: group/templates/group_display.html:20 group/templates/topic_display.html:17
 msgid "New Topic"
@@ -220,31 +132,123 @@ msgstr "内容"
 msgid "Post Content"
 msgstr "回复"
 
+#: home/models.py:16
+msgid "Daoshicha.com"
+msgstr ""
+
+#: home/models.py:17
+msgid "Want to be the best open source SNS!"
+msgstr "努力做最好的开源SNS!"
+
+#: home/templates/login.html:6 home/templates/login_successful.html:6
+msgid "Sign In"
+msgstr "登陆"
+
+#: home/templates/login.html:16
+msgid "Have a google account already?"
+msgstr "已经拥有Google账户?"
+
+#: home/templates/login.html:20
+msgid "Login with my Google Account"
+msgstr "使用我的Google帐号登陆"
+
+#: home/templates/login.html:29
+msgid "Or"
+msgstr "或者"
+
+#: home/templates/login.html:34
+msgid "Login"
+msgstr "登陆"
+
+#: home/templates/login_successful.html:10
+msgid "Login successfully"
+msgstr "登陆成功,四处看看吧~"
+
+#: home/templates/signup.html:6
+msgid "Signup New User"
+msgstr "注册新用户"
+
+#: home/templates/signup.html:13
+msgid "Greate My Account"
+msgstr "创建账户"
+
+#: home/templates/signup_successful.html:6
+msgid "Register New User"
+msgstr "注册新用户"
+
+#: home/templates/signup_successful.html:11
+msgid "Your account has been created successfully."
+msgstr "你的账户已经被创建.快登陆看看吧~"
+
+#: home/templates/user_home.html:38
+msgid "User Settings"
+msgstr "用户设置"
+
+#: home/templates/user_profile.html:15
+msgid "Change Photo"
+msgstr "更换图片"
+
+#: home/templates/user_profile.html:22
+msgid "Save"
+msgstr "保存"
+
+#: home/views/uhome.py:34 home/views/uhome.py:60
+msgid "User Name"
+msgstr "用户名"
+
+#: home/views/uhome.py:35 home/views/uhome.py:62
+msgid "Password"
+msgstr "密码"
+
+#: home/views/uhome.py:58 home/views/userui.py:37
+msgid "Full Name"
+msgstr "昵称"
+
+#: home/views/uhome.py:64 home/views/userui.py:41
+msgid "Email"
+msgstr "邮件地址"
+
+#: home/views/userui.py:39
+msgid "Status Message"
+msgstr "状态信息"
+
+#: home/views/userui.py:45
+msgid "Profile Picture"
+msgstr "用户头像"
+
+#: home/views/userui.py:73
+msgid "Your photo has been changed.:-)"
+msgstr "头像更换成功"
+
 #: templates/error.html:6
 msgid "Sorry, got a error :-("
 msgstr "对不起,遇到错误了:-("
 
-#: templates/master.html:68
+#: templates/master.html:53
+msgid "Ask"
+msgstr ""
+
+#: templates/master.html:73
 msgid "Settings"
 msgstr "设置"
 
-#: templates/master.html:74
+#: templates/master.html:79
 msgid "Logout"
 msgstr "登出"
 
-#: templates/master.html:101
+#: templates/master.html:106
 msgid "Sign up"
 msgstr "注册"
 
-#: templates/master.html:109
+#: templates/master.html:114
 msgid "Have an account?"
 msgstr "已经拥有账户?"
 
-#: templates/master.html:110
+#: templates/master.html:115
 msgid "Sign in"
 msgstr "登陆"
 
-#: templates/master.html:115
+#: templates/master.html:120
 msgid "(Google Account is supported)"
 msgstr "(支持Google账户登陆)"
 
