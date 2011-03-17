@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-uhome.py
+usersite.py
 
 Created by Kang Zhang on 2010-09-29.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
@@ -27,7 +27,7 @@ from common import auth
 from common.auth import get_current_user
 from conf import settings
 
-from home.models import UHome
+from home.models import UserSite
 
 class LoginForm(forms.Form):
   """docstring for LoginForm"""
@@ -75,11 +75,11 @@ class RegForm(djangoforms.ModelForm):
       
     return False
     
-class UHomeUI(ModelUI):
-  """docstring for UHomeUI"""
-  def __init__(self, uhome = UHome.get_instance()):
-    super(UHomeUI, self).__init__(uhome)
-    self.uhome = uhome
+class UserSiteUI(ModelUI):
+  """docstring for UserSiteUI"""
+  def __init__(self, usersite = UserSite.get_instance()):
+    super(UserSiteUI, self).__init__(usersite)
+    self.usersite = usersite
   
   def login(self, request):
     """docstring for login"""
@@ -151,49 +151,49 @@ class UHomeUI(ModelUI):
     else:
       return template('signup.html', locals())
 
-class UHomeHandler(handlers.RequestHandler):
-  """docstring for UHomeHandler"""
+class UserSiteHandler(handlers.RequestHandler):
+  """docstring for UserSiteHandler"""
   
-  def get_impl(self, uhomeui):
+  def get_impl(self, usersiteui):
     """docstring for get_impl"""
     raise Exception("did not implemented")
   
-  def post_impl(self, uhomeui, request):
+  def post_impl(self, usersiteui, request):
     """docstring for post_imple"""
-    return self.get_impl(uhomeui)
+    return self.get_impl(usersiteui)
   
   def get(self):
     """docstring for get"""
-    uhomeui = UHomeUI()
-    return self.get_impl(uhomeui)
+    usersiteui = UserSiteUI()
+    return self.get_impl(usersiteui)
   
   def post(self):
     """docstring for post"""
-    uhomeui = UHomeUI()
-    return self.post_impl(uhomeui, self.request)
+    usersiteui = UserSiteUI()
+    return self.post_impl(usersiteui, self.request)
 
-class SignupUserHanlder(UHomeHandler):
+class SignupUserHanlder(UserSiteHandler):
   """docstring for RegUserHanlder"""
-  def get_impl(self, uhomeui):
-    return uhomeui.signup()
+  def get_impl(self, usersiteui):
+    return usersiteui.signup()
   
-  def post_impl(self, uhomeui, request):
-    return uhomeui.signup_post(request)
+  def post_impl(self, usersiteui, request):
+    return usersiteui.signup_post(request)
       
-class LoginUserHandler(UHomeHandler):
+class LoginUserHandler(UserSiteHandler):
   """docstring for LoginHandler"""
-  def get_impl(self, uhomeui):
-    return uhomeui.login(self.request)
+  def get_impl(self, usersiteui):
+    return usersiteui.login(self.request)
   
-  def post_impl(self, uhomeui, request):
-    return uhomeui.login_post(request)
+  def post_impl(self, usersiteui, request):
+    return usersiteui.login_post(request)
 
-class LogoutUserHandler(UHomeHandler):
+class LogoutUserHandler(UserSiteHandler):
   """docstring for LogoutUserHandler"""
-  def get_impl(self, uhomeui):
-    return uhomeui.logout()
+  def get_impl(self, usersiteui):
+    return usersiteui.logout()
 
-class LoginDemoHandler(UHomeHandler):
+class LoginDemoHandler(UserSiteHandler):
   """docstring for ClassName"""
   def get(self):
     import gaesessions

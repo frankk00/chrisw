@@ -27,16 +27,16 @@ class Site(db.Model):
       
     return instance
 
-class UHome(db.Model):
+class UserSite(db.Model):
   """A faked object for the user management"""
   
   @classmethod
-  @cache_result('uhome-site', 240)
+  @cache_result('usersite-instance', 240)
   def get_instance(cls):
     """docstring for get_instance"""
-    instance = super(UHome, cls).all().get()
+    instance = super(UserSite, cls).all().get()
     if not instance:
-      instance = UHome()
+      instance = UserSite()
       instance.put()
       
     return instance
