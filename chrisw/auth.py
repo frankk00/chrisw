@@ -15,7 +15,10 @@ def get_current_user(default_user=None):
   session = get_current_session()
   
   if session.has_key('current_user'):
-    return session['current_user']
+    try:
+      return session['current_user']
+    except Exception, e:
+      pass
     
   return default_user
 
