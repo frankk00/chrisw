@@ -14,13 +14,14 @@ from conf import settings
 
 class User(gdb.Entity):
   """docstring for User"""
-  fullname = db.StringFlyProperty(required=True)
+  fullname = db.StringProperty(required=True)
   username = db.StringProperty(required=True)
   create_date = db.DateTimeProperty(auto_now_add=True)
   password = db.StringProperty(required=True)
   email = db.EmailProperty(required=True)
+  photo_url = db.StringProperty(default=settings.DEFAULT_USER_PHOTO)
+  
   status_message = db.StringFlyProperty(default="")
-  photo_url = db.StringFlyProperty(default=settings.DEFAULT_USER_PHOTO)
   
   def can_visit_key(self, user, key):
     """Privacy control, protect ur privacy here"""

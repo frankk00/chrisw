@@ -124,6 +124,7 @@ class Group(gdb.Entity):
   introduction = db.TextFlyProperty(default='')
   photo_url = db.StringFlyProperty(default=settings.DEFAULT_GROUP_PHOTO)
   recent_members = db.ListFlyProperty(default=[])
+  member_count = db.IntegerFlyProperty(default=1)
     
   def can_view(self, user):
     """docstring for can_see"""
@@ -154,16 +155,15 @@ class Group(gdb.Entity):
   def join(self, user):
     self.link(GROUP_MEMEBER, user)
     
-    # add user to recent added users list
-    self.recent_members = list(self.get_member_keys().fetch(limit=6))
-    
-    self.put()
+    self._update_member_info()
     
     UserGroupInfo.get_by_user(user).update_recent_joined_groups()
     
   def quit(self, user):
     """docstring for quit"""
     self.unlink(GROUP_MEMEBER, user)
+    
+    self._update_member_info()
     
     UserGroupInfo.get_by_user(user).update_recent_joined_groups()
     
@@ -181,8 +181,13 @@ class Group(gdb.Entity):
   
   def get_members(self):
     """docstring for get_members"""
-    return db.MapQuery(self.get_member_keys(limit=limit, offset=offset),\
-      lambda x:db.get(x), True)
+    return db.MapQuery(self.get_member_keys(), lambda x:db.get(x), True)
+  
+  def _update_member_info(self):
+    """docstring for _update_member_count"""
+    self.member_count = self.get_member_keys().count()
+    self.recent_members = list(self.get_member_keys().fetch(limit=6))
+    self.put()
   
   #######
   #

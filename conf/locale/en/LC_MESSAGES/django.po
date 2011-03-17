@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 21:54+0800\n"
+"POT-Creation-Date: 2011-03-17 22:41+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,42 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: common/templates/error.html:6
+msgid "Sorry, got a error :-("
+msgstr ""
+
+#: common/templates/master.html:48 group/templates/groupsite_master.html:54
+msgid "Groups"
+msgstr ""
+
+#: common/templates/master.html:53
+msgid "Ask"
+msgstr ""
+
+#: common/templates/master.html:73
+msgid "Settings"
+msgstr ""
+
+#: common/templates/master.html:79
+msgid "Logout"
+msgstr ""
+
+#: common/templates/master.html:106
+msgid "Sign up"
+msgstr ""
+
+#: common/templates/master.html:114
+msgid "Have an account?"
+msgstr ""
+
+#: common/templates/master.html:115
+msgid "Sign in"
+msgstr ""
+
+#: common/templates/master.html:120
+msgid "(Google Account is supported)"
+msgstr ""
 
 #: group/templates/group_display.html:20 group/templates/topic_display.html:17
 msgid "New Topic"
@@ -63,10 +99,6 @@ msgstr "Latest Post from your group2"
 
 #: group/templates/groupsite_master.html:50
 msgid "Topics"
-msgstr ""
-
-#: group/templates/groupsite_master.html:54 templates/master.html:48
-msgid "Groups"
 msgstr ""
 
 #: group/templates/groupsite_master.html:63
@@ -193,19 +225,19 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: home/views/uhome.py:34 home/views/uhome.py:60
+#: home/views/usersite.py:34 home/views/usersite.py:60
 msgid "User Name"
 msgstr ""
 
-#: home/views/uhome.py:35 home/views/uhome.py:62
+#: home/views/usersite.py:35 home/views/usersite.py:62
 msgid "Password"
 msgstr ""
 
-#: home/views/uhome.py:58 home/views/userui.py:37
+#: home/views/usersite.py:58 home/views/userui.py:37
 msgid "Full Name"
 msgstr ""
 
-#: home/views/uhome.py:64 home/views/userui.py:41
+#: home/views/usersite.py:64 home/views/userui.py:41
 msgid "Email"
 msgstr ""
 
@@ -219,38 +251,6 @@ msgstr ""
 
 #: home/views/userui.py:73
 msgid "Your photo has been changed.:-)"
-msgstr ""
-
-#: templates/error.html:6
-msgid "Sorry, got a error :-("
-msgstr ""
-
-#: templates/master.html:53
-msgid "Ask"
-msgstr ""
-
-#: templates/master.html:73
-msgid "Settings"
-msgstr ""
-
-#: templates/master.html:79
-msgid "Logout"
-msgstr ""
-
-#: templates/master.html:106
-msgid "Sign up"
-msgstr ""
-
-#: templates/master.html:114
-msgid "Have an account?"
-msgstr ""
-
-#: templates/master.html:115
-msgid "Sign in"
-msgstr ""
-
-#: templates/master.html:120
-msgid "(Google Account is supported)"
 msgstr ""
 
 #~ msgid "Latest Post"

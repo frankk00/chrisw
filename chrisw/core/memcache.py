@@ -17,7 +17,7 @@ def cache_result(keyformat, time=60):
   def decorator(fxn):
     def wrapper(*args, **kwargs):
       key = keyformat % args[0:keyformat.count('%')]
-      key = key.format(**kwargs)
+      key = key % kwargs
       
       data = memcache.get(key)
       if data is not None:
@@ -38,7 +38,7 @@ def cache_action(keyformat, time=60):
       from chrisw.core.action import cache
       
       key = keyformat % args[0:keyformat.count('%')]
-      key = key.format(**kwargs)
+      key = key % kwargs
 
       return cache(func, args, kwargs, key, time)
     return wrapper

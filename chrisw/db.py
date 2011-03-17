@@ -104,15 +104,26 @@ class FlyProperty(object):
     """docstring for empty"""
     return value is None
   
+  def _check_type(self, value):
+    """docstring for _type_check"""
+    if not isinstance(self.datatype(), list) and \
+      isinstance(value, self.datatype()):
+      return value
+    if any([isinstance(value, t) for t in self.datatype()]):
+      return value
+      
+    raise Exception('Type %s Required, but %s detected', self.datatype(),\
+                      value)
+  
   def validate(self, value):
     """docstring for validate"""
     
     if self.required and self.empty(value):
       raise Exception('Property %s is required', self.name)
     
-    if value is not None and not isinstance(value, self.datatype()):
-      raise Exception('Type %s Required, but %s detected', self.datatype(),\
-                      value)
+    if value is not None:
+      return self._check_type(value)
+      
     return value
     
   def __get__(self, owner_instance, owner_cls):
@@ -141,7 +152,7 @@ class StringFlyProperty(FlyProperty):
 
 class IntegerFlyProperty(FlyProperty):
   """docstring for IntegerFlyProperty"""
-  data_type = int
+  data_type = [int, long]
 
 class TextFlyProperty(FlyProperty):
   """docstring for TextFlyProperty"""
