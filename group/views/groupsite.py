@@ -30,7 +30,7 @@ class GroupSiteUI(ModelUI):
     self.user = get_current_user()
     self.group_info = UserGroupInfo.get_by_user(self.user)
     
-  def view(self, request):
+  def follow(self, request):
     offset = int(request.get("offset", "0"))
     limit = int(request.get("limit", "20"))
     
@@ -48,7 +48,28 @@ class GroupSiteUI(ModelUI):
     
     display_group_name = True
     
-    return template('groupsite_display.html', locals())
+    return template('groupsite_follow.html', locals())
+  
+  def all(self, request):
+    """docstring for all"""
+    offset = int(request.get("offset", "0"))
+    limit = int(request.get("limit", "20"))
+    
+    group_info = self.group_info
+    
+    joined_groups = group_info.get_recent_joined_groups()
+    
+    query = GroupTopic.latest_by_subscriber(Guest)
+    count = query.count(200)
+    topics = query.fetch(limit, offset)
+    
+    page = Page(count=count, offset=offset, limit=limit, request=request)
+    
+    sidebar_widgets = [forward('/group/recommend').render()]
+    
+    display_group_name = True
+    
+    return template('groupsite_all.html', locals())
   
   @cache_action('group-recommend-groups')
   def recommend_groups(self):
@@ -89,10 +110,15 @@ class GroupSiteHandler(handlers.RequestHandler):
   def post(self):
     return self.post_impl(GroupSiteUI(GroupSite.get_instance()), self.request)
     
-class GroupSiteViewHandler(GroupSiteHandler):
+class GroupSiteAllHandler(GroupSiteHandler):
   """docstring for SiteViewHandler"""
   def get_impl(self, group_site):
-    return group_site.view(self.request)
+    return group_site.all(self.request)
+
+class GroupSiteFollowHandler(GroupSiteHandler):
+  """docstring for GroupSiteHandler"""
+  def get_impl(self, group_site):
+    return group_site.follow(self.request)    
 
 class GroupSiteNewGroupHandler(GroupSiteHandler):
   """docstring for SiteNewGroupHandler"""
@@ -109,7 +135,8 @@ class GroupSiteRecommandGroupsHandler(GroupSiteHandler):
     return group_site.recommend_groups()
 
 
-apps = [(r'/group', GroupSiteViewHandler),
+apps = [(r'/group/all', GroupSiteAllHandler),
+        (r'/group/follow', GroupSiteFollowHandler),
         (r'/group/new', GroupSiteNewGroupHandler),
         (r'/group/recommend', GroupSiteRecommandGroupsHandler)
         ]

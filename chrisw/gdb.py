@@ -181,6 +181,11 @@ class Message(db.FlyModel):
     """docstring for latest_keys_by_subscriber"""
     return db.MapQuery(self.latest_keys_by_subscriber(user), 
       lambda x: db.get(x), True)
+  
+  @classmethod
+  def latest(cls):
+    """docstring for latest"""
+    return cls.all().order("-update_at")
 
 class MessageIndex(db.Model):
   """docstring for MessageIndex"""

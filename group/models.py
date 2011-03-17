@@ -331,6 +331,7 @@ class GroupTopic(gdb.Message):
       query = query.order("create_at")
     return query
   
+  
 class GroupPost(gdb.Message):
   """docstring for Post"""
   author = db.ReferenceProperty(User)

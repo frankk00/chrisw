@@ -36,6 +36,12 @@ indexes:
   - name: update_at
     direction: desc
 
+- kind: GroupTopic
+  properties:
+  - name: deleted
+  - name: update_at
+    direction: desc
+
 - kind: MessageIndex
   properties:
   - name: deleted

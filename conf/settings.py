@@ -29,7 +29,7 @@ LOCALE_PATHS = (ROOT_PATH + '/conf/locale',)
 
 LOGIN_URL = "/login"
 
-DEFAULT_HOME = "/group"
+DEFAULT_HOME = "/group/all"
 
 INSTALLED_APPS = ('front',)
 
