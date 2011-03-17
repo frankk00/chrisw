@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-14 12:01+0800\n"
+"POT-Creation-Date: 2011-03-17 17:18+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: front/models.py:16
+msgid "Daoshicha.com"
+msgstr ""
+
+#: front/models.py:17
 msgid "Want to be the best open source SNS!"
 msgstr "努力做最好的开源SNS!"
 
@@ -61,11 +65,7 @@ msgstr "注册新用户"
 msgid "Your account has been created successfully."
 msgstr "你的账户已经被创建.快登陆看看吧~"
 
-#: front/templates/user_home.html:30
-msgid "Followed Groups"
-msgstr "关注小组"
-
-#: front/templates/user_home.html:53
+#: front/templates/user_home.html:40
 msgid "User Settings"
 msgstr "用户设置"
 
@@ -85,23 +85,23 @@ msgstr "用户名"
 msgid "Password"
 msgstr "密码"
 
-#: front/views/uhome.py:58 front/views/userui.py:39
+#: front/views/uhome.py:58 front/views/userui.py:37
 msgid "Full Name"
 msgstr "昵称"
 
-#: front/views/uhome.py:64 front/views/userui.py:43
+#: front/views/uhome.py:64 front/views/userui.py:41
 msgid "Email"
 msgstr "邮件地址"
 
-#: front/views/userui.py:41
+#: front/views/userui.py:39
 msgid "Status Message"
 msgstr "状态信息"
 
-#: front/views/userui.py:47
+#: front/views/userui.py:45
 msgid "Profile Picture"
 msgstr "用户头像"
 
-#: front/views/userui.py:77
+#: front/views/userui.py:73
 msgid "Your photo has been changed.:-)"
 msgstr "头像更换成功"
 
@@ -129,46 +129,40 @@ msgstr "小组设置"
 msgid "Group Members"
 msgstr "小组成员"
 
-#: group/templates/groupsite_display.html:6
+#: group/templates/groupsite_all.html:6
+#: group/templates/groupsite_master.html:17
+msgid "Post from All Groups"
+msgstr "大杂烩"
+
+#: group/templates/groupsite_follow.html:6
+#: group/templates/groupsite_master.html:21
+#: group/templates/joined_groups_box.html:3
+msgid "Followed Groups"
+msgstr "关注小组"
+
+#: group/templates/groupsite_master.html:6
 msgid "Welcome"
 msgstr "欢迎"
 
-#: group/templates/groupsite_display.html:17
-msgid "Latest Posts from the Groups You Followed"
-msgstr "关注小组的最新动态"
-
-#: group/templates/groupsite_display.html:19
-msgid "Latest Post"
-msgstr "最新话题"
-
-#: group/templates/groupsite_display.html:43
-#: group/templates/topic_list.html:24
+#: group/templates/groupsite_master.html:46 group/templates/topic_list.html:24
 msgid "Posts"
 msgstr "回复"
 
-#: group/templates/groupsite_display.html:47
+#: group/templates/groupsite_master.html:50
 msgid "Topics"
 msgstr "话题"
 
-#: group/templates/groupsite_display.html:51 templates/master.html:49
+#: group/templates/groupsite_master.html:54 templates/master.html:48
 msgid "Groups"
 msgstr "小组"
 
-#: group/templates/groupsite_display.html:60
+#: group/templates/groupsite_master.html:63
 msgid "Want to create a new group?"
 msgstr "想创建自己的小组?"
 
-#: group/templates/groupsite_display.html:61
+#: group/templates/groupsite_master.html:64
 msgid "Click here"
 msgstr "点击这里"
-
-#: group/templates/groupsite_display.html:68
-msgid "You Followed Groups"
-msgstr "关注小组"
-
-#: group/templates/groupsite_display.html:88
-msgid "Recommend Groups"
-msgstr "推荐小组"
 
 #: group/templates/item_new.html:6 group/templates/item_new.html.py:15
 msgid "Create"
@@ -198,27 +192,31 @@ msgstr "回到 "
 msgid "Hits"
 msgstr "点击"
 
-#: group/views/groupui.py:30
+#: group/templates/window_recommend_groups.html:4
+msgid "Recommend Groups"
+msgstr "推荐小组"
+
+#: group/views/groupui.py:31
 msgid "Group Title"
 msgstr "小组名称"
 
-#: group/views/groupui.py:32
+#: group/views/groupui.py:33
 msgid "Group Introductioin"
 msgstr "小组简介"
 
-#: group/views/groupui.py:37
+#: group/views/groupui.py:38
 msgid "Group Picture"
 msgstr "小组图标"
 
-#: group/views/topic.py:33
+#: group/views/topic.py:34
 msgid "Topic Title"
 msgstr "标题"
 
-#: group/views/topic.py:35
+#: group/views/topic.py:36
 msgid "Topic Content"
 msgstr "内容"
 
-#: group/views/topic.py:44
+#: group/views/topic.py:45
 msgid "Post Content"
 msgstr "回复"
 
@@ -226,26 +224,35 @@ msgstr "回复"
 msgid "Sorry, got a error :-("
 msgstr "对不起,遇到错误了:-("
 
-#: templates/master.html:69
+#: templates/master.html:68
 msgid "Settings"
 msgstr "设置"
 
-#: templates/master.html:75
+#: templates/master.html:74
 msgid "Logout"
 msgstr "登出"
 
-#: templates/master.html:102
+#: templates/master.html:101
 msgid "Sign up"
 msgstr "注册"
 
-#: templates/master.html:110
+#: templates/master.html:109
 msgid "Have an account?"
 msgstr "已经拥有账户?"
 
-#: templates/master.html:111
+#: templates/master.html:110
 msgid "Sign in"
 msgstr "登陆"
 
-#: templates/master.html:116
+#: templates/master.html:115
 msgid "(Google Account is supported)"
 msgstr "(支持Google账户登陆)"
+
+#~ msgid "Latest Posts from the Groups You Followed"
+#~ msgstr "关注小组的最新动态"
+
+#~ msgid "Latest Post"
+#~ msgstr "最新话题"
+
+#~ msgid "You Followed Groups"
+#~ msgstr "关注小组"
