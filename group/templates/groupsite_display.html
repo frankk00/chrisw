@@ -91,7 +91,7 @@
 	{% if sidebar_widgets %}
 		{% for widget in sidebar_widgets %}		
 			<div class="grid_9 dashboard-widget">
-				{{ widget }}
+				{{ widget|safe }}
 			</div>
 		{% endfor %}
 	{% endif %}

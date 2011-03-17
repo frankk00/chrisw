@@ -37,7 +37,7 @@ class UserForm(djangoforms.ModelForm):
   fullname = fields.CharField(label = _('Full Name'), min_length=1,\
     max_length=10)
   status_message = fields.CharField(label = _("Status Message"), min_length=1,\
-    max_length=70)
+    max_length=70, required=False)
   email = fields.EmailField(label = _('Email'))
 
 class ProfilePhotoForm(forms.Form):
