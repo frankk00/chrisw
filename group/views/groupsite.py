@@ -36,7 +36,7 @@ class GroupSiteUI(ModelUI):
     
     group_info = self.group_info
     
-    my_groups = group_info.get_recent_joined_groups()
+    joined_groups = group_info.get_recent_joined_groups()
     
     query = GroupTopic.latest_by_subscriber(self.user)
     count = query.count(200)

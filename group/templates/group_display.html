@@ -30,9 +30,9 @@
 		<div id="group_info" class="sidebar_box">
 			<img class="im" src="{{group.photo_url}}" align="left" style="padding-right:10px" />
 			<p>
-				{% trans "Created at" %} {{group.create_time|date:"Y-n-j"}} by 
-				<a href="/u/{{group.create_user.key.id}}">
-					{{group.create_user.fullname}}
+				{% trans "Created at" %} {{group.create_at|date:"Y-n-j"}} by 
+				<a href="/u/{{group.creator.key.id}}">
+					{{group.creator.fullname}}
 				</a>
 			</p>
 			{% for line in group.introduction.splitlines %}

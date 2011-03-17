@@ -21,7 +21,7 @@
 							</strong>
 							&nbsp;
 						{% endif %}
-						{{ topic.create_time|date:"Y-n-j H:i" }} by {{ topic.author.fullname }}. • {{ topic.length }} {% trans "Posts" %} • {{ topic.hits }} {% trans "Hits" %} 
+						{{ topic.create_at|date:"Y-n-j H:i" }} by {{ topic.author.fullname }}. • {{ topic.length }} {% trans "Posts" %} • {{ topic.hits }} {% trans "Hits" %} 
 					</span>
 				</span>
 			</li>

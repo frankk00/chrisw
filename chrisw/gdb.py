@@ -26,6 +26,9 @@ class Entity(db.FlyModel):
   
   def link(self, link_type, target):
     """docstring for create_link_with"""
+    # unlink previous links
+    self.unlink(link_type, target)
+    
     link = Link(source=self, link_type=link_type, target=target)
     link.put()
     
@@ -51,7 +54,7 @@ class Entity(db.FlyModel):
   @classmethod
   def get_source_keys(cls, link_type, target):
     """docstring for get_source_by_link"""
-    return db.MapQuery(Link.all(link=link_type, target=target,\
+    return db.MapQuery(Link.all(link_type=link_type, target=target,\
       source_type=_get_type_name(cls)), lambda x: x.source)
 
 class Link(db.Model):

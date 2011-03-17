@@ -163,6 +163,9 @@ dl.item-box {
     height: 55px; 
     margin: 0;
   }
+  dl.item-box dd.group{
+    height: 25px;
+  }
     dl.item-box dd.name span{
       white-space: nowrap;
     }

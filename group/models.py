@@ -7,6 +7,8 @@ Created by Kang Zhang on 2010-09-25.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
+import logging
+
 from google.appengine.api import users
 
 from chrisw import db, gdb
@@ -98,7 +100,10 @@ class UserGroupInfo(gdb.Entity):
   def update_recent_joined_groups(self):
     """docstring for get_joined_groups"""
     self.recent_joined_groups = Group.get_group_keys_by_user(self.user)\
-      .fetch(limit=6, offset=0)
+      .fetch(limit=8, offset=0)
+    
+    logging.debug("recent_joined_groups : %s", self.recent_joined_groups)
+    
     self.put()
   
   @classmethod
@@ -113,7 +118,6 @@ class UserGroupInfo(gdb.Entity):
 
 class Group(gdb.Entity):
   """docstring for Board"""
-  create_time = db.DateTimeProperty(auto_now_add=True)
   creator = db.ReferenceProperty(User)
   
   title = db.StringFlyProperty(default='')
@@ -178,7 +182,7 @@ class Group(gdb.Entity):
   def get_members(self):
     """docstring for get_members"""
     return db.MapQuery(self.get_member_keys(limit=limit, offset=offset),\
-      lambda x:db.get(x))
+      lambda x:db.get(x), True)
   
   #######
   #

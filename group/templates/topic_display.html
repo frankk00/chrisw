@@ -26,7 +26,7 @@
 				</div>
 				<div class="topic-content post-content">
 					<div class="topic-meta post-meta">
-						{{ topic.create_time|date:"Y-n-j H:i" }} by
+						{{ topic.create_at|date:"Y-n-j H:i" }} by
 						<a href="/u/{{topic.author.key.id}}">{{ topic.author.fullname }}</a>
 						{% if topic.author.status_message %}
 							({{ topic.author.status_message }})
@@ -49,7 +49,7 @@
 				</div>
 				<div class="post-content"> 
 					<div class="post-meta" style="color: #999999;">
-						{{ post.create_time|date:"Y-n-j H:i" }} by 
+						{{ post.create_at|date:"Y-n-j H:i" }} by 
 						<a href="/u/{{post.author.key.id}}">
 							{{ post.author.fullname }} 
 						</a>

@@ -340,6 +340,8 @@ class MapQuery(object):
   
   def map_results(self, results):
     """docstring for map_results"""
+    import logging
+    logging.debug("map results: %s", results)
     if self.allow_set or not isinstance(results, list):
       return self._map_func(results)
     else:
