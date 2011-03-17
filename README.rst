@@ -65,7 +65,7 @@ Pipline Rendering
     # add recommend groups widget in page    
     sidebar_widgets = [forward('/group/recommend').render()]
     
-    return template('groupsite_display.html', locals())
+    return template('groupsite_all.html', locals())
   
   @cache_action('group-recommend-groups', 60)
   def recommend_groups(self):
@@ -105,9 +105,15 @@ Instructions:
 
 2. Modify the ``app.yaml`` to specify your appengine box.
 
-3. Deploy it to server.
+3. Run it locally and visit ``/unittest`` on your appengine box. Make sure that 
+the program passed all tests.
 
 4. Change the ``DEBUG`` in ``local_settings.py`` to ``False``
+
+5. Deploy it to server.
+
+6. It works now.
+
 
 Settings 
 ========
