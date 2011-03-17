@@ -324,7 +324,7 @@ class GroupTopic(gdb.Message):
     """docstring for get_all_posts"""
     query = GroupPost.all(topic=self)
     if has_order:
-      query = query.order("-create_at")
+      query = query.order("create_at")
     return query
   
 class GroupPost(gdb.Message):

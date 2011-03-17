@@ -9,6 +9,7 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 from google.appengine.api import users
 from chrisw import db, gdb
+from chrisw.core.memcache import cache_result
 from conf import settings
 
 class User(gdb.Entity):
@@ -37,16 +38,19 @@ class User(gdb.Entity):
     self.photo_url = settings.GRAVATAR_BASE + \
       str(hashlib.md5(self.email.lower()).hexdigest()) + "?d=identicon&s=48"
   
-  def put(self):
+  def put(self, is_guest=False):
     """User could be built from sessions, need write through these users"""
+    super(User, self).put()
+    
+    if is_guest:
+      return
+      
     from auth import get_current_user, update_current_user
     
     user = get_current_user()
     
     if user and user.username == self.username:
       update_current_user(self)
-    
-    super(User, self).put()
     
   def can_view(self, user):
     """docstring for can_view"""
@@ -60,10 +64,14 @@ class User(gdb.Entity):
     """docstring for full_photo"""
     return self.photo_url
 
+@cache_result('guest-user-object', 360)
+def _get_guest_user():
+  """docstring for _get_guest_user"""
+  guest = User.all().filter('username', "__GuestUserName").get()
+  if not guest:
+    guest = User(fullname="Guest", username="__GuestUserName", 
+               email="guest@chrisw", password="pwd")
+    guest.put(is_guest=True)
+  return guest
 
-Guest = User.all().filter('username =', "__GuestUserName").get()
-
-if not Guest:
-  Guest = User(fullname="Guest", username="__GuestUserName", 
-             email="guest@chrisw", password="pwd")
-  db.put(Guest)
+Guest = _get_guest_user()

@@ -332,30 +332,38 @@ class _MapQueryIterator(object):
 
 class MapQuery(object):
   """docstring for LambdaQuery"""
-  def __init__(self, query, map_func):
+  def __init__(self, query, map_func, allow_set=False):
     super(MapQuery, self).__init__()
     self.query = query
-    self.map_func = map_func
+    self._map_func = map_func
+    self.allow_set = allow_set
+  
+  def map_results(self, results):
+    """docstring for map_results"""
+    if self.allow_set or not isinstance(results, list):
+      return self._map_func(results)
+    else:
+      return [self._map_func(x) for x in results]
   
   def filter(self, *args):
     """docstring for filter"""
-    return MapQuery(self.query.filter(*args), self.map_func)
+    return MapQuery(self.query.filter(*args), self.map_results)
   
   def order(self, *args):
     """docstring for order"""
-    return MapQuery(self.query.order(*args), self.map_func)
+    return MapQuery(self.query.order(*args), self.map_results)
   
   def get(self):
     """docstring for get"""
     result = self.query.get()
     if result:
-      return self.map_func(result)
+      return self.map_results(result)
     return result;
   
   def fetch(self, *args, **kwargs):
     """docstring for fetch"""
     results = self.query.fetch(*args, **kwargs)
-    return [self.map_func(r) for r in results]
+    return self.map_results(results)
   
   def count(self, *args):
     """docstring for count"""
@@ -363,11 +371,11 @@ class MapQuery(object):
   
   def __getitem__(self, *args):
     """docstring for __get_item__"""
-    return [self.map_func(r) for r in self.query.__get_item__(*args)]
+    return self.map_results(self.query.__get_item__(*args))
   
   def __iter__(self):
     """docstring for __iter__"""
-    return _MapQueryIterator(self.query.__iter__(), self.map_func)
+    return _MapQueryIterator(self.query.__iter__(), self.map_results)
   
 class GetQuery(MapQuery):
   """docstring for GetQuery"""
