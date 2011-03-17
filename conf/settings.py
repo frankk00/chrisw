@@ -18,7 +18,7 @@ APP_ID = "daoshicha"
 
 ROOT_PATH, CONFIG_PATH = os.path.split(os.path.dirname(__file__))
 
-TEMPLATE_DIRS = (ROOT_PATH + "/templates",
+TEMPLATE_DIRS = (ROOT_PATH + "/common/templates",
                  ROOT_PATH + "/home/templates",
                  ROOT_PATH + "/group/templates",
                 )
