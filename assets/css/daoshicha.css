@@ -191,7 +191,11 @@ ul.medium-tabs{
     position: relative;
   }
   ul.medium-tabs .text-tab{
-    font-size:1.2em ;
+    -webkit-border-top-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -webkit-border-top-left-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    font-size:1.0em ;
     font-weight:bold;
     border: 1px solid transparent;
   }
