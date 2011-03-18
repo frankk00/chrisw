@@ -137,7 +137,7 @@ class TestMessageIndex(unittest.TestCase):
     self.assertNotEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(top))[:1])
     self.assertNotEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(lap))[:1])
     
-    lap_post.notify_subscribers()
+    lap_post.notify()
     
     self.assertEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(lap))[:1])
     self.assertNotEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(top))[:1])
@@ -152,14 +152,14 @@ class TestMessageIndex(unittest.TestCase):
     self.assertNotEqual([top.key()], list(TestTalk.latest_keys_by_subscriber(top))[:1])
     self.assertNotEqual([lap.key()], list(TestTalk.latest_keys_by_subscriber(lap))[:1])
     
-    top_post.notify_subscribers()
+    top_post.notify()
 
     self.assertEqual([top_post.key()], list(TestTalkComment.latest_keys_by_subscriber(lap))[:1])
     self.assertEqual([top_post.key()], list(TestTalkComment.latest_keys_by_subscriber(top))[:1])
     
-    lap_post.notify_subscribers()
+    lap_post.notify()
     top_post.delete_subscriber(lap)
-    top_post.notify_subscribers()
+    top_post.notify()
     
     self.assertEqual([lap_post.key()], list(TestTalkComment.latest_keys_by_subscriber(lap))[:1])
     self.assertEqual([top_post.key()], list(TestTalkComment.latest_keys_by_subscriber(top))[:1])

@@ -139,7 +139,6 @@ class UserProfileSettingHandler(handlers.RequestHandler):
     return userui.profile_post(self.request)
     
   
-apps = [(r'/u/(\d+)', UserProfileHandler),
-        (r'/u/profile', UserProfileSettingHandler),
+apps = [(r'/u/profile', UserProfileSettingHandler),
         ]
     

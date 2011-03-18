@@ -7,7 +7,7 @@ Created by Kang Zhang on 2010-09-29.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
-import usersite, userui, photo
+import usersite, userui, photo, user_stream
 from conf import settings
 from google.appengine.ext import webapp
 
@@ -23,7 +23,7 @@ class URLStripper(webapp.RequestHandler):
     """docstring for get"""
     self.redirect(naked_url, True)
 
-apps = usersite.apps + userui.apps + photo.apps\
+apps = usersite.apps + userui.apps + photo.apps + user_stream.apps \
   +[('/', RootHandler),] + [('(.*)/', URLStripper),]
 
 def create_login_url(back_url):

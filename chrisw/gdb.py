@@ -138,8 +138,8 @@ class Message(db.FlyModel):
     """docstring for get_subscriber_keys"""
     return db.MapQuery(self._get_subscriptions(None), lambda x:x.subscriber)
   
-  def notify_subscribers(self):
-    """docstring for notify_subscribers"""
+  def notify(self):
+    """docstring for notify"""
     self.notify_users(self.get_subscriber_keys())
   
   def notify_users(self, users):

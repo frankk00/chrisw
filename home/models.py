@@ -18,7 +18,8 @@ FOLLOW = 'user-follow'
 class Site(db.Model):
   """a faked object"""
   site_name = db.StringProperty(required=True, default= _("Daoshicha.com"))
-  site_slogan = db.StringProperty(required=True, default= _("Want to be the best open source SNS!"))
+  site_slogan = db.StringProperty(required=True, \
+    default= _("Want to be the best open source SNS!"))
   
   @classmethod
   @cache_result('global-site', 240)
@@ -62,6 +63,11 @@ class UserStreamInfo(gdb.Entity):
   follower_count = db.IntegerFlyProperty(default=1)
   following_count = db.IntegerFlyProperty(default=1)
   
+  def can_view(self, user):
+    """docstring for can_view"""
+    # people always can view other's homepage
+    return True
+  
   def can_follow(self, user):
     """docstring for can_follow"""
     return not self.has_follower(user) and not self.is_me(user)
@@ -77,6 +83,22 @@ class UserStreamInfo(gdb.Entity):
   def has_follower(self, user):
     """docstring for has_follower"""
     self.user.has_link(FOLLOW, user)
+    
+  def get_follower_keys(self):
+    """docstring for get_follower_keys"""
+    return User.get_source_keys(FOLLOW, self.user)
+  
+  def get_followers(self):
+    """docstring for get_followers"""
+    return db.MapQuery(self.get_following_keys(), lambda x: db.get(x), True)
+  
+  def get_following_keys(self):
+    """docstring for get_folloing_keys"""
+    return self.user.get_target_keys(FOLLOW)
+  
+  def get_following(self):
+    """docstring for get_following"""
+    return db.MapQuery(self.get_folloing_keys(), lambda x: db.get(x), True)
   
   def is_me(self, user):
     """docstring for is_me"""
@@ -99,10 +121,16 @@ class UserStreamInfo(gdb.Entity):
     
     stream.put()
     
+    stream.add_subscribers(self.get_follower_keys())
+    
+    stream.notify()
+    
     self.update_stream_count()
   
   def delete_stream(self, stream):
     """docstring for delete_stream"""
+    stream.undo_notify()
+    
     stream.delete()
     
     self.update_stream_count()
