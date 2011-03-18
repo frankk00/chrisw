@@ -119,8 +119,8 @@ class UserGroupInfo(gdb.Entity):
 class Group(gdb.Entity):
   """docstring for Board"""
   creator = db.ReferenceProperty(User)
+  title = db.StringProperty(default='')
   
-  title = db.StringFlyProperty(default='')
   introduction = db.TextFlyProperty(default='')
   photo_url = db.StringFlyProperty(default=settings.DEFAULT_GROUP_PHOTO)
   recent_members = db.ListFlyProperty(default=[])

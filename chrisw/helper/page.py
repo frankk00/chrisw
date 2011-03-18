@@ -11,14 +11,19 @@ import logging
 
 class Page(object):
   """docstring for Paginator"""
-  def __init__(self, request, offset, limit, count):
+  def __init__(self, request, offset, limit, query):
     super(Page, self).__init__()
-    self.count = count
+    self.query = query
+    self.path = request.path
     self.offset = offset
     self.limit = limit
     self.request = request
     self.page_size = limit - offset
-    self.path = request.path
+    self.count = self.query.count()
+  
+  def data(self):
+    """docstring for data"""
+    return self.query.fetch(limit=self.limit, offset=self.offset)
   
   def has_next(self):
     """docstring for has_next"""
@@ -31,12 +36,12 @@ class Page(object):
   def prev_page(self):
     """docstring for prev_page"""
     return Page(self.request, self.offset - self.page_size, \
-      self.limit - self.page_size, self.count)
+      self.limit - self.page_size, self.query)
   
   def next_page(self):
     """docstring for next_page"""
     return Page(self.request, self.offset + self.page_size, \
-      self.limit + self.page_size, self.count)
+      self.limit + self.page_size, self.query)
   
   def next_url(self):
     """docstring for next_url"""

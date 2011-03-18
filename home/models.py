@@ -53,7 +53,9 @@ class Photo(db.Model):
   
 class UserStreamInfo(gdb.Entity):
   """docstring for UserStreamInfo"""
-  user = db.ReferenceProperty(User)
+  user = db.ReferenceProperty(User, required=True)
+  
+  introduction = db.StringFlyProperty(default=1)
   
   comment_count = db.IntegerFlyProperty(default=1)
   stream_count = db.IntegerFlyProperty(default=1)
@@ -92,32 +94,92 @@ class UserStreamInfo(gdb.Entity):
   
   def create_stream(self, stream):
     """docstring for create_stream"""
-    pass
+    stream.author_stream_info = self
+    stream.author = self.user
+    
+    stream.put()
+    
+    self.update_stream_count()
   
   def delete_stream(self, stream):
     """docstring for delete_stream"""
-    pass
+    stream.delete()
+    
+    self.update_stream_count()
   
-  def get_all_streams(self):
+  def get_latest_streams(self):
     """docstring for get_all_streams"""
-    pass
+    return UserStream.all(author_stream_info=author_stream_info)\
+      .order("-create_at")
   
+  ############
+  #
+  # User info update
+  #
+  ############
+  
+  def update_field(self, field, value):
+    """docstring for update_data"""
+    setattr(self, field, value)
+    self.put()
+  
+  def update_stream_count(self):
+    """docstring for update_comment_count"""
+    count = UserStream.all(author_stream_info = self).count()
+    self.update_field('stream_count', count)
+  
+  def update_follower_count(self):
+    """docstring for update_follower_count"""
+    count = User.get_source_keys(FOLLOW, self.user).count()
+    self.update_field('follower_count', count)
+  
+  def update_following_count(self):
+    """docstring for update_following_count"""
+    count = self.user.get_target_keys(FOLLOW)
+    self.update_field('following_count', count)
   
   @classmethod
   def get_instance(cls, user):
     """docstring for get_instance"""
-    return UserStreamInfo.all(user=user).get()
+    info = UserStreamInfo.all(user=user).get()
+    if not info:
+      info = UserStreamInfo(user=user)
+      info.put()
+    return info
 
 class UserStream(gdb.Message):
   """docstring for UserStream"""
+  author_stream_info = db.ReferenceProperty(UserStreamInfo)
   author = db.ReferenceProperty(User)
+  
   action = db.StringFlyProperty(default='')
   content = db.StringFlyProperty(default='')
+  
+  def can_comment(self, user):
+    """docstring for can_comment"""
+    self.author_stream_info.has_follower(user)
+  
+  def create_comment(self, comment, user):
+    """docstring for create_comment"""
+    comment.stream = self
+    comment.author = self.author
+    
+    comment.put()
+  
+  def delete_comment(self, comment, user):
+    """docstring for delete_comment"""
+    comment.delete()
+    
+  def get_all_comments(self):
+    """docstring for get_all_comments"""
+    return UserStreamComment.all(stream=self).order('create_at')
 
-class UserStreamComment(UserStream):
+class UserStreamComment(gdb.Message):
   """docstring for UserStreamComment"""
   stream = db.ReferenceProperty(UserStream)
-
+  author = db.ReferenceProperty(User)
+  
+  content = db.StringFlyProperty(default='')
 
 
 

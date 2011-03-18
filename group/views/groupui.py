@@ -53,9 +53,8 @@ class GroupUI(ModelUI):
     offset = int(request.get('offset', '0'))
     
     query = self.group.get_all_topics(has_order=True)
-    count = query.count(2000)
-    topics = query.fetch(limit, offset)
-    page = Page(count=count, offset=offset, limit=limit, request=request)
+    page = Page(query=query, offset=offset, limit=limit, request=request)
+    topics = page.data()
     
     members = [User.get(mk) for mk in self.group.recent_members]
     

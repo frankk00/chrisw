@@ -39,10 +39,9 @@ class GroupSiteUI(ModelUI):
     joined_groups = group_info.get_recent_joined_groups()
     
     query = GroupTopic.latest_by_subscriber(self.user)
-    count = query.count(200)
-    topics = query.fetch(limit, offset)
     
-    page = Page(count=count, offset=offset, limit=limit, request=request)
+    page = Page(query=query, offset=offset, limit=limit, request=request)
+    topics = page.data()
     
     sidebar_widgets = [forward('/group/recommend').render()]
     
@@ -60,10 +59,9 @@ class GroupSiteUI(ModelUI):
     joined_groups = group_info.get_recent_joined_groups()
     
     query = GroupTopic.latest_by_subscriber(Guest)
-    count = query.count(200)
-    topics = query.fetch(limit, offset)
     
-    page = Page(count=count, offset=offset, limit=limit, request=request)
+    page = Page(query=query, offset=offset, limit=limit, request=request)
+    topics = page.data()
     
     sidebar_widgets = [forward('/group/recommend').render()]
     

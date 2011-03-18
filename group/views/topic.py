@@ -60,10 +60,9 @@ class TopicUI(ModelUI):
     offset = int(request.get('offset', '0'))
   
     query = self.topic.get_all_posts(has_order=True)
-    count = query.count(2000)
-    posts = query.fetch(limit, offset)
     post_form = PostForm()
-    page = Page(count=count, offset=offset, limit=limit, request=request)
+    page = Page(query=query, offset=offset, limit=limit, request=request)
+    posts = page.data()
     
     self.topic.hits += 1
     self.topic.put()
