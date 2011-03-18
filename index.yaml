@@ -112,3 +112,16 @@ indexes:
   - name: deleted
   - name: update_time
     direction: desc
+
+- kind: UserStream
+  properties:
+  - name: author
+  - name: deleted
+  - name: create_at
+
+- kind: UserStream
+  properties:
+  - name: author
+  - name: deleted
+  - name: create_at
+    direction: desc

@@ -138,9 +138,18 @@ class Message(db.FlyModel):
     """docstring for get_subscriber_keys"""
     return db.MapQuery(self._get_subscriptions(None), lambda x:x.subscriber)
   
-  def notify(self):
+  def notify(self, users=None):
     """docstring for notify"""
-    self.notify_users(self.get_subscriber_keys())
+    if not users:
+      users = self.get_subscriber_keys()
+    self.notify_users(users)
+  
+  def redo_notify(self):
+    """docstring for redo_notify"""
+    index = MessageIndex.all(target=self).get()
+    
+    if index:
+      index.put()
   
   def notify_users(self, users):
     """docstring for notify_users"""

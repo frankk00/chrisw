@@ -121,9 +121,7 @@ class UserStreamInfo(gdb.Entity):
     
     stream.put()
     
-    stream.add_subscribers(self.get_follower_keys())
-    
-    stream.notify()
+    stream.notify(self.get_follower_keys())
     
     self.update_stream_count()
   
@@ -193,6 +191,8 @@ class UserStream(gdb.Message):
     comment.author = self.author
     
     comment.put()
+    
+    self.redo_notify()
   
   def delete_comment(self, comment, user):
     """docstring for delete_comment"""
@@ -201,6 +201,11 @@ class UserStream(gdb.Message):
   def get_all_comments(self):
     """docstring for get_all_comments"""
     return UserStreamComment.all(stream=self).order('create_at')
+  
+  @classmethod
+  def latest_by_author(cls, author):
+    """docstring for latest_by_author"""
+    return cls.all(author=author).order('-create_at')
 
 class UserStreamComment(gdb.Message):
   """docstring for UserStreamComment"""

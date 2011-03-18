@@ -247,12 +247,8 @@ class Group(gdb.Entity):
     
     topic.put()
     
-    topic.add_subscribers(self.get_member_keys().fetch(limit=100))
-    
-    #TODO: support for private group
-    topic.add_subscriber(Guest)
-    
-    topic.notify()
+    subscribers = list(self.get_member_keys()) + [Guest]
+    topic.notify(subscribers)
     
     UserGroupInfo.get_by_user(user).update_topic_count()
   
@@ -321,7 +317,7 @@ class GroupTopic(gdb.Message):
     self.length = self.get_all_posts().count()
     self.put()
     
-    self.notify()
+    self.redo_notify()
     
     UserGroupInfo.get_by_user(user).update_post_count()
 
