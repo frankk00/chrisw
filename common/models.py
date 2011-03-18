@@ -14,7 +14,7 @@ from conf import settings
 
 class User(gdb.Entity):
   """docstring for User"""
-  fullname = db.StringProperty(required=True)
+  fullname = db.StringProperty(required=True, default="Name")
   username = db.StringProperty(required=True)
   create_date = db.DateTimeProperty(auto_now_add=True)
   password = db.StringProperty(required=True)
