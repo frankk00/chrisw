@@ -1,6 +1,7 @@
 {% extends "home_master.html" %}
 
 {% load i18n %}
+{% load filters %}
 
 {% block title %}
 	{{ user.fullname }}
@@ -53,11 +54,14 @@
 						<img src="{{stream.author.photo_url}}=s48" class="im">
 					</span>
 					<span class="stream_content"> 
+						<span style="display: block; margin-bottom: 5px; color:#888;">
+							Kang Zhang recommends the book.
+						</span>
 						<span style="display: block; margin-bottom: 5px;">
 							{{ stream.content }}
 						</span>
-						<span style=" color: #999999;">
-							{{ stream.create_at|date:"Y-n-j H:i" }} by {{ stream.author.fullname }}. 
+						<span style=" color: #999999; font-size:80%;">
+							{{ stream.create_at|pretty_time }} 
 						</span>
 					</span>
 				</li>

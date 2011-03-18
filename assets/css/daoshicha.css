@@ -280,7 +280,7 @@ li.stream_list {
   list-style: none outside none;
   border-bottom: 1px solid #EEEEEE;
   padding-top: 6px;
-  padding-bottom: 6px;
+  padding-bottom: 0px;
 }
   li.stream_list:first-child{
     border-top: 1px solid transparent !important;

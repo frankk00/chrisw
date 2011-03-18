@@ -6,8 +6,8 @@ filters.py
 Created by Kang Zhang on 2010-10-11.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
-
 from django import template
+from chrisw.i18n import _
 
 register = template.Library()
 
@@ -49,3 +49,55 @@ def truncatesmart(value, limit=80):
     
     # Join the words and return
     return ' '.join(words) + '...'
+
+
+@register.filter
+def pretty_time(time):
+  """
+  Get a datetime object or a int() Epoch timestamp and return a
+  pretty string like 'an hour ago', 'Yesterday', '3 months ago',
+  'just now', etc
+  
+  This method derived from the stackover flow post:
+  
+    http://stackoverflow.com/questions/1551382/python-user-friendly-time-format
+  """
+  from datetime import datetime
+  now = datetime.now()
+  if type(time) is int:
+    diff = now - datetime.fromtimestamp(time)
+  elif not time:
+    diff = now - now
+  else:
+    diff = now - time
+  second_diff = diff.seconds
+  day_diff = diff.days
+  
+  if day_diff < 0:
+    return ''
+  
+  if day_diff == 0:
+    if second_diff < 10:
+        return _("just now")
+    if second_diff < 60:
+      return str(second_diff) + _(" seconds ago")
+    if second_diff < 120:
+      return  "a minute ago"
+    if second_diff < 3600:
+      return str( second_diff / 60 ) + _(" minutes ago")
+    if second_diff < 7200:
+      return "an hour ago"
+    if second_diff < 86400:
+      return str( second_diff / 3600 ) + _(" hours ago")
+        
+  if day_diff == 1:
+      return "Yesterday"
+  if day_diff < 7:
+      return str(day_diff) + _(" days ago")
+  if day_diff < 31:
+      return str(day_diff/7) + _(" weeks ago")
+  if day_diff < 365:
+      return str(day_diff/30) + _(" months ago")
+      
+  return str(day_diff/365) + _(" years ago")
+  
