@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-19 19:13+0800\n"
+"POT-Creation-Date: 2011-03-19 21:48+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,10 +22,11 @@ msgid "Sorry, got a error :-("
 msgstr "对不起,遇到错误了:-("
 
 #: common/templates/master.html:48 group/templates/groupsite_master.html:54
+#: home/templates/home_front_page.html:12
 msgid "Groups"
 msgstr "小组"
 
-#: common/templates/master.html:53
+#: common/templates/master.html:53 home/templates/home_front_page.html:36
 msgid "Microblog"
 msgstr "微博"
 
@@ -57,29 +58,29 @@ msgstr "(支持Google账户登陆)"
 msgid "New Topic"
 msgstr "新话题"
 
-#: group/templates/group_display.html:33
+#: group/templates/group_display.html:35
 msgid "Created at"
 msgstr "创建于"
 
-#: group/templates/group_display.html:46
+#: group/templates/group_display.html:56
 msgid "Follow"
 msgstr "关注小组"
 
-#: group/templates/group_display.html:49
+#: group/templates/group_display.html:59
 msgid "Unfollow"
 msgstr "取消关注"
 
-#: group/templates/group_display.html:52 group/templates/group_settings.html:6
+#: group/templates/group_display.html:62 group/templates/group_settings.html:6
 msgid "Group Settings"
 msgstr "小组设置"
 
-#: group/templates/group_display.html:57
+#: group/templates/group_display.html:74
 msgid "Group Members"
 msgstr "小组成员"
 
 #: group/templates/groupsite_all.html:6
 #: group/templates/groupsite_master.html:17
-#: home/templates/home_front_page.html:23
+#: home/templates/home_front_page.html:27
 msgid "Post from All Groups"
 msgstr "大杂烩"
 
@@ -173,23 +174,23 @@ msgstr ""
 msgid "Want to be the best open source SNS!"
 msgstr "努力做最好的开源SNS!"
 
-#: home/templates/home_front_page.html:8
-msgid "Groups are on left."
-msgstr "小组在左"
-
 #: home/templates/home_front_page.html:12
+msgid " are on left."
+msgstr "在左"
+
+#: home/templates/home_front_page.html:16
 msgid "Recent Created Groups:"
 msgstr "刚刚建立:"
 
-#: home/templates/home_front_page.html:32
-msgid "Microblog are on right."
-msgstr "微博在右"
+#: home/templates/home_front_page.html:36
+msgid "are on right."
+msgstr "在右"
 
-#: home/templates/home_front_page.html:37
+#: home/templates/home_front_page.html:41
 msgid "Recent Joined Members:"
 msgstr "刚刚加入"
 
-#: home/templates/home_front_page.html:51
+#: home/templates/home_front_page.html:55
 msgid "All User Updates"
 msgstr "新鲜事"
 

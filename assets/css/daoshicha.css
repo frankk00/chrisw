@@ -551,3 +551,11 @@ input[type="submit"] {
     margin: 5px;
     overflow: hidden;
 }
+
+.pink{
+  color:#FF0084;
+}
+
+.blue{
+  color:#0063DC;
+}

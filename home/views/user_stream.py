@@ -174,7 +174,7 @@ class UserStreamHomeRootHandler(handlers.RequestHandler):
   def get(self):
     """docstring for get_impl"""
     user = get_current_user()
-    if user.key() == Guest:
+    if user.key() == Guest.key():
       return redirect(settings.DEFAULT_HOME)
     return redirect('/u/%d' % user.key().id())
           
