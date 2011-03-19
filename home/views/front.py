@@ -23,7 +23,6 @@ from group.models import *
 from home.models import *
 
 @get_handler(r'/home')
-@cache_action("v1-home-page",60)
 def display_home_page(request):
   """docstring for topic_edit_post"""
   

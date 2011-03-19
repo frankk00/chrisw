@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 22:41+0800\n"
+"POT-Creation-Date: 2011-03-19 19:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,8 +26,8 @@ msgid "Groups"
 msgstr "小组"
 
 #: common/templates/master.html:53
-msgid "Ask"
-msgstr ""
+msgid "Microblog"
+msgstr "微博"
 
 #: common/templates/master.html:73
 msgid "Settings"
@@ -79,6 +79,7 @@ msgstr "小组成员"
 
 #: group/templates/groupsite_all.html:6
 #: group/templates/groupsite_master.html:17
+#: home/templates/home_front_page.html:23
 msgid "Post from All Groups"
 msgstr "大杂烩"
 
@@ -164,13 +165,33 @@ msgstr "内容"
 msgid "Post Content"
 msgstr "回复"
 
-#: home/models.py:16
+#: home/models.py:21
 msgid "Daoshicha.com"
 msgstr ""
 
-#: home/models.py:17
+#: home/models.py:23
 msgid "Want to be the best open source SNS!"
 msgstr "努力做最好的开源SNS!"
+
+#: home/templates/home_front_page.html:8
+msgid "Groups are on left."
+msgstr "小组在左"
+
+#: home/templates/home_front_page.html:12
+msgid "Recent Created Groups:"
+msgstr "刚刚建立:"
+
+#: home/templates/home_front_page.html:32
+msgid "Microblog are on right."
+msgstr "微博在右"
+
+#: home/templates/home_front_page.html:37
+msgid "Recent Joined Members:"
+msgstr "刚刚加入"
+
+#: home/templates/home_front_page.html:51
+msgid "All User Updates"
+msgstr "新鲜事"
 
 #: home/templates/login.html:6 home/templates/login_successful.html:6
 msgid "Sign In"
@@ -184,13 +205,17 @@ msgstr "已经拥有Google账户?"
 msgid "Login with my Google Account"
 msgstr "使用我的Google帐号登陆"
 
-#: home/templates/login.html:29
+#: home/templates/login.html:29 home/templates/login.html.py:42
 msgid "Or"
 msgstr "或者"
 
 #: home/templates/login.html:34
 msgid "Login"
 msgstr "登陆"
+
+#: home/templates/login.html:48
+msgid "Sign up a new account."
+msgstr "注册一个新用户"
 
 #: home/templates/login_successful.html:10
 msgid "Login successfully"
@@ -212,9 +237,49 @@ msgstr "注册新用户"
 msgid "Your account has been created successfully."
 msgstr "你的账户已经被创建.快登陆看看吧~"
 
-#: home/templates/user_home.html:38
+#: home/templates/signup_successful.html:21
+msgid "Click here to login."
+msgstr "点这里登陆"
+
+#: home/templates/user_home_master.html:32
+msgid "What's happing?"
+msgstr "既然来了,就说点什么吧."
+
+#: home/templates/user_home_master.html:33
+msgid "Post New Stream"
+msgstr "发表"
+
+#: home/templates/user_home_master.html:43
+msgid "Followed Streams"
+msgstr "时间流"
+
+#: home/templates/user_home_master.html:45
+msgid "All Streams"
+msgstr "子曰"
+
+#: home/templates/user_home_master.html:60
+msgid "Joined at"
+msgstr "加入于"
+
+#: home/templates/user_home_master.html:66
 msgid "User Settings"
 msgstr "用户设置"
+
+#: home/templates/user_home_master.html:68
+msgid "Follow User"
+msgstr "关注"
+
+#: home/templates/user_home_master.html:71
+msgid "Unfollow User"
+msgstr "取消关注"
+
+#: home/templates/user_home_master.html:85
+msgid "Following Members:"
+msgstr "关注:"
+
+#: home/templates/user_home_master.html:95
+msgid "Followed by Members:"
+msgstr "被关注:"
 
 #: home/templates/user_profile.html:15
 msgid "Change Photo"
@@ -223,6 +288,62 @@ msgstr "更换图片"
 #: home/templates/user_profile.html:22
 msgid "Save"
 msgstr "保存"
+
+#: home/templates/user_stream_text_item.html:13
+msgid "Says:"
+msgstr "说"
+
+#: home/templatetags/filters.py:81
+msgid "just now"
+msgstr "刚刚"
+
+#: home/templatetags/filters.py:83
+msgid " seconds ago"
+msgstr "秒前"
+
+#: home/templatetags/filters.py:87
+msgid " minutes ago"
+msgstr "分钟前"
+
+#: home/templatetags/filters.py:91
+msgid " hours ago"
+msgstr "小时前"
+
+#: home/templatetags/filters.py:96
+msgid " days ago"
+msgstr "天前"
+
+#: home/templatetags/filters.py:98
+msgid " weeks ago"
+msgstr "周前"
+
+#: home/templatetags/filters.py:100
+msgid " months ago"
+msgstr "月前"
+
+#: home/templatetags/filters.py:102
+msgid " years ago"
+msgstr "年前"
+
+#: home/views/user_stream.py:34
+msgid "Content of stream"
+msgstr "微博内容"
+
+#: home/views/user_stream.py:79 home/views/user_stream.py:85
+msgid "Can't visit given user's homepage"
+msgstr "无法访问该用户首页"
+
+#: home/views/user_stream.py:91
+msgid "Can't create stream for user"
+msgstr "无法创建微博"
+
+#: home/views/user_stream.py:103
+msgid "Can't follow the user"
+msgstr "无法关注该用户"
+
+#: home/views/user_stream.py:109
+msgid "Can't unfollow given user"
+msgstr "无法取消关注"
 
 #: home/views/usersite.py:34 home/views/usersite.py:60
 msgid "User Name"
@@ -244,11 +365,15 @@ msgstr "邮件地址"
 msgid "Status Message"
 msgstr "状态信息"
 
-#: home/views/userui.py:45
+#: home/views/userui.py:42
+msgid "Self Introduction"
+msgstr "个人简介"
+
+#: home/views/userui.py:47
 msgid "Profile Picture"
 msgstr "用户头像"
 
-#: home/views/userui.py:73
+#: home/views/userui.py:74
 msgid "Your photo has been changed.:-)"
 msgstr "头像更换成功"
 

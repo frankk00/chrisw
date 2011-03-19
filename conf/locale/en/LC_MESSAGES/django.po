@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 22:41+0800\n"
+"POT-Creation-Date: 2011-03-19 19:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "Groups"
 msgstr ""
 
 #: common/templates/master.html:53
-msgid "Ask"
+msgid "Microblog"
 msgstr ""
 
 #: common/templates/master.html:73
@@ -79,6 +79,7 @@ msgstr ""
 
 #: group/templates/groupsite_all.html:6
 #: group/templates/groupsite_master.html:17
+#: home/templates/home_front_page.html:23
 msgid "Post from All Groups"
 msgstr ""
 
@@ -165,12 +166,32 @@ msgstr ""
 msgid "Post Content"
 msgstr ""
 
-#: home/models.py:16
+#: home/models.py:21
 msgid "Daoshicha.com"
 msgstr ""
 
-#: home/models.py:17
+#: home/models.py:23
 msgid "Want to be the best open source SNS!"
+msgstr ""
+
+#: home/templates/home_front_page.html:8
+msgid "Groups are on left."
+msgstr ""
+
+#: home/templates/home_front_page.html:12
+msgid "Recent Created Groups:"
+msgstr ""
+
+#: home/templates/home_front_page.html:32
+msgid "Microblog are on right."
+msgstr ""
+
+#: home/templates/home_front_page.html:37
+msgid "Recent Joined Members:"
+msgstr ""
+
+#: home/templates/home_front_page.html:51
+msgid "All User Updates"
 msgstr ""
 
 #: home/templates/login.html:6 home/templates/login_successful.html:6
@@ -185,12 +206,16 @@ msgstr ""
 msgid "Login with my Google Account"
 msgstr ""
 
-#: home/templates/login.html:29
+#: home/templates/login.html:29 home/templates/login.html.py:42
 msgid "Or"
 msgstr ""
 
 #: home/templates/login.html:34
 msgid "Login"
+msgstr ""
+
+#: home/templates/login.html:48
+msgid "Sign up a new account."
 msgstr ""
 
 #: home/templates/login_successful.html:10
@@ -213,8 +238,48 @@ msgstr ""
 msgid "Your account has been created successfully."
 msgstr ""
 
-#: home/templates/user_home.html:38
+#: home/templates/signup_successful.html:21
+msgid "Click here to login."
+msgstr ""
+
+#: home/templates/user_home_master.html:32
+msgid "What's happing?"
+msgstr ""
+
+#: home/templates/user_home_master.html:33
+msgid "Post New Stream"
+msgstr ""
+
+#: home/templates/user_home_master.html:43
+msgid "Followed Streams"
+msgstr ""
+
+#: home/templates/user_home_master.html:45
+msgid "All Streams"
+msgstr ""
+
+#: home/templates/user_home_master.html:60
+msgid "Joined at"
+msgstr ""
+
+#: home/templates/user_home_master.html:66
 msgid "User Settings"
+msgstr ""
+
+#: home/templates/user_home_master.html:68
+msgid "Follow User"
+msgstr ""
+
+#: home/templates/user_home_master.html:71
+msgid "Unfollow User"
+msgstr ""
+
+#: home/templates/user_home_master.html:85
+msgid "Following Members:"
+msgstr ""
+
+#: home/templates/user_home_master.html:95
+msgid "Followed by Members:"
 msgstr ""
 
 #: home/templates/user_profile.html:15
@@ -223,6 +288,62 @@ msgstr ""
 
 #: home/templates/user_profile.html:22
 msgid "Save"
+msgstr ""
+
+#: home/templates/user_stream_text_item.html:13
+msgid "Says:"
+msgstr ""
+
+#: home/templatetags/filters.py:81
+msgid "just now"
+msgstr ""
+
+#: home/templatetags/filters.py:83
+msgid " seconds ago"
+msgstr ""
+
+#: home/templatetags/filters.py:87
+msgid " minutes ago"
+msgstr ""
+
+#: home/templatetags/filters.py:91
+msgid " hours ago"
+msgstr ""
+
+#: home/templatetags/filters.py:96
+msgid " days ago"
+msgstr ""
+
+#: home/templatetags/filters.py:98
+msgid " weeks ago"
+msgstr ""
+
+#: home/templatetags/filters.py:100
+msgid " months ago"
+msgstr ""
+
+#: home/templatetags/filters.py:102
+msgid " years ago"
+msgstr ""
+
+#: home/views/user_stream.py:34
+msgid "Content of stream"
+msgstr ""
+
+#: home/views/user_stream.py:79 home/views/user_stream.py:85
+msgid "Can't visit given user's homepage"
+msgstr ""
+
+#: home/views/user_stream.py:91
+msgid "Can't create stream for user"
+msgstr ""
+
+#: home/views/user_stream.py:103
+msgid "Can't follow the user"
+msgstr ""
+
+#: home/views/user_stream.py:109
+msgid "Can't unfollow given user"
 msgstr ""
 
 #: home/views/usersite.py:34 home/views/usersite.py:60
@@ -245,11 +366,15 @@ msgstr ""
 msgid "Status Message"
 msgstr ""
 
-#: home/views/userui.py:45
+#: home/views/userui.py:42
+msgid "Self Introduction"
+msgstr ""
+
+#: home/views/userui.py:47
 msgid "Profile Picture"
 msgstr ""
 
-#: home/views/userui.py:73
+#: home/views/userui.py:74
 msgid "Your photo has been changed.:-)"
 msgstr ""
 
