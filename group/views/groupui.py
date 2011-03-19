@@ -70,7 +70,7 @@ class GroupUI(ModelUI):
       self.group.photo_url = request.get('image_url')
       self.group.put()
     
-    form = GroupForm(data=self.group.to_dict())
+    form = GroupForm(instance=self.group)
     post_url = '/group/%d/edit' % self.group.key().id()
     
     from home.views import photo

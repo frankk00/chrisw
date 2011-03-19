@@ -73,7 +73,7 @@ class UserUI(ModelUI):
       
       site_message = _("Your photo has been changed.:-)")
     
-    form = UserForm(data=self.user.to_dict())
+    form = UserForm(instance=self.user)
     photo_form = ProfilePhotoForm()
     photo_upload_url = photo.create_upload_url()
     back_url = request.path

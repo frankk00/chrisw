@@ -3,6 +3,10 @@
 {% load i18n %}
 {% load stream_render %}
 
+{% block html_head %}
+	<script type="text/javascript" charset="utf-8" src="/javascript/topic.js"></script>
+{% endblock %}
+
 {% block left_panel %}
 	<div style="text-align:center; padding-top:20px;">
 		<h1>{% trans "Groups are on left." %}</h1>

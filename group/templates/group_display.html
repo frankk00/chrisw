@@ -28,30 +28,47 @@
 {% block sidebar %}
 	<div class="info_box">
 		<div id="group_info" class="sidebar_box">
-			<img class="im" src="{{group.photo_url}}" align="left" style="padding-right:10px" />
-			<p>
-				{% trans "Created at" %} {{group.create_at|date:"Y-n-j"}} by 
-				<a href="/u/{{group.creator.key.id}}">
-					{{group.creator.fullname}}
-				</a>
-			</p>
+			
+			<div>
+				<img class="im" src="{{group.photo_url}}" align="left" style="padding-right:10px" />
+				<p>
+					{% trans "Created at" %} {{group.create_at|date:"Y-n-j"}} by 
+					<a href="/u/{{group.creator.key.id}}">
+						{{group.creator.fullname}}
+					</a>
+				</p>
+			</div>
+			<div class="clear" style="padding-top:10px;">
+				
+			</div>
+			
 			{% for line in group.introduction.splitlines %}
 				<p>{{line}}</p>
 			{% endfor %}
+			
+			<div class="sep-line">
+
+			</div>
+			
+			<div style="padding-top:10px;">
+				<ul class="buttom">
+					{% if can_join %}
+						<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/join"><span>{% trans "Follow" %}</span></a>
+					{% endif %}
+					{% if can_quit %}
+						<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/quit"><span>{% trans "Unfollow" %}</span></a>
+					{% endif %}
+					{% if can_edit %}
+						<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/edit"><span>{% trans "Group Settings" %}</span></a>
+					{% endif %}
+				</ul>
+			</div>
+
+			
+
+			
+			
 		</div>
-	</div>
-	<div id="control" class="sidebar_box">
-		<ul class="buttom">
-			{% if can_join %}
-				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/join"><span>{% trans "Follow" %}</span></a>
-			{% endif %}
-			{% if can_quit %}
-				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/quit"><span>{% trans "Unfollow" %}</span></a>
-			{% endif %}
-			{% if can_edit %}
-				<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/edit"><span>{% trans "Group Settings" %}</span></a>
-			{% endif %}
-		</ul>
 	</div>
 	<div id="group_member_box" class="sidebar_box no-border" >
 		<h3>{% trans "Group Members" %}</h3>

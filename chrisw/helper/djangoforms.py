@@ -12,7 +12,23 @@ from google.appengine.ext.db import djangoforms
 
 class ModelForm(djangoforms.ModelForm):
   """docstring for ModelForm"""
-  
+  def __init__(self, **kwargs):
+    object_data = {}
+    opts = self._meta
+    instance = kwargs.get('instance', None)
+    
+    if instance is not None:
+      for name, prop in instance.fly_properties().iteritems():
+        if name in opts.fields:
+          object_data[name] = getattr(instance, name)
+        
+    initial = kwargs.get('initial', {})
+    initial.update(object_data)
+    
+    kwargs['initial'] = initial
+    
+    super(ModelForm, self).__init__(**kwargs)
+    
   def save(self, commit=False):
     """docstring for save"""
     
