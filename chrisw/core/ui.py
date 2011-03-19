@@ -10,6 +10,7 @@ Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 import logging
 
 from common.auth import get_current_user
+from chrisw.core.exceptions import *
 
 def inspect_permissions(model_obj, user):
   """Inspect the model object to get possible permissions
@@ -51,13 +52,15 @@ class check_permission(object):
       """docstring for wrapper"""
       f = getattr(ui.model_obj, 'can_' + self.action)
       
+      from common.auth import Guest
+      
       if f(ui.model_user):
         return func(ui, *args, **kwargs)
       elif ui.model_user == Guest:
         # Guest can't be used to do anything
         return login()
         
-      raise PermissionError(self.error_msg, ui.model_user, ui.model_obj)
+      raise PermissionException(self.error_msg, ui.model_user, ui.model_obj)
 
     return wrapper  
 

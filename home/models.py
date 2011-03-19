@@ -85,16 +85,24 @@ class UserStreamInfo(gdb.Entity):
   def follow(self, user):
     """docstring for follow"""
     self.user.link(FOLLOWED_BY, user)
+    
+    self.update_follower_count()
+    
+    UserStreamInfo.get_instance(user).update_following_count()
   
   def unfollow(self, user):
     """docstring for unfollow"""
     self.user.unlink(FOLLOWED_BY, user)
+    
+    self.update_follower_count()
+    
+    UserStreamInfo.get_instance(user).update_following_count()
   
   def has_follower(self, user):
     """docstring for has_follower"""
-    self.user.has_link(FOLLOWED_BY, user)
+    return self.user.has_link(FOLLOWED_BY, user)
     
-  def get_follower_keys(self):
+  def get_following_keys(self):
     """docstring for get_follower_keys"""
     return User.get_source_keys(FOLLOWED_BY, self.user)
   
@@ -102,13 +110,13 @@ class UserStreamInfo(gdb.Entity):
     """docstring for get_followers"""
     return db.MapQuery(self.get_following_keys(), lambda x: db.get(x), True)
   
-  def get_following_keys(self):
-    """docstring for get_folloing_keys"""
-    return self.user.get_target_keys(FOLLOWED_BY)
+  def get_follower_keys(self):
+    """docstring for get_following_keys"""
+    return self.user.get_target_keys(FOLLOWED_BY, User)
   
   def get_following(self):
     """docstring for get_following"""
-    return db.MapQuery(self.get_folloing_keys(), lambda x: db.get(x), True)
+    return db.MapQuery(self.get_following_keys(), lambda x: db.get(x), True)
   
   def is_me(self, user):
     """docstring for is_me"""
@@ -131,7 +139,7 @@ class UserStreamInfo(gdb.Entity):
     
     stream.put()
     
-    stream.notify(self.get_follower_keys())
+    stream.notify(list(self.get_follower_keys()) + [self.user.key()])
     
     self.update_stream_count()
   
@@ -166,13 +174,13 @@ class UserStreamInfo(gdb.Entity):
   
   def update_follower_count(self):
     """docstring for update_follower_count"""
-    query = User.get_source_keys(FOLLOWED_BY, self.user);
+    query = self.get_follower_keys();
     self.recent_follower_keys = list(query.fetch(10))
     self.update_field('follower_count', query.count())
   
   def update_following_count(self):
     """docstring for update_following_count"""
-    query = self.user.get_target_keys(FOLLOWED_BY)
+    query = self.get_following_keys()
     self.recent_following_keys = list(query.fetch(10))
     self.update_field('following_count', query.count())
   

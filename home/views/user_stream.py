@@ -19,7 +19,7 @@ from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 
 from common.auth import get_current_user
-from common.models import User
+from common.models import User, Guest
 from conf import settings
 
 from group.models import *
@@ -42,7 +42,7 @@ class UserStreamUI(ModelUI):
     
     self.current_user = get_current_user()
   
-  def _home(self, request, new_vars={}):
+  def _home(self, query, request, new_vars={}):
     """docstring for _home"""
     
     limit = int(request.get('limit',20))
@@ -52,8 +52,6 @@ class UserStreamUI(ModelUI):
     joined_groups = groupinfo.get_recent_joined_groups()
     
     stream_form = UserStreamForm()
-    
-    query = UserStream.latest_by_author(self.user)
     
     page = Page(query=query, limit=limit, offset=offset, request=request)
     
@@ -81,13 +79,14 @@ class UserStreamUI(ModelUI):
   @check_permission('view_all', _("Can't visit given user's homepage"))
   def home_all(self, request):
     """docstring for home"""
-    
-    return template('user_home_all', self._home(request))
+    query = UserStream.latest_by_author(self.user)
+    return template('user_home_all', self._home(query, request))
 
   @check_permission('view_following', _("Can't visit given user's homepage"))
   def home_following(self, request):
     """docstring for home_following"""
-    return template('user_home_following', self._home(request))
+    query = UserStream.latest_by_subscriber(self.user)
+    return template('user_home_following', self._home(query, request))
   
   @check_permission('create_stream', _("Can't create stream for user"))
   def home_post(self, request):
@@ -104,13 +103,13 @@ class UserStreamUI(ModelUI):
   @check_permission('follow', _("Can't follow the user"))
   def follow(self):
     """docstring for follow"""
-    self.user_stream_info.follow(user)
+    self.user_stream_info.follow(self.current_user)
     return back()
   
   @check_permission('unfollow', _("Can't unfollow given user"))
   def unfollow(self):
     """docstring for unfollow"""
-    self.user_stream_info.unfollow(user)
+    self.user_stream_info.unfollow(self.current_user)
     return back()
     
 class UserStreamHandler(handlers.RequestHandler):
@@ -169,9 +168,19 @@ class UserStreamHomeUnfollowHandler(UserStreamHandler):
   def get_impl(self, user_stream_ui):
     """docstring for get_impl"""
     return user_stream_ui.unfollow()
-      
 
-apps = [(r'/u/(\d+)', UserStreamHomeHandler),
+class UserStreamHomeRootHandler(handlers.RequestHandler):
+  """docstring for UserStreamHomeRootHandler"""
+  def get(self):
+    """docstring for get_impl"""
+    user = get_current_user()
+    if user.key() == Guest:
+      return redirect(settings.DEFAULT_HOME)
+    return redirect('/u/%d' % user.key().id())
+          
+
+apps = [(r'/u', UserStreamHomeRootHandler),
+        (r'/u/(\d+)', UserStreamHomeHandler),
         (r'/u/(\d+)/all', UserStreamHomeAllHandler),
         (r'/u/(\d+)/following', UserStreamHomeFollowingHandler),
         (r'/u/(\d+)/follow', UserStreamHomeFollowHandler),

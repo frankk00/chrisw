@@ -39,25 +39,13 @@
 	</div>
 	
 	<ul class="medium-tabs">
-		{% if is_not_guest %}
+		{% if can_view_following %}
 			<li class="medium-tab {% block following_title %}{% endblock %}"><a class="text-tab" href="/u/{{user.key.id}}/following">{% trans "Followed Streams" %}</a></li>
 		{% endif %}
 		<li class="medium-tab {% block all_title %}{% endblock %}"> <a class="text-tab" href="/u/{{user.key.id}}/all">{% trans "All Groups" %}</a></li>
 	</ul>
 	
-	<div id="stream-box">
-		<ol class="streams">
-			{% for stream in streams %}
-				{% block following_stream %}
-
-					{% stream_render stream%}
-
-				{% endblock %}
-			{% endfor %}
-		</ol>
-		{% include "pager.html" %}
-	</div>
-
+	{% include "user_stream_list.html" %}
 
 {% endblock %}
 
@@ -76,17 +64,13 @@
 			{% if is_not_guest %}
 				<ul class="buttom">
 					<a class="a-btn a-btn-m" href="/u/profile"><span>{% trans "User Settings" %}</span></a>
-				</ul>				
-			{% endif %}
-			{% if can_follow %}
-				<ul class="buttom">
-					<a class="a-btn a-btn-m" href="/u/{{user.key.id}}/follow"><span>{% trans "Follow" %}</span></a>
-				</ul>
-			{% endif %}
-			{% if can_unfollow %}
-				<ul class="buttom">
-					<a class="a-btn a-btn-m" href="/u/{{user.key.id}}/unfollow"><span>{% trans "Unfollow" %}</span></a>
-				</ul>
+				{% if can_follow %}
+					<a class="a-btn a-btn-m" href="/u/{{user.key.id}}/follow"><span>{% trans "Follow User" %}</span></a>
+				{% endif %}
+				{% if can_unfollow %}
+					<a class="a-btn a-btn-m" href="/u/{{user.key.id}}/unfollow"><span>{% trans "Unfollow User" %}</span></a>
+				{% endif %}
+				</ul>						
 			{% endif %}
 		</div>
 		<div class="sep-line" style="padding-top:5px;">
@@ -95,18 +79,12 @@
 			<p>{{line}}</p>
 		{% endfor %}
 	</div>
-	{% if joined_groups %}
-		<div class="sidebar_box no-border">
-			{% include "joined_groups_box.html" %}
-			<div class="clear"></div>
-		</div>
-	{% endif %}
 	
 	{% if following_users %}
 		<div class="sidebar_box no-border">
 			<h3>{% trans "Following Members:" %}</h3>
 			{% for member in following_users %}
-				{% include "member-item.html" %}
+				{% include "member_item.html" %}
 			{% endfor %}
 			<div class="clear"></div>
 		</div>
@@ -116,10 +94,16 @@
 		<div class="sidebar_box no-border">
 			<h3>{% trans "Followed by Members:" %}</h3>
 			{% for member in follower_users %}
-				{% include "member-item.html" %}
+				{% include "member_item.html" %}
 			{% endfor %}
 			<div class="clear"></div>
 		</div>
 	{% endif %}
 	
+	{% if joined_groups %}
+		<div class="sidebar_box no-border">
+			{% include "joined_groups_box.html" %}
+			<div class="clear"></div>
+		</div>
+	{% endif %}
 {% endblock %}

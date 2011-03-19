@@ -1,0 +1,43 @@
+{% extends "two_column_master.html" %}
+
+{% load i18n %}
+{% load stream_render %}
+
+{% block left_panel %}
+	<div style="text-align:center; padding-top:20px;">
+		<h1>{% trans "Groups are on left." %}</h1>
+	</div>
+	
+	<div id="group_title" style="padding-bottom:2px;">
+		<ul class="medium-tabs">
+			<li class="medium-tab active"> <a class="text-tab" href="/group/all">{% trans "Post from All Groups" %}</a></li>
+		</ul>
+	</div>
+	
+	{% include "topic_list.html" %}
+	
+{% endblock %}
+
+{% block right_panel %}
+	<div style="text-align:center; padding-top:20px;">
+		<h1>{% trans "Microblog are on right." %}</h1>
+	</div>
+	
+	<ul class="medium-tabs">
+		<li class="medium-tab active"> <a class="text-tab" href="/u/{{user.key.id}}/all">{% trans "All Groups" %}</a></li>
+	</ul>
+	
+	<div id="stream-box">
+		<ol class="streams">
+			{% for stream in streams %}
+				{% block following_stream %}
+
+					{% stream_render stream with_name%}
+
+				{% endblock %}
+			{% endfor %}
+		</ol>
+		{% include "pager.html" %}
+	</div>
+	
+{% endblock %}

@@ -1,0 +1,13 @@
+{% load stream_render %}
+<div id="stream-box">
+	<ol class="streams">
+		{% for stream in streams %}
+			{% block following_stream %}
+
+				{% stream_render stream%}
+
+			{% endblock %}
+		{% endfor %}
+	</ol>
+	{% include "pager.html" %}
+</div>

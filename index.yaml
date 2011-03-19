@@ -131,3 +131,9 @@ indexes:
   - name: deleted
   - name: create_at
     direction: desc
+
+- kind: UserStream
+  properties:
+  - name: deleted
+  - name: update_at
+    direction: desc

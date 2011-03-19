@@ -58,7 +58,7 @@ class GroupSiteUI(ModelUI):
     
     joined_groups = group_info.get_recent_joined_groups()
     
-    query = GroupTopic.latest_by_subscriber(Guest)
+    query = GroupTopic.latest()
     
     page = Page(query=query, offset=offset, limit=limit, request=request)
     topics = page.data()
