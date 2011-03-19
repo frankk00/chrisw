@@ -45,7 +45,18 @@
 		<li class="medium-tab {% block all_title %}{% endblock %}"> <a class="text-tab" href="/u/{{user.key.id}}/all">{% trans "All Streams" %}</a></li>
 	</ul>
 	
-	{% include "user_stream_list.html" %}
+	<div id="stream-box">
+		<ol class="streams">
+			{% for stream in streams %}
+				{% block following_stream %}
+
+					{% stream_render stream%}
+
+				{% endblock %}
+			{% endfor %}
+		</ol>
+		{% include "pager.html" %}
+	</div>
 
 {% endblock %}
 
