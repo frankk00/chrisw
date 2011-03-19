@@ -11,9 +11,10 @@ from chrisw import db, gdb
 from chrisw.i18n import _
 from chrisw.core.memcache import cache_result
 
-from common.auth import User
+from common.auth import User, Guest
 
-FOLLOW = 'user-follow'
+FOLLOWED_BY = 'user-followed-by'
+TEXT_STREAM = 'text'
 
 class Site(db.Model):
   """a faked object"""
@@ -56,37 +57,46 @@ class UserStreamInfo(gdb.Entity):
   """docstring for UserStreamInfo"""
   user = db.ReferenceProperty(User, required=True)
   
-  introduction = db.StringFlyProperty(default=1)
+  recent_follower_keys = db.ListFlyProperty(default=[])
+  recent_following_keys = db.ListFlyProperty(default=[])
   
   comment_count = db.IntegerFlyProperty(default=1)
   stream_count = db.IntegerFlyProperty(default=1)
   follower_count = db.IntegerFlyProperty(default=1)
   following_count = db.IntegerFlyProperty(default=1)
   
-  def can_view(self, user):
+  def can_view_all(self, user):
     """docstring for can_view"""
     # people always can view other's homepage
     return True
   
+  def can_view_following(self, user):
+    """docstring for can_view_following"""
+    return self.is_me(user)
+  
   def can_follow(self, user):
     """docstring for can_follow"""
-    return not self.has_follower(user) and not self.is_me(user)
+    return not user is Guest and not self.has_follower(user) and not self.is_me(user)
+  
+  def can_unfollow(self, user):
+    """docstring for can_unfollow"""
+    return self.has_follower(user) and not self.is_me(user)
   
   def follow(self, user):
     """docstring for follow"""
-    self.user.link(FOLLOW, user)
+    self.user.link(FOLLOWED_BY, user)
   
   def unfollow(self, user):
     """docstring for unfollow"""
-    self.user.unlink(FOLLOW, user)
+    self.user.unlink(FOLLOWED_BY, user)
   
   def has_follower(self, user):
     """docstring for has_follower"""
-    self.user.has_link(FOLLOW, user)
+    self.user.has_link(FOLLOWED_BY, user)
     
   def get_follower_keys(self):
     """docstring for get_follower_keys"""
-    return User.get_source_keys(FOLLOW, self.user)
+    return User.get_source_keys(FOLLOWED_BY, self.user)
   
   def get_followers(self):
     """docstring for get_followers"""
@@ -94,7 +104,7 @@ class UserStreamInfo(gdb.Entity):
   
   def get_following_keys(self):
     """docstring for get_folloing_keys"""
-    return self.user.get_target_keys(FOLLOW)
+    return self.user.get_target_keys(FOLLOWED_BY)
   
   def get_following(self):
     """docstring for get_following"""
@@ -156,13 +166,23 @@ class UserStreamInfo(gdb.Entity):
   
   def update_follower_count(self):
     """docstring for update_follower_count"""
-    count = User.get_source_keys(FOLLOW, self.user).count()
-    self.update_field('follower_count', count)
+    query = User.get_source_keys(FOLLOWED_BY, self.user);
+    self.recent_follower_keys = list(query.fetch(10))
+    self.update_field('follower_count', query.count())
   
   def update_following_count(self):
     """docstring for update_following_count"""
-    count = self.user.get_target_keys(FOLLOW)
-    self.update_field('following_count', count)
+    query = self.user.get_target_keys(FOLLOWED_BY)
+    self.recent_following_keys = list(query.fetch(10))
+    self.update_field('following_count', query.count())
+  
+  def recent_follower_users(self):
+    """docstring for recent_follower_users"""
+    return db.get(self.recent_follower_keys)
+  
+  def recent_following_users(self):
+    """docstring for recent_following_users"""
+    return db.get(self.recent_following_keys)
   
   @classmethod
   def get_instance(cls, user):
@@ -175,11 +195,23 @@ class UserStreamInfo(gdb.Entity):
 
 class UserStream(gdb.Message):
   """docstring for UserStream"""
-  author_stream_info = db.ReferenceProperty(UserStreamInfo)
-  author = db.ReferenceProperty(User)
+  author_stream_info = db.ReferenceProperty(UserStreamInfo, \
+    collection_name = 'user_stream_set')
+  author = db.ReferenceProperty(User, \
+    collection_name = 'user_stream_set')
+    
+  target = db.ReferenceProperty()
+  target_type = db.StringProperty(required=True, default=TEXT_STREAM)
   
-  action = db.StringFlyProperty(default='')
   content = db.StringFlyProperty(default='')
+  
+  def __init__(self, *args, **kwargs):
+    """docstring for __init__"""
+    for attr in ('target',):
+      if kwargs.has_key(attr) and kwargs.get(attr):
+        kwargs[attr + '_type'] = gdb._get_type_name(kwargs.get(attr))
+    
+    super(UserStream, self).__init__(*args, **kwargs)
   
   def can_comment(self, user):
     """docstring for can_comment"""

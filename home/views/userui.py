@@ -32,13 +32,15 @@ class UserForm(djangoforms.ModelForm):
   """docstring for UserForm"""
   class Meta:
     model = User
-    fields = ["fullname", "email", "status_message"]
+    fields = ["fullname", "email", "status_message", "introduction"]
   
   fullname = fields.CharField(label = _('Full Name'), min_length=1,\
-    max_length=10)
+    max_length=17)
   status_message = fields.CharField(label = _("Status Message"), min_length=1,\
     max_length=70, required=False)
   email = fields.EmailField(label = _('Email'))
+  introduction = fields.CharField(label = _('Self Introduction'), min_length=1,\
+    widget=forms.Textarea, max_length=5000)
 
 class ProfilePhotoForm(forms.Form):
   """docstring for ProfilePhoto"""
@@ -55,7 +57,6 @@ class UserUI(ModelUI):
     """the view of user profile"""
     groupinfo = UserGroupInfo.get_by_user(self.user)
     joined_groups = groupinfo.get_recent_joined_groups()
-    is_login_user = self.user.key() == get_current_user().key()
     
     return template('user_home', locals())
   

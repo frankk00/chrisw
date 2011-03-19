@@ -110,7 +110,7 @@ the program passed all tests.
 
 4. Change the ``DEBUG`` in ``local_settings.py`` to ``False``
 
-5. Deploy it to server.
+5. Deploy the Chrisw to server.
 
 6. It works now.
 

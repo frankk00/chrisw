@@ -17,7 +17,7 @@
 	<style type="text/css" media="screen">
 		body.user-style{
 /*			background-image:url("http://s.twimg.com/a/1286563368/images/themes/theme9/bg.gif");*/
-			background-color: #D7E0F2;
+			background-color: #333;
 		}
 	</style>
 	<title>{% block title %}
@@ -50,7 +50,7 @@
 								</li>
 								<li class="{% block ask_menu %}{% endblock %}">
 									<a href="/group/all" style="vertical-align:text-top; margin: 0px;">
-										<strong>{% trans "Ask" %}</strong>
+										<strong>{% trans "Microblog" %}</strong>
 									</a>									
 								</li>
 							</ul>
@@ -142,16 +142,9 @@
 		{% endif %}
 		
 		<div id="content">
-			<div id="main_panel" class="grid_15">
-				{% block content %}
-					Think big
-				{% endblock %}
-			</div>
-			<div id="sidebar" class="grid_9">
-				{% block sidebar %}
-					Do small
-				{% endblock %}
-			</div>
+			{% block main_panel %}
+				
+			{% endblock %}
 			<div class="clear">
 			</div>
 			

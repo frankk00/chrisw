@@ -305,6 +305,7 @@ class FlyPropertiedMeta(PropertiedClass):
   _fly_properties = {}
   
   def __init__(cls, name, bases, dct):
+    logging.debug("db.fly %s", dct)
     super(FlyPropertiedMeta, cls).__init__(name, bases, dct)
     
     _initialize_fly_properties(cls, name, bases, dct)

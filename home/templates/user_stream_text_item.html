@@ -1,0 +1,22 @@
+{% load filters %}
+{% load i18n %}
+
+<li class="stream_list" data-stream-id="{{stream.key.id}}">
+	<span class="stream_author_photo">
+		<img src="{{stream.author.photo_url}}=s48" class="is" style="padding-left:10px;padding-top:10px;">
+	</span>
+	<span class="stream_content"> 
+		<span style="display: block; margin-bottom: 5px; color:#888;">
+			{% if display_name %}
+				<a class="user-link" href="/u/{{stream.author.key.id}}">{{ stream.author.fullname }}</a>
+			{% endif %}
+			 {% trans "Says:" %}
+		</span>
+		<span style="display: block; margin-bottom: 5px;">
+			{{ stream.content }}
+		</span>
+		<span style=" color: #999999; font-size:80%;">
+			{{ stream.create_at|pretty_time }} 
+		</span>
+	</span>
+</li>

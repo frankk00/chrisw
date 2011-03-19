@@ -51,8 +51,6 @@ class UserStreamUI(ModelUI):
     groupinfo = UserGroupInfo.get_by_user(self.user)
     joined_groups = groupinfo.get_recent_joined_groups()
     
-    is_login_user = self.user.key() == get_current_user().key()
-    
     stream_form = UserStreamForm()
     
     query = UserStream.latest_by_author(self.user)
@@ -61,22 +59,35 @@ class UserStreamUI(ModelUI):
     
     streams = page.data()
     
+    following_users = self.user_stream_info.recent_following_users()
+    follower_users = self.user_stream_info.recent_follower_users()
+    
     for stream in streams:
       logging.debug("stream %s", stream)
     
-    post_url = request.path
-    
+    post_url = "/u/%d" % self.user.key().id()
     
     var_dict = locals()
     var_dict.update(new_vars)
     
     return var_dict
-  
-  @check_permission('view', _("Can't visit given user's homepage"))
+
   def home(self, request):
     """docstring for home"""
+    if self.user_stream_info.can_view_following(self.current_user):
+      return redirect("/u/%d/following" % self.user.key().id())
+    return redirect("/u/%d/all" % self.user.key().id())
+  
+  @check_permission('view_all', _("Can't visit given user's homepage"))
+  def home_all(self, request):
+    """docstring for home"""
     
-    return template('user_home', self._home(request))
+    return template('user_home_all', self._home(request))
+
+  @check_permission('view_following', _("Can't visit given user's homepage"))
+  def home_following(self, request):
+    """docstring for home_following"""
+    return template('user_home_following', self._home(request))
   
   @check_permission('create_stream', _("Can't create stream for user"))
   def home_post(self, request):
@@ -88,7 +99,19 @@ class UserStreamUI(ModelUI):
       new_stream = stream_form.save(commit=False)
       self.user_stream_info.create_stream(new_stream)
 
-    return template('user_home', self._home(request, locals()))
+    return back()
+  
+  @check_permission('follow', _("Can't follow the user"))
+  def follow(self):
+    """docstring for follow"""
+    self.user_stream_info.follow(user)
+    return back()
+  
+  @check_permission('unfollow', _("Can't unfollow given user"))
+  def unfollow(self):
+    """docstring for unfollow"""
+    self.user_stream_info.unfollow(user)
+    return back()
     
 class UserStreamHandler(handlers.RequestHandler):
   """docstring for UserStreamHandler"""
@@ -123,4 +146,33 @@ class UserStreamHomeHandler(UserStreamHandler):
     """docstring for post_impl"""
     return user_stream_ui.home_post(self.request)
 
-apps = [(r'/u/(\d+)', UserStreamHomeHandler)]
+class UserStreamHomeAllHandler(UserStreamHandler):
+  """docstring for UserStreamHomeAllHandler"""
+  def get_impl(self, user_stream_ui):
+    """docstring for get_impl"""
+    return user_stream_ui.home_all(self.request)
+  
+class UserStreamHomeFollowingHandler(UserStreamHandler):
+  """docstring for UserStreamHomeAllHandler"""
+  def get_impl(self, user_stream_ui):
+    """docstring for get_impl"""
+    return user_stream_ui.home_following(self.request)
+
+class UserStreamHomeFollowHandler(UserStreamHandler):
+  """docstring for UserStreamHomeFollowHandler"""
+  def get_impl(self, user_stream_ui):
+    """docstring for get_impl"""
+    return user_stream_ui.follow()
+  
+class UserStreamHomeUnfollowHandler(UserStreamHandler):
+  """docstring for UserStreamHomeUnfollowHandler"""
+  def get_impl(self, user_stream_ui):
+    """docstring for get_impl"""
+    return user_stream_ui.unfollow()
+      
+
+apps = [(r'/u/(\d+)', UserStreamHomeHandler),
+        (r'/u/(\d+)/all', UserStreamHomeAllHandler),
+        (r'/u/(\d+)/following', UserStreamHomeFollowingHandler),
+        (r'/u/(\d+)/follow', UserStreamHomeFollowHandler),
+        (r'/u/(\d+)/unfollow', UserStreamHomeUnfollowHandler)]

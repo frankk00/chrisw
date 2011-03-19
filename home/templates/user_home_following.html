@@ -1,0 +1,11 @@
+{% extends "user_home_master.html" %}
+
+{% load stream_render %}
+
+{% block following_title %}active{% endblock %}
+
+{% block following_stream %}
+
+	{% stream_render stream with_name%}
+
+{% endblock %}

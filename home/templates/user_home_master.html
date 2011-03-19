@@ -1,0 +1,125 @@
+{% extends "home_master.html" %}
+
+{% load i18n %}
+{% load filters %}
+{% load stream_render %}
+
+{% block title %}
+	{{ user.fullname }}
+{% endblock %}
+
+
+{% block content %}
+
+	<div id="user-profile" style = "">
+		<div class="pic" style="float:left;">
+		    <a href="http://www.douban.com/u/{{user.id}}">
+		        <img src="{{user.photo_url}}" alt="{{user.fullname}}" class="im">
+		    </a>
+		</div>
+		<div class="info" style="margin-left:53px;padding-top:10px;">
+		    <h1>
+		        {{ user.fullname }}
+				{% if user.status_message %}
+					<span id="display" class="status-message">({{ user.status_message }})</span>
+				{% endif %}
+		    </h1>
+				<div style="padding-top:10px;">
+			{% if can_create_stream %}
+					<form action="{{post_url}}" method="POST" accept-charset="utf-8">
+							<textarea class="stream-box-editor" style="width: 526px; height: 36px;" name="content" id="id_content" ></textarea>
+							<div style="text-align:right">
+								<span style="float:left; padding-left:14px;padding-top:4px; color:#aaa;">What's happing?</span>
+								<input class="a-btn" type="submit" value="{% trans "Post New Stream" %}" style="margin-bottom:0px; height:26px;">
+							</div>
+					</form>
+			{% endif %}
+				</div>
+		</div>
+	</div>
+	
+	<ul class="medium-tabs">
+		{% if is_not_guest %}
+			<li class="medium-tab {% block following_title %}{% endblock %}"><a class="text-tab" href="/u/{{user.key.id}}/following">{% trans "Followed Streams" %}</a></li>
+		{% endif %}
+		<li class="medium-tab {% block all_title %}{% endblock %}"> <a class="text-tab" href="/u/{{user.key.id}}/all">{% trans "All Groups" %}</a></li>
+	</ul>
+	
+	<div id="stream-box">
+		<ol class="streams">
+			{% for stream in streams %}
+				{% block following_stream %}
+
+					{% stream_render stream%}
+
+				{% endblock %}
+			{% endfor %}
+		</ol>
+		{% include "pager.html" %}
+	</div>
+
+
+{% endblock %}
+
+
+{% block sidebar %}
+	<div id="control" class="sidebar_box">
+		<div id="user-info">
+			<img class="im" src="{{user.photo_url}}" align="left" style="padding-right:10px" />
+			<p>
+				{{user.fullname}}
+			<br/>
+				{% trans "Joined at" %} {{user.create_at|date:"Y-n-j"}}
+			</p>
+		</div>
+		<div style="padding-top:10px;">
+			{% if is_not_guest %}
+				<ul class="buttom">
+					<a class="a-btn a-btn-m" href="/u/profile"><span>{% trans "User Settings" %}</span></a>
+				</ul>				
+			{% endif %}
+			{% if can_follow %}
+				<ul class="buttom">
+					<a class="a-btn a-btn-m" href="/u/{{user.key.id}}/follow"><span>{% trans "Follow" %}</span></a>
+				</ul>
+			{% endif %}
+			{% if can_unfollow %}
+				<ul class="buttom">
+					<a class="a-btn a-btn-m" href="/u/{{user.key.id}}/unfollow"><span>{% trans "Unfollow" %}</span></a>
+				</ul>
+			{% endif %}
+		</div>
+		<div class="sep-line" style="padding-top:5px;">
+		</div>
+		{% for line in user.introduction.splitlines %}
+			<p>{{line}}</p>
+		{% endfor %}
+	</div>
+	{% if joined_groups %}
+		<div class="sidebar_box no-border">
+			{% include "joined_groups_box.html" %}
+			<div class="clear"></div>
+		</div>
+	{% endif %}
+	
+	{% if following_users %}
+		<div class="sidebar_box no-border">
+			<h3>{% trans "Following Members:" %}</h3>
+			{% for member in following_users %}
+				{% include "member-item.html" %}
+			{% endfor %}
+			<div class="clear"></div>
+		</div>
+	{% endif %}
+	
+	{% if follower_users %}
+		<div class="sidebar_box no-border">
+			<h3>{% trans "Followed by Members:" %}</h3>
+			{% for member in follower_users %}
+				{% include "member-item.html" %}
+			{% endfor %}
+			<div class="clear"></div>
+		</div>
+	{% endif %}
+	
+{% endblock %}

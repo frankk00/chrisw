@@ -22,7 +22,8 @@ class User(gdb.Entity):
   photo_url = db.StringProperty(default=settings.DEFAULT_USER_PHOTO)
   
   status_message = db.StringFlyProperty(default="")
-  
+  introduction = db.StringFlyProperty(default="")
+    
   def can_visit_key(self, user, key):
     """Privacy control, protect ur privacy here"""
     if key == 'password':

@@ -287,9 +287,9 @@ li.stream_list {
   }
   
   li.stream_list:hover {
-    background:none repeat scroll 0 0 #F4F4F4;
+/*    background:none repeat scroll 0 0 #F4F4F4;*/
 /*    border-top:1px solid #EBEBEB;*/
-    cursor:pointer;
+/*    cursor:pointer;*/
 /*    margin-top:-1px;*/
   }
 
@@ -468,6 +468,41 @@ a.btn-disabled {
   background-image: none;
 }
 
+a.user-link{
+  font-weight:bold;
+  color:#333!important;
+}
+ a.user-link:hover{
+   color:#336699 !important;
+   background: transparent !important;
+ }
+
+input[type="submit"] {
+  zoom: 1;
+  background: #ddd url(/images/bg-btn.gif) repeat-x scroll 0 0;
+  cursor: pointer;
+  text-shadow: 1px 1px 0 #fff!important;
+  border-color: #ddd #ddd #ccc!important;
+  border-style: solid;
+  border-width: 1px!important;
+  text-decoration: none;
+  padding: 4px 8px 5px;
+  line-height: 14px;
+  font-size: 11px;
+  font-family: "lucida grande",helvetica,tahoma,arial;
+  display: inline-block;
+  _display: inline;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+  input[type="submit"]:hover,input[type="submit"]:focus {
+    text-decoration: none;
+    border-color: #999 #999 #888!important;
+    color: #000;
+    outline: none;
+  }
+
 #logo a{
   color: #FFF;
 }
@@ -492,3 +527,11 @@ a.btn-disabled {
   padding-bottom: 6px;
 }
 
+.sep-line {
+    border-bottom: 1px solid #eee;
+    clear: both;
+    font-size: 0;
+    height: 0;
+    margin: 5px;
+    overflow: hidden;
+}

@@ -49,7 +49,7 @@ def main():
   
   from chrisw.core import handlers
   from chrisw.web.util import register_app, register_handler_classes
-  register_app(['group',])
+  register_app(['group','home'])
   
   handler_path_mappings = home.apps + group.apps
   register_handler_classes(handler_path_mappings)
