@@ -16,7 +16,7 @@ from chrisw.helper import Page, djangoforms
 from chrisw.helper.django_helper import fields, forms
 from chrisw.web.util import *
 
-from common.auth import get_current_user
+from common.auth import get_current_user, Guest
 from conf import settings
 from group.models import *
 from home.models import *
@@ -27,5 +27,9 @@ def display_home_page(request):
   
   topics = GroupTopic.latest().fetch(20)
   streams = UserStream.latest().fetch(20)
+  
+  recent_members = [x for x in User.latest().fetch(5) if x.key() != Guest.key()]
+  
+  recent_groups = Group.latest().fetch(5)
   
   return template('home_front_page.html', locals())

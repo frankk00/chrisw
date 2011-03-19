@@ -8,11 +8,20 @@
 		<h1>{% trans "Groups are on left." %}</h1>
 	</div>
 	
-	<div id="group_title" style="padding-bottom:2px;">
+	<div style="padding-left:20px; min-height:115px; padding-top:20px;">
+		<h3>{% trans "Recent Created Groups:" %}</h3>
+		{% for group in recent_groups %}
+			{% include "group_item.html" %}
+		{% endfor %}
+	</div>
+	
+	<div class="clear">
+		
+	</div>
+	
 		<ul class="medium-tabs">
 			<li class="medium-tab active"> <a class="text-tab" href="/group/all">{% trans "Post from All Groups" %}</a></li>
 		</ul>
-	</div>
 	
 	{% include "topic_list.html" %}
 	
@@ -23,9 +32,25 @@
 		<h1>{% trans "Microblog are on right." %}</h1>
 	</div>
 	
+	
+	<div style="padding-left:20px; min-height:115px; padding-top:20px;">
+		<h3>{% trans "Recent Joined Members:" %}</h3>
+		
+		{% for member in recent_members %}
+			{% include "member_item.html" %}
+		{% endfor %}
+		
+	</div>
+	
+	
+	<div class="clear">
+		
+	</div>
+	
 	<ul class="medium-tabs">
 		<li class="medium-tab active"> <a class="text-tab" href="/u/{{user.key.id}}/all">{% trans "All Groups" %}</a></li>
 	</ul>
+	
 	
 	<div id="stream-box">
 		<ol class="streams">

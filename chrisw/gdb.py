@@ -56,6 +56,11 @@ class Entity(db.FlyModel):
     """docstring for get_source_by_link"""
     return db.MapQuery(Link.all(link_type=link_type, target=target,\
       source_type=_get_type_name(cls)), lambda x: x.source)
+  
+  @classmethod
+  def latest(cls):
+    """docstring for latest"""
+    return cls.all().order("-create_at")
 
 class Link(db.Model):
   """docstring for Link"""

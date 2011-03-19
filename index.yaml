@@ -10,6 +10,12 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: Group
+  properties:
+  - name: deleted
+  - name: create_at
+    direction: desc
+
 - kind: GroupPost
   properties:
   - name: deleted
@@ -111,6 +117,12 @@ indexes:
   properties:
   - name: deleted
   - name: update_time
+    direction: desc
+
+- kind: User
+  properties:
+  - name: deleted
+  - name: create_at
     direction: desc
 
 - kind: UserStream
