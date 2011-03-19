@@ -42,7 +42,7 @@
 		{% if can_view_following %}
 			<li class="medium-tab {% block following_title %}{% endblock %}"><a class="text-tab" href="/u/{{user.key.id}}/following">{% trans "Followed Streams" %}</a></li>
 		{% endif %}
-		<li class="medium-tab {% block all_title %}{% endblock %}"> <a class="text-tab" href="/u/{{user.key.id}}/all">{% trans "All Groups" %}</a></li>
+		<li class="medium-tab {% block all_title %}{% endblock %}"> <a class="text-tab" href="/u/{{user.key.id}}/all">{% trans "All Streams" %}</a></li>
 	</ul>
 	
 	{% include "user_stream_list.html" %}

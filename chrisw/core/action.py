@@ -41,6 +41,19 @@ class template(_RenderAction):
   
   def render_to_string(self):
     """docstring for render"""
+    
+    # add always needed info
+    var_dict = self.var_dict
+    # add login info
+    from common.auth import get_current_user, Guest
+    user = get_current_user()
+    user_info = {'login_user':user, 'is_not_guest':user != Guest}
+    var_dict.update(user_info)
+    
+    from home.models import Site
+    site_info = {'site':Site.get_instance()}
+    var_dict.update(site_info)
+    
     from chrisw.helper.django_helper import render_to_string
     return render_to_string(self.name + ".html", self.var_dict)
     
