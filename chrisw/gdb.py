@@ -199,7 +199,7 @@ class Message(db.FlyModel):
   @classmethod
   def latest(cls):
     """docstring for latest"""
-    return cls.all().order("-update_at")
+    return cls.all().order("-create_at")
 
 class MessageIndex(db.Model):
   """docstring for MessageIndex"""

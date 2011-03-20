@@ -31,7 +31,7 @@ class UserStreamForm(djangoforms.ModelForm):
     model = UserStream
     fields = ['content']
   
-  content = fields.CharField(label=_('Content of stream'))
+  content = fields.CharField(label=_('Content of stream'), max_length=140)
 
 class UserStreamUI(ModelUI):
   """docstring for UserStreamUI"""

@@ -26,8 +26,8 @@ from home.models import *
 def display_home_page(request):
   """docstring for topic_edit_post"""
   
-  topics = GroupTopic.latest().fetch(20)
-  streams = UserStream.latest().fetch(20)
+  topics = GroupTopic.latest().fetch(12)
+  streams = UserStream.latest().fetch(12)
   
   recent_members = [x for x in User.latest().fetch(5) if x.key() != Guest.key()]
   
