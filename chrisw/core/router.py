@@ -22,7 +22,6 @@ from chrisw.core import exceptions
 _handler_map = {}
 
 class NotSupportedHandlerException(exceptions.ChriswException):
-  """docstring for NotSupportedHandlerException"""
   def __init__(self, handler):
     super(NotSupportedHandlerException, self).__init__("Handler is neither "
     "class nor function " + str(handler))
@@ -61,5 +60,5 @@ def resolve_path(path, request_type = None):
   return None
 
 def get_all_pathes():
-  """docstring for get_all_pathes"""
+  """get all registered pathes"""
   return _handler_map.keys()

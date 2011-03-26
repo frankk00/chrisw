@@ -164,7 +164,7 @@ class forward(_RenderAction):
       else:
         result_string = "Dose not support action " + str(action)
     else:
-      pass
+      result_string += " Can't resolve the forwared action"
     
     return result_string
   

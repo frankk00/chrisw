@@ -40,17 +40,25 @@ def inspect_permissions(model_obj, user):
 
 
 class check_permission(object):
-  """docstring for check_permission"""
-  def __init__(self, action, error_msg):
+  """ ``check_permission`` decorator: check the permission on the given 
+  ``PermissionUI``
+  
+  Usage:
+    @check_permission('follow', _("Can't follow the user"))
+    def follow(self):
+      self.user_stream_info.follow(self.current_user)
+      return back()
+   
+  """
+  def __init__(self, permission, error_msg):
     super(check_permission, self).__init__()
-    self.action = action
+    self.permission = permission
     self.error_msg = error_msg
 
   def __call__(self, func):
-    """docstring for __call__"""
     def wrapper(ui, *args, **kwargs):
       """docstring for wrapper"""
-      f = getattr(ui.model_obj, 'can_' + self.action)
+      f = getattr(ui.model_obj, 'can_' + self.permission)
       
       from common.auth import Guest
       

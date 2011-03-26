@@ -266,7 +266,7 @@ class Group(gdb.Entity):
   @classmethod
   def get_group_keys_by_user(cls, user):
     """docstring for get_groups_by_user"""
-    return cls.get_source_keys(GROUP_MEMEBER, user)
+    return cls.get_sources(GROUP_MEMEBER, user, keys_only=True)
 
 class GroupTopic(gdb.Message):
   """docstring for Thread"""

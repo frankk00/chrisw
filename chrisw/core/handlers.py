@@ -26,13 +26,11 @@ except Exception, e:
 
 
 class APIError(exceptions.ChriswException):
-  """docstring for APIError"""
   def __init__(self, reason):
     super(APIError, self).__init__(reason)
     self.reason = reason
 
 class UnknownActionException(exceptions.ChriswException):
-  """docstring for UnknownActionException"""
   def __init__(self, action):
     super(UnknownActionException, self).__init__(str(action))
     self.reason = "Can't recognized Action: " + str(action)
@@ -177,35 +175,27 @@ class BaseHandler(webapp.RequestHandler):
     super(BaseHandler, self).__init__()
   
   def get(self, *args):
-    """docstring for get"""
-    return self.handle_request('get', *args)
+    return self._handle_request('get', *args)
   
   def post(self, *args):
-    """docstring for post"""
-    return self.handle_request('post', *args)
+    return self._handle_request('post', *args)
   
   def put(self, *args):
-    """docstring for put"""
-    return self.handle_request('put', *args)
+    return self._handle_request('put', *args)
   
   def head(self, *args):
-    """docstring for head"""
-    return self.handle_request('head', *args)
+    return self._handle_request('head', *args)
   
   def delete(self, *args):
-    """docstring for delete"""
-    return self.handle_request('delete', *args)
+    return self._handle_request('delete', *args)
   
   def options(self, *args):
-    """docstring for options"""
-    return self.handle_request('options', *args)
+    return self._handle_request('options', *args)
   
   def trace(self, *args):
-    """docstring for trace"""
-    return self.handle_request('trace', *args)
+    return self._handle_request('trace', *args)
     
-  def handle_request(self, request_type, *args):
-    """docstring for handle_request"""
+  def _handle_request(self, request_type, *args):
     path = self.request.path
     handler = router.resolve_path(path, request_type)
     
@@ -257,7 +247,7 @@ class RequestHandlerMeta(type):
     """
     
     """
-    Note that decorate the instance method in Python, the only way would be
+    Note that decorate the *instance method* in Python, the only way would be
     using Meta class. The most important reason for this is the im_self field
     in the function object. It seems that field will be initialized after the
     __new__ method from meta class, but before the __init__ method of instance
@@ -280,7 +270,9 @@ class RequestHandlerMeta(type):
     return super(RequestHandlerMeta, cls).__new__(cls, name, bases, attrs)
 
 class RequestHandler(webapp.RequestHandler):
-  """docstring for RequestHandler"""
+  """The new ``RequestHandler``, which using chrisw ``action``s instead of 
+  directly writing to the response.
+  """
   __metaclass__ = RequestHandlerMeta
         
 def get_handler_bindings():
