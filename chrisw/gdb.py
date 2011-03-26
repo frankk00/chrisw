@@ -15,17 +15,20 @@ from chrisw.db import *
 from chrisw import db
 
 def _get_type_name(cls):
-  """docstring for _get_type_name"""
+  """Return the type name for given class or instance"""
   if isinstance(cls, type):
     return cls.__name__
   return cls.__class__.__name__
 
 class Entity(db.FlyModel):
-  """docstring for Entity"""
+  """The base model for graph node"""
   create_at = db.DateTimeProperty(auto_now_add=True)
   
   def link(self, link_type, target):
-    """docstring for create_link_with"""
+    """Add a link between ``self`` and ``target`` with given ``link_type``
+    
+    link_type -- a string to specify the type of the link.
+    """
     # unlink previous links
     self.unlink(link_type, target)
     
@@ -33,7 +36,10 @@ class Entity(db.FlyModel):
     link.put()
     
   def has_link(self, link_type, target):
-    """docstring for has_link_with"""
+    """Return if there exist a link between ``self`` and ``target``
+    
+    link_type -- a string to specify the type of the link.
+    """
     return self._get_links(link_type, target).get() is not None
   
   def _get_links(self, link_type, target):
@@ -41,29 +47,33 @@ class Entity(db.FlyModel):
     return Link.all(source=self, link_type=link_type, target=target)
   
   def unlink(self, link_type, target):
-    """docstring for remove_link_with"""
+    """Remove the given type of link between ``self`` and ``target``"""
     links = self._get_links(link_type, target)
     for link in links:
       link.delete()
   
   def get_target_keys(self, link_type, target_type):
-    """docstring for get_by_link"""
+    """Not ready for docstring
+    TODO: add ``only_keys`` parameter
+    """
     return db.MapQuery(Link.all(source=self, link_type=link_type,\
       target_type=_get_type_name(target_type)), lambda x: x.target)
   
   @classmethod
   def get_source_keys(cls, link_type, target):
-    """docstring for get_source_by_link"""
+    """Not ready for docstring
+    TODO: add ``only_keys`` parameter
+    """
     return db.MapQuery(Link.all(link_type=link_type, target=target,\
       source_type=_get_type_name(cls)), lambda x: x.source)
   
   @classmethod
   def latest(cls):
-    """docstring for latest"""
+    """Return the latest created entities"""
     return cls.all().order("-create_at")
 
 class Link(db.Model):
-  """docstring for Link"""
+  """The model for the link between entites"""
   link_type = db.StringProperty(required=True)
   source = db.WeakReferenceProperty(required=True)
   source_type = db.StringProperty(required=True)
@@ -71,7 +81,6 @@ class Link(db.Model):
   target_type = db.StringProperty(required=True)
   
   def __init__(self, *args, **kwargs):
-    """docstring for __init__"""
     for attr in ('source', 'target'):
       if kwargs.has_key(attr):
         kwargs[attr + '_type'] = _get_type_name(kwargs.get(attr))
@@ -87,7 +96,6 @@ class Subscription(db.Model):
   topic_type = db.StringProperty(required=True)
   
   def __init__(self, *args, **kwargs):
-    """docstring for __init__"""
     for attr in ('subscriber',):
       if kwargs.has_key(attr):
         kwargs[attr + '_type'] = _get_type_name(kwargs.get(attr))
@@ -140,7 +148,9 @@ class Message(db.FlyModel):
     return self._get_subscriptions(user).get() != None
   
   def get_subscriber_keys(self):
-    """docstring for get_subscriber_keys"""
+    """Not ready for docstring
+    TODO: add ``only_keys`` parameter
+    """
     return db.MapQuery(self._get_subscriptions(None), lambda x:x.subscriber)
   
   def notify(self, users=None):
@@ -185,7 +195,9 @@ class Message(db.FlyModel):
   
   @classmethod
   def latest_keys_by_subscriber(cls, user):
-    """docstring for all_by_user"""
+    """Not ready for docstring
+    TODO: add ``only_keys`` parameter
+    """
     return db.MapQuery(MessageIndex.all(subscribers=user, \
       target_type=cls.get_cls_type_name()).order('-update_at'),
       lambda x: x.target)

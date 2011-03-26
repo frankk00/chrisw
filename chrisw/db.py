@@ -23,8 +23,10 @@ from google.appengine.api.datastore_types import Blob
 from google.appengine.ext.db import djangoforms
 from django import forms
 
+
+SIMPLE_TYPES = (int, long, float, bool, dict, basestring)
+
 def _check_dict_content(dct):
-  """docstring for _check_dict_content"""
   valid = True
   
   for value in dct.values():
@@ -39,7 +41,10 @@ def _check_dict_content(dct):
     return None
 
 class DictProperty(db.Property):
-  """ 
+  """A property that can be used to store the dict in python. Only simple types
+  are allowed in it.
+  
+  simple types: (int, long, float, bool, dict, basestring), list and db.Key
   """
   def validate(self, value):
     value = super(DictProperty, self).validate(value)
@@ -64,7 +69,6 @@ class DictProperty(db.Property):
 class WeakReferenceProperty(db.Property):
   """WeakReference is designed to store only the Key for the model"""
   def validate(self, value):
-    """docstring for validate"""
     value = super(WeakReferenceProperty, self).validate(value)
     
     if isinstance(value, Model):
@@ -75,13 +79,14 @@ class WeakReferenceProperty(db.Property):
     return value
   
   def default_value(self):
-    """docstring for default_value"""
     return Key()
   
 
 class FlyProperty(object):
   """FlyProperty is something lightweight than normal property and it cannot 
-  be in search field
+  be in search field.
+  
+  It require the object contan's a DictProperty called extra_dict.
   """
   
   def __init__(self, default=None, name=None, required=False):
@@ -101,7 +106,6 @@ class FlyProperty(object):
       self.name = property_name
   
   def empty(self, value):
-    """docstring for empty"""
     return value is None
   
   def _check_type(self, value):
@@ -116,7 +120,6 @@ class FlyProperty(object):
                       value)
   
   def validate(self, value):
-    """docstring for validate"""
     
     if self.required and self.empty(value):
       raise Exception('Property %s is required', self.name)
@@ -127,7 +130,7 @@ class FlyProperty(object):
     return value
     
   def __get__(self, owner_instance, owner_cls):
-    """docstring for __get__"""
+    """Populate the property from dict when it is used."""
     
     if owner_instance:
       value = owner_instance.extra_dict.get(self.name, self.default)
@@ -136,7 +139,7 @@ class FlyProperty(object):
       return self;
   
   def __set__(self, owner_instance, value):
-    """docstring for __set__"""
+    """Write the modification to the extra dict"""
     value = self.validate(value)
     owner_instance.extra_dict[self.name] = value
   
@@ -147,24 +150,24 @@ class FlyProperty(object):
   data_type = str
 
 class StringFlyProperty(FlyProperty):
-  """docstring for StringFlyProperty"""
+  """A string property which will be stored in ``extra_dict``"""
   data_type = basestring
 
 class IntegerFlyProperty(FlyProperty):
-  """docstring for IntegerFlyProperty"""
+  """A integer property which will be stored in ``extra_dict``"""
   data_type = [int, long]
 
 class TextFlyProperty(FlyProperty):
-  """docstring for TextFlyProperty"""
+  """A text property which will be stored in ``extra_dict``"""
   data_type = basestring
 
 class ListFlyProperty(FlyProperty):
-  """docstring for ListFlyProperty"""
+  """A list property which will be stored in ``extra_dict``"""
   data_type = list
 
-SIMPLE_TYPES = (int, long, float, bool, dict, basestring)
 
 def to_dict(model):
+  # convert the model to a dict contains all its fields
   output = {}
   
   if isinstance(model, db.Model):
@@ -233,7 +236,7 @@ def to_dict(model):
   return output
     
 class Model(db.Model):
-  """docstring for Model"""
+  """A reimplement for db.Model, use a faked ``delete()`` for debugging"""
   deleted = db.BooleanProperty(default=False)
   
   def to_dict(self):
@@ -285,7 +288,7 @@ class Model(db.Model):
   
   @classmethod
   def gql(cls, query_string, *args, **kwds):
-    """
+    """Deprecated method.
     """
     raise Exception("GQL is not allowed in this extension")
 
@@ -323,7 +326,7 @@ class FlyModel(Model):
     return cls._fly_properties
 
 class _MapQueryIterator(object):
-  """docstring for _MapQueryIterator"""
+  """Helper iterator for MapQuery"""
   def __init__(self, iterator, map_func):
     super(_MapQueryIterator, self).__init__()
     self.iterator = iterator
@@ -342,7 +345,14 @@ class _MapQueryIterator(object):
   
 
 class MapQuery(object):
-  """docstring for LambdaQuery"""
+  """A map query that can map the results of the query using a given map
+  function.
+  
+  map_func -- the mapping function
+  query -- the original query
+  allow_set -- if the mapping fuction supports result sets as input. E.g. 
+  ``db.get()`` can accept both ``key`` and a list of ``key`` as its input.
+  """
   def __init__(self, query, map_func, allow_set=False):
     super(MapQuery, self).__init__()
     self.query = query
@@ -359,35 +369,28 @@ class MapQuery(object):
       return [self._map_func(x) for x in results]
   
   def filter(self, *args):
-    """docstring for filter"""
     return MapQuery(self.query.filter(*args), self.map_results)
   
   def order(self, *args):
-    """docstring for order"""
     return MapQuery(self.query.order(*args), self.map_results)
   
   def get(self):
-    """docstring for get"""
     result = self.query.get()
     if result:
       return self.map_results(result)
     return result;
   
   def fetch(self, *args, **kwargs):
-    """docstring for fetch"""
     results = self.query.fetch(*args, **kwargs)
     return self.map_results(results)
   
   def count(self, *args):
-    """docstring for count"""
     return self.query.count(*args)
   
   def __getitem__(self, *args):
-    """docstring for __get_item__"""
     return self.map_results(self.query.__get_item__(*args))
   
   def __iter__(self):
-    """docstring for __iter__"""
     return _MapQueryIterator(self.query.__iter__(), self.map_results)
   
 class GetQuery(MapQuery):
