@@ -61,17 +61,17 @@ Why Pipline Rendering?
 
 The benefits of pipline rendering:
 
-# *Reuse* ``template`` and ``data`` together. Why did we create so many
+* *Reuse* ``template`` and ``data`` together. Why did we create so many
 different web frameworks? One main reason is that we want to reuse the code we 
 have written. ``template`` enables us to reuse the display layouts, but it 
 dose not allow us to reuse the ``data``. Just as what we can seen in different 
 portal and SNS sites, many parts in webpage are duplicated. Pipline rendering 
 allow us to render the webpage *part by part*, then merge them together.
 
-# More easy to use *ajax*. Since our page are rendered *part by part*, we could 
+* More easy to use *ajax*. Since our page are rendered *part by part*, we could 
 easily load these *parts* using ajax to browser. 
 
-# More *parallel* in future. By rendering different parts at the same time, we
+* More *parallel* in future. By rendering different parts at the same time, we
 could reduce the page loading latency in future(We've not implemented this yet).
 
 
