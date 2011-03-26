@@ -114,14 +114,14 @@ def view_method(func):
   return wrapper
 
 def not_view_method(func):
-  """docstring for not_view_method"""
+  """decorator for methods that do not need to be wrapped.
+  """
   func.im_not_view_method = True
   return func
 
-class ModelUIMeta(type):
-  """docstring for ModelUIMeta"""
+class _ModelUIMeta(type):
+  
   def __new__(cls, name, bases, attrs):
-    """docstring for __new__"""
     
     for attr, item in attrs.items():
       if attr[0] is not '_' and callable(item) and \
@@ -132,7 +132,6 @@ class ModelUIMeta(type):
     
 
 class ModelUI(PermissionUI):
-  """docstring for ModelUI"""
   
-  __metaclass__ = ModelUIMeta
+  __metaclass__ = _ModelUIMeta
   
