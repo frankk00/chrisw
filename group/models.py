@@ -177,7 +177,7 @@ class Group(gdb.Entity):
   
   def get_member_keys(self):
     """docstring for get_members"""
-    return self.get_target_keys(GROUP_MEMEBER, User)
+    return self.get_target(GROUP_MEMEBER, User, keys_only=True)
   
   def get_members(self):
     """docstring for get_members"""
@@ -221,8 +221,8 @@ class Group(gdb.Entity):
   
   def get_admin_keys(self, limit=24, offset=0):
     """docstring for get_admins"""
-    return self.get_target_keys(GROUP_ADMIN, User, limit=limit,\
-      offset=offset)
+    return self.get_targets(GROUP_ADMIN, User, limit=limit,\
+      offset=offset, keys_only=True)
   
   def get_admins(self, limit=24, offset=0):
     """docstring for get_admins"""

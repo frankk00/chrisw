@@ -104,7 +104,7 @@ class UserStreamInfo(gdb.Entity):
     
   def get_following_keys(self):
     """docstring for get_follower_keys"""
-    return User.get_source_keys(FOLLOWED_BY, self.user)
+    return User.get_sources(FOLLOWED_BY, self.user, keys_only=True)
   
   def get_followers(self):
     """docstring for get_followers"""
@@ -112,7 +112,7 @@ class UserStreamInfo(gdb.Entity):
   
   def get_follower_keys(self):
     """docstring for get_following_keys"""
-    return self.user.get_target_keys(FOLLOWED_BY, User)
+    return self.user.get_targets(FOLLOWED_BY, User, keys_only=True)
   
   def get_following(self):
     """docstring for get_following"""

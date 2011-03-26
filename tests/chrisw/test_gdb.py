@@ -33,7 +33,7 @@ class TestHuman(gdb.Entity):
   
   def get_lovers(self):
     """docstring for get_lovers"""
-    return self.get_target_keys(LOVE, TestHuman)
+    return self.get_targets(LOVE, TestHuman, keys_only=True)
 
 class TestEntityRelationTestCase(unittest.TestCase):
   """docstring for TestEntityRelationTestCase"""
@@ -132,15 +132,15 @@ class TestMessageIndex(unittest.TestCase):
     self.assertTrue(lap_post.has_subscriber(lap))
     self.assertFalse(lap_post.has_subscriber(top))
     
-    self.assertEqual(list(lap_post.get_subscriber_keys()), [lap.key()])
+    self.assertEqual(list(lap_post.get_subscribers(keys_only=True)), [lap.key()])
     
-    self.assertNotEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(top))[:1])
-    self.assertNotEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(lap))[:1])
+    self.assertNotEqual([lap_post.key()], list(TestTalk.latest_by_subscriber(top, keys_only=True))[:1])
+    self.assertNotEqual([lap_post.key()], list(TestTalk.latest_by_subscriber(lap, keys_only=True))[:1])
     
     lap_post.notify()
     
-    self.assertEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(lap))[:1])
-    self.assertNotEqual([lap_post.key()], list(TestTalk.latest_keys_by_subscriber(top))[:1])
+    self.assertEqual([lap_post.key()], list(TestTalk.latest_by_subscriber(lap, keys_only=True))[:1])
+    self.assertNotEqual([lap_post.key()], list(TestTalk.latest_by_subscriber(top, keys_only=True))[:1])
     
     lap_post.add_subscriber(top)
   
@@ -149,20 +149,20 @@ class TestMessageIndex(unittest.TestCase):
     
     top_post.add_subscriber([lap, top])
     
-    self.assertNotEqual([top.key()], list(TestTalk.latest_keys_by_subscriber(top))[:1])
-    self.assertNotEqual([lap.key()], list(TestTalk.latest_keys_by_subscriber(lap))[:1])
+    self.assertNotEqual([top.key()], list(TestTalk.latest_by_subscriber(top, keys_only=True))[:1])
+    self.assertNotEqual([lap.key()], list(TestTalk.latest_by_subscriber(lap, keys_only=True))[:1])
     
     top_post.notify()
 
-    self.assertEqual([top_post.key()], list(TestTalkComment.latest_keys_by_subscriber(lap))[:1])
-    self.assertEqual([top_post.key()], list(TestTalkComment.latest_keys_by_subscriber(top))[:1])
+    self.assertEqual([top_post.key()], list(TestTalkComment.latest_by_subscriber(lap, keys_only=True))[:1])
+    self.assertEqual([top_post.key()], list(TestTalkComment.latest_by_subscriber(top, keys_only=True))[:1])
     
     lap_post.notify()
     top_post.delete_subscriber(lap)
     top_post.notify()
     
-    self.assertEqual([lap_post.key()], list(TestTalkComment.latest_keys_by_subscriber(lap))[:1])
-    self.assertEqual([top_post.key()], list(TestTalkComment.latest_keys_by_subscriber(top))[:1])
+    self.assertEqual([lap_post.key()], list(TestTalkComment.latest_by_subscriber(lap, keys_only=True))[:1])
+    self.assertEqual([top_post.key()], list(TestTalkComment.latest_by_subscriber(top, keys_only=True))[:1])
     
     lap_post.delete()
     top_post.delete()

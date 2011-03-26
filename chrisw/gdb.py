@@ -43,7 +43,6 @@ class Entity(db.FlyModel):
     return self._get_links(link_type, target).get() is not None
   
   def _get_links(self, link_type, target):
-    """docstring for get_links"""
     return Link.all(source=self, link_type=link_type, target=target)
   
   def unlink(self, link_type, target):
@@ -52,20 +51,32 @@ class Entity(db.FlyModel):
     for link in links:
       link.delete()
   
-  def get_target_keys(self, link_type, target_type):
-    """Not ready for docstring
-    TODO: add ``only_keys`` parameter
+  def get_targets(self, link_type, target_type, keys_only=False):
+    """Return all target entities by given link type and source entity.
+    
+    keys_only -- if only keys will be loaded.
     """
-    return db.MapQuery(Link.all(source=self, link_type=link_type,\
+    query = db.MapQuery(Link.all(source=self, link_type=link_type,\
       target_type=_get_type_name(target_type)), lambda x: x.target)
+    
+    if not keys_only:
+      query = db.GetQuery(query)
+    
+    return query;
   
   @classmethod
-  def get_source_keys(cls, link_type, target):
-    """Not ready for docstring
-    TODO: add ``only_keys`` parameter
+  def get_sources(cls, link_type, target, keys_only=False):
+    """Return all source entities by given link type and target entity.
+    
+    keys_only -- if only keys will be loaded.
     """
-    return db.MapQuery(Link.all(link_type=link_type, target=target,\
+    query = db.MapQuery(Link.all(link_type=link_type, target=target,\
       source_type=_get_type_name(cls)), lambda x: x.source)
+    
+    if not keys_only:
+      query = db.GetQuery(query)
+    
+    return query
   
   @classmethod
   def latest(cls):
@@ -89,7 +100,7 @@ class Link(db.Model):
   
     
 class Subscription(db.Model):
-  """docstring for Subscription"""
+  """The relation between entities and messages"""
   subscriber = db.WeakReferenceProperty(required=True)
   subscriber_type = db.StringProperty(required=True)
   topic = db.WeakReferenceProperty(required=True)
@@ -117,12 +128,14 @@ def _init_user_keys(users):
   return list(set(keys))
   
 class Message(db.FlyModel):
-  """docstring for Message"""
+  """The model which represent the message in system"""
   create_at = db.DateTimeProperty(auto_now_add=True)
   update_at = db.DateTimeProperty(auto_now=True)
   
   def add_subscriber(self, users):
-    """docstring for subscribe"""
+    """Add a or a set of subscriber for message. It's designed for Quora liked
+     apps.
+    """
     if isinstance(users, db.Model):
       users = [users]
       
@@ -132,42 +145,47 @@ class Message(db.FlyModel):
       s.put()
   
   def add_subscribers(self, users):
-    """docstring for add_subscriber"""
+    """Deprecated method"""
     self.add_subscriber(users)
   
   def _get_subscriptions(self, user):
-    """docstring for _get_subscriptions"""
     return Subscription.all(subscriber=user, topic=self)
   
   def delete_subscriber(self, user):
-    """docstring for delte_subscriber"""
+    """Remove a subscriber from message"""
     db.delete(self._get_subscriptions(user))
   
   def has_subscriber(self, user):
-    """docstring for has_subcriber"""
+    """Return if this message has the given user as subscriber"""
     return self._get_subscriptions(user).get() != None
   
-  def get_subscriber_keys(self):
-    """Not ready for docstring
-    TODO: add ``only_keys`` parameter
+  def get_subscribers(self, keys_only=False):
+    """Return all subscribers of this message.
+    
+    keys_only -- if only keys will be loaded.
     """
-    return db.MapQuery(self._get_subscriptions(None), lambda x:x.subscriber)
+    query = db.MapQuery(self._get_subscriptions(None), lambda x:x.subscriber)
+    
+    if not keys_only:
+      query = db.GetQuery(query)
+    
+    return query;
   
   def notify(self, users=None):
-    """docstring for notify"""
+    """Notify the given users for this message's update"""
     if not users:
-      users = self.get_subscriber_keys()
-    self.notify_users(users)
+      users = self.get_subscribers(keys_only=True)
+    self._notify_users(users)
   
   def redo_notify(self):
-    """docstring for redo_notify"""
+    """Redo the notification"""
     index = MessageIndex.all(target=self).get()
     
     if index:
       index.put()
   
-  def notify_users(self, users):
-    """docstring for notify_users"""
+  def _notify_users(self, users):
+    """Internal methods for notification"""
     keys = _init_user_keys(users)
     
     index = MessageIndex.all(target=self).get()
@@ -181,36 +199,33 @@ class Message(db.FlyModel):
     index.put()
   
   def undo_notify(self):
-    """docstring for undo_notify"""
+    """Cancel all notification for this message"""
     db.delete(MessageIndex.all(target=self, keys_only=True))
   
   def get_type_name(self):
-    """docstring for get_type_name"""
+    """Return the entity type name for instance"""
     return self.__class__.get_cls_type_name()
   
   @classmethod
   def get_cls_type_name(cls):
-    """docstring for get_message_type_name"""
+    """Return the entity type name for class"""
     return cls.__name__
   
   @classmethod
-  def latest_keys_by_subscriber(cls, user):
-    """Not ready for docstring
-    TODO: add ``only_keys`` parameter
-    """
-    return db.MapQuery(MessageIndex.all(subscribers=user, \
+  def latest_by_subscriber(cls, user, keys_only=False):
+    """Get all latest messages for given subscriber"""
+    query = db.MapQuery(MessageIndex.all(subscribers=user, \
       target_type=cls.get_cls_type_name()).order('-update_at'),
       lambda x: x.target)
-  
-  @classmethod
-  def latest_by_subscriber(self, user):
-    """docstring for latest_keys_by_subscriber"""
-    return db.MapQuery(self.latest_keys_by_subscriber(user), 
-      lambda x: db.get(x), True)
+    
+    if not keys_only:
+      query = db.GetQuery(query)
+    
+    return query
   
   @classmethod
   def latest(cls):
-    """docstring for latest"""
+    """Return latest created messages"""
     return cls.all().order("-create_at")
 
 class MessageIndex(db.Model):
@@ -223,7 +238,6 @@ class MessageIndex(db.Model):
   
   @classmethod
   def all(cls, **kwargs):
-    """docstring for all"""
     if kwargs.has_key('subscribers'):
       value = kwargs['subscribers']
       if isinstance(value, db.Model):
