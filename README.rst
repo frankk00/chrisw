@@ -125,8 +125,8 @@ Instructions:
 
 2. Modify the ``app.yaml`` to specify your appengine box.
 
-3. Run it locally and visit ``/unittest`` on your appengine box. Make sure that 
-  the program passed all tests.
+3. Run it locally and visit ``/unittest`` on your appengine box. Make sure that
+   the program passed all tests.
 
 4. Change the ``DEBUG`` in ``local_settings.py`` to ``False``
 
