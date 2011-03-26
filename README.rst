@@ -22,36 +22,6 @@ AppEngine based application development.
 
 It contains:
 
-AOP Web Development Workflow
-----------------------------
-
-::
-
-  class WelcomeHandler(handlers.RequestHandler):
-
-    @cache_action("welcome-page-for-{user_name}s",time=60)
-    def get(self, user_name):
-      slogan = 'Hi %s, Welcome to Chrisw' % user_name
-      return template('welcome.html', locals())
-
-
-The above code declared a welcome page for user, it will be rendered using a
-template called ``welcome.html`` and the ``locals()`` dict. The rendered page
-will be cached for 60 seconds in memcache for each user.
-
-Really Useful Storage API
--------------------------
-
-::
-  
-  def get_recent_post_titles(user):
-    """The example for MapQuery and Model.all()."""
-    return db.MapQuery(Post.all(user=user), lambda x: x.title)\
-      .order("-create_at").fetch(10)
-
-
-The above code get all recent posts' titles by the given user. 
-
 Pipline Rendering
 -----------------
 
@@ -84,6 +54,56 @@ rendering.
 
 .. image:: https://github.com/kangzhang/chrisw/blob/develop/docs/PipelineRendering.png?raw=true
 
+
+----------------------
+Why Pipline Rendering?
+----------------------
+
+The benefits of pipline rendering:
+
+# *Reuse* ``template`` and ``data`` together. Why did we create so many
+different web frameworks? One main reason is that we want to reuse the code we 
+have written. ``template`` enables us to reuse the display layouts, but it 
+dose not allow us to reuse the ``data``. Just as what we can seen in different 
+portal and SNS sites, many parts in webpage are duplicated. Pipline rendering 
+allow us to render the webpage *part by part*, then merge them together.
+
+# More easy to use *ajax*. Since our page are rendered *part by part*, we could 
+easily load these *parts* using ajax to browser. 
+
+# More *parallel* in future. By rendering different parts at the same time, we
+could reduce the page loading latency in future(We've not implemented this yet).
+
+
+AOP Web Development Workflow
+----------------------------
+
+::
+
+  class WelcomeHandler(handlers.RequestHandler):
+
+    @cache_action("welcome-page-for-{user_name}s",time=60)
+    def get(self, user_name):
+      slogan = 'Hi %s, Welcome to Chrisw' % user_name
+      return template('welcome.html', locals())
+
+
+The above code declared a welcome page for user, it will be rendered using a
+template called ``welcome.html`` and the ``locals()`` dict. The rendered page
+will be cached for 60 seconds in memcache for each user.
+
+Really Useful Storage API
+-------------------------
+
+::
+  
+  def get_recent_post_titles(user):
+    """The example for MapQuery and Model.all()."""
+    return db.MapQuery(Post.all(user=user), lambda x: x.title)\
+      .order("-create_at").fetch(10)
+
+
+The above code get all recent posts' titles by the given user.
 
 
 and it also contains:
@@ -151,7 +171,7 @@ About
 =====
 
 :Authors:
-    Kang Zhang (jobo.zh AT gmail.com) http://home.kangzhang.org
+    Kang Zhang (jobo.zh <at> gmail.com) http://home.kangzhang.org
 
 :Version: 
 	0.4.5
