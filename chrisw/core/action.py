@@ -16,22 +16,23 @@ class Action(object):
     self.status = 'ok'
 
 class back(Action):
-  """docstring for back"""
+  """``back`` action: return to the previous page"""
   def __init__(self):
     super(back, self).__init__()
 
 class login(Action):
+  """``login`` action: return to the login page"""
   def __init__(self):
     super(login, self).__init__()
 
 class _RenderAction(Action):
-  """docstring for _RenderAction"""
+  """The base action for all rendering related actions"""
   def render_to_string(self):
-    """docstring for render_to_string"""
+    """render content to string"""
     raise Exception('Not implemented method')
 
 class template(_RenderAction):
-  """docstring for template"""
+  """``template`` action: render the string using the given template."""
   def __init__(self, name, var_dict):
     super(template, self).__init__()
     # strip the .html
@@ -40,7 +41,6 @@ class template(_RenderAction):
     self.var_dict = var_dict
   
   def render_to_string(self):
-    """docstring for render"""
     
     # add always needed info
     var_dict = self.var_dict
@@ -64,7 +64,7 @@ class redirect(Action):
     self.to_url = to_url
 
 class cache(_RenderAction):
-  """docstring for cache"""
+  """``cache`` action, which is used to cache the render result string"""
   def __init__(self, func, func_args, func_kwargs, key, time=60):
     super(cache, self).__init__()
     self.key = key
@@ -74,7 +74,6 @@ class cache(_RenderAction):
     self.func_kwargs = func_kwargs
   
   def render_to_string(self):
-    """docstring for render_to_string"""
     data = memcache.get(self.key)
     if data is not None:
       import logging
@@ -149,7 +148,6 @@ class forward(_RenderAction):
     return action
   
   def render_to_string(self):
-    """docstring for render"""
     action = self.resolve_action()
     
     result_string = "Forward to PATH " + self.to_path 
@@ -171,7 +169,7 @@ class forward(_RenderAction):
     return result_string
   
   def render(self):
-    """docstring for evaluate"""
+    """Retrieve the fowarded content"""
     return self.render_to_string()
     
     

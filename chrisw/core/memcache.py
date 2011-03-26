@@ -15,7 +15,7 @@ from chrisw import db
 from conf import settings
 
 def _format_key(keyformat, *args, **kwargs):
-  """docstring for _format_key"""
+  """generate the cache key using given key format and arguments"""
   
   if args and kwargs:
     raise Exception("Cannot format memcache using both *args and **kwargs")
@@ -50,10 +50,10 @@ def cache_result(keyformat, time=60):
 
 
 def cache_action(keyformat, time=60):
-  """docstring for cache_action"""
+  """Decorator to memcache actions using memcache"""
   def decorator(func):
     def wrapper(*args, **kwargs):
-      """docstring for wrapper"""
+
       from chrisw.core.action import cache
       
       key = _format_key(keyformat, *args, **kwargs)
