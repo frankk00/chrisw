@@ -128,7 +128,7 @@ class _ModelUIMeta(type):
         not hasattr(item, 'im_not_view_method'):
           attrs[attr] = view_method(item)
     
-    return super(ModelUIMeta, cls).__new__(cls, name, bases, attrs)
+    return super(_ModelUIMeta, cls).__new__(cls, name, bases, attrs)
     
 
 class ModelUI(PermissionUI):

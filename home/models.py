@@ -23,7 +23,7 @@ class Site(db.Model):
     default= _("Want to be the best open source SNS!"))
   
   @classmethod
-  @cache_result('global-site', 240)
+  @cache_result('globalsite-instance', 240)
   def get_instance(cls):
     """docstring for get_instance"""
     instance = super(Site, cls).all().get()

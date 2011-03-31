@@ -32,7 +32,8 @@ class UserStreamRenderNode(template.Node):
     if stream.target_type == TEXT_STREAM or stream.target_type is None:
       return render_to_string("user_stream_text_item.html", locals())
     
-    raise Exception("Can't render this type of stream %s %s" % (stream, stream.target_type is None))
+    raise Exception("Can't render this type of stream %s %s" % \
+      (stream, stream.target_type))
 
 @register.tag
 def stream_render(parser, token):
@@ -53,6 +54,3 @@ def stream_render(parser, token):
         % (items[0], item))
   
   return UserStreamRenderNode(stream_name, **args)
-
-    
-    

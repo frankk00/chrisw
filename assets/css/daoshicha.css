@@ -106,18 +106,20 @@ p.pl{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  -moz-box-shadow: 0 3px 4px #999;
-  -webkit-box-shadow: 0 3px 4px #999;*border-right:1px solid #eee;
+/*  -moz-box-shadow: 0 3px 4px #999;*/
+/*  -webkit-box-shadow: 0 3px 4px #999;*border-right:1px solid #eee;*/
+/*  border:0.5px solid #E4E4E4;*/
 }
 
 #site-message{
-  background: white; 
+  background: white;
   margin-top: 50px;
   margin-bottom: -30px;
   padding-top: 10px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  border:1px solid #E4E4E4;
 }
 
 #footer-bar{
@@ -557,5 +559,5 @@ input[type="submit"] {
 }
 
 .blue{
-  color:#0063DC;
+  color:#4E7AC7;
 }
