@@ -106,8 +106,8 @@ p.pl{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-/*  -moz-box-shadow: 0 3px 4px #999;*/
-/*  -webkit-box-shadow: 0 3px 4px #999;*border-right:1px solid #eee;*/
+  -moz-box-shadow: 0 3px 4px #999;
+  -webkit-box-shadow: 0 3px 4px #999;*border-right:1px solid #eee;
 /*  border:0.5px solid #E4E4E4;*/
 }
 
@@ -119,7 +119,9 @@ p.pl{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  border:1px solid #E4E4E4;
+/*  border:1px solid #E4E4E4;*/
+  -moz-box-shadow: 0 3px 4px #999;
+  -webkit-box-shadow: 0 3px 4px #999;*border-right:1px solid #eee;
 }
 
 #footer-bar{
@@ -129,6 +131,8 @@ p.pl{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  -moz-box-shadow: 0 3px 4px #999;
+  -webkit-box-shadow: 0 3px 4px #999;*border-right:1px solid #eee;
 }
 
 div.sidebar_box {
