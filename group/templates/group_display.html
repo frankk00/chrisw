@@ -70,10 +70,10 @@
 			
 		</div>
 	</div>
-	<div id="group_member_box" class="sidebar_box no-border" >
+	<div id="group_member_box" class="sidebar_box no_border" >
 		<h3>{% trans "Group Members" %}</h3>
 		{% for member in members %}
-			<dl class="item-box">
+			<dl class="item_box">
 				<dt class="photo">
 					<a href="/u/{{member.key.id}}"><img src="{{member.photo_url}}=s48"/ class="im"></a>
 				</dt>

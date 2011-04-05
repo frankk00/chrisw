@@ -174,7 +174,7 @@ About
     Kang Zhang (jobo.zh <at> gmail.com) http://home.kangzhang.org
 
 :Version: 
-	0.4.6
+	0.5.1
 
 :Python: 
 	2.5+

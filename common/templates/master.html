@@ -31,16 +31,16 @@
 <body class="user-style">
 	<div id="wrapper" class="container_24">
 		
-		<div id="top-bar-outer" class="container_24">
-			<div id="top-bar-bg">
-				<div id="top-bar" style="color:white;">
-					<div id="top-bar-inside">
-						<div id="logo" class= "grid_4 top-bar-item">
+		<div id="top_bar_outer" class="container_24">
+			<div id="top_bar_bg">
+				<div id="top_bar" style="color:white;">
+					<div id="top_bar_inside">
+						<div id="logo" class= "grid_4 top_bar_item">
 							<a href="/" style="vertical-align:text-top; margin: 0px; font-size:1.5em;">
 								<strong>{{ site.site_name }}</strong>
 							</a>
 						</div>
-						<div id="nav-menu" class="grid_14 top-bar-item" style="margin-bottom:-2px;">
+						<div id="nav-menu" class="grid_14 top_bar_item" style="margin-bottom:-2px;">
 							<ul>
 								<li class="{% block group_menu %}{% endblock %}">
 									<a href="/group/all" style="vertical-align:text-top; margin: 0px;">
@@ -55,7 +55,7 @@
 							</ul>
 						</div>
 						{% if is_not_guest %}
-							<div id="name" class="grid_6 top-bar-item">
+							<div id="name" class="grid_6 top_bar_item">
 								<span>
 									<a href="/u/{{login_user.key.id}}">
 										<img style="margin-bottom:-3px;" width="20px" height="20px" src="{{login_user.photo_url}}" />																			
@@ -86,7 +86,7 @@
 		</div>
 		
 		{% if not is_not_guest %}
-			<div id="site-message">
+			<div id="site_message">
 				<div id="message-content" class="grid_24">
 					<div id="site-name" class="grid_4">
 						<h2>
@@ -129,7 +129,7 @@
 		{% endif %}
 		
 		{% if site_message %}
-			<div id="site-message">
+			<div id="site_message">
 				<div id="message-content" class="grid_24">
 					<h3 style="color:#666;">
 						{{ site_message }}
@@ -150,7 +150,7 @@
 		</div>
 		
 		
-		<div id="footer-bar">
+		<div id="footer_bar">
 			<div id="footer" class="grid_24" style="padding-bottom:10px;">
 				<span id="cp">
 				    &copy; 2011-2011 <a href="http://home.kangzhang.org">Kang Zhang</a> all rights reserved

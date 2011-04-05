@@ -38,11 +38,11 @@
 		</div>
 	</div>
 	
-	<ul class="medium-tabs">
+	<ul class="medium_tabs">
 		{% if can_view_following %}
-			<li class="medium-tab {% block following_title %}{% endblock %}"><a class="text-tab" href="/u/{{user.key.id}}/following">{% trans "Followed Streams" %}</a></li>
+			<li class="medium_tab {% block following_title %}{% endblock %}"><a class="text_tab" href="/u/{{user.key.id}}/following">{% trans "Followed Streams" %}</a></li>
 		{% endif %}
-		<li class="medium-tab {% block all_title %}{% endblock %}"> <a class="text-tab" href="/u/{{user.key.id}}/all">{% trans "All Streams" %}</a></li>
+		<li class="medium_tab {% block all_title %}{% endblock %}"> <a class="text_tab" href="/u/{{user.key.id}}/all">{% trans "All Streams" %}</a></li>
 	</ul>
 	
 	<div id="stream-box">
@@ -92,7 +92,7 @@
 	</div>
 	
 	{% if following_users %}
-		<div class="sidebar_box no-border">
+		<div class="sidebar_box no_border">
 			<h3>{% trans "Following Members:" %}</h3>
 			{% for member in following_users %}
 				{% include "member_item.html" %}
@@ -102,7 +102,7 @@
 	{% endif %}
 	
 	{% if follower_users %}
-		<div class="sidebar_box no-border">
+		<div class="sidebar_box no_border">
 			<h3>{% trans "Followed by Members:" %}</h3>
 			{% for member in follower_users %}
 				{% include "member_item.html" %}
@@ -112,7 +112,7 @@
 	{% endif %}
 	
 	{% if joined_groups %}
-		<div class="sidebar_box no-border">
+		<div class="sidebar_box no_border">
 			{% include "joined_groups_box.html" %}
 			<div class="clear"></div>
 		</div>

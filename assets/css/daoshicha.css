@@ -45,7 +45,7 @@ p.pl{
 #main_panel{
   min-height: 360px;
 }
-#top-bar-outer {
+#top_bar_outer {
   width: 100%;
   height: 40px;
   display: block;
@@ -55,7 +55,7 @@ p.pl{
   left: 0;
   z-index: 20;
 }
-#top-bar-bg {
+#top_bar_bg {
   width: 100%;
   height: 100%;
   top: 0;+
@@ -76,25 +76,25 @@ p.pl{
   border-top-right-radius: 5px;
 }
 
-#top-bar {
+#top_bar {
   margin: 0 auto;
   padding: 10px 0;
   width: 960px;
   text-align: left;
 }
-  #top-bar .top-bar-inside {
+  #top_bar .top_bar_inside {
     margin: 0 40px;
     position: relative;
     vertical-align: middle;
   }
-  #top-bar .top-bar-item{
+  #top_bar .top_bar_item{
     vertical-align: text-top; 
     margin: 0px;
   }
-  #top-bar ul{
+  #top_bar ul{
     list-style-type:none;
   }
-    #top-bar ul li{
+    #top_bar ul li{
       float:left;
       margin-left:20px;
     }
@@ -111,7 +111,7 @@ p.pl{
 /*  border:0.5px solid #E4E4E4;*/
 }
 
-#site-message{
+#site_message{
   background: white;
   margin-top: 50px;
   margin-bottom: -30px;
@@ -124,7 +124,7 @@ p.pl{
   -webkit-box-shadow: 0 3px 4px #999;*border-right:1px solid #eee;
 }
 
-#footer-bar{
+#footer_bar{
   background: white; 
   margin-top: 50px;
   padding-top: 10px;
@@ -141,7 +141,7 @@ div.sidebar_box {
   margin: 10px;
 }
 
-.no-border{
+.no_border{
   border: 1px solid transparent !important;
 }
 
@@ -159,38 +159,38 @@ dl.member_box {
     margin-left: 0;
   }
 
-dl.item-box {
+dl.item_box {
   display: inline; 
   float:left; 
   width: 78px;
   text-align: center;
 }
-  dl.item-box dt.photo {
+  dl.item_box dt.photo {
     text-align: center;
   }
-  dl.item-box dd.name {
+  dl.item_box dd.name {
     text-align: center; 
     height: 55px; 
     margin: 0;
   }
-  dl.item-box dd.group{
+  dl.item_box dd.group{
     height: 25px;
   }
-    dl.item-box dd.name span{
+    dl.item_box dd.name span{
       white-space: nowrap;
     }
 
-.item-box-min{
+dl.item_box_min{
   float:left; 
   width: 78px;
   padding-left:3px;
   text-align: center;
   margin-bottom:0px ;
 }
-  dl.item-box-min dt.photo {
+  dl.item_box_min dt.photo {
     text-align: center;
   }
-  dl.item-box-min dd.name {
+  dl.item_box_min dd.name {
     text-align: center; 
     height: 25px; 
     margin: 0;
@@ -200,7 +200,7 @@ ul.buttom{
   margin: 0 0 0 0;
 }
 
-ul.medium-tabs{
+ul.medium_tabs{
   border-bottom: 1px solid #EEEEEE;
   clear: both;
   display: block;
@@ -209,14 +209,14 @@ ul.medium-tabs{
   margin: 0;
   padding: 0 10px;
 }
-  ul.medium-tabs .medium-tab{
+  ul.medium_tabs .medium_tab{
     cursor: pointer;
     float: left;
     margin: 0;
     padding: 0;
     position: relative;
   }
-  ul.medium-tabs .text-tab{
+  ul.medium_tabs .text_tab{
     -webkit-border-top-right-radius: 3px;
     -moz-border-radius-topright: 3px;
     -webkit-border-top-left-radius: 3px;
@@ -225,16 +225,13 @@ ul.medium-tabs{
     font-weight:bold;
     border: 1px solid transparent;
   }
-  ul.medium-tabs .medium-tab.active .text-tab{
+  ul.medium_tabs .medium_tab.active .text_tab{
     background: none repeat scroll 0 0 #FFFFFF;
     border-color: #EEEEEE #EEEEEE #FFFFFF;
     color: #333333;
   }
   
-
-  
-  
-a.text-tab{
+a.text_tab{
   -moz-border-radius: inherit;
   border: 1px solid transparent;
   cursor: pointer;
@@ -246,7 +243,7 @@ a.text-tab{
   text-decoration: none;
   text-shadow: 0 1px 0 #FFFFFF;
 }
-a.text-tab:hover{
+a.text_tab:hover{
   background:transparent;
   color:#AAA;
 }
