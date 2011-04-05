@@ -17,7 +17,7 @@
 				
 				{% if can_create_topic %}
 					<span style="float: right;">
-						<a class="a-btn a-btn-m" tabindex="2" href="/group/{{group.key.id}}/new"><span>{% trans "New Topic" %}</span></a>
+						<a class="a_btn a_btn_m" tabindex="2" href="/group/{{group.key.id}}/new"><span>{% trans "New Topic" %}</span></a>
 					</span>
 				{% endif %}
 			</h2>
@@ -46,20 +46,20 @@
 				<p>{{line}}</p>
 			{% endfor %}
 			
-			<div class="sep-line">
+			<div class="spe_line">
 
 			</div>
 			
 			<div style="padding-top:10px;">
 				<ul class="buttom">
 					{% if can_join %}
-						<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/join"><span>{% trans "Follow" %}</span></a>
+						<a class="a_btn a_btn_m" href="/group/{{group.key.id}}/join"><span>{% trans "Follow" %}</span></a>
 					{% endif %}
 					{% if can_quit %}
-						<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/quit"><span>{% trans "Unfollow" %}</span></a>
+						<a class="a_btn a_btn_m" href="/group/{{group.key.id}}/quit"><span>{% trans "Unfollow" %}</span></a>
 					{% endif %}
 					{% if can_edit %}
-						<a class="a-btn a-btn-m" href="/group/{{group.key.id}}/edit"><span>{% trans "Group Settings" %}</span></a>
+						<a class="a_btn a_btn_m" href="/group/{{group.key.id}}/edit"><span>{% trans "Group Settings" %}</span></a>
 					{% endif %}
 				</ul>
 			</div>

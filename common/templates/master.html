@@ -15,8 +15,8 @@
 	<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	
 	<style type="text/css" media="screen">
-		body.user-style{
-			background:#333 url("/images/background-main.png") no-repeat;
+		body.user_style{
+			background:#333 url("/images/themes/theme1/background-main.png") no-repeat;
 		}
 	</style>
 	<title>{% block title %}
@@ -28,7 +28,7 @@
 	{% endblock %}
 </head>
 
-<body class="user-style">
+<body class="user_style">
 	<div id="wrapper" class="container_24">
 		
 		<div id="top_bar_outer" class="container_24">
@@ -40,7 +40,7 @@
 								<strong>{{ site.site_name }}</strong>
 							</a>
 						</div>
-						<div id="nav-menu" class="grid_14 top_bar_item" style="margin-bottom:-2px;">
+						<div id="nav_menu" class="grid_14 top_bar_item" style="margin-bottom:-2px;">
 							<ul>
 								<li class="{% block group_menu %}{% endblock %}">
 									<a href="/group/all" style="vertical-align:text-top; margin: 0px;">
@@ -102,7 +102,7 @@
 					<div id="login-reminder" class="container_8">
 						<div id="sign-up-button" class="grid_2">
 							<ul class="buttom">
-								<a class="a-btn a-btn-m" href="/signup"><span>{% trans "Sign up" %}</span></a>
+								<a class="a_btn a_btn_m" href="/signup"><span>{% trans "Sign up" %}</span></a>
 							</ul>
 						</div>
 						
