@@ -67,14 +67,14 @@ class TopicUI(ModelUI):
     self.topic.hits += 1
     self.topic.put()
     
-    return template('topic_display', locals())
+    return template('page_topic_view.html', locals())
   
   @check_permission('edit', "Not the author")
   def edit(self):
     """docstring for edit"""
     form = TopicForm(data=self.topic.to_dict())
     post_url = '/group/topic/%d/edit' % self.topic.key().id()
-    return template('item_new', locals())
+    return template('page_item_create.html', locals())
   
   @check_permission('edit', "Not the author")
   def edit_post(self, request):
@@ -84,7 +84,7 @@ class TopicUI(ModelUI):
       new_topic = form.save(commit=False)
       new_topic.put()
       return redirect('/group/topic/%d' % new_topic.key().id())
-    return template('item_new', locals())
+    return template('page_item_create.html', locals())
   
   @check_permission('delete', "Can't delete topic")
   def delete(self):
@@ -96,7 +96,7 @@ class TopicUI(ModelUI):
     """docstring for create_post"""
     form = PostForm()
     post_url = '/group/topic/%d/new' % self.topic.key().id()
-    return template('item_new', locals())
+    return template('page_item_create.html', locals())
   
   @check_permission('create_post', "Not allowed to reply the thread")
   def create_post_post(self, request):
@@ -108,7 +108,7 @@ class TopicUI(ModelUI):
       self.topic.create_post(new_post, self.current_user)
       
       return redirect('/group/topic/%d' % self.topic.key().id())
-    return template('item_new', locals())
+    return template('page_item_create.html', locals())
 
 def topic_handler(func):
   """docstring for topic_handler"""

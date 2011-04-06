@@ -47,7 +47,7 @@ class GroupSiteUI(ModelUI):
     
     display_group_name = True
     
-    return template('groupsite_follow.html', locals())
+    return template('page_groupsite_view_following.html', locals())
   
   def all(self, request):
     """docstring for all"""
@@ -67,7 +67,7 @@ class GroupSiteUI(ModelUI):
     
     display_group_name = True
     
-    return template('groupsite_all.html', locals())
+    return template('page_groupsite_view_all.html', locals())
   
   @cache_action('group-recommend-groups')
   def recommend_groups(self):
@@ -75,13 +75,13 @@ class GroupSiteUI(ModelUI):
     
     recommend_groups = [g for g in Group.all().fetch(10)]
     
-    return template('window_recommend_groups', locals())
+    return template('widget_recommend_groups.html', locals())
   
   @check_permission("create_group", "Can't create group")
   def create_group(self):
     form = GroupForm()
     post_url = '/group/new'
-    return template('item_new', locals())
+    return template('page_item_create.html', locals())
   
   @check_permission("create_group", "Can't create group")
   def create_group_post(self, request):
@@ -91,7 +91,7 @@ class GroupSiteUI(ModelUI):
       self.group_site.add_group(new_group, self.user)
       
       return redirect('/group/%d' % new_group.key().id())
-    return template('item_new', locals())
+    return template('page_item_create.html', locals())
 
 class GroupSiteHandler(handlers.RequestHandler):
   """docstring for SiteHandler"""

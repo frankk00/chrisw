@@ -15,7 +15,7 @@
 	<div style="padding-left:20px; min-height:115px; padding-top:20px;">
 		<h3>{% trans "Recent Created Groups:" %}</h3>
 		{% for group in recent_groups %}
-			{% include "group_item.html" %}
+			{% include "item_box_group.html" %}
 		{% endfor %}
 	</div>
 	
@@ -27,7 +27,7 @@
 			<li class="medium_tab active"> <a class="text_tab" href="/group/all">{% trans "Post from All Groups" %}</a></li>
 		</ul>
 	
-	{% include "topic_list.html" %}
+	{% include "set_list_topic.html" %}
 	
 {% endblock %}
 
@@ -66,7 +66,7 @@
 				{% endblock %}
 			{% endfor %}
 		</ol>
-		{% include "pager.html" %}
+		{% include "control_pager.html" %}
 	</div>
 	
 {% endblock %}

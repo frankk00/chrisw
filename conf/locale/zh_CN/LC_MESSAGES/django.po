@@ -21,7 +21,7 @@ msgstr ""
 msgid "Sorry, got a error :-("
 msgstr "对不起,遇到错误了:-("
 
-#: common/templates/page_master.html:48 group/templates/groupsite_master.html:54
+#: common/templates/page_master.html:48 group/templates/page_groupsite_view_master.html:54
 #: home/templates/page_site_home_v1.html:12
 msgid "Groups"
 msgstr "小组"
@@ -54,91 +54,91 @@ msgstr "登陆"
 msgid "(Google Account is supported)"
 msgstr "(支持Google账户登陆)"
 
-#: group/templates/group_display.html:20 group/templates/topic_display.html:17
+#: group/templates/page_group_view.html:20 group/templates/page_topic_view.html:17
 msgid "New Topic"
 msgstr "新话题"
 
-#: group/templates/group_display.html:35
+#: group/templates/page_group_view.html:35
 msgid "Created at"
 msgstr "创建于"
 
-#: group/templates/group_display.html:56
+#: group/templates/page_group_view.html:56
 msgid "Follow"
 msgstr "关注小组"
 
-#: group/templates/group_display.html:59
+#: group/templates/page_group_view.html:59
 msgid "Unfollow"
 msgstr "取消关注"
 
-#: group/templates/group_display.html:62 group/templates/group_settings.html:6
+#: group/templates/page_group_view.html:62 group/templates/page_group_setting.html:6
 msgid "Group Settings"
 msgstr "小组设置"
 
-#: group/templates/group_display.html:74
+#: group/templates/page_group_view.html:74
 msgid "Group Members"
 msgstr "小组成员"
 
-#: group/templates/groupsite_all.html:6
-#: group/templates/groupsite_master.html:17
+#: group/templates/page_groupsite_view_all.html:6
+#: group/templates/page_groupsite_view_master.html:17
 #: home/templates/page_site_home_v1.html:27
 msgid "Post from All Groups"
 msgstr "大杂烩"
 
-#: group/templates/groupsite_follow.html:6
-#: group/templates/groupsite_master.html:21
-#: group/templates/joined_groups_box.html:3
+#: group/templates/page_groupsite_view_following.html:6
+#: group/templates/page_groupsite_view_master.html:21
+#: group/templates/widget_joined_groups.html:3
 msgid "Followed Groups"
 msgstr "关注小组"
 
-#: group/templates/groupsite_master.html:6
+#: group/templates/page_groupsite_view_master.html:6
 msgid "Welcome"
 msgstr "欢迎"
 
-#: group/templates/groupsite_master.html:46 group/templates/topic_list.html:24
+#: group/templates/page_groupsite_view_master.html:46 group/templates/set_list_topic.html:24
 msgid "Posts"
 msgstr "回复"
 
-#: group/templates/groupsite_master.html:50
+#: group/templates/page_groupsite_view_master.html:50
 msgid "Topics"
 msgstr "话题"
 
-#: group/templates/groupsite_master.html:63
+#: group/templates/page_groupsite_view_master.html:63
 msgid "Want to create a new group?"
 msgstr "想创建自己的小组?"
 
-#: group/templates/groupsite_master.html:64
+#: group/templates/page_groupsite_view_master.html:64
 msgid "Click here"
 msgstr "点击这里"
 
-#: group/templates/item_new.html:6 group/templates/item_new.html.py:15
+#: group/templates/page_item_create.html:6 group/templates/page_item_create.html.py:15
 msgid "Create"
 msgstr "创建于"
 
-#: group/templates/pager.html:9
+#: group/templates/control_pager.html:9
 msgid "Previous Page"
 msgstr "上一页"
 
-#: group/templates/pager.html:17
+#: group/templates/control_pager.html:17
 msgid "Next Page"
 msgstr "下一页"
 
-#: group/templates/topic_display.html:74
+#: group/templates/page_topic_view.html:74
 msgid "Add Post"
 msgstr "提交回复"
 
-#: group/templates/topic_display.html:77
+#: group/templates/page_topic_view.html:77
 msgid "Login to leave your message here."
 msgstr "登陆后开始留言."
 
-#: group/templates/topic_display.html:85
+#: group/templates/page_topic_view.html:85
 msgid "Back to Group: "
 msgstr "回到 "
 
-#: group/templates/topic_list.html:24
+#: group/templates/set_list_topic.html:24
 msgid "Hits"
 msgstr "点击"
 
-#: group/templates/window_recommend_groups.html:4
+#: group/templates/widget_recommend_groups.html:4
 msgid "Recommend Groups"
 msgstr "推荐小组"
 

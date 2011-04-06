@@ -35,7 +35,7 @@ Pipline Rendering
     # add recommend groups widget in page    
     sidebar_widgets = [forward('/group/recommend').render()]
     
-    return template('groupsite_all.html', locals())
+    return template('page_groupsite_view_all.html', locals())
   
   @cache_action('group-recommend-groups', 60)
   def recommend_groups(self):
@@ -43,7 +43,7 @@ Pipline Rendering
 
     recommend_groups = [g for g in Group.all().fetch(10)]
 	# .html postfix can be omit for template name
-    return template('window_recommend_groups', locals()) 
+    return template('widget_recommend_groups.html', locals()) 
 
 
 The above code creates a view for the given group. The recommend groups are 

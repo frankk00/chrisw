@@ -19,20 +19,20 @@
 				{% endif %}
 			</h2>
 			<div class="topic post" style="margin-top: 0px;">
-				<div class="topic-author-photo post-author-photo">
+				<div class="topic_author_photo post_author_photo">
 					<a href="/u/{{topic.author.key.id}}">
 						<img src="{{topic.author.photo_url}}=s48" class="im">
 					</a>
 				</div>
-				<div class="topic-content post-content">
-					<div class="topic-meta post-meta">
+				<div class="topic_content post_content">
+					<div class="topic_meta post_meta">
 						{{ topic.create_at|date:"Y-n-j H:i" }} by
 						<a href="/u/{{topic.author.key.id}}">{{ topic.author.fullname }}</a>
 						{% if topic.author.status_message %}
 							({{ topic.author.status_message }})
 						{% endif %}
 					</div>
-					<div class="topic-body">
+					<div class="topic_body">
 						{{ topic.content|linebreaks }}
 					</div>
 				</div>
@@ -42,13 +42,13 @@
 	<ol class="post-list">
 		{% for post in posts %}
 			<li class="post" data-topic-id="{{topic.key.id}}">
-				<div class="post-author-photo">
+				<div class="post_author_photo">
 					<a href="/u/{{post.author.key.id}}">
 						<img src="{{post.author.photo_url}}=s48" class="im">
 					</a>
 				</div>
-				<div class="post-content"> 
-					<div class="post-meta" style="color: #999999;">
+				<div class="post_content"> 
+					<div class="post_meta" style="color: #999999;">
 						{{ post.create_at|date:"Y-n-j H:i" }} by 
 						<a href="/u/{{post.author.key.id}}">
 							{{ post.author.fullname }} 
@@ -57,14 +57,14 @@
 							({{ post.author.status_message }})
 						{% endif %}
 					</div>
-					<div class="post-body" style="margin-bottom: 5px;">
+					<div class="post_body" style="margin-bottom: 5px;">
 						{{ post.content|linebreaks }}
 					</div>
 				</div>
 			</li>
 		{% endfor %}
 		
-		{% include "pager.html" %}
+		{% include "control_pager.html" %}
 	</ol>
 	
 	{% if can_create_post %}

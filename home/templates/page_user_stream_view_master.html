@@ -55,7 +55,7 @@
 				{% endblock %}
 			{% endfor %}
 		</ol>
-		{% include "pager.html" %}
+		{% include "control_pager.html" %}
 	</div>
 
 {% endblock %}
@@ -113,7 +113,7 @@
 	
 	{% if joined_groups %}
 		<div class="sidebar_box no_border">
-			{% include "joined_groups_box.html" %}
+			{% include "widget_joined_groups.html" %}
 			<div class="clear"></div>
 		</div>
 	{% endif %}

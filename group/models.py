@@ -177,7 +177,7 @@ class Group(gdb.Entity):
   
   def get_member_keys(self):
     """docstring for get_members"""
-    return self.get_target(GROUP_MEMEBER, User, keys_only=True)
+    return self.get_targets(GROUP_MEMEBER, User, keys_only=True)
   
   def get_members(self):
     """docstring for get_members"""

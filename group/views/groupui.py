@@ -60,7 +60,7 @@ class GroupUI(ModelUI):
     
     #var_dict = locals() # can't assign variable below this line
                 
-    return template('group_display.html', locals())
+    return template('page_group_view.html', locals())
   
   @check_permission('edit', "Not a admin user")
   def edit(self, request):
@@ -78,7 +78,7 @@ class GroupUI(ModelUI):
     photo_upload_url = photo.create_upload_url()
     back_url = request.path
     
-    return template('group_settings', locals())
+    return template('page_group_setting.html', locals())
   
   @check_permission('edit', "Not a admin user")
   def edit_post(self, request):
@@ -88,7 +88,7 @@ class GroupUI(ModelUI):
       new_group = form.save(commit=False)
       new_group.put()
       return redirect('/group/%d' % self.group.key().id())
-    return template('item_new', locals())
+    return template('page_item_create.html', locals())
     
   """ deprecated  
   @check_permission('view', "Not allowed to open the group")
@@ -134,7 +134,7 @@ class GroupUI(ModelUI):
     """docstring for create_topic"""
     form = TopicForm()
     post_url = '/group/%d/new' % self.group.key().id()
-    return template('item_new', locals())
+    return template('page_item_create.html', locals())
   
   @check_permission('create_topic', "Not allowed to create topic here")
   def create_topic_post(self, request):
@@ -145,7 +145,7 @@ class GroupUI(ModelUI):
       self.group.create_topic(new_topic, self.current_user)
       
       return redirect('/group/topic/%d' % new_topic.key().id())
-    return template('item_new', locals())
+    return template('page_item_create.html', locals())
 
 class GroupHandler(handlers.RequestHandler):
   """docstring for GroupHandler"""
