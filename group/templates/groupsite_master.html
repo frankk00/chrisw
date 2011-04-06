@@ -28,8 +28,8 @@
 
 {% block sidebar %}
 	{% if is_not_guest %}
-		<div id="user-info" class="grid_9 dashboard-widget">
-			<div id="user-title">
+		<div id="user-info" class="grid_9 dashboard_widget">
+			<div id="user_title">
 			  <h2>
 				<img class="ies" alt="{{ login_user.fullname }}" src="{{login_user.photo_url}}">
 				{{ login_user.fullname }}
@@ -68,7 +68,7 @@
 		{% endif %}
 
 		{% if joined_groups %}
-			<div id="groups" class="grid_9 dashboard-widget">
+			<div id="groups" class="grid_9 dashboard_widget">
 				
 				{% include "joined_groups_box.html" %}
         	
@@ -82,7 +82,7 @@
 
 	{% if sidebar_widgets %}
 		{% for widget in sidebar_widgets %}		
-			<div class="grid_9 dashboard-widget">
+			<div class="grid_9 dashboard_widget">
 				{{ widget|safe }}
 			</div>
 		{% endfor %}

@@ -27,10 +27,10 @@
 				<div style="padding-top:10px;">
 			{% if can_create_stream %}
 					<form action="{{post_url}}" method="POST" accept-charset="utf-8">
-							<textarea class="stream-box-editor" style="width: 526px; height: 36px;" name="content" id="id_content" ></textarea>
+							<textarea class="stream_box_editor" style="width: 526px; height: 36px;" name="content" id="id_content" ></textarea>
 							<div style="text-align:right">
 								<span style="float:left; padding-left:14px;padding-top:4px; color:#aaa;">{% trans "What's happing?" %}</span>
-								<input class="a-btn" type="submit" value="{% trans "Post New Stream" %}" style="margin-bottom:0px; height:26px;">
+								<input class="a_btn" type="submit" value="{% trans "Post New Stream" %}" style="margin-bottom:0px; height:26px;">
 							</div>
 					</form>
 			{% endif %}
@@ -74,17 +74,17 @@
 		<div style="padding-top:10px;">
 			{% if is_not_guest %}
 				<ul class="buttom">
-					<a class="a-btn a-btn-m" href="/u/profile"><span>{% trans "User Settings" %}</span></a>
+					<a class="a_btn a_btn_m" href="/u/profile"><span>{% trans "User Settings" %}</span></a>
 				{% if can_follow %}
-					<a class="a-btn a-btn-m" href="/u/{{user.key.id}}/follow"><span>{% trans "Follow User" %}</span></a>
+					<a class="a_btn a_btn_m" href="/u/{{user.key.id}}/follow"><span>{% trans "Follow User" %}</span></a>
 				{% endif %}
 				{% if can_unfollow %}
-					<a class="a-btn a-btn-m" href="/u/{{user.key.id}}/unfollow"><span>{% trans "Unfollow User" %}</span></a>
+					<a class="a_btn a_btn_m" href="/u/{{user.key.id}}/unfollow"><span>{% trans "Unfollow User" %}</span></a>
 				{% endif %}
 				</ul>						
 			{% endif %}
 		</div>
-		<div class="sep-line" style="padding-top:5px;">
+		<div class="spe_line" style="padding-top:5px;">
 		</div>
 		{% for line in user.introduction.splitlines %}
 			<p>{{line}}</p>

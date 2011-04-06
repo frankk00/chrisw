@@ -14,7 +14,7 @@
 				
 				{% if can_create_topic %}
 					<span style="float: right;">
-						<a class="a-btn a-btn-m" tabindex="2" href="/group/topic/{{topic.key.id}}/new"><span>{% trans "New Topic" %}</span></a>
+						<a class="a_btn a_btn_m" tabindex="2" href="/group/topic/{{topic.key.id}}/new"><span>{% trans "New Topic" %}</span></a>
 					</span>
 				{% endif %}
 			</h2>
@@ -80,7 +80,7 @@
 {% endblock %}
 
 {% block sidebar %}
-	<div class="grid_6 dashboard-widget">
+	<div class="grid_6 dashboard_widget">
 		<p class="pl">
 			> <a href="/group/{{topic.group.key.id}}">{% trans "Back to Group: " %}{{ topic.group.title }}</a>			
 		</p>
