@@ -95,7 +95,7 @@
 		<div class="sidebar_box no_border">
 			<h3>{% trans "Following Members:" %}</h3>
 			{% for member in following_users %}
-				{% include "member_item.html" %}
+				{% include "item_box_member.html" %}
 			{% endfor %}
 			<div class="clear"></div>
 		</div>
@@ -105,7 +105,7 @@
 		<div class="sidebar_box no_border">
 			<h3>{% trans "Followed by Members:" %}</h3>
 			{% for member in follower_users %}
-				{% include "member_item.html" %}
+				{% include "item_box_member.html" %}
 			{% endfor %}
 			<div class="clear"></div>
 		</div>

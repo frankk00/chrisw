@@ -80,13 +80,13 @@ class UserStreamUI(ModelUI):
   def home_all(self, request):
     """docstring for home"""
     query = UserStream.latest_by_author(self.user)
-    return template('user_home_all', self._home(query, request))
+    return template('page_user_stream_view_all', self._home(query, request))
 
   @check_permission('view_following', _("Can't visit given user's homepage"))
   def home_following(self, request):
     """docstring for home_following"""
     query = UserStream.latest_by_subscriber(self.user)
-    return template('user_home_following', self._home(query, request))
+    return template('page_user_stream_view_following', self._home(query, request))
   
   @check_permission('create_stream', _("Can't create stream for user"))
   def home_post(self, request):

@@ -113,7 +113,7 @@ class UserSiteUI(ModelUI):
     else:
       google_login_url = gusers.create_login_url(settings.LOGIN_URL)
     
-    return template('login.html', locals())
+    return template('page_site_login.html', locals())
   
   def login_post(self, request):
     """The post handler for user login"""
@@ -125,9 +125,9 @@ class UserSiteUI(ModelUI):
       if back_url:
         return redirect(back_url)
       else:
-        return template('login_successful.html', locals())
+        return template('page_site_login_successful.html', locals())
     else:
-      return template('login.html', locals())
+      return template('page_site_login.html', locals())
   
   def logout(self):
     """docstring for logout"""
@@ -137,7 +137,7 @@ class UserSiteUI(ModelUI):
   def signup(self):
     """The user sign up page"""
     form = RegForm()
-    return template('signup.html', locals())
+    return template('page_site_signup.html', locals())
   
   def signup_post(self, request):
     """The post handler for user signup"""
@@ -147,9 +147,9 @@ class UserSiteUI(ModelUI):
       new_user.change_to_gravatar_icon()
       new_user.put()
       
-      return template('signup_successful.html', locals())
+      return template('page_site_signup_successful.html', locals())
     else:
-      return template('signup.html', locals())
+      return template('page_site_signup.html', locals())
 
 class UserSiteHandler(handlers.RequestHandler):
   """docstring for UserSiteHandler"""
@@ -198,7 +198,7 @@ class LoginDemoHandler(UserSiteHandler):
   def get(self):
     import gaesessions
     logging.debug("current session %s", gaesessions.get_current_session())
-    self.response.out.write(render_to_string('test_login.html', locals()))
+    self.response.out.write(render_to_string('test_page_site_login.html', locals()))
 
 apps = [('/signup', SignupUserHanlder),
         # since loging url is needed to do authentication

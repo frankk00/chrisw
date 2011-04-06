@@ -58,7 +58,7 @@ def pretty_time(time):
   pretty string like 'an hour ago', 'Yesterday', '3 months ago',
   'just now', etc
   
-  This method derived from the stackover flow post:
+  This method is derived from the stackoverflow post:
   
     http://stackoverflow.com/questions/1551382/python-user-friendly-time-format
   """
@@ -91,7 +91,7 @@ def pretty_time(time):
       return str( second_diff / 3600 ) + _(" hours ago")
         
   if day_diff == 1:
-      return "Yesterday"
+      return _("Yesterday")
   if day_diff < 7:
       return str(day_diff) + _(" days ago")
   if day_diff < 31:
