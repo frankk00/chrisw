@@ -17,40 +17,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: common/templates/error.html:6
+#: common/templates/page_error.html:6
 msgid "Sorry, got a error :-("
 msgstr ""
 
-#: common/templates/master.html:48 group/templates/groupsite_master.html:54
+#: common/templates/page_master.html:48 group/templates/groupsite_master.html:54
 #: home/templates/home_front_page.html:12
 msgid "Groups"
 msgstr ""
 
-#: common/templates/master.html:53 home/templates/home_front_page.html:36
+#: common/templates/page_master.html:53 home/templates/home_front_page.html:36
 msgid "Microblog"
 msgstr ""
 
-#: common/templates/master.html:73
+#: common/templates/page_master.html:73
 msgid "Settings"
 msgstr ""
 
-#: common/templates/master.html:79
+#: common/templates/page_master.html:79
 msgid "Logout"
 msgstr ""
 
-#: common/templates/master.html:106
+#: common/templates/page_master.html:106
 msgid "Sign up"
 msgstr ""
 
-#: common/templates/master.html:114
+#: common/templates/page_master.html:114
 msgid "Have an account?"
 msgstr ""
 
-#: common/templates/master.html:115
+#: common/templates/page_master.html:115
 msgid "Sign in"
 msgstr ""
 
-#: common/templates/master.html:120
+#: common/templates/page_master.html:120
 msgid "(Google Account is supported)"
 msgstr ""
 

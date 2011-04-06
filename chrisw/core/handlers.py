@@ -112,13 +112,13 @@ def api_enabled(func):
       error, fields_dict = 'API fields error: ' + str(e), {}
     finally:
       if error:
-        action = template('error.html', {'error':error})
+        action = template('page_error.html', {'error':error})
         action.status = 'error'
     
     if isinstance(action, back):
       from_url = self.request.headers.get('Referer','/')
       if from_url == self.request.url:
-        action = template('error.html', {'error':"Visiting loop"})
+        action = template('page_error.html', {'error':"Visiting loop"})
       else:
         action = redirect(from_url)
     elif isinstance(action, login):
