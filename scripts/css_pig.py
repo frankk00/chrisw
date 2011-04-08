@@ -36,11 +36,11 @@ def format(css, out):
     index_wrapper[0] += 1
     if rule.cssText: # skip the empty style
       lines = rule.cssText.splitlines()
-      lines[0] = prefix + lines[0]
-      lines[-1] = prefix + lines[-1]
+      lines[0] = prefix + lines[0].strip()
+      lines[-1] = prefix + lines[-1].strip()
       
       for i in range(1, len(lines) -1):
-        lines[i] = prefix + '  ' + lines[i]
+        lines[i] = prefix + '  ' + lines[i].strip()
       
       for line in lines:
         out.write(line + '\n')
