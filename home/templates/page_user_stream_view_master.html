@@ -4,6 +4,10 @@
 {% load filters %}
 {% load stream_render %}
 
+{% block html_head %}
+	<script type="text/javascript" charset="utf-8" src="/javascript/user_stream.js"></script>
+{% endblock %}
+
 {% block title %}
 	{{ user.fullname }}
 {% endblock %}
