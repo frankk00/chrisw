@@ -80,7 +80,7 @@ class UserUI(ModelUI):
     
     logging.debug("form %s", self.user.to_dict())
     
-    return template('user_profile.html', locals())
+    return template('page_user_profile.html', locals())
   
   # same to the previous method
   @check_permission("edit", "Can't edit the user's profile")
@@ -98,7 +98,7 @@ class UserUI(ModelUI):
     photo_upload_url = photo.create_upload_url()
     back_url = request.path
       
-    return template('user_profile.html', locals())
+    return template('page_user_profile.html', locals())
   
 
 class UserHandler(handlers.RequestHandler):

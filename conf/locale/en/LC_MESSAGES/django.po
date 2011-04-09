@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-19 21:48+0800\n"
+"POT-Creation-Date: 2011-04-09 20:09+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,44 +17,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: common/templates/js_user_stream_reply.html:7
+#: home/templates/page_user_stream_view_master.html:36
+msgid "What's happing?"
+msgstr ""
+
+#: common/templates/js_user_stream_reply.html:8
+#: home/templates/page_user_stream_view_master.html:37
+msgid "Post New Stream"
+msgstr ""
+
 #: common/templates/page_error.html:6
 msgid "Sorry, got a error :-("
 msgstr ""
 
-#: common/templates/page_master.html:48 group/templates/page_groupsite_view_master.html:54
-#: home/templates/page_site_home_v1.html:12
+#: common/templates/page_master.html:53
+#: group/templates/page_groupsite_view_master.html:54
+#: home/templates/page_site_home_v1.html:13
 msgid "Groups"
 msgstr ""
 
-#: common/templates/page_master.html:53 home/templates/page_site_home_v1.html:36
+#: common/templates/page_master.html:58
+#: home/templates/page_site_home_v1.html:37
 msgid "Microblog"
 msgstr ""
 
-#: common/templates/page_master.html:73
+#: common/templates/page_master.html:78
 msgid "Settings"
 msgstr ""
 
-#: common/templates/page_master.html:79
+#: common/templates/page_master.html:84
 msgid "Logout"
 msgstr ""
 
-#: common/templates/page_master.html:106
+#: common/templates/page_master.html:111
 msgid "Sign up"
 msgstr ""
 
-#: common/templates/page_master.html:114
+#: common/templates/page_master.html:119
 msgid "Have an account?"
 msgstr ""
 
-#: common/templates/page_master.html:115
+#: common/templates/page_master.html:120
 msgid "Sign in"
 msgstr ""
 
-#: common/templates/page_master.html:120
+#: common/templates/page_master.html:125
 msgid "(Google Account is supported)"
 msgstr ""
 
-#: group/templates/page_group_view.html:20 group/templates/page_topic_view.html:17
+#: group/templates/control_pager.html:9
+msgid "Previous Page"
+msgstr ""
+
+#: group/templates/control_pager.html:17
+msgid "Next Page"
+msgstr ""
+
+#: group/templates/page_group_setting.html:6
+#: group/templates/page_group_view.html:62
+msgid "Group Settings"
+msgstr ""
+
+#: group/templates/page_group_view.html:20
+#: group/templates/page_topic_view.html:17
 msgid "New Topic"
 msgstr ""
 
@@ -70,17 +96,13 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
-#: group/templates/page_group_view.html:62 group/templates/page_group_setting.html:6
-msgid "Group Settings"
-msgstr ""
-
 #: group/templates/page_group_view.html:74
 msgid "Group Members"
 msgstr ""
 
 #: group/templates/page_groupsite_view_all.html:6
 #: group/templates/page_groupsite_view_master.html:17
-#: home/templates/page_site_home_v1.html:27
+#: home/templates/page_site_home_v1.html:28
 msgid "Post from All Groups"
 msgstr ""
 
@@ -94,7 +116,8 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
-#: group/templates/page_groupsite_view_master.html:46 group/templates/set_list_topic.html:24
+#: group/templates/page_groupsite_view_master.html:46
+#: group/templates/set_list_topic.html:24
 #, fuzzy
 msgid "Posts"
 msgstr "Latest Post from your group2"
@@ -111,16 +134,9 @@ msgstr ""
 msgid "Click here"
 msgstr ""
 
-#: group/templates/page_item_create.html:6 group/templates/page_item_create.html.py:15
+#: group/templates/page_item_create.html:6
+#: group/templates/page_item_create.html:15
 msgid "Create"
-msgstr ""
-
-#: group/templates/control_pager.html:9
-msgid "Previous Page"
-msgstr ""
-
-#: group/templates/control_pager.html:17
-msgid "Next Page"
 msgstr ""
 
 #: group/templates/page_topic_view.html:74
@@ -175,27 +191,40 @@ msgstr ""
 msgid "Want to be the best open source SNS!"
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:12
+#: home/templates/item_text_user_stream.html:13
+msgid "Says:"
+msgstr ""
+
+#: home/templates/item_text_user_stream.html:25
+msgid "Reply"
+msgstr ""
+
+#: home/templates/item_text_user_stream.html:29
+msgid "Retweet"
+msgstr ""
+
+#: home/templates/page_site_home_v1.html:13
 msgid " are on left."
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:16
+#: home/templates/page_site_home_v1.html:17
 msgid "Recent Created Groups:"
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:36
+#: home/templates/page_site_home_v1.html:37
 msgid "are on right."
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:41
+#: home/templates/page_site_home_v1.html:42
 msgid "Recent Joined Members:"
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:55
+#: home/templates/page_site_home_v1.html:56
 msgid "All User Updates"
 msgstr ""
 
-#: home/templates/page_site_login.html:6 home/templates/page_site_login_successful.html:6
+#: home/templates/page_site_login.html:6
+#: home/templates/page_site_login_successful.html:6
 msgid "Sign In"
 msgstr ""
 
@@ -207,7 +236,8 @@ msgstr ""
 msgid "Login with my Google Account"
 msgstr ""
 
-#: home/templates/page_site_login.html:29 home/templates/page_site_login.html.py:42
+#: home/templates/page_site_login.html:29
+#: home/templates/page_site_login.html:42
 msgid "Or"
 msgstr ""
 
@@ -243,46 +273,6 @@ msgstr ""
 msgid "Click here to login."
 msgstr ""
 
-#: home/templates/page_user_stream_view_master.html:32
-msgid "What's happing?"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:33
-msgid "Post New Stream"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:43
-msgid "Followed Streams"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:45
-msgid "All Streams"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:60
-msgid "Joined at"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:66
-msgid "User Settings"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:68
-msgid "Follow User"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:71
-msgid "Unfollow User"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:85
-msgid "Following Members:"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:95
-msgid "Followed by Members:"
-msgstr ""
-
 #: home/templates/page_user_profile.html:15
 msgid "Change Photo"
 msgstr ""
@@ -291,8 +281,36 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: home/templates/item_text_user_stream.html:13
-msgid "Says:"
+#: home/templates/page_user_stream_view_master.html:47
+msgid "Followed Streams"
+msgstr ""
+
+#: home/templates/page_user_stream_view_master.html:49
+msgid "All Streams"
+msgstr ""
+
+#: home/templates/page_user_stream_view_master.html:75
+msgid "Joined at"
+msgstr ""
+
+#: home/templates/page_user_stream_view_master.html:81
+msgid "User Settings"
+msgstr ""
+
+#: home/templates/page_user_stream_view_master.html:83
+msgid "Follow User"
+msgstr ""
+
+#: home/templates/page_user_stream_view_master.html:86
+msgid "Unfollow User"
+msgstr ""
+
+#: home/templates/page_user_stream_view_master.html:100
+msgid "Following Members:"
+msgstr ""
+
+#: home/templates/page_user_stream_view_master.html:110
+msgid "Followed by Members:"
 msgstr ""
 
 #: home/templatetags/filters.py:81
@@ -309,6 +327,10 @@ msgstr ""
 
 #: home/templatetags/filters.py:91
 msgid " hours ago"
+msgstr ""
+
+#: home/templatetags/filters.py:94
+msgid "Yesterday"
 msgstr ""
 
 #: home/templatetags/filters.py:96

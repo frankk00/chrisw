@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-19 21:48+0800\n"
+"POT-Creation-Date: 2011-04-09 20:09+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,44 +17,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: common/templates/js_user_stream_reply.html:7
+#: home/templates/page_user_stream_view_master.html:36
+msgid "What's happing?"
+msgstr "既然来了,就说点什么吧."
+
+#: common/templates/js_user_stream_reply.html:8
+#: home/templates/page_user_stream_view_master.html:37
+msgid "Post New Stream"
+msgstr "发表"
+
 #: common/templates/page_error.html:6
 msgid "Sorry, got a error :-("
 msgstr "对不起,遇到错误了:-("
 
-#: common/templates/page_master.html:48 group/templates/page_groupsite_view_master.html:54
-#: home/templates/page_site_home_v1.html:12
+#: common/templates/page_master.html:53
+#: group/templates/page_groupsite_view_master.html:54
+#: home/templates/page_site_home_v1.html:13
 msgid "Groups"
 msgstr "小组"
 
-#: common/templates/page_master.html:53 home/templates/page_site_home_v1.html:36
+#: common/templates/page_master.html:58
+#: home/templates/page_site_home_v1.html:37
 msgid "Microblog"
 msgstr "微博"
 
-#: common/templates/page_master.html:73
+#: common/templates/page_master.html:78
 msgid "Settings"
 msgstr "设置"
 
-#: common/templates/page_master.html:79
+#: common/templates/page_master.html:84
 msgid "Logout"
 msgstr "登出"
 
-#: common/templates/page_master.html:106
+#: common/templates/page_master.html:111
 msgid "Sign up"
 msgstr "注册"
 
-#: common/templates/page_master.html:114
+#: common/templates/page_master.html:119
 msgid "Have an account?"
 msgstr "已经拥有账户?"
 
-#: common/templates/page_master.html:115
+#: common/templates/page_master.html:120
 msgid "Sign in"
 msgstr "登陆"
 
-#: common/templates/page_master.html:120
+#: common/templates/page_master.html:125
 msgid "(Google Account is supported)"
 msgstr "(支持Google账户登陆)"
 
-#: group/templates/page_group_view.html:20 group/templates/page_topic_view.html:17
+#: group/templates/control_pager.html:9
+msgid "Previous Page"
+msgstr "上一页"
+
+#: group/templates/control_pager.html:17
+msgid "Next Page"
+msgstr "下一页"
+
+#: group/templates/page_group_setting.html:6
+#: group/templates/page_group_view.html:62
+msgid "Group Settings"
+msgstr "小组设置"
+
+#: group/templates/page_group_view.html:20
+#: group/templates/page_topic_view.html:17
 msgid "New Topic"
 msgstr "新话题"
 
@@ -70,17 +96,13 @@ msgstr "关注小组"
 msgid "Unfollow"
 msgstr "取消关注"
 
-#: group/templates/page_group_view.html:62 group/templates/page_group_setting.html:6
-msgid "Group Settings"
-msgstr "小组设置"
-
 #: group/templates/page_group_view.html:74
 msgid "Group Members"
 msgstr "小组成员"
 
 #: group/templates/page_groupsite_view_all.html:6
 #: group/templates/page_groupsite_view_master.html:17
-#: home/templates/page_site_home_v1.html:27
+#: home/templates/page_site_home_v1.html:28
 msgid "Post from All Groups"
 msgstr "大杂烩"
 
@@ -94,7 +116,8 @@ msgstr "关注小组"
 msgid "Welcome"
 msgstr "欢迎"
 
-#: group/templates/page_groupsite_view_master.html:46 group/templates/set_list_topic.html:24
+#: group/templates/page_groupsite_view_master.html:46
+#: group/templates/set_list_topic.html:24
 msgid "Posts"
 msgstr "回复"
 
@@ -110,17 +133,10 @@ msgstr "想创建自己的小组?"
 msgid "Click here"
 msgstr "点击这里"
 
-#: group/templates/page_item_create.html:6 group/templates/page_item_create.html.py:15
+#: group/templates/page_item_create.html:6
+#: group/templates/page_item_create.html:15
 msgid "Create"
 msgstr "创建于"
-
-#: group/templates/control_pager.html:9
-msgid "Previous Page"
-msgstr "上一页"
-
-#: group/templates/control_pager.html:17
-msgid "Next Page"
-msgstr "下一页"
 
 #: group/templates/page_topic_view.html:74
 msgid "Add Post"
@@ -174,27 +190,40 @@ msgstr ""
 msgid "Want to be the best open source SNS!"
 msgstr "努力做最好的开源SNS!"
 
-#: home/templates/page_site_home_v1.html:12
+#: home/templates/item_text_user_stream.html:13
+msgid "Says:"
+msgstr "说"
+
+#: home/templates/item_text_user_stream.html:25
+msgid "Reply"
+msgstr "回复"
+
+#: home/templates/item_text_user_stream.html:29
+msgid "Retweet"
+msgstr "转发"
+
+#: home/templates/page_site_home_v1.html:13
 msgid " are on left."
 msgstr "在左"
 
-#: home/templates/page_site_home_v1.html:16
+#: home/templates/page_site_home_v1.html:17
 msgid "Recent Created Groups:"
 msgstr "刚刚建立:"
 
-#: home/templates/page_site_home_v1.html:36
+#: home/templates/page_site_home_v1.html:37
 msgid "are on right."
 msgstr "在右"
 
-#: home/templates/page_site_home_v1.html:41
+#: home/templates/page_site_home_v1.html:42
 msgid "Recent Joined Members:"
 msgstr "刚刚加入"
 
-#: home/templates/page_site_home_v1.html:55
+#: home/templates/page_site_home_v1.html:56
 msgid "All User Updates"
 msgstr "新鲜事"
 
-#: home/templates/page_site_login.html:6 home/templates/page_site_login_successful.html:6
+#: home/templates/page_site_login.html:6
+#: home/templates/page_site_login_successful.html:6
 msgid "Sign In"
 msgstr "登陆"
 
@@ -206,7 +235,8 @@ msgstr "已经拥有Google账户?"
 msgid "Login with my Google Account"
 msgstr "使用我的Google帐号登陆"
 
-#: home/templates/page_site_login.html:29 home/templates/page_site_login.html.py:42
+#: home/templates/page_site_login.html:29
+#: home/templates/page_site_login.html:42
 msgid "Or"
 msgstr "或者"
 
@@ -242,46 +272,6 @@ msgstr "你的账户已经被创建.快登陆看看吧~"
 msgid "Click here to login."
 msgstr "点这里登陆"
 
-#: home/templates/page_user_stream_view_master.html:32
-msgid "What's happing?"
-msgstr "既然来了,就说点什么吧."
-
-#: home/templates/page_user_stream_view_master.html:33
-msgid "Post New Stream"
-msgstr "发表"
-
-#: home/templates/page_user_stream_view_master.html:43
-msgid "Followed Streams"
-msgstr "时间流"
-
-#: home/templates/page_user_stream_view_master.html:45
-msgid "All Streams"
-msgstr "子曰"
-
-#: home/templates/page_user_stream_view_master.html:60
-msgid "Joined at"
-msgstr "加入于"
-
-#: home/templates/page_user_stream_view_master.html:66
-msgid "User Settings"
-msgstr "用户设置"
-
-#: home/templates/page_user_stream_view_master.html:68
-msgid "Follow User"
-msgstr "关注"
-
-#: home/templates/page_user_stream_view_master.html:71
-msgid "Unfollow User"
-msgstr "取消关注"
-
-#: home/templates/page_user_stream_view_master.html:85
-msgid "Following Members:"
-msgstr "关注:"
-
-#: home/templates/page_user_stream_view_master.html:95
-msgid "Followed by Members:"
-msgstr "被关注:"
-
 #: home/templates/page_user_profile.html:15
 msgid "Change Photo"
 msgstr "更换图片"
@@ -290,9 +280,37 @@ msgstr "更换图片"
 msgid "Save"
 msgstr "保存"
 
-#: home/templates/item_text_user_stream.html:13
-msgid "Says:"
-msgstr "说"
+#: home/templates/page_user_stream_view_master.html:47
+msgid "Followed Streams"
+msgstr "时间流"
+
+#: home/templates/page_user_stream_view_master.html:49
+msgid "All Streams"
+msgstr "子曰"
+
+#: home/templates/page_user_stream_view_master.html:75
+msgid "Joined at"
+msgstr "加入于"
+
+#: home/templates/page_user_stream_view_master.html:81
+msgid "User Settings"
+msgstr "用户设置"
+
+#: home/templates/page_user_stream_view_master.html:83
+msgid "Follow User"
+msgstr "关注"
+
+#: home/templates/page_user_stream_view_master.html:86
+msgid "Unfollow User"
+msgstr "取消关注"
+
+#: home/templates/page_user_stream_view_master.html:100
+msgid "Following Members:"
+msgstr "关注:"
+
+#: home/templates/page_user_stream_view_master.html:110
+msgid "Followed by Members:"
+msgstr "被关注:"
 
 #: home/templatetags/filters.py:81
 msgid "just now"
@@ -309,6 +327,10 @@ msgstr "分钟前"
 #: home/templatetags/filters.py:91
 msgid " hours ago"
 msgstr "小时前"
+
+#: home/templatetags/filters.py:94
+msgid "Yesterday"
+msgstr "昨天"
 
 #: home/templatetags/filters.py:96
 msgid " days ago"
