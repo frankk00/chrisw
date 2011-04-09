@@ -33,4 +33,6 @@ def display_home_page(request):
   
   recent_groups = Group.latest().fetch(5)
   
+  display_group_name = True
+  
   return template('page_site_home_v1.html', locals())

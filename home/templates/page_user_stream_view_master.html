@@ -78,7 +78,6 @@
 		<div style="padding-top:10px;">
 			{% if is_not_guest %}
 				<ul class="buttom">
-					<a class="a_btn a_btn_m" href="/u/profile"><span>{% trans "User Settings" %}</span></a>
 				{% if can_follow %}
 					<a class="a_btn a_btn_m" href="/u/{{user.key.id}}/follow"><span>{% trans "Follow User" %}</span></a>
 				{% endif %}
