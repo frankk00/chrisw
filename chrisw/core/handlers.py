@@ -9,7 +9,6 @@ Copyright (c) 2011 Shanghai Jiao Tong University. All rights reserved.
 
 import logging
 
-from common.auth import get_current_user, Guest
 
 from google.appengine.ext import webapp
 
@@ -128,7 +127,8 @@ def api_enabled(func):
       # for debugging
       # var_dict.update({'site_message':"You've created a new group."})
       pass
-    elif isinstance(action, redirect) or isinstance(action, cache):
+    elif isinstance(action, redirect) or isinstance(action, cache) or \
+      isinstance(action, text):
       pass
     else:
       raise UnknownActionException(action)

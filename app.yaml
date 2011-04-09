@@ -14,10 +14,8 @@ handlers:
   upload: assets/css/(.*)
   secure: optional
 
-- url: /js/(.*)
-  static_files: assets/js/\1
-  upload: assets/js/(.*)
-  secure: optional
+- url: /javascript/templates.js
+  script: common/template_loader.py
 
 - url: /javascript/(.*)
   static_files: assets/javascript/\1

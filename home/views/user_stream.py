@@ -134,6 +134,29 @@ class UserStreamHandler(handlers.RequestHandler):
     user = User.get_by_id(int(user_id))
     user_stream_info = UserStreamInfo.get_instance(user=user)
     return self.post_impl(UserStreamUI(user_stream_info))
+    
+class UserOwnStreamHandler(UserStreamHandler):
+  """docstring for UserOwnStreamHandler"""
+  
+  def get(self):
+    """docstring for get"""
+    user = get_current_user()
+    user_stream_info = UserStreamInfo.get_instance(user=user)
+    return self.get_impl(UserStreamUI(user_stream_info))
+  
+  def post(self):
+    """docstring for post"""
+    user = get_current_user()
+    user_stream_info = UserStreamInfo.get_instance(user=user)
+    return self.post_impl(UserStreamUI(user_stream_info))
+  
+class UserOwnStreamCreateHandler(UserOwnStreamHandler):
+  """docstring for UserOwnStreamPostHandler"""
+  
+  def post_impl(self, user_stream_ui):
+    """docstring for post_impl"""
+    return user_stream_ui.home_post(self.request)
+    
 
 class UserStreamHomeHandler(UserStreamHandler):
   
@@ -180,6 +203,7 @@ class UserStreamHomeRootHandler(handlers.RequestHandler):
           
 
 apps = [(r'/u', UserStreamHomeRootHandler),
+        (r'/u/new', UserOwnStreamCreateHandler),
         (r'/u/(\d+)', UserStreamHomeHandler),
         (r'/u/(\d+)/all', UserStreamHomeAllHandler),
         (r'/u/(\d+)/following', UserStreamHomeFollowingHandler),

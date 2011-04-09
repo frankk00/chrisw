@@ -355,10 +355,8 @@ a.user_link {
     background: transparent !important
   }
 
-a:hover {
-  background: none repeat scroll 0 0 #039;
-  color: #FFF;
-  text-decoration: none
+a.text_link:hover {
+  text-decoration:underline;
 }
 
 body {
@@ -369,6 +367,10 @@ div.sidebar_box {
   border: 1px solid #EEE;
   padding: 10px;
   margin: 10px
+}
+
+
+.chrisw_dialog {
 }
 
 dl.item_box {
@@ -464,16 +466,16 @@ input[type="submit"] {
     outline: none
   }
 
-li.stream_list {
+li.user_stream_item {
   list-style: none outside none;
   border-bottom: 1px solid #EEE;
   padding-top: 6px;
   padding-bottom: 0
 }
-  li.stream_list:first-child {
+  li.user_stream_item:first-child {
     border-top: 1px solid transparent !important
   }
-  li.stream_list:hover {
+  li.user_stream_item:hover {
     /*    background:none repeat scroll 0 0 #F4F4F4;*/
     /*    border-top:1px solid #EBEBEB;*/
     /*    cursor:pointer;*/
@@ -564,3 +566,14 @@ ul.medium_tabs {
     font-weight: bold;
     border: 1px solid transparent
   }
+
+.user_stream_item .user_stream_actions{
+  visibility:hidden;
+  padding-left: 10px;
+  font-size:90%;
+}
+  .user_stream_item:hover .user_stream_actions{
+    visibility:visible;
+  }
+  
+

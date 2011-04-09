@@ -1,7 +1,7 @@
 {% load filters %}
 {% load i18n %}
 
-<li class="stream_list" data-stream-id="{{stream.key.id}}">
+<li class="user_stream_item" data-stream-id="{{stream.key.id}}" author-username="{{stream.author.fullname}}">
 	<span class="stream_author_photo">
 		<img src="{{stream.author.photo_url}}=s48" class="is" style="padding-left:10px;padding-top:10px;">
 	</span>
@@ -12,11 +12,25 @@
 			{% endif %}
 			 {% trans "Says:" %}
 		</span>
-		<span style="display: block; margin-bottom: 5px;">
+		<span class="stream_text" style="display: block; margin-bottom: 5px;">
 			{{ stream.content }}
 		</span>
-		<span style=" color: #999999; font-size:80%;">
-			{{ stream.create_at|pretty_time }} 
-		</span>
+		<div class="stream_row">
+			<span style=" color: #999999; font-size:80%;">
+				{{ stream.create_at|pretty_time }} 
+			</span>
+			{% if is_not_guest %}
+				<span class="user_stream_actions">
+					<a class="reply_action text_link" href="#">
+						<b>{% trans "Reply" %}</b>
+					</a>
+					&nbsp;
+					<a class="retweet_action text_link" href="#">
+						<b>{% trans "Retweet" %}</b>
+					</a>
+				</span>
+			{% endif %}
+		</div>
 	</span>
+
 </li>

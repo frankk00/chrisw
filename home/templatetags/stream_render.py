@@ -29,8 +29,10 @@ class UserStreamRenderNode(template.Node):
     stream = context[self.stream_name]
     display_name = self.display_name
     
+    context.update(locals())
+    
     if stream.target_type == TEXT_STREAM or stream.target_type is None:
-      return render_to_string("item_text_user_stream.html", locals())
+      return render_to_string("item_text_user_stream.html", context)
     
     raise Exception("Can't render this type of stream %s %s" % \
       (stream, stream.target_type))

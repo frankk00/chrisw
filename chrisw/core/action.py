@@ -56,6 +56,16 @@ class template(_RenderAction):
     
     from chrisw.helper.django_helper import render_to_string
     return render_to_string(self.name + ".html", self.var_dict)
+
+class text(_RenderAction):
+  """docstring for text"""
+  def __init__(self, _text):
+    super(text, self).__init__()
+    self._text = _text
+  
+  def render_to_string(self):
+    """docstring for render_to_string"""
+    return self._text
     
 class redirect(Action):
   """Redirect the user to page URL"""
