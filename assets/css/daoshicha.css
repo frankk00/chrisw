@@ -371,6 +371,7 @@ div.sidebar_box {
 
 
 .chrisw_dialog {
+  position: fixed;
 }
 
 dl.item_box {

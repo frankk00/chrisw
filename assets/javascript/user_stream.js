@@ -10,8 +10,10 @@ $(document).ready(function()
     view = { content: "@" + authorName + " "}
     dialog = chrisw.render(template, view)
     
-    $(".chrisw_dialog").dialog('close')
-    $(dialog).dialog({width:500, resizable:false, title: "Reply to @" + authorName})
+    $(".chrisw_dialog_content").dialog('close')
+    $(dialog).dialog({width:500, resizable:false, title: "Reply to @" + authorName, dialogClass: "chrisw_dialog"})
+    
+    return false;
   })
   
   
@@ -24,8 +26,10 @@ $(document).ready(function()
     view = { content: " // @" + authorName + ": " + streamText}
     dialog = chrisw.render(template, view)
     
-    $(".chrisw_dialog").dialog('close')
-    $(dialog).dialog({width:500, resizable:false, title: "Retweet to @" + authorName})
+    $(".chrisw_dialog_content").dialog('close')
+    $(dialog).dialog({width:500, resizable:false, title: "Retweet to @" + authorName, dialogClass: "chrisw_dialog"})
+    
+    return false;
   })
   
   
