@@ -82,11 +82,11 @@ def pretty_time(time):
     if second_diff < 60:
       return str(second_diff) + _(" seconds ago")
     if second_diff < 120:
-      return  "a minute ago"
+      return  _("a minute ago")
     if second_diff < 3600:
       return str( second_diff / 60 ) + _(" minutes ago")
     if second_diff < 7200:
-      return "an hour ago"
+      return _("an hour ago")
     if second_diff < 86400:
       return str( second_diff / 3600 ) + _(" hours ago")
         

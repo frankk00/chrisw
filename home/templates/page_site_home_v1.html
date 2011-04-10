@@ -6,6 +6,60 @@
 {% block html_head %}
 	<script type="text/javascript" charset="utf-8" src="/javascript/topic.js"></script>
 	<script type="text/javascript" charset="utf-8" src="/javascript/user_stream.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/javascript/libs/fx.js">
+	</script>
+	
+	<style type="text/css" media="screen">
+		#cloud1 {
+		    background: url("/images/v1/cloud1.png") no-repeat scroll 0 0 transparent;
+		    height: 184px;
+		    left: 5%;
+		    opacity: 0.5;
+		    position: absolute;
+		    top: -5%;
+		    width: 200px;
+		}
+		
+		#cloud2 {
+		    background: url("/images/v1/cloud2.png") no-repeat scroll 0 0 transparent;
+		    height: 100px;
+		    left: 15%;
+		    opacity: 0.7;
+		    position: absolute;
+		    top: 30px;
+		    width: 200px;
+			z-index:-2;
+		}
+	</style>
+	
+	<script type="text/javascript" charset="utf-8">
+		
+var ani = {
+    cloud1: {
+        type: 'left',
+        from: 5,
+        to: screen.availWidth,
+        step: 1,
+        delay: 50
+    },
+    cloud2: {
+        type: 'left',
+        from: 20,
+        to: screen.availWidth,
+        step: 1,
+        delay: 100,
+        onstart: function() {
+            this.style.display = 'block';
+        }
+    }
+    }
+
+$(document).ready(function()
+{
+    // $fx('#cloud1').fxAdd(ani.cloud1).fxRun(null, -1);
+     $fx('#cloud2').fxAdd(ani.cloud2).fxRun(null, -1);
+})
+	</script>
 {% endblock %}
 
 {% block left_panel %}
@@ -70,4 +124,9 @@
 		{% include "control_pager.html" %}
 	</div>
 	
+{% endblock %}
+
+{% block page_end %}
+	{# <div id="cloud1" style="left: 636px;"></div> #}
+	<div id="cloud2" style="left: 838px; display: block;"></div>
 {% endblock %}
