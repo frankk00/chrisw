@@ -1,0 +1,21 @@
+Cube:
+ - cube_type
+ - tags {
+     
+     }
+ - actions: {
+      want: action('Want'),
+      have: action('Have'),
+      rank: action('Rank'),
+    }
+ - fields:{
+       photo: field('Photo')
+       name: field('Name')
+     }
+
+- New Cube
+- Delete Cube
+- Cube Tags
+- View Cube
+- Fav Cube
+- Unfav Cube

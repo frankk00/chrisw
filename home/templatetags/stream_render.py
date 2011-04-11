@@ -31,6 +31,9 @@ class UserStreamRenderNode(template.Node):
     
     context.update(locals())
     
+    if not stream:
+      return "Skipped"
+    
     if stream.target_type == TEXT_STREAM or stream.target_type is None:
       return render_to_string("item_text_user_stream.html", context)
     

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 20:09+0800\n"
+"POT-Creation-Date: 2011-04-11 17:39+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,12 +33,12 @@ msgstr ""
 
 #: common/templates/page_master.html:53
 #: group/templates/page_groupsite_view_master.html:54
-#: home/templates/page_site_home_v1.html:13
+#: home/templates/page_site_home_v1.html:67
 msgid "Groups"
 msgstr ""
 
 #: common/templates/page_master.html:58
-#: home/templates/page_site_home_v1.html:37
+#: home/templates/page_site_home_v1.html:91
 msgid "Microblog"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgstr ""
 
 #: group/templates/page_groupsite_view_all.html:6
 #: group/templates/page_groupsite_view_master.html:17
-#: home/templates/page_site_home_v1.html:28
+#: home/templates/page_site_home_v1.html:82
 msgid "Post from All Groups"
 msgstr ""
 
@@ -183,11 +183,11 @@ msgstr ""
 msgid "Post Content"
 msgstr ""
 
-#: home/models.py:21
+#: home/models.py:29
 msgid "Daoshicha.com"
 msgstr ""
 
-#: home/models.py:23
+#: home/models.py:31
 msgid "Want to be the best open source SNS!"
 msgstr ""
 
@@ -203,23 +203,23 @@ msgstr ""
 msgid "Retweet"
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:13
+#: home/templates/page_site_home_v1.html:67
 msgid " are on left."
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:17
+#: home/templates/page_site_home_v1.html:71
 msgid "Recent Created Groups:"
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:37
+#: home/templates/page_site_home_v1.html:91
 msgid "are on right."
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:42
+#: home/templates/page_site_home_v1.html:96
 msgid "Recent Joined Members:"
 msgstr ""
 
-#: home/templates/page_site_home_v1.html:56
+#: home/templates/page_site_home_v1.html:110
 msgid "All User Updates"
 msgstr ""
 
@@ -286,15 +286,15 @@ msgid "Followed Streams"
 msgstr ""
 
 #: home/templates/page_user_stream_view_master.html:49
+msgid "@Mention Streams"
+msgstr ""
+
+#: home/templates/page_user_stream_view_master.html:50
 msgid "All Streams"
 msgstr ""
 
-#: home/templates/page_user_stream_view_master.html:75
+#: home/templates/page_user_stream_view_master.html:76
 msgid "Joined at"
-msgstr ""
-
-#: home/templates/page_user_stream_view_master.html:81
-msgid "User Settings"
 msgstr ""
 
 #: home/templates/page_user_stream_view_master.html:83
@@ -321,8 +321,16 @@ msgstr ""
 msgid " seconds ago"
 msgstr ""
 
+#: home/templatetags/filters.py:85
+msgid "a minute ago"
+msgstr ""
+
 #: home/templatetags/filters.py:87
 msgid " minutes ago"
+msgstr ""
+
+#: home/templatetags/filters.py:89
+msgid "an hour ago"
 msgstr ""
 
 #: home/templatetags/filters.py:91
@@ -358,14 +366,18 @@ msgid "Can't visit given user's homepage"
 msgstr ""
 
 #: home/views/user_stream.py:91
+msgid "Can't view given user's mentions"
+msgstr ""
+
+#: home/views/user_stream.py:98
 msgid "Can't create stream for user"
 msgstr ""
 
-#: home/views/user_stream.py:103
+#: home/views/user_stream.py:110
 msgid "Can't follow the user"
 msgstr ""
 
-#: home/views/user_stream.py:109
+#: home/views/user_stream.py:116
 msgid "Can't unfollow given user"
 msgstr ""
 

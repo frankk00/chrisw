@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-09 20:09+0800\n"
+"POT-Creation-Date: 2011-04-11 17:39+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,12 +33,12 @@ msgstr "对不起,遇到错误了:-("
 
 #: common/templates/page_master.html:53
 #: group/templates/page_groupsite_view_master.html:54
-#: home/templates/page_site_home_v1.html:13
+#: home/templates/page_site_home_v1.html:67
 msgid "Groups"
 msgstr "小组"
 
 #: common/templates/page_master.html:58
-#: home/templates/page_site_home_v1.html:37
+#: home/templates/page_site_home_v1.html:91
 msgid "Microblog"
 msgstr "微博"
 
@@ -102,7 +102,7 @@ msgstr "小组成员"
 
 #: group/templates/page_groupsite_view_all.html:6
 #: group/templates/page_groupsite_view_master.html:17
-#: home/templates/page_site_home_v1.html:28
+#: home/templates/page_site_home_v1.html:82
 msgid "Post from All Groups"
 msgstr "大杂烩"
 
@@ -182,11 +182,11 @@ msgstr "内容"
 msgid "Post Content"
 msgstr "回复"
 
-#: home/models.py:21
+#: home/models.py:29
 msgid "Daoshicha.com"
 msgstr ""
 
-#: home/models.py:23
+#: home/models.py:31
 msgid "Want to be the best open source SNS!"
 msgstr "努力做最好的开源SNS!"
 
@@ -202,23 +202,23 @@ msgstr "回复"
 msgid "Retweet"
 msgstr "转发"
 
-#: home/templates/page_site_home_v1.html:13
+#: home/templates/page_site_home_v1.html:67
 msgid " are on left."
 msgstr "在左"
 
-#: home/templates/page_site_home_v1.html:17
+#: home/templates/page_site_home_v1.html:71
 msgid "Recent Created Groups:"
 msgstr "刚刚建立:"
 
-#: home/templates/page_site_home_v1.html:37
+#: home/templates/page_site_home_v1.html:91
 msgid "are on right."
 msgstr "在右"
 
-#: home/templates/page_site_home_v1.html:42
+#: home/templates/page_site_home_v1.html:96
 msgid "Recent Joined Members:"
 msgstr "刚刚加入"
 
-#: home/templates/page_site_home_v1.html:56
+#: home/templates/page_site_home_v1.html:110
 msgid "All User Updates"
 msgstr "新鲜事"
 
@@ -285,16 +285,16 @@ msgid "Followed Streams"
 msgstr "时间流"
 
 #: home/templates/page_user_stream_view_master.html:49
+msgid "@Mention Streams"
+msgstr "@我"
+
+#: home/templates/page_user_stream_view_master.html:50
 msgid "All Streams"
 msgstr "子曰"
 
-#: home/templates/page_user_stream_view_master.html:75
+#: home/templates/page_user_stream_view_master.html:76
 msgid "Joined at"
 msgstr "加入于"
-
-#: home/templates/page_user_stream_view_master.html:81
-msgid "User Settings"
-msgstr "用户设置"
 
 #: home/templates/page_user_stream_view_master.html:83
 msgid "Follow User"
@@ -320,9 +320,17 @@ msgstr "刚刚"
 msgid " seconds ago"
 msgstr "秒前"
 
+#: home/templatetags/filters.py:85
+msgid "a minute ago"
+msgstr "一分钟前"
+
 #: home/templatetags/filters.py:87
 msgid " minutes ago"
 msgstr "分钟前"
+
+#: home/templatetags/filters.py:89
+msgid "an hour ago"
+msgstr "一小时前"
 
 #: home/templatetags/filters.py:91
 msgid " hours ago"
@@ -357,14 +365,19 @@ msgid "Can't visit given user's homepage"
 msgstr "无法访问该用户首页"
 
 #: home/views/user_stream.py:91
+#, fuzzy
+msgid "Can't view given user's mentions"
+msgstr "无法访问该用户首页"
+
+#: home/views/user_stream.py:98
 msgid "Can't create stream for user"
 msgstr "无法创建微博"
 
-#: home/views/user_stream.py:103
+#: home/views/user_stream.py:110
 msgid "Can't follow the user"
 msgstr "无法关注该用户"
 
-#: home/views/user_stream.py:109
+#: home/views/user_stream.py:116
 msgid "Can't unfollow given user"
 msgstr "无法取消关注"
 
@@ -399,6 +412,9 @@ msgstr "用户头像"
 #: home/views/userui.py:74
 msgid "Your photo has been changed.:-)"
 msgstr "头像更换成功"
+
+#~ msgid "User Settings"
+#~ msgstr "用户设置"
 
 #~ msgid "Latest Posts from the Groups You Followed"
 #~ msgstr "关注小组的最新动态"

@@ -7,6 +7,8 @@ Created by Kang Zhang on 2010-09-29.
 Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 """
 
+import re
+
 from chrisw import db, gdb
 from chrisw.i18n import _
 from chrisw.core.memcache import cache_result
@@ -15,6 +17,12 @@ from common.auth import User, Guest
 
 FOLLOWED_BY = 'user-followed-by'
 TEXT_STREAM = 'text'
+
+_VALID_NICK_ = r'[^ \s:@]+'
+_KEY_FORMAT_ = r'%s' + _VALID_NICK_
+
+_KEY_PATTERNS_ = (re.compile(_KEY_FORMAT_ % '@'),
+                 re.compile(_KEY_FORMAT_ % '#'))
 
 class Site(db.Model):
   """a faked object"""
@@ -73,6 +81,10 @@ class UserStreamInfo(gdb.Entity):
   def can_view_following(self, user):
     """docstring for can_view_following"""
     return self.is_me(user)
+  
+  def can_view_mention(self, user):
+    """docstring for can_view_mention"""
+    return True
   
   def can_follow(self, user):
     """docstring for can_follow"""
@@ -136,6 +148,7 @@ class UserStreamInfo(gdb.Entity):
     """docstring for create_stream"""
     stream.author_stream_info = self
     stream.author = self.user
+    stream.init_keywords()
     
     stream.put()
     
@@ -204,22 +217,34 @@ class UserStreamInfo(gdb.Entity):
 class UserStream(gdb.Message):
   """docstring for UserStream"""
   author_stream_info = db.ReferenceProperty(UserStreamInfo, \
-    collection_name = 'user_stream_set')
+    collection_name = 'user_streams')
   author = db.ReferenceProperty(User, \
-    collection_name = 'user_stream_set')
+    collection_name = 'user_streams')
     
   target = db.ReferenceProperty()
   target_type = db.StringProperty(required=True, default=TEXT_STREAM)
   
   content = db.StringFlyProperty(default='')
   
+  keywords = db.StringListProperty(required=True, default=[])
+  
   def __init__(self, *args, **kwargs):
     """docstring for __init__"""
+    
     for attr in ('target',):
       if kwargs.has_key(attr) and kwargs.get(attr):
         kwargs[attr + '_type'] = gdb._get_type_name(kwargs.get(attr))
     
     super(UserStream, self).__init__(*args, **kwargs)
+    
+  def init_keywords(self):
+    """docstring for _init_keywords"""
+    # init keywords index
+    
+    if self.content:
+      for pattern in _KEY_PATTERNS_:
+        for keyword in pattern.findall(self.content):
+          self.keywords.append(keyword)
   
   def can_comment(self, user):
     """docstring for can_comment"""
@@ -246,6 +271,11 @@ class UserStream(gdb.Message):
   def latest_by_author(cls, author):
     """docstring for latest_by_author"""
     return cls.all(author=author).order('-create_at')
+  
+  @classmethod
+  def latest_by_keyword(cls, keyword):
+    """docstring for latest_by_keywords"""
+    return cls.latest().filter('keywords', keyword)
 
 class UserStreamComment(gdb.Message):
   """docstring for UserStreamComment"""

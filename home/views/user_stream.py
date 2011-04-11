@@ -80,13 +80,20 @@ class UserStreamUI(ModelUI):
   def home_all(self, request):
     """docstring for home"""
     query = UserStream.latest_by_author(self.user)
-    return template('page_user_stream_view_all', self._home(query, request))
+    return template('page_user_stream_view_all.html', self._home(query, request))
 
   @check_permission('view_following', _("Can't visit given user's homepage"))
   def home_following(self, request):
     """docstring for home_following"""
     query = UserStream.latest_by_subscriber(self.user)
-    return template('page_user_stream_view_following', self._home(query, request))
+    return template('page_user_stream_view_following.html', self._home(query, request))
+  
+  @check_permission('view_mention', _("Can't view given user's mentions"))
+  def home_mention(self, request):
+    """docstring for home_mention"""
+    keyword = "@" + self.user.fullname
+    query = UserStream.latest_by_keyword(keyword)
+    return template('page_user_stream_view_mention.html', self._home(query, request))
   
   @check_permission('create_stream', _("Can't create stream for user"))
   def home_post(self, request):
@@ -180,6 +187,12 @@ class UserStreamHomeFollowingHandler(UserStreamHandler):
     """docstring for get_impl"""
     return user_stream_ui.home_following(self.request)
 
+class UserStreamHomeMentionHandler(UserStreamHandler):
+  """docstring for UserStreamHomeMentionHandler"""
+  def get_impl(self, user_stream_ui):
+    """docstring for get_impl"""
+    return user_stream_ui.home_mention(self.request)
+
 class UserStreamHomeFollowHandler(UserStreamHandler):
   """docstring for UserStreamHomeFollowHandler"""
   def get_impl(self, user_stream_ui):
@@ -207,5 +220,6 @@ apps = [(r'/u', UserStreamHomeRootHandler),
         (r'/u/(\d+)', UserStreamHomeHandler),
         (r'/u/(\d+)/all', UserStreamHomeAllHandler),
         (r'/u/(\d+)/following', UserStreamHomeFollowingHandler),
+        (r'/u/(\d+)/mention', UserStreamHomeMentionHandler),
         (r'/u/(\d+)/follow', UserStreamHomeFollowHandler),
         (r'/u/(\d+)/unfollow', UserStreamHomeUnfollowHandler)]

@@ -17,7 +17,7 @@
 
 	<div id="user-profile" style = "">
 		<div class="pic" style="float:left;">
-		    <a href="http://www.douban.com/u/{{user.id}}">
+		    <a href="/u/{{user.id}}">
 		        <img src="{{user.photo_url}}" alt="{{user.fullname}}" class="im">
 		    </a>
 		</div>
@@ -46,6 +46,7 @@
 		{% if can_view_following %}
 			<li class="medium_tab {% block following_title %}{% endblock %}"><a class="text_tab" href="/u/{{user.key.id}}/following">{% trans "Followed Streams" %}</a></li>
 		{% endif %}
+		<li class="medium_tab {% block mention_title %}{% endblock %}"> <a class="text_tab" href="/u/{{user.key.id}}/mention">{% trans "@Mention Streams" %}</a></li>
 		<li class="medium_tab {% block all_title %}{% endblock %}"> <a class="text_tab" href="/u/{{user.key.id}}/all">{% trans "All Streams" %}</a></li>
 	</ul>
 	

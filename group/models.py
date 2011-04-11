@@ -275,7 +275,7 @@ class GroupTopic(gdb.Message):
   
   title = db.TextFlyProperty(default='')
   content = db.TextFlyProperty(default='')
-  length = db.IntegerFlyProperty(default=1)
+  length = db.IntegerFlyProperty(default=0)
   hits = db.IntegerFlyProperty(default=0)
   
   def can_view(self, user):

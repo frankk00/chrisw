@@ -4,10 +4,11 @@ $(document).ready(function()
 {
   $(".user_stream_actions .reply_action").click(function(event){
     var target = $(event.currentTarget).parents(".user_stream_item");
+    var streamText = target.find(".stream_text").text().trim()
     var authorName = target.attr('author-username')
     
     template = chrisw.templates.user_stream_reply
-    view = { content: "@" + authorName + " "}
+    view = { content: " RT @" + authorName + ": " + streamText}
     dialog = chrisw.render(template, view)
     
     $(".chrisw_dialog_content").dialog('close')
