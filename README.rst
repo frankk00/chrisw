@@ -164,7 +164,8 @@ jobo.zh AT gmail.com without any hesitate. :-)
 License
 =======
 
-Chrisw is distributed under CPAL(see https://github.com/kangzhang/chrisw/blob/master/LICENSE) license.
+Chrisw is distributed under CPAL(see https://github.com/kangzhang/chrisw/blob/master/LICENSE) 
+license.
 
 About
 =====
