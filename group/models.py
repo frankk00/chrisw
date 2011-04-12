@@ -9,8 +9,6 @@ Copyright (c) 2010 Shanghai Jiao Tong University. All rights reserved.
 
 import logging
 
-from google.appengine.api import users
-
 from chrisw import db, gdb
 from chrisw.core.memcache import cache_result
 

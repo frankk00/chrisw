@@ -164,8 +164,7 @@ jobo.zh AT gmail.com without any hesitate. :-)
 License
 =======
 
-Chrisw is going to be distributed under GPL license or MIT license. I've not 
-decided it yet.
+Chrisw is distributed under CPAL(see http://www.opensource.org/licenses/cpal_1.0) license.
 
 About
 =====
@@ -174,7 +173,7 @@ About
     Kang Zhang (jobo.zh <at> gmail.com) http://home.kangzhang.org
 
 :Version: 
-	0.5.1
+	0.5.2
 
 :Python: 
 	2.5+
