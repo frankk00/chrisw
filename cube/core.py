@@ -18,6 +18,8 @@ class ThingMeta(object):
   """docstring for ThingConfig"""
   __metaclass__ = _ThingMetaMeta
 
+  class_prefix = 'Thing'
+
   url = 'thing'
   title = 'Thing'
 
@@ -51,4 +53,8 @@ class ThingMeta(object):
   @property
   def thing_site_ui_class(self):
     """docstring for thing_site_ui_class"""
+    pass
+
+  def url_bindings(self):
+    """docstring for url_bindings"""
     pass
