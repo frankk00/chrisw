@@ -24,40 +24,52 @@ class Entity(db.FlyModel):
   """The base model for graph node"""
   create_at = db.DateTimeProperty(auto_now_add=True)
   
-  def link(self, link_type, target):
+  def link(self, link_type, target, link_attr=None):
     """Add a link between ``self`` and ``target`` with given ``link_type``
     
     link_type -- a string to specify the type of the link.
+    link_attr -- a string attribute for the link
     """
     # unlink previous links
     self.unlink(link_type, target)
     
-    link = Link(source=self, link_type=link_type, target=target)
+    link = Link(source=self, link_type=link_type, target=target,\
+      link_attr=link_attr)
     link.put()
     
-  def has_link(self, link_type, target):
+  def has_link(self, link_type, target, link_attr=None):
     """Return if there exist a link between ``self`` and ``target``
     
     link_type -- a string to specify the type of the link.
     """
-    return self._get_links(link_type, target).get() is not None
+    return self._get_links(link_type, target, link_attr=link_attr).get() \
+      is not None
   
-  def _get_links(self, link_type, target):
-    return Link.all(source=self, link_type=link_type, target=target)
+  def get_link_attr(self, link_type, target, link_attr=None):
+    """docstring for get_link"""
+    return db.MapQuery(self._get_links(link_type, target, link_attr=link_attr),\
+      lambda x: x.link_attr).get()
+  
+  def _get_links(self, link_type, target, link_attr):
+    return Link.all(source=self, link_type=link_type, target=target,\
+      link_attr=link_attr)
   
   def unlink(self, link_type, target):
     """Remove the given type of link between ``self`` and ``target``"""
-    links = self._get_links(link_type, target)
+    links = self._get_links(link_type, target, link_attr=None)
     for link in links:
       link.delete()
   
-  def get_targets(self, link_type, target_type, keys_only=False):
+  def get_targets(self, link_type, target_type, link_attr=None, \
+    keys_only=False):
     """Return all target entities by given link type and source entity.
     
+    link_attr -- the attribute of the link
     keys_only -- if only keys will be loaded.
     """
     query = db.MapQuery(Link.all(source=self, link_type=link_type,\
-      target_type=_get_type_name(target_type)), lambda x: x.target)
+      target_type=_get_type_name(target_type), link_attr=link_attr),\
+      lambda x: x.target)
     
     if not keys_only:
       query = db.GetQuery(query)
@@ -65,13 +77,14 @@ class Entity(db.FlyModel):
     return query;
   
   @classmethod
-  def get_sources(cls, link_type, target, keys_only=False):
+  def get_sources(cls, link_type, target, link_attr=None, keys_only=False):
     """Return all source entities by given link type and target entity.
     
     keys_only -- if only keys will be loaded.
     """
     query = db.MapQuery(Link.all(link_type=link_type, target=target,\
-      source_type=_get_type_name(cls)), lambda x: x.source)
+      source_type=_get_type_name(cls), link_attr=link_attr),\
+      lambda x: x.source)
     
     if not keys_only:
       query = db.GetQuery(query)
@@ -86,6 +99,8 @@ class Entity(db.FlyModel):
 class Link(db.Model):
   """The model for the link between entites"""
   link_type = db.StringProperty(required=True)
+  link_attr = db.StringProperty(default=None)
+  
   source = db.WeakReferenceProperty(required=True)
   source_type = db.StringProperty(required=True)
   target = db.WeakReferenceProperty(required=True)

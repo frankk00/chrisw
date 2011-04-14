@@ -119,8 +119,9 @@ class Group(gdb.Entity):
   creator = db.ReferenceProperty(User)
   title = db.StringProperty(default='')
   
-  introduction = db.TextFlyProperty(default='')
-  photo_url = db.StringFlyProperty(default=settings.DEFAULT_GROUP_PHOTO)
+  introduction = db.TextProperty(default='')
+  photo_url = db.StringProperty(default=settings.DEFAULT_GROUP_PHOTO)
+  
   recent_members = db.ListFlyProperty(default=[])
   member_count = db.IntegerFlyProperty(default=1)
     
@@ -217,13 +218,13 @@ class Group(gdb.Entity):
     """docstring for has_admin"""
     return self.has_link(GROUP_ADMIN, user)
   
-  def get_admin_keys(self, limit=24, offset=0):
-    """docstring for get_admins"""
+  def _get_admin_keys(self, limit=24, offset=0):
+    """deprecated function"""
     return self.get_targets(GROUP_ADMIN, User, limit=limit,\
       offset=offset, keys_only=True)
   
-  def get_admins(self, limit=24, offset=0):
-    """docstring for get_admins"""
+  def _get_admins(self, limit=24, offset=0):
+    """deprecated function"""
     return db.get(self.get_admin_keys(self, limit=limit, offset=offset))
 
   #######

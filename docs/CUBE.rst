@@ -34,6 +34,7 @@ ThingSiteUI
 URL Patterns
 ------------
 
+/c/thing/search
 /c/thing *
 /c/thing/new *
 /c/thing/tags *
@@ -47,8 +48,8 @@ URL Patterns
 /c/thing/id/comment
 /c/thing/id/article *
 /c/thing/id/fans *
-  
-  
+
+
 App layout
 ----------
 
@@ -56,7 +57,7 @@ cube
   models
   views
   templates
-  
+
   things
     book
       models
